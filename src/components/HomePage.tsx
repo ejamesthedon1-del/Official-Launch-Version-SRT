@@ -8,7 +8,6 @@ import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { DashboardMockup } from "./DashboardMockup";
 import { Logo } from "./figma/Logo";
-import { FeaturesSlider } from "./FeaturesSlider";
 import { SlidingInfoSection } from "./SlidingInfoSection";
 
 interface HomePageProps {
@@ -131,25 +130,7 @@ export function HomePage({
       </section>
 
       {/* Sliding Info Section */}
-         <SlidingInfoSection />
-
-         {/* Features Slider */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
-              Everything You Need
-            </Badge>
-            <h2 className="mb-4 text-slate-900">Comprehensive Analysis for Every Listing</h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Our AI analyzes your property across critical factors that real
-              estate professionals need to sell faster and at better prices.
-            </p>
-          </div>
-
-          <FeaturesSlider />
-        </div>
-      </section>
+      <SlidingInfoSection />
 
       {/* How It Works */}
       <section className="py-20 px-4 bg-white">

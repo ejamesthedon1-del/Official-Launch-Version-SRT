@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Home, Users, TrendingUp, Award, Shield, Zap } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -50,15 +50,94 @@ const infoCards = [
 
 export function SlidingInfoSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-play functionality - always on
+  // Auto-play functionality
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % infoCards.length);
-    }, 4000); // Slightly slower for more seamless experience
+      if (!isTransitioning) {
+        setCurrentIndex((prev) => (prev + 1) % infoCards.length);
+      }
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isTransitioning]);
+
+  // Swipe detection
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      handleSwipe('left');
+    }
+    if (isRightSwipe) {
+      handleSwipe('right');
+    }
+  };
+
+  const handleSwipe = (direction: 'left' | 'right') => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    if (direction === 'left') {
+      setCurrentIndex((prev) => (prev + 1) % infoCards.length);
+    } else {
+      setCurrentIndex((prev) => (prev - 1 + infoCards.length) % infoCards.length);
+    }
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 300);
+  };
+
+  // Mouse drag detection for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const startX = e.clientX;
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      const currentX = moveEvent.clientX;
+      const diff = startX - currentX;
+      
+      if (Math.abs(diff) > 5) {
+        e.preventDefault();
+      }
+    };
+    
+    const handleMouseUp = (upEvent: MouseEvent) => {
+      const endX = upEvent.clientX;
+      const distance = startX - endX;
+      
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      
+      if (Math.abs(distance) > 50) {
+        if (distance > 0) {
+          handleSwipe('left');
+        } else {
+          handleSwipe('right');
+        }
+      }
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
 
   // Get visible cards (show 3 on desktop, 1 on mobile)
   const getVisibleCards = () => {
@@ -88,7 +167,15 @@ export function SlidingInfoSection() {
         </div>
 
         {/* Sliding Cards Container */}
-        <div className="relative">
+        <div 
+          ref={containerRef}
+          className="relative select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          style={{ cursor: 'grab' }}
+        >
           {/* Desktop View - 3 cards sliding */}
           <div className="hidden md:grid md:grid-cols-3 gap-6 mb-8">
             {visibleCards.map((card, index) => {
@@ -98,7 +185,7 @@ export function SlidingInfoSection() {
               return (
                 <Card
                   key={`${currentIndex}-${index}`}
-                  className={`p-8 bg-white border-slate-200 hover:shadow-xl hover:border-blue-300 transition-all duration-700 animate-in fade-in slide-in-from-right-5`}
+                  className={`p-8 bg-white border-slate-200 hover:shadow-xl hover:border-blue-300 transition-all duration-700 animate-in fade-in slide-in-from-right-5 ${isTransitioning ? 'transition-none' : ''}`}
                   style={{ animationDelay: `${delay}ms` }}
                 >
                   {/* Icon and Stats */}
@@ -133,7 +220,7 @@ export function SlidingInfoSection() {
 
           {/* Mobile View - 1 card sliding */}
           <div className="md:hidden mb-8">
-            <Card className="p-6 bg-white border-slate-200 shadow-xl">
+            <Card className={`p-6 bg-white border-slate-200 shadow-xl ${isTransitioning ? 'transition-none' : 'transition-transform duration-300'}`}>
               {(() => {
                 const card = infoCards[currentIndex];
                 const Icon = card.icon;
@@ -179,6 +266,16 @@ export function SlidingInfoSection() {
                 }`}
               />
             ))}
+          </div>
+
+          {/* Swipe hint for mobile */}
+          <div className="md:hidden text-center mt-4">
+            <p className="text-sm text-slate-500 flex items-center justify-center gap-2">
+              <span className="inline-block w-4 h-4 border-2 border-slate-300 rounded-full">
+                <span className="inline-block w-1 h-1 bg-slate-400 rounded-full ml-0.5"></span>
+              </span>
+              Swipe to navigate
+            </p>
           </div>
         </div>
       </div>
