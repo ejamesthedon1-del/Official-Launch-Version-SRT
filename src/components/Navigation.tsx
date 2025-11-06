@@ -15,26 +15,42 @@ export function Navigation({
   showAnalyze = true,
   onMenuClick,
 }: NavigationProps) {
+  const isHomePage = currentView === "home";
+  
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 shadow-lg">
+    <header className={`fixed top-0 left-0 right-0 z-40 shadow-lg ${
+      isHomePage 
+        ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
+        : "bg-white border-b border-slate-200"
+    }`}>
       <div className="container mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo - clickable to go home */}
           <button
             onClick={() => onNavigate("home")}
-            className="flex items-center gap-2 text-white hover:opacity-90 transition-opacity"
+            className={`flex items-center gap-2 hover:opacity-90 transition-opacity ${
+              isHomePage ? "text-white" : "text-slate-900"
+            }`}
           >
-            <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center p-1.5">
-              <Logo gradient="logoHeaderWhite" />
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center p-1.5 ${
+              isHomePage ? "bg-white/20 backdrop-blur-sm" : "bg-blue-600"
+            }`}>
+              <Logo gradient={isHomePage ? "logoHeaderWhite" : "logoHeader"} />
             </div>
             <span className="tracking-tight font-medium">Smart Realtor Tool</span>
           </button>
 
           {/* Desktop Navigation - hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-6 text-white/90 text-sm">
+          <nav className={`hidden md:flex items-center gap-6 text-sm ${
+            isHomePage ? "text-white/90" : "text-slate-600"
+          }`}>
             <button 
               onClick={() => onNavigate("home")}
-              className={`hover:text-white transition-colors ${currentView === "home" ? "text-white font-medium" : ""}`}
+              className={`hover:opacity-80 transition-colors ${
+                currentView === "home" 
+                  ? (isHomePage ? "text-white font-medium" : "text-blue-600 font-medium")
+                  : ""
+              }`}
             >
               Home
             </button>
@@ -42,16 +58,20 @@ export function Navigation({
             {showAnalyze && (
               <button
                 onClick={() => onNavigate("address-input")}
-                className={`hover:text-white transition-colors ${currentView === "address-input" ? "text-white font-medium" : ""}`}
+                className={`hover:opacity-80 transition-colors ${
+                  currentView === "address-input" 
+                    ? "text-blue-600 font-medium" 
+                    : ""
+                }`}
               >
                 Analyze Listing
               </button>
             )}
 
-            <button className="hover:text-white transition-colors">
+            <button className="hover:opacity-80 transition-colors">
               Pricing
             </button>
-            <button className="hover:text-white transition-colors">
+            <button className="hover:opacity-80 transition-colors">
               Features
             </button>
           </nav>
@@ -59,12 +79,20 @@ export function Navigation({
           {/* Mobile Hamburger Menu Button - 2 bars */}
           <button
             onClick={onMenuClick}
-            className="md:hidden flex flex-col gap-1.5 p-3 hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
+            className={`md:hidden flex flex-col gap-1.5 p-3 rounded-lg transition-colors cursor-pointer ${
+              isHomePage 
+                ? "hover:bg-white/20" 
+                : "hover:bg-slate-100"
+            }`}
             aria-label="Menu"
             type="button"
           >
-            <span className="w-6 h-0.5 bg-white rounded-full" />
-            <span className="w-6 h-0.5 bg-white rounded-full" />
+            <span className={`w-6 h-0.5 rounded-full ${
+              isHomePage ? "bg-white" : "bg-slate-900"
+            }`} />
+            <span className={`w-6 h-0.5 rounded-full ${
+              isHomePage ? "bg-white" : "bg-slate-900"
+            }`} />
           </button>
         </div>
       </div>
