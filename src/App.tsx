@@ -99,7 +99,7 @@ export default function App() {
           onMenuClick={handleMenuClick}
         />
       )}
-      {currentView === "dashboard" && analysisData && (
+      {currentView === "dashboard" && (
         <Dashboard
           onSubscribe={handleSubscribe}
           onNavigate={handleNavigate}

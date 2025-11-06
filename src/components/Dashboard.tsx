@@ -68,12 +68,33 @@ interface DashboardProps {
   onSubscribe: () => void;
   onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan") => void;
   address: string;
-  analysisData: AnalysisData;
+  analysisData: AnalysisData | null;
   onMenuClick?: () => void;
 }
 
 export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMenuClick }: DashboardProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  // Show empty state if no analysis data
+  if (!analysisData) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
+        
+        <main className="container mx-auto px-4 pt-24 pb-12">
+          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+            <h2 className="mb-4">Analyze your first listing free</h2>
+            <button 
+              onClick={() => onNavigate("address-input")}
+              className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Get Started
+            </button>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   // Use the dynamic analysis data
   const { listing, overallScore, ratings, categoryScores, radarData, insights } = analysisData;
@@ -92,78 +113,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
       <main className="container mx-auto px-4 pt-24 pb-12">
-        {/* Property Overview */}
-        <Card className="p-6 mb-8">
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="md:col-span-1">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-                alt="Property"
-                className="w-full h-48 object-cover rounded-lg"
-              />
-            </div>
-            
-            <div className="md:col-span-2 space-y-4">
-              <div>
-                <h2 className="mb-1">{listing.address}</h2>
-                <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                  <MapPin className="w-4 h-4" />
-                  <span>{listing.city}</span>
-                </div>
-                <p className="text-sm text-muted-foreground">{listing.propertyType}</p>
-              </div>
-
-              <Separator />
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="flex flex-col">
-                  <div className="text-sm text-muted-foreground mb-1">Price</div>
-                  <div className="flex items-center gap-1">
-                    <DollarSign className="w-4 h-4 text-muted-foreground" />
-                    <div>{listing.price}</div>
-                  </div>
-                  <div className="text-xs text-muted-foreground">{listing.pricePerSqft}</div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-sm text-muted-foreground mb-1">Beds</div>
-                  <div className="flex items-center gap-1">
-                    <Bed className="w-4 h-4 text-muted-foreground" />
-                    <div>{listing.beds}</div>
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-sm text-muted-foreground mb-1">Baths</div>
-                  <div className="flex items-center gap-1">
-                    <Bath className="w-4 h-4 text-muted-foreground" />
-                    <div>{listing.baths}</div>
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-sm text-muted-foreground mb-1">Sq Ft</div>
-                  <div className="flex items-center gap-1">
-                    <Square className="w-4 h-4 text-muted-foreground" />
-                    <div>{listing.sqft}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">
-                    {listing.daysOnMarket} days on market
-                  </span>
-                </div>
-                {listing.daysOnMarket > 45 && (
-                  <Badge variant="destructive" className="text-xs">
-                    Extended Market Time
-                  </Badge>
-                )}
-              </div>
-            </div>
-          </div>
-        </Card>
-
         {/* Alert Banner */}
         {insights.alerts.length > 0 && (
           <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
@@ -179,23 +128,96 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           </Card>
         )}
 
-        {/* Overall AI Score */}
-        <Card className="p-8 mb-8 bg-gradient-to-br from-primary/5 to-background">
-          <div className="max-w-3xl mx-auto text-center">
+        {/* Top Row: Overall Score and Property Overview */}
+        <div className="grid lg:grid-cols-2 gap-6 mb-8">
+          {/* Overall AI Score */}
+          <Card className="p-6 bg-gradient-to-br from-primary/5 to-background">
             <Badge className="mb-4" variant="secondary">
               AI Analysis Complete
             </Badge>
             <h2 className="mb-2">Overall Listing Score</h2>
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="text-6xl">{overallScore}</div>
-              <div className="text-2xl text-muted-foreground">/100</div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="text-5xl">{overallScore}</div>
+              <div className="text-xl text-muted-foreground">/100</div>
             </div>
             <Progress value={overallScore} className="h-3 mb-4" />
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground">
               {insights.summary}
             </p>
-          </div>
-        </Card>
+          </Card>
+
+          {/* Property Overview */}
+          <Card className="p-6">
+            <div className="grid grid-cols-3 gap-6">
+              <div className="col-span-1">
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+                  alt="Property"
+                  className="w-full h-32 object-cover rounded-lg"
+                />
+              </div>
+              
+              <div className="col-span-2 space-y-3">
+                <div>
+                  <h3 className="mb-1">{listing.address}</h3>
+                  <div className="flex items-center gap-2 text-muted-foreground mb-1">
+                    <MapPin className="w-4 h-4" />
+                    <span className="text-sm">{listing.city}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{listing.propertyType}</p>
+                </div>
+
+                <Separator />
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col">
+                    <div className="text-xs text-muted-foreground mb-1">Price</div>
+                    <div className="flex items-center gap-1">
+                      <DollarSign className="w-3 h-3 text-muted-foreground" />
+                      <div className="text-sm">{listing.price}</div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">{listing.pricePerSqft}</div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-xs text-muted-foreground mb-1">Beds</div>
+                    <div className="flex items-center gap-1">
+                      <Bed className="w-3 h-3 text-muted-foreground" />
+                      <div className="text-sm">{listing.beds}</div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-xs text-muted-foreground mb-1">Baths</div>
+                    <div className="flex items-center gap-1">
+                      <Bath className="w-3 h-3 text-muted-foreground" />
+                      <div className="text-sm">{listing.baths}</div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-xs text-muted-foreground mb-1">Sq Ft</div>
+                    <div className="flex items-center gap-1">
+                      <Square className="w-3 h-3 text-muted-foreground" />
+                      <div className="text-sm">{listing.sqft}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 text-xs">
+                    <Calendar className="w-3 h-3 text-muted-foreground" />
+                    <span className="text-muted-foreground">
+                      {listing.daysOnMarket} days on market
+                    </span>
+                  </div>
+                  {listing.daysOnMarket > 45 && (
+                    <Badge variant="destructive" className="text-xs">
+                      Extended Market Time
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
 
         {/* Detailed Ratings */}
         <div className="mb-8">
