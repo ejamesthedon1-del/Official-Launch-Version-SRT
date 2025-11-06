@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { SubscriptionDialog } from "./SubscriptionDialog";
 import { Navigation } from "./Navigation";
-import { Footer } from "./Footer";
+import { LockedDashboard } from "./LockedDashboard";
+import { Paywall } from "./Paywall";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
@@ -75,25 +76,29 @@ interface DashboardProps {
 
 export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMenuClick }: DashboardProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [hasAnalyzedBefore, setHasAnalyzedBefore] = useState(false);
+
+  // Check if user has analyzed before (in real app, this would come from backend)
+  useEffect(() => {
+    const hasAnalyzed = localStorage.getItem('hasAnalyzedBefore');
+    setHasAnalyzedBefore(!!hasAnalyzed);
+    
+    // Show paywall after first analysis
+    if (analysisData && !hasAnalyzed) {
+      setTimeout(() => {
+        setShowPaywall(true);
+        localStorage.setItem('hasAnalyzedBefore', 'true');
+      }, 2000);
+    }
+  }, [analysisData]);
 
   // Show empty state if no analysis data
   if (!analysisData) {
     return (
-      <div className="min-h-screen bg-white">
-        <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
-        
-        <main className="container mx-auto px-4 pt-24 pb-12">
-          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-            <h2 className="mb-4">Analyze your first listing free</h2>
-            <button 
-              onClick={() => onNavigate("address-input")}
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              Get Started
-            </button>
-          </div>
-        </main>
-      </div>
+      <LockedDashboard 
+        onAnalyze={() => onNavigate("address-input")}
+      />
     );
   }
 
@@ -101,6 +106,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const { listing, overallScore, ratings, categoryScores, radarData, insights } = analysisData;
 
   const handleSubscribe = () => {
+    setShowPaywall(false);
     setDialogOpen(true);
   };
 
@@ -108,6 +114,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
     setDialogOpen(false);
     onSubscribe();
   };
+
+  const handleNavigateToAnalysis = () => {
+    onNavigate("address-input");
+  };
+
+  const isSubscribed = false; // In real app, this would come from backend/user state
 
   return (
     <div className="min-h-screen bg-white">
@@ -131,7 +143,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
         {/* Top Row: Overall Score and Property Overview */}
         <div className="grid lg:grid-cols-2 gap-6 mb-8">
-          {/* Overall AI Score */}
+          {/* Overall AI Score - Always visible */}
           <Card className="p-6 bg-gradient-to-br from-primary/5 to-background">
             <Badge className="mb-4" variant="secondary">
               AI Analysis Complete
@@ -147,7 +159,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </p>
           </Card>
 
-          {/* Property Overview */}
+          {/* Property Overview - Always visible */}
           <Card className="p-6">
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-1">
@@ -220,102 +232,237 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           </Card>
         </div>
 
-        {/* Detailed Ratings */}
-        <div className="mb-8">
-          <div className="mb-6">
-            <h2 className="mb-2">Top 10 Factors Affecting Selling Time</h2>
-            <p className="text-muted-foreground">
-              Ranked by impact on your ability to sell within 30 days
-            </p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 gap-6">
-            {ratings.map((rating, index) => (
-              <RatingCard key={index} {...rating} />
-            ))}
-          </div>
-        </div>
-
-        {/* Charts */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <Card className="p-6">
-            <h3 className="mb-6">Factor Performance Scores</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={categoryScores}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
-                <XAxis 
-                  dataKey="category" 
-                  tick={{ fontSize: 12 }}
-                  angle={-45}
-                  textAnchor="end"
-                  height={80}
-                />
-                <YAxis domain={[0, 100]} />
-                <Tooltip />
-                <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </Card>
-
-          <Card className="p-6">
-            <h3 className="mb-6">Key Areas Assessment</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <RadarChart data={radarData}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
-                <PolarRadiusAxis domain={[0, 100]} />
-                <Radar
-                  name="Your Listing"
-                  dataKey="A"
-                  stroke="hsl(var(--primary))"
-                  fill="hsl(var(--primary))"
-                  fillOpacity={0.6}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
-          </Card>
-        </div>
-
-        {/* Key Insights */}
-        <Card className="p-6 mb-8">
-          <div className="flex items-start gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <Eye className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h3 className="mb-2">Key Insights & Priorities</h3>
-              <p className="text-muted-foreground">
-                Based on our AI analysis of thousands of successful listings
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {insights.topPriorities.map((priority, index) => (
-              <div key={index} className="flex gap-3 p-4 bg-muted/50 rounded-lg">
-                <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs text-primary-foreground">{index + 1}</span>
+        {/* Paywalled Content */}
+        {!isSubscribed ? (
+          <div className="relative">
+            {/* Blurred Content */}
+            <div className="backdrop-blur-sm rounded-2xl overflow-hidden">
+              {/* Detailed Ratings */}
+              <div className="mb-8 opacity-30">
+                <div className="mb-6">
+                  <h2 className="mb-2 text-slate-900">Top 10 Factors Affecting Selling Time</h2>
+                  <p className="text-slate-600">
+                    Ranked by impact on your ability to sell within 30 days
+                  </p>
                 </div>
-                <div>
-                  <p className="text-sm">{priority}</p>
+                
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {ratings.map((rating, index) => (
+                    <RatingCard key={index} {...rating} />
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </Card>
 
-        {/* Locked Premium Section */}
-        <div className="mb-8">
-          <div className="mb-6">
-            <h2 className="mb-2">Complete Marketing Plan</h2>
-            <p className="text-muted-foreground">
-              Get your full AI-generated marketing strategy to maximize your listing's potential
-            </p>
+              {/* Charts */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8 opacity-30">
+                <Card className="p-6">
+                  <h3 className="mb-6">Factor Performance Scores</h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={categoryScores}>
+                      <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                      <XAxis 
+                        dataKey="category" 
+                        tick={{ fontSize: 12 }}
+                        angle={-45}
+                        textAnchor="end"
+                        height={80}
+                      />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </Card>
+
+                <Card className="p-6">
+                  <h3 className="mb-6">Key Areas Assessment</h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <RadarChart data={radarData}>
+                      <PolarGrid />
+                      <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
+                      <PolarRadiusAxis domain={[0, 100]} />
+                      <Radar
+                        name="Your Listing"
+                        dataKey="A"
+                        stroke="hsl(var(--primary))"
+                        fill="hsl(var(--primary))"
+                        fillOpacity={0.6}
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </Card>
+              </div>
+
+              {/* Key Insights */}
+              <Card className="p-6 mb-8 opacity-30">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Eye className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="mb-2">Key Insights & Priorities</h3>
+                    <p className="text-slate-600">
+                      Based on our AI analysis of thousands of successful listings
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {insights.topPriorities.map((priority, index) => (
+                    <div key={index} className="flex gap-3 p-4 bg-muted/50 rounded-lg">
+                      <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-xs text-primary-foreground">{index + 1}</span>
+                      </div>
+                      <div>
+                        <p className="text-sm">{priority}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              {/* Locked Premium Section */}
+              <div className="mb-8 opacity-30">
+                <div className="mb-6">
+                  <h2 className="mb-2">Complete Marketing Plan</h2>
+                  <p className="text-slate-600">
+                    Get your full AI-generated marketing strategy to maximize your listing's potential
+                  </p>
+                </div>
+                <LockedSection onSubscribe={handleSubscribe} />
+              </div>
+            </div>
+
+            {/* Lock Overlay */}
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-md rounded-2xl flex items-center justify-center">
+              <Card className="p-8 text-center max-w-md mx-4">
+                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Eye className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  Unlock Detailed Insights
+                </h3>
+                <p className="text-slate-600 mb-6">
+                  Get access to detailed factor breakdowns, performance charts, buyer insights, and complete marketing strategies.
+                </p>
+                <Button
+                  size="lg"
+                  onClick={handleSubscribe}
+                  className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full"
+                >
+                  Upgrade to Premium <Eye className="w-4 h-4" />
+                </Button>
+              </Card>
+            </div>
           </div>
-          <LockedSection onSubscribe={handleSubscribe} />
-        </div>
+        ) : (
+          /* Premium Content (if subscribed) */
+          <>
+            {/* Detailed Ratings */}
+            <div className="mb-8">
+              <div className="mb-6">
+                <h2 className="mb-2 text-slate-900">Top 10 Factors Affecting Selling Time</h2>
+                <p className="text-slate-600">
+                  Ranked by impact on your ability to sell within 30 days
+                </p>
+              </div>
+              
+              <div className="grid sm:grid-cols-2 gap-6">
+                {ratings.map((rating, index) => (
+                  <RatingCard key={index} {...rating} />
+                ))}
+              </div>
+            </div>
+
+            {/* Charts */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Card className="p-6">
+                <h3 className="mb-6">Factor Performance Scores</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={categoryScores}>
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                    <XAxis 
+                      dataKey="category" 
+                      tick={{ fontSize: 12 }}
+                      angle={-45}
+                      textAnchor="end"
+                      height={80}
+                    />
+                    <YAxis domain={[0, 100]} />
+                    <Tooltip />
+                    <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </Card>
+
+              <Card className="p-6">
+                <h3 className="mb-6">Key Areas Assessment</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <RadarChart data={radarData}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
+                    <PolarRadiusAxis domain={[0, 100]} />
+                    <Radar
+                      name="Your Listing"
+                      dataKey="A"
+                      stroke="hsl(var(--primary))"
+                      fill="hsl(var(--primary))"
+                      fillOpacity={0.6}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </Card>
+            </div>
+
+            {/* Key Insights */}
+            <Card className="p-6 mb-8">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Eye className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="mb-2">Key Insights & Priorities</h3>
+                  <p className="text-slate-600">
+                    Based on our AI analysis of thousands of successful listings
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {insights.topPriorities.map((priority, index) => (
+                  <div key={index} className="flex gap-3 p-4 bg-muted/50 rounded-lg">
+                    <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs text-primary-foreground">{index + 1}</span>
+                    </div>
+                    <div>
+                      <p className="text-sm">{priority}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Locked Premium Section */}
+            <div className="mb-8">
+              <div className="mb-6">
+                <h2 className="mb-2">Complete Marketing Plan</h2>
+                <p className="text-slate-600">
+                  Get your full AI-generated marketing strategy to maximize your listing's potential
+                </p>
+              </div>
+              <LockedSection onSubscribe={handleSubscribe} />
+            </div>
+          </>
+        )}
       </main>
-        <Footer />
+
+      {/* Paywall Modal */}
+      {showPaywall && (
+        <Paywall 
+          onSubscribe={handleSubscribe} 
+          analysisData={analysisData}
+        />
+      )}
 
       <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubscribe={handleSubscriptionComplete} address={address} />
     </div>
