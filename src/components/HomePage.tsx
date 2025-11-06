@@ -9,6 +9,7 @@ import { Badge } from "./ui/badge";
 import { DashboardMockup } from "./DashboardMockup";
 import { Logo } from "./figma/Logo";
 import { FeaturesSlider } from "./FeaturesSlider";
+import { SlidingInfoSection } from "./SlidingInfoSection";
 
 interface HomePageProps {
   onGetStarted: () => void;
@@ -129,7 +130,10 @@ export function HomePage({
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
       </section>
 
-      {/* Features Slider */}
+      {/* Sliding Info Section */}
+         <SlidingInfoSection />
+
+         {/* Features Slider */}
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
