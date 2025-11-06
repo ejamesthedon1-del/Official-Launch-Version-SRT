@@ -14,6 +14,7 @@ interface AddressInputProps {
   onNavigate: (
     view: "home" | "address-input" | "dashboard" | "marketing-plan"
   ) => void;
+  onMenuClick?: () => void;
 }
 
 interface Prediction {
@@ -25,7 +26,7 @@ interface Prediction {
   };
 }
 
-export function AddressInput({ onAnalyze, onNavigate }: AddressInputProps) {
+export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInputProps) {
   const [address, setAddress] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
@@ -142,14 +143,15 @@ export function AddressInput({ onAnalyze, onNavigate }: AddressInputProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Navigation
         currentView="address-input"
         onNavigate={onNavigate}
         showAnalyze={false}
+        onMenuClick={onMenuClick}
       />
 
-      <main className="container mx-auto px-4 py-20">
+      <main className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <Badge className="mb-4">Step 1 of 2</Badge>
