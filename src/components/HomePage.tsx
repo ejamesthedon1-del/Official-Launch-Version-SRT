@@ -1,6 +1,5 @@
 import {
   ArrowRight,
-  BarChart3,
   Target,
   Zap,
   Clock,
@@ -8,18 +7,20 @@ import {
   TrendingUp,
   CheckCircle,
   Star,
+  Brain,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { DashboardMockup } from "./DashboardMockup";
+import { Logo } from "./figma/Logo";
 
 interface HomePageProps {
   onGetStarted: () => void;
   onNavigate: (
     view: "home" | "address-input" | "dashboard" | "marketing-plan"
   ) => void;
-  onMenuClick?: () => void; // ← ADDED THIS
+  onMenuClick?: () => void;
 }
 
 export function HomePage({
@@ -29,7 +30,7 @@ export function HomePage({
 }: HomePageProps) {
   const features = [
     {
-      icon: BarChart3,
+      icon: Brain,
       title: "AI-Powered Analysis",
       description:
         "Get instant AI ratings across 10 critical factors that impact your listing's selling time",
@@ -97,7 +98,7 @@ export function HomePage({
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Hero Section with Integrated Header */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 overflow-hidden">
         {/* Navigation */}
@@ -105,10 +106,10 @@ export function HomePage({
           <div className="container mx-auto max-w-6xl px-4 py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-white">
-                <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-                  <BarChart3 className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center p-1.5">
+                  <Logo gradient="logoHeaderWhite" />
                 </div>
-                <span className="font-semibold">ListingAI</span>
+                <span className="tracking-tight">Smart Realtor Tool</span>
               </div>
               <div className="hidden md:flex items-center gap-8 text-white/90 text-sm">
                 <button className="hover:text-white transition-colors">
@@ -160,7 +161,7 @@ export function HomePage({
           <Button
             size="lg"
             onClick={onGetStarted}
-            className="bg-blue-700 hover:bg-blue-800 text-white shadow-xl gap-2"
+            className="bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2"
           >
             Get Started Free <ArrowRight className="w-4 h-4" />
           </Button>
@@ -182,14 +183,14 @@ export function HomePage({
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-slate-50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <Badge className="mb-4" variant="secondary">
+            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
               Everything You Need
             </Badge>
-            <h2 className="mb-4">Comprehensive Analysis for Every Listing</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="mb-4 text-slate-900">Comprehensive Analysis for Every Listing</h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Our AI analyzes your property across critical factors that real
               estate professionals need to sell faster and at better prices.
             </p>
@@ -199,13 +200,13 @@ export function HomePage({
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-lg transition-shadow"
+                className="p-6 bg-white border-slate-200 hover:shadow-lg hover:border-blue-200 transition-all"
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-blue-600" />
                 </div>
-                <h3 className="mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="mb-2 text-slate-900">{feature.title}</h3>
+                <p className="text-sm text-slate-600">
                   {feature.description}
                 </p>
               </Card>
@@ -215,40 +216,40 @@ export function HomePage({
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <Badge className="mb-4" variant="secondary">
+            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
               Simple Process
             </Badge>
-            <h2 className="mb-4">Get Your Analysis in Minutes</h2>
+            <h2 className="mb-4 text-slate-900">Get Your Analysis in Minutes</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
                 1
               </div>
-              <h3 className="mb-2">Enter Your Address</h3>
-              <p className="text-muted-foreground">
+              <h3 className="mb-2 text-slate-900">Enter Your Address</h3>
+              <p className="text-slate-600">
                 Input your property address and basic details
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
                 2
               </div>
-              <h3 className="mb-2">AI Analyzes Your Listing</h3>
-              <p className="text-muted-foreground">
+              <h3 className="mb-2 text-slate-900">AI Analyzes Your Listing</h3>
+              <p className="text-slate-600">
                 Our AI evaluates 10+ critical factors instantly
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
                 3
               </div>
-              <h3 className="mb-2">Get Your Action Plan</h3>
-              <p className="text-muted-foreground">
+              <h3 className="mb-2 text-slate-900">Get Your Action Plan</h3>
+              <p className="text-slate-600">
                 Receive tailored marketing strategy to sell faster
               </p>
             </div>
@@ -257,30 +258,30 @@ export function HomePage({
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-slate-50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <Badge className="mb-4" variant="secondary">
+            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
               Trusted by Realtors
             </Badge>
-            <h2 className="mb-4">What Real Estate Professionals Say</h2>
+            <h2 className="mb-4 text-slate-900">What Real Estate Professionals Say</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6">
+              <Card key={index} className="p-6 bg-white border-slate-200 hover:shadow-lg transition-shadow">
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-4 h-4 fill-primary text-primary"
+                      className="w-4 h-4 fill-blue-600 text-blue-600"
                     />
                   ))}
                 </div>
-                <p className="text-sm mb-4">“{testimonial.content}”</p>
+                <p className="text-sm mb-4 text-slate-700">"{testimonial.content}"</p>
                 <div>
-                  <div className="font-medium">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-slate-900">{testimonial.name}</div>
+                  <div className="text-sm text-slate-500">
                     {testimonial.role}
                   </div>
                 </div>
@@ -291,24 +292,24 @@ export function HomePage({
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-4xl">
-          <Card className="p-12 text-center bg-gradient-to-br from-primary/10 to-primary/5">
-            <h2 className="mb-4">Ready to Sell Your Listings Faster?</h2>
-            <p className="text-xl text-muted-foreground mb-8">
+          <Card className="p-12 text-center bg-gradient-to-br from-blue-50 to-purple-50 border-blue-100 shadow-xl">
+            <h2 className="mb-4 text-slate-900">Ready to Sell Your Listings Faster?</h2>
+            <p className="text-xl text-slate-600 mb-8">
               Join hundreds of realtors using AI to optimize their listings and
               close deals faster.
             </p>
-            <Button size="lg" onClick={onGetStarted} className="gap-2">
+            <Button size="lg" onClick={onGetStarted} className="gap-2 bg-blue-600 hover:bg-blue-700 shadow-lg">
               Get Started Free <ArrowRight className="w-4 h-4" />
             </Button>
-            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-muted-foreground">
+            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-slate-600">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-primary" />
+                <CheckCircle className="w-4 h-4 text-blue-600" />
                 <span>No credit card required</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-primary" />
+                <CheckCircle className="w-4 h-4 text-blue-600" />
                 <span>Free analysis</span>
               </div>
             </div>
@@ -317,46 +318,46 @@ export function HomePage({
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-12 px-4">
+      <footer className="border-t border-slate-200 bg-slate-50 py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                  <BarChart3 className="w-5 h-5 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center p-1.5">
+                  <Logo gradient="logoFooter" />
                 </div>
-                <span className="font-semibold">ListingAI</span>
+                <span className="tracking-tight text-slate-900">Smart Realtor Tool</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-slate-600">
                 AI-powered analytics for real estate professionals
               </p>
             </div>
             <div>
-              <div className="font-medium mb-3">Product</div>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <div>Features</div>
-                <div>Pricing</div>
-                <div>Demo</div>
+              <div className="mb-3 text-slate-900">Product</div>
+              <div className="space-y-2 text-sm text-slate-600">
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Features</div>
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Pricing</div>
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Demo</div>
               </div>
             </div>
             <div>
-              <div className="font-medium mb-3">Company</div>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <div>About</div>
-                <div>Contact</div>
-                <div>Support</div>
+              <div className="mb-3 text-slate-900">Company</div>
+              <div className="space-y-2 text-sm text-slate-600">
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">About</div>
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Contact</div>
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Support</div>
               </div>
             </div>
             <div>
-              <div className="font-medium mb-3">Legal</div>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <div>Privacy</div>
-                <div>Terms</div>
+              <div className="mb-3 text-slate-900">Legal</div>
+              <div className="space-y-2 text-sm text-slate-600">
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Privacy</div>
+                <div className="hover:text-slate-900 cursor-pointer transition-colors">Terms</div>
               </div>
             </div>
           </div>
-          <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-            © 2024 ListingAI. All rights reserved.
+          <div className="border-t border-slate-200 mt-8 pt-8 text-center text-sm text-slate-500">
+            © 2024 Smart Realtor Tool. All rights reserved.
           </div>
         </div>
       </footer>
