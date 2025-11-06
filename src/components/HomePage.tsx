@@ -294,22 +294,22 @@ export function HomePage({
       {/* CTA Section */}
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-4xl">
-          <Card className="p-12 text-center bg-gradient-to-br from-blue-50 to-purple-50 border-blue-100 shadow-xl">
-            <h2 className="mb-4 text-slate-900">Ready to Sell Your Listings Faster?</h2>
-            <p className="text-xl text-slate-600 mb-8">
+          <Card className="p-12 text-center bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 border-0 shadow-2xl">
+            <h2 className="mb-4 text-white">Ready to Sell Your Listings Faster?</h2>
+            <p className="text-xl text-white/90 mb-8">
               Join hundreds of realtors using AI to optimize their listings and
               close deals faster.
             </p>
-            <Button size="lg" onClick={onGetStarted} className="gap-2 bg-blue-600 hover:bg-blue-700 shadow-lg">
+            <Button size="lg" onClick={onGetStarted} className="gap-2 bg-white text-blue-600 hover:bg-blue-50 shadow-lg">
               Get Started Free <ArrowRight className="w-4 h-4" />
             </Button>
-            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-slate-600">
+            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-white/90">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-blue-600" />
+                <CheckCircle className="w-4 h-4 text-white" />
                 <span>No credit card required</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-blue-600" />
+                <CheckCircle className="w-4 h-4 text-white" />
                 <span>Free analysis</span>
               </div>
             </div>
