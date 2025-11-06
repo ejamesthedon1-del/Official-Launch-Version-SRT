@@ -6,6 +6,7 @@ import { Label } from "./ui/label";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Navigation } from "./Navigation";
+import { Footer } from "./Footer";
 import { toast } from "sonner";
 import { supabase } from "../lib/supabaseClient";
 
@@ -243,6 +244,8 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
           </Card>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

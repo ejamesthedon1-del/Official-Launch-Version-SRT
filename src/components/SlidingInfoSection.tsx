@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Home, Users, TrendingUp, Award, Shield, Zap } from "lucide-react";
+import { Home, Users, TrendingUp, Award, Shield, Zap } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 
@@ -11,7 +11,7 @@ const infoCards = [
     stats: "98% Accuracy",
     highlight: "Market-Ready Analysis"
   },
-  {
+  { 
     icon: Users, 
     title: "Buyer Targeting",
     description: "Identify and understand your ideal buyers with detailed demographic profiles, purchasing power, and motivation factors.",
@@ -50,33 +50,15 @@ const infoCards = [
 
 export function SlidingInfoSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Auto-play functionality
+  // Auto-play functionality - always on
   useEffect(() => {
-    if (!isAutoPlaying) return;
-    
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % infoCards.length);
-    }, 3500);
+    }, 4000); // Slightly slower for more seamless experience
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const goToNext = () => {
-    setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev + 1) % infoCards.length);
-  };
-
-  const goToPrev = () => {
-    setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + infoCards.length) % infoCards.length);
-  };
-
-  const goToSlide = (index: number) => {
-    setIsAutoPlaying(false);
-    setCurrentIndex(index);
-  };
+  }, []);
 
   // Get visible cards (show 3 on desktop, 1 on mobile)
   const getVisibleCards = () => {
@@ -116,7 +98,7 @@ export function SlidingInfoSection() {
               return (
                 <Card
                   key={`${currentIndex}-${index}`}
-                  className={`p-8 bg-white border-slate-200 hover:shadow-xl hover:border-blue-300 transition-all duration-500 animate-in fade-in slide-in-from-right-5`}
+                  className={`p-8 bg-white border-slate-200 hover:shadow-xl hover:border-blue-300 transition-all duration-700 animate-in fade-in slide-in-from-right-5`}
                   style={{ animationDelay: `${delay}ms` }}
                 >
                   {/* Icon and Stats */}
@@ -185,61 +167,18 @@ export function SlidingInfoSection() {
             </Card>
           </div>
 
-          {/* Navigation Controls */}
-          <div className="flex items-center justify-center gap-6">
-            {/* Previous Button */}
-            <button
-              onClick={goToPrev}
-              className="w-12 h-12 rounded-full bg-white border border-slate-200 hover:border-blue-300 hover:bg-blue-50 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
-              aria-label="Previous"
-            >
-              <ChevronLeft className="w-6 h-6 text-slate-600 hover:text-blue-600" />
-            </button>
-
-            {/* Progress Dots */}
-            <div className="flex gap-2">
-              {infoCards.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? "bg-blue-600 w-8"
-                      : "bg-slate-300 hover:bg-slate-400 w-2"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* Next Button */}
-            <button
-              onClick={goToNext}
-              className="w-12 h-12 rounded-full bg-white border border-slate-200 hover:border-blue-300 hover:bg-blue-50 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-6 h-6 text-slate-600 hover:text-blue-600" />
-            </button>
-          </div>
-
-          {/* Auto-play Control */}
-          <div className="text-center mt-6">
-            <button
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="text-sm text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-2 mx-auto"
-            >
-              {isAutoPlaying ? (
-                <>
-                  <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
-                  Auto-playing
-                </>
-              ) : (
-                <>
-                  <span className="w-2 h-2 bg-slate-400 rounded-full" />
-                  Paused
-                </>
-              )}
-            </button>
+          {/* Progress Indicator Only - No Navigation Arrows */}
+          <div className="flex items-center justify-center gap-2">
+            {infoCards.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 rounded-full transition-all duration-500 ${
+                  index === currentIndex
+                    ? "bg-blue-600 w-8 shadow-sm"
+                    : "bg-slate-300 w-2"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>

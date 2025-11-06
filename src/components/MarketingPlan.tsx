@@ -5,6 +5,7 @@ import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Navigation } from "./Navigation";
+import { Footer } from "./Footer";
 
 interface MarketingPlanProps {
   onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan") => void;
@@ -469,6 +470,7 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
           </div>
         </Card>
       </main>
+        <Footer />
     </div>
   );
 }

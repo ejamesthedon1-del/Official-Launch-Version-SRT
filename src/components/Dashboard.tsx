@@ -4,6 +4,7 @@ import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { SubscriptionDialog } from "./SubscriptionDialog";
 import { Navigation } from "./Navigation";
+import { Footer } from "./Footer";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
@@ -314,6 +315,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           <LockedSection onSubscribe={handleSubscribe} />
         </div>
       </main>
+        <Footer />
 
       <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubscribe={handleSubscriptionComplete} address={address} />
     </div>
