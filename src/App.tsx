@@ -3,6 +3,7 @@ import { HomePage } from "./components/HomePage";
 import { AddressInput } from "./components/AddressInput";
 import { Dashboard } from "./components/Dashboard";
 import { MarketingPlan } from "./components/MarketingPlan";
+import { MobileMenu } from "./components/MobileMenu";
 import { Toaster } from "./components/ui/sonner";
 
 type View = "home" | "address-input" | "dashboard" | "marketing-plan";
@@ -51,6 +52,7 @@ export default function App() {
   const [currentView, setCurrentView] = useState<View>("home");
   const [enteredAddress, setEnteredAddress] = useState("");
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleGetStarted = () => {
     setCurrentView("address-input");
@@ -68,12 +70,27 @@ export default function App() {
 
   const handleNavigate = (view: View) => {
     setCurrentView(view);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleMenuClick = () => {
+    console.log("🍔 App: Menu clicked, opening mobile menu");
+    setIsMobileMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    console.log("🍔 App: Closing mobile menu");
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <>
       {currentView === "home" && (
-        <HomePage onGetStarted={handleGetStarted} onNavigate={handleNavigate} />
+        <HomePage 
+          onGetStarted={handleGetStarted} 
+          onNavigate={handleNavigate}
+          onMenuClick={handleMenuClick}
+        />
       )}
       {currentView === "address-input" && (
         <AddressInput onAnalyze={handleAnalyze} onNavigate={handleNavigate} />
@@ -89,6 +106,15 @@ export default function App() {
       {currentView === "marketing-plan" && (
         <MarketingPlan onNavigate={handleNavigate} />
       )}
+      
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={handleMenuClose}
+        currentView={currentView}
+        onNavigate={handleNavigate}
+      />
+      
       <Toaster />
     </>
   );

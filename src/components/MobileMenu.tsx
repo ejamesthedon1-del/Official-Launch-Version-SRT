@@ -47,7 +47,7 @@ export function MobileMenu({
 
       {/* Bottom Sheet Menu */}
       <div
-        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 md:hidden border-2 border-red-500"
+        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 md:hidden"
         style={{
           transform: isOpen ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-out",
@@ -55,23 +55,23 @@ export function MobileMenu({
       >
         {/* Handle bar at top */}
         <div className="flex justify-center pt-4 pb-2">
-          <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
+          <div className="w-12 h-1.5 bg-slate-300 rounded-full" />
         </div>
 
         {/* Close button */}
         <div className="absolute top-4 right-4">
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-slate-100 rounded-full transition-colors"
             aria-label="Close menu"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-slate-600" />
           </button>
         </div>
 
         {/* Menu Content */}
         <nav className="px-6 py-6 pb-8 space-y-2">
-          <h2 className="text-lg font-semibold mb-6">Menu</h2>
+          <h2 className="text-lg font-semibold mb-6 text-slate-900">Menu</h2>
 
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -84,7 +84,7 @@ export function MobileMenu({
                 className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all ${
                   isActive
                     ? "bg-blue-600 text-white shadow-md"
-                    : "hover:bg-gray-100"
+                    : "hover:bg-slate-100 text-slate-700"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -95,9 +95,9 @@ export function MobileMenu({
         </nav>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t bg-gray-50">
-          <p className="text-sm text-gray-600 text-center">
-            ListingIQ AI • Powered by NinjaTech
+        <div className="px-6 py-4 border-t border-slate-200 bg-slate-50">
+          <p className="text-sm text-slate-600 text-center">
+            Smart Realtor Tool • AI-Powered Analytics
           </p>
         </div>
       </div>
