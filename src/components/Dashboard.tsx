@@ -69,9 +69,10 @@ interface DashboardProps {
   onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan") => void;
   address: string;
   analysisData: AnalysisData;
+  onMenuClick?: () => void;
 }
 
-export function Dashboard({ onSubscribe, onNavigate, address, analysisData }: DashboardProps) {
+export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMenuClick }: DashboardProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   // Use the dynamic analysis data
@@ -87,10 +88,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData }: Da
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation currentView="dashboard" onNavigate={onNavigate} />
+    <div className="min-h-screen bg-white">
+      <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 pt-24 pb-12">
         {/* Property Overview */}
         <Card className="p-6 mb-8">
           <div className="grid md:grid-cols-3 gap-6">

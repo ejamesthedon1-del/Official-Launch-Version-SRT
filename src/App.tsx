@@ -93,7 +93,11 @@ export default function App() {
         />
       )}
       {currentView === "address-input" && (
-        <AddressInput onAnalyze={handleAnalyze} onNavigate={handleNavigate} />
+        <AddressInput 
+          onAnalyze={handleAnalyze} 
+          onNavigate={handleNavigate}
+          onMenuClick={handleMenuClick}
+        />
       )}
       {currentView === "dashboard" && analysisData && (
         <Dashboard
@@ -101,10 +105,11 @@ export default function App() {
           onNavigate={handleNavigate}
           address={enteredAddress}
           analysisData={analysisData}
+          onMenuClick={handleMenuClick}
         />
       )}
       {currentView === "marketing-plan" && (
-        <MarketingPlan onNavigate={handleNavigate} />
+        <MarketingPlan onNavigate={handleNavigate} onMenuClick={handleMenuClick} />
       )}
       
       {/* Mobile Menu */}

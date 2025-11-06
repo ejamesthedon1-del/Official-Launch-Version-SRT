@@ -1,19 +1,14 @@
 import {
   ArrowRight,
-  Target,
-  Zap,
-  Clock,
-  DollarSign,
-  TrendingUp,
   CheckCircle,
   Star,
-  Brain,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { DashboardMockup } from "./DashboardMockup";
 import { Logo } from "./figma/Logo";
+import { FeaturesSlider } from "./FeaturesSlider";
 
 interface HomePageProps {
   onGetStarted: () => void;
@@ -28,51 +23,6 @@ export function HomePage({
   onNavigate,
   onMenuClick,
 }: HomePageProps) {
-  const features = [
-    {
-      icon: Brain,
-      title: "AI-Powered Analysis",
-      description:
-        "Get instant AI ratings across 10 critical factors that impact your listing's selling time",
-    },
-    {
-      icon: Target,
-      title: "Buyer Demographics",
-      description:
-        "Detailed profiles of your ideal buyers with income levels, motivations, and value drivers",
-    },
-    {
-      icon: Clock,
-      title: "30-Day Action Plan",
-      description:
-        "Week-by-week marketing strategy designed to sell your listing faster",
-    },
-    {
-      icon: DollarSign,
-      title: "Price Optimization",
-      description:
-        "Data-driven pricing recommendations to maximize sale price and reduce market time",
-    },
-    {
-      icon: TrendingUp,
-      title: "Investment Analysis",
-      description:
-        "ROI projections and rental income documentation to attract investor buyers",
-    },
-    {
-      icon: Zap,
-      title: "Marketing Strategy",
-      description:
-        "Tailored marketing plans with targeting, messaging, and channel recommendations",
-    },
-  ];
-
-  const stats = [
-    { value: "85%", label: "Success Rate" },
-    { value: "30 Days", label: "Avg. Time to Sell" },
-    { value: "10+", label: "Key Factors Analyzed" },
-  ];
-
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -179,10 +129,10 @@ export function HomePage({
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
       </section>
 
-      {/* Features Grid */}
+      {/* Features Slider */}
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
               Everything You Need
             </Badge>
@@ -193,22 +143,7 @@ export function HomePage({
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="p-6 bg-white border-slate-200 hover:shadow-lg hover:border-blue-200 transition-all"
-              >
-                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-blue-600" />
-                </div>
-                <h3 className="mb-2 text-slate-900">{feature.title}</h3>
-                <p className="text-sm text-slate-600">
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
-          </div>
+          <FeaturesSlider />
         </div>
       </section>
 

@@ -8,9 +8,10 @@ import { Navigation } from "./Navigation";
 
 interface MarketingPlanProps {
   onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan") => void;
+  onMenuClick?: () => void;
 }
 
-export function MarketingPlan({ onNavigate }: MarketingPlanProps) {
+export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
   const weeklyPlan = [
     {
       week: 1,
@@ -170,10 +171,10 @@ export function MarketingPlan({ onNavigate }: MarketingPlanProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation currentView="marketing-plan" onNavigate={onNavigate} />
+    <div className="min-h-screen bg-white">
+      <Navigation currentView="marketing-plan" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
-      <main className="container mx-auto px-4 py-8 max-w-6xl">
+      <main className="container mx-auto px-4 pt-24 pb-12 max-w-6xl">
         {/* Header Section */}
         <div className="mb-8">
           <Badge className="mb-4">Premium Plan Unlocked</Badge>
