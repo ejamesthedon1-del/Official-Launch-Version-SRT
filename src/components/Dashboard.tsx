@@ -4,6 +4,7 @@ import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { SubscriptionDialog } from "./SubscriptionDialog";
 import { Navigation } from "./Navigation";
+import { Footer } from "./Footer";
 import { LockedDashboard } from "./LockedDashboard";
 import { Paywall } from "./Paywall";
 import { supabase } from "../lib/supabaseClient";
@@ -499,6 +500,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           </>
         )}
       </main>
+
+      <Footer />
 
       <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubscribe={handleSubscriptionComplete} address={address} />
     </div>

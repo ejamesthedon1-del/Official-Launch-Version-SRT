@@ -51,10 +51,8 @@ export function Navigation({
             style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
           >
             <div 
-              className={`w-10 h-10 rounded-lg flex items-center justify-center p-1.5 ${
-                isHomePage ? "bg-white/20 backdrop-blur-sm" : "bg-blue-600"
-              }`}
-              style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
+              className="w-10 h-10 rounded-lg flex items-center justify-center p-1.5"
+              style={{ boxShadow: 'none', WebkitBoxShadow: 'none', background: 'transparent' }}
             >
               <Logo gradient={isHomePage ? "logoHeaderWhite" : "logoHeader"} />
             </div>
@@ -88,6 +86,17 @@ export function Navigation({
                 Analyze Listing
               </button>
             )}
+
+            <button
+              onClick={() => onNavigate("dashboard")}
+              className={`hover:opacity-80 transition-colors ${
+                currentView === "dashboard" 
+                  ? "text-blue-600 font-medium" 
+                  : ""
+              }`}
+            >
+              Dashboard
+            </button>
 
             <button className="hover:opacity-80 transition-colors">
               Pricing
