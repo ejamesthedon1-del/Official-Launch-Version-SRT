@@ -20,8 +20,8 @@ export function Navigation({
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 ${
       isHomePage 
-        ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 shadow-lg" 
-        : "bg-white border-b border-slate-200"
+        ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
+        : "bg-white"
     }`}>
       <div className="container mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-between">
