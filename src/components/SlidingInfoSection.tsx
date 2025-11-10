@@ -125,7 +125,9 @@ export function SlidingInfoSection() {
           Quicker Closings.
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-          From data to action. SmartRelatorTools 
+          From data to action. 
+         <br />
+         SmartRelatorTools's AI Marketing Intelligence
          <br />
          transforms insights into an easy-to-follow plan.
           </p>
