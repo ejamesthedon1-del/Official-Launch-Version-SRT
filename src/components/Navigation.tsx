@@ -24,9 +24,9 @@ export function Navigation({
           ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
           : "bg-white"
       }`}
-      style={{ boxShadow: 'none', border: 'none' }}
+      style={{ boxShadow: 'none', border: 'none', WebkitBoxShadow: 'none' }}
     >
-      <div className="container mx-auto max-w-6xl px-4 py-4">
+      <div className="container mx-auto max-w-6xl px-4 py-4" style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}>
         <div className="flex items-center justify-between">
           {/* Logo - clickable to go home */}
           <button

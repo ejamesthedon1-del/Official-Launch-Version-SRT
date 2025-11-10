@@ -77,7 +77,7 @@ export function SlidingInfoSection() {
 
         {/* Scrollable Cards */}
         <div className="relative -mx-4 px-4 md:px-8">
-          <div className="overflow-x-auto scrollbar-hide">
+          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory">
             <div className="flex gap-6 pb-4">
               {infoCards.map((card, index) => {
                 const Icon = card.icon;
@@ -85,7 +85,7 @@ export function SlidingInfoSection() {
                 return (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-[85vw] md:w-[400px] bg-white rounded-2xl border border-gray-100 p-8 shadow-lg hover:shadow-xl transition-shadow"
+                    className="flex-shrink-0 w-[85vw] md:w-[400px] min-h-[420px] bg-white rounded-2xl border border-gray-100 p-8 shadow-lg hover:shadow-xl transition-shadow snap-start"
                   >
                     {/* Icon and Stats */}
                     <div className="flex items-start justify-between mb-6">
@@ -124,6 +124,12 @@ export function SlidingInfoSection() {
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        .snap-x {
+          scroll-snap-type: x mandatory;
+        }
+        .snap-start {
+          scroll-snap-align: start;
         }
       `}</style>
     </section>
