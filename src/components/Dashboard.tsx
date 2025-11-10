@@ -6,6 +6,7 @@ import { SubscriptionDialog } from "./SubscriptionDialog";
 import { Navigation } from "./Navigation";
 import { LockedDashboard } from "./LockedDashboard";
 import { Paywall } from "./Paywall";
+import { Footer } from "./Footer";
 import { supabase } from "../lib/supabaseClient";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -315,7 +316,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </div>
           </div>
 
-          {/* Paywall Modal - At the beginning of paywalled content */}
+          {/* Paywall Modal - Right after the property header/score section */}
           {!isSubscribed && showPaywall && (
             <div className="mb-8">
               <Paywall 
@@ -723,6 +724,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       )}
 
       <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubscribe={handleSubscriptionComplete} address={address} />
+      
+      <Footer />
     </div>
   );
 }
