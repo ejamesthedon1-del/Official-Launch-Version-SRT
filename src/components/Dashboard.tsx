@@ -271,7 +271,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h2 className="text-slate-900 mb-1">{listing.address}</h2>
-                      <div className="flex items-center gap-2 text-slate-600 mb-3">
+                      <div className="flex items-center gap-2 text-slate-600">
                         <MapPin className="w-4 h-4" />
                         <span>{listing.city}</span>
                       </div>
