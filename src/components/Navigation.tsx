@@ -18,9 +18,9 @@ export function Navigation({
   const isHomePage = currentView === "home";
   
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 shadow-lg ${
+    <header className={`fixed top-0 left-0 right-0 z-40 ${
       isHomePage 
-        ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
+        ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 shadow-lg" 
         : "bg-white border-b border-slate-200"
     }`}>
       <div className="container mx-auto max-w-6xl px-4 py-4">
