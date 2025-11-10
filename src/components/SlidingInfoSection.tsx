@@ -120,7 +120,9 @@ export function SlidingInfoSection() {
             AI-Powered Insights
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-          Every Listing Needs a Winning Plan.
+          Smarter Marketing. 
+          <br />
+          Quicker Closings.
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
           Without a strategy, even the best properties can sit unsold.
