@@ -178,6 +178,23 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
     icon: index === 0 ? CheckCircle2 : index === 1 ? Sparkles : index === 2 ? TrendingUp : Calendar,
   }));
 
+  // Parse address to separate street address from city/state
+  const parseAddress = (fullAddress: string, city: string) => {
+    // If address contains commas, split it
+    const addressParts = fullAddress.split(",");
+    if (addressParts.length > 1) {
+      // Street address is everything before the first comma
+      const streetAddress = addressParts[0].trim();
+      // City/State is everything after the first comma
+      const cityState = addressParts.slice(1).join(",").trim();
+      return { streetAddress, cityState: cityState || city };
+    }
+    // If no commas, use the full address as street and city as city/state
+    return { streetAddress: fullAddress, cityState: city };
+  };
+
+  const { streetAddress, cityState } = parseAddress(listing.address, listing.city);
+
   return (
     <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/30 w-full min-h-screen">
       <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
@@ -270,10 +287,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 <div>
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h2 className="text-slate-900 mb-1">{listing.address}</h2>
-                      <div className="flex items-center gap-2 text-slate-600 mb-3">
+                      <h2 className="text-slate-900 mb-1">{streetAddress}</h2>
+                      <div className="flex items-center gap-2 text-slate-600">
                         <MapPin className="w-4 h-4" />
-                        <span>{listing.city}</span>
+                        <span>{cityState}</span>
                       </div>
                     </div>
                     <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-xl px-4 py-3 text-center shadow-lg">
