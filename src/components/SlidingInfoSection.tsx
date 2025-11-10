@@ -57,7 +57,6 @@ export function SlidingInfoSection() {
   const handlers = useSwipeable({
     onSwipedLeft: () => handleSwipe('left'),
     onSwipedRight: () => handleSwipe('right'),
-    preventDefaultTouchmoveEvent: true,
     trackMouse: true,
     trackTouch: true,
     delta: 50,
@@ -90,7 +89,6 @@ export function SlidingInfoSection() {
       scale: 1,
       transition: {
         duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
     exit: {
@@ -99,7 +97,6 @@ export function SlidingInfoSection() {
       scale: 0.8,
       transition: {
         duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
