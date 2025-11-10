@@ -18,7 +18,7 @@ export function Navigation({
   const isHomePage = currentView === "home";
   
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 ${
+    <header className={`fixed top-0 left-0 right-0 z-40 shadow-none border-none ${
       isHomePage 
         ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
         : "bg-white"

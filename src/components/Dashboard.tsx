@@ -159,16 +159,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
       <main className="container mx-auto px-4 pt-24 pb-12">
-        {/* Paywall Modal - Moved up */}
-        {showPaywall && (
-          <div className="mb-8">
-            <Paywall 
-              onSubscribe={handleSubscribe} 
-              analysisData={analysisData}
-            />
-          </div>
-        )}
-
         {/* Alert Banner */}
         {insights.alerts.length > 0 && (
           <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
@@ -277,6 +267,16 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
         {/* Paywalled Content */}
         {!isSubscribed ? (
+          <>
+            {/* Paywall Modal - At the beginning of paywalled content */}
+            {showPaywall && (
+              <div className="mb-8">
+                <Paywall 
+                  onSubscribe={handleSubscribe} 
+                  analysisData={analysisData}
+                />
+              </div>
+            )}
           <div className="relative">
             {/* Blurred Content */}
             <div className="backdrop-blur-sm rounded-2xl overflow-hidden">
@@ -398,6 +398,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </Card>
             </div>
           </div>
+          </>
         ) : (
           /* Premium Content (if subscribed) */
           <>
