@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HomePage } from "./components/HomePage";
 import { AddressInput } from "./components/AddressInput";
 import { Dashboard } from "./components/Dashboard";
@@ -49,10 +49,36 @@ export interface AnalysisData {
 }
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<View>("home");
-  const [enteredAddress, setEnteredAddress] = useState("");
-  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
+  // Load saved state from localStorage on mount
+  const [currentView, setCurrentView] = useState<View>(() => {
+    const saved = localStorage.getItem("currentView");
+    return (saved as View) || "home";
+  });
+  const [enteredAddress, setEnteredAddress] = useState(() => {
+    return localStorage.getItem("enteredAddress") || "";
+  });
+  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(() => {
+    const saved = localStorage.getItem("analysisData");
+    return saved ? JSON.parse(saved) : null;
+  });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Save state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("currentView", currentView);
+  }, [currentView]);
+
+  useEffect(() => {
+    if (enteredAddress) {
+      localStorage.setItem("enteredAddress", enteredAddress);
+    }
+  }, [enteredAddress]);
+
+  useEffect(() => {
+    if (analysisData) {
+      localStorage.setItem("analysisData", JSON.stringify(analysisData));
+    }
+  }, [analysisData]);
 
   const handleGetStarted = () => {
     setCurrentView("address-input");
@@ -71,6 +97,13 @@ export default function App() {
   const handleNavigate = (view: View) => {
     setCurrentView(view);
     setIsMobileMenuOpen(false);
+    // Clear saved data if navigating away from dashboard
+    if (view === "home") {
+      localStorage.removeItem("enteredAddress");
+      localStorage.removeItem("analysisData");
+      setEnteredAddress("");
+      setAnalysisData(null);
+    }
   };
 
   const handleMenuClick = () => {
