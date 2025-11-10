@@ -99,7 +99,9 @@ export function HomePage({
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">
           Sell Faster.
             <br />
-            Win More Listings.  
+            Win More 
+            <br />
+            Listings.  
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Get instant AI-powered analysis of your property listings to sell
