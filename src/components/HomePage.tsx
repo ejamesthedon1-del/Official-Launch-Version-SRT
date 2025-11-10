@@ -97,9 +97,9 @@ export function HomePage({
         {/* Hero Content */}
         <div className="container mx-auto max-w-4xl px-4 pt-12 pb-32 text-center relative z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">
-          Sell Listings Faster — With the AI Assistant Every Top Agent Is Using.
+          Sell Listings Faster
             <br />
-            With the AI Assistant Every Top Agent Is Using.
+            With the AI Assistant Every Top Agents Are Using
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Get instant AI-powered analysis of your property listings to sell
