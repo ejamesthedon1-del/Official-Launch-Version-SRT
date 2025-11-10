@@ -158,7 +158,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
     <div className="min-h-screen bg-white">
       <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
-      <main className="container mx-auto px-4 pt-24 pb-12">
+      <main className="container mx-auto px-4 pt-4 md:pt-24 pb-12">
         {/* Alert Banner */}
         {insights.alerts.length > 0 && (
           <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">

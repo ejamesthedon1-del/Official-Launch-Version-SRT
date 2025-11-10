@@ -291,7 +291,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
         onMenuClick={onMenuClick}
       />
 
-      <main className="container mx-auto px-4 pt-24 pb-12">
+      <main className="container mx-auto px-4 pt-4 md:pt-24 pb-12">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <Badge className="mb-4">Step 1 of 2</Badge>

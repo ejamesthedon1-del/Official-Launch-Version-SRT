@@ -175,7 +175,7 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
     <div className="min-h-screen bg-white">
       <Navigation currentView="marketing-plan" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
-      <main className="container mx-auto px-4 pt-24 pb-12 max-w-6xl">
+      <main className="container mx-auto px-4 pt-4 md:pt-24 pb-12 max-w-6xl">
         {/* Header Section */}
         <div className="mb-8">
           <Badge className="mb-4">Premium Plan Unlocked</Badge>
