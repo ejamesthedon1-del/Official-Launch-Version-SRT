@@ -7,7 +7,7 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center p-1.5" style={{ background: 'transparent' }}>
+              <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center p-1.5">
                 <Logo gradient="logoFooter" />
               </div>
               <span className="tracking-tight text-slate-900">Smart Realtor Tool</span>
