@@ -39,10 +39,22 @@ function transformAnalysisData(address: string, geminiData: any): any {
   const city = addressParts.length > 1 ? addressParts[addressParts.length - 2]?.trim() || "Unknown" : "Unknown";
 
   // Transform the simple Gemini response to the full Dashboard structure
-  const estimatedValue = geminiData.estimatedValue || geminiData.estimatedPrice || 0;
-  const beds = geminiData.beds || 0;
-  const baths = geminiData.baths || 0;
-  const sqft = geminiData.sqft || 0;
+  // Prefer estimatedPrice (actual listing price) over estimatedValue
+  const estimatedValue = geminiData.estimatedPrice || geminiData.estimatedValue || 0;
+  
+  // Parse and validate numeric fields with fallbacks
+  const parseNumber = (value: any, defaultValue: number = 0): number => {
+    if (typeof value === 'number' && !isNaN(value)) return Math.max(0, value);
+    if (value === null || value === undefined) return defaultValue;
+    const parsed = parseFloat(value);
+    return !isNaN(parsed) ? Math.max(0, parsed) : defaultValue;
+  };
+  
+  const beds = Math.round(parseNumber(geminiData.beds, 0));
+  const baths = parseNumber(geminiData.baths, 0);
+  const sqft = Math.round(parseNumber(geminiData.sqft, 0));
+  const daysOnMarket = Math.round(parseNumber(geminiData.daysOnMarket, 0));
+  
   const pricePerSqft = sqft > 0 && estimatedValue > 0 ? Math.round(estimatedValue / sqft) : 0;
   
   return {
@@ -55,7 +67,7 @@ function transformAnalysisData(address: string, geminiData: any): any {
       beds: beds,
       baths: baths,
       sqft: sqft > 0 ? sqft.toLocaleString() : "N/A",
-      daysOnMarket: 0
+      daysOnMarket: daysOnMarket
     },
     overallScore: 75, // Default score
     ratings: [
