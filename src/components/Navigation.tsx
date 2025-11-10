@@ -24,9 +24,23 @@ export function Navigation({
           ? "bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400" 
           : "bg-white"
       }`}
-      style={{ boxShadow: 'none', border: 'none', WebkitBoxShadow: 'none' }}
+      style={{ 
+        boxShadow: 'none', 
+        border: 'none', 
+        WebkitBoxShadow: 'none',
+        MozBoxShadow: 'none',
+        msBoxShadow: 'none'
+      }}
     >
-      <div className="container mx-auto max-w-6xl px-4 py-4" style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}>
+      <div 
+        className="container mx-auto max-w-6xl px-4 py-4" 
+        style={{ 
+          boxShadow: 'none', 
+          WebkitBoxShadow: 'none',
+          MozBoxShadow: 'none',
+          msBoxShadow: 'none'
+        }}
+      >
         <div className="flex items-center justify-between">
           {/* Logo - clickable to go home */}
           <button
@@ -34,10 +48,14 @@ export function Navigation({
             className={`flex items-center gap-2 hover:opacity-90 transition-opacity ${
               isHomePage ? "text-white" : "text-slate-900"
             }`}
+            style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
           >
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center p-1.5 ${
-              isHomePage ? "bg-white/20 backdrop-blur-sm" : "bg-blue-600"
-            }`}>
+            <div 
+              className={`w-10 h-10 rounded-lg flex items-center justify-center p-1.5 ${
+                isHomePage ? "bg-white/20 backdrop-blur-sm" : "bg-blue-600"
+              }`}
+              style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
+            >
               <Logo gradient={isHomePage ? "logoHeaderWhite" : "logoHeader"} />
             </div>
             <span className="tracking-tight font-medium">Smart Realtor Tool</span>
@@ -99,6 +117,21 @@ export function Navigation({
           </button>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 768px) {
+          header {
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            border: none !important;
+          }
+          header * {
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+          }
+        }
+      `}</style>
     </header>
   );
 }
