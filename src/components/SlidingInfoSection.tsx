@@ -125,7 +125,9 @@ export function SlidingInfoSection() {
           Quicker Closings.
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-          Without a strategy, even the best properties can sit unsold.
+          From insight to execution, SmartRelatorTools streamlines every step,
+          <br />
+          turning your listings into high-performing sales machines.
           </p>
         </div>
 
