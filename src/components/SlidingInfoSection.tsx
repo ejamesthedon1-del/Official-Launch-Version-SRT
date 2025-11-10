@@ -127,9 +127,9 @@ export function SlidingInfoSection() {
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
           From data to action. 
          <br />
-         SmartRelatorTools's AI Marketing Intelligence
+         SmartRelatorTools transforms 
          <br />
-         transforms insights into an easy-to-follow plan.
+         insights into an easy-to-follow plan.
           </p>
         </div>
 
