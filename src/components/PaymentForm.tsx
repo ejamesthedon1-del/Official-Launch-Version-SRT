@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { CreditCard, Loader2, Lock } from "lucide-react";
+import { Loader2, Lock } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "../lib/supabaseClient";
 
 interface PaymentFormProps {
   amount: number;
@@ -12,106 +19,105 @@ interface PaymentFormProps {
   onCancel: () => void;
 }
 
-export function PaymentForm({
+// Initialize Stripe
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "");
+
+// Inner component that uses Stripe hooks
+function PaymentFormInner({
   amount,
   address,
   onSuccess,
   onCancel,
 }: PaymentFormProps) {
+  const stripe = useStripe();
+  const elements = useElements();
   const [loading, setLoading] = useState(false);
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [name, setName] = useState("");
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
 
-  const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
-    const matches = v.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || "";
-    const parts = [];
+  // Create payment intent when component mounts
+  useEffect(() => {
+    const createPaymentIntent = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke(
+          "make-server-52cdd920/create-payment-intent",
+          {
+            body: { amount, address },
+          }
+        );
 
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
-    }
+        if (error) {
+          console.error("Error creating payment intent:", error);
+          toast.error("Failed to initialize payment");
+          return;
+        }
 
-    if (parts.length) {
-      return parts.join(" ");
-    } else {
-      return value;
-    }
-  };
+        if (data?.clientSecret && data?.paymentIntentId) {
+          setClientSecret(data.clientSecret);
+          setPaymentIntentId(data.paymentIntentId);
+        }
+      } catch (err) {
+        console.error("Error creating payment intent:", err);
+        toast.error("Failed to initialize payment");
+      }
+    };
 
-  const formatExpiry = (value: string) => {
-    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
-    if (v.length >= 2) {
-      return v.slice(0, 2) + (v.length > 2 ? " / " + v.slice(2, 4) : "");
-    }
-    return v;
-  };
+    createPaymentIntent();
+  }, [amount, address]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!stripe || !elements || !clientSecret) {
+      toast.error("Payment system not ready. Please wait...");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      // Get project ID and anon key
-      const { projectId, publicAnonKey } = await import(
-        "../utils/supabase/info.tsx"
-      );
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        throw new Error("Card element not found");
+      }
 
-      // Create payment intent
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-52cdd920/create-payment-intent`,
+      // Confirm payment with Stripe
+      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(
+        clientSecret,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${publicAnonKey}`,
+          payment_method: {
+            card: cardElement,
           },
-          body: JSON.stringify({
-            amount,
-            address,
-          }),
         }
       );
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Failed to create payment intent");
+      if (confirmError) {
+        console.error("Payment confirmation error:", confirmError);
+        toast.error(confirmError.message || "Payment failed");
+        setLoading(false);
+        return;
       }
 
-      const { paymentIntentId } = await response.json();
+      if (paymentIntent?.status === "succeeded") {
+        // Verify payment on backend
+        const { data: verifyData, error: verifyError } = await supabase.functions.invoke(
+          "make-server-52cdd920/verify-payment",
+          {
+            body: { paymentIntentId: paymentIntent.id },
+          }
+        );
 
-      // In a real implementation, you would use Stripe Elements here
-      // For demo purposes, we'll simulate a successful payment
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Verify payment
-      const verifyResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-52cdd920/verify-payment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${publicAnonKey}`,
-          },
-          body: JSON.stringify({
-            paymentIntentId,
-          }),
+        if (verifyError || !verifyData?.success) {
+          console.error("Payment verification error:", verifyError);
+          toast.error("Payment verification failed");
+          setLoading(false);
+          return;
         }
-      );
 
-      if (!verifyResponse.ok) {
-        throw new Error("Failed to verify payment");
-      }
-
-      const { success } = await verifyResponse.json();
-
-      if (success) {
         toast.success("Payment successful!");
         onSuccess();
       } else {
-        throw new Error("Payment was not successful");
+        toast.error(`Payment status: ${paymentIntent?.status}`);
       }
     } catch (error) {
       console.error("Payment error:", error);
@@ -121,72 +127,32 @@ export function PaymentForm({
     }
   };
 
+  const cardElementOptions = {
+    style: {
+      base: {
+        fontSize: "16px",
+        color: "#424770",
+        "::placeholder": {
+          color: "#aab7c4",
+        },
+      },
+      invalid: {
+        color: "#9e2146",
+      },
+    },
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="name">Cardholder Name</Label>
-        <Input
-          id="name"
-          type="text"
-          placeholder="John Doe"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          disabled={loading}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="cardNumber">Card Number</Label>
-        <div className="relative">
-          <CreditCard className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-          <Input
-            id="cardNumber"
-            type="text"
-            placeholder="1234 5678 9012 3456"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-            maxLength={19}
-            className="pl-10"
-            required
-            disabled={loading}
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="expiry">Expiry Date</Label>
-          <Input
-            id="expiry"
-            type="text"
-            placeholder="MM / YY"
-            value={expiry}
-            onChange={(e) => setExpiry(formatExpiry(e.target.value))}
-            maxLength={7}
-            required
-            disabled={loading}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="cvc">CVC</Label>
-          <Input
-            id="cvc"
-            type="text"
-            placeholder="123"
-            value={cvc}
-            onChange={(e) =>
-              setCvc(e.target.value.replace(/\D/g, "").slice(0, 4))
-            }
-            maxLength={4}
-            required
-            disabled={loading}
-          />
+        <Label>Card Details</Label>
+        <div className="p-3 border rounded-md bg-background">
+          <CardElement options={cardElementOptions} />
         </div>
       </div>
 
       <div className="pt-4 space-y-3">
-        <Button type="submit" className="w-full" size="lg" disabled={loading}>
+        <Button type="submit" className="w-full" size="lg" disabled={loading || !clientSecret}>
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -211,5 +177,26 @@ export function PaymentForm({
         </div>
       </div>
     </form>
+  );
+}
+
+// Wrapper component with Elements provider
+export function PaymentForm(props: PaymentFormProps) {
+  const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+
+  if (!publishableKey) {
+    return (
+      <div className="p-4 border rounded-md bg-destructive/10">
+        <p className="text-sm text-destructive">
+          Stripe publishable key not configured. Please add VITE_STRIPE_PUBLISHABLE_KEY to your .env file.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <Elements stripe={stripePromise}>
+      <PaymentFormInner {...props} />
+    </Elements>
   );
 }

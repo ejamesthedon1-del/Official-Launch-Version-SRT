@@ -27,6 +27,83 @@ interface Prediction {
   };
 }
 
+// Transform Gemini AI response to Dashboard's expected format
+function transformAnalysisData(address: string, geminiData: any): any {
+  // If it already has the correct structure, return it
+  if (geminiData.listing && geminiData.overallScore) {
+    return geminiData;
+  }
+
+  // Extract city from address (simple parsing)
+  const addressParts = address.split(",");
+  const city = addressParts.length > 1 ? addressParts[addressParts.length - 2]?.trim() || "Unknown" : "Unknown";
+
+  // Transform the simple Gemini response to the full Dashboard structure
+  const estimatedValue = geminiData.estimatedValue || geminiData.estimatedPrice || 0;
+  const beds = geminiData.beds || 0;
+  const baths = geminiData.baths || 0;
+  const sqft = geminiData.sqft || 0;
+  const pricePerSqft = sqft > 0 && estimatedValue > 0 ? Math.round(estimatedValue / sqft) : 0;
+  
+  return {
+    listing: {
+      address: address,
+      city: city,
+      propertyType: geminiData.propertyType || "Residential",
+      price: estimatedValue > 0 ? `$${estimatedValue.toLocaleString()}` : "Price not available",
+      pricePerSqft: pricePerSqft > 0 ? `$${pricePerSqft.toLocaleString()}` : "N/A",
+      beds: beds,
+      baths: baths,
+      sqft: sqft > 0 ? sqft.toLocaleString() : "N/A",
+      daysOnMarket: 0
+    },
+    overallScore: 75, // Default score
+    ratings: [
+      {
+        title: "Property Type",
+        score: 8,
+        maxScore: 10,
+        category: "Type",
+        description: geminiData.propertyType || "Residential property"
+      },
+      {
+        title: "Market Trend",
+        score: 7,
+        maxScore: 10,
+        category: "Market",
+        description: geminiData.marketTrend || "Stable market"
+      },
+      {
+        title: "Key Features",
+        score: 8,
+        maxScore: 10,
+        category: "Features",
+        description: geminiData.keyFeatures?.join(", ") || "Standard features"
+      }
+    ],
+    categoryScores: [
+      { category: "Property Type", score: 8 },
+      { category: "Market Trend", score: 7 },
+      { category: "Features", score: 8 }
+    ],
+    radarData: [
+      { subject: "Value", A: 7, fullMark: 10 },
+      { subject: "Location", A: 8, fullMark: 10 },
+      { subject: "Features", A: 8, fullMark: 10 },
+      { subject: "Market", A: 7, fullMark: 10 }
+    ],
+    insights: {
+      summary: `Analysis for ${address}. ${geminiData.marketTrend || "Market conditions are stable"}. ${geminiData.keyFeatures?.join(", ") || "Standard property features"}.`,
+      alerts: geminiData.riskFactors?.map((risk: string) => ({
+        type: "warning",
+        title: "Risk Factor",
+        message: risk
+      })) || [],
+      topPriorities: geminiData.recommendations || ["Review property details", "Check market conditions"]
+    }
+  };
+}
+
 export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInputProps) {
   const [address, setAddress] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -129,16 +206,78 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
 
       if (error) {
         console.error("Analysis error:", error);
-        throw error;
+        // Log more details about the error
+        if (error.message) {
+          console.error("Error message:", error.message);
+        }
+        if (error.context) {
+          console.error("Error context:", error.context);
+        }
+        
+        // Try to get the actual error response from the function
+        try {
+          const response = error.context as Response;
+          if (response) {
+            const errorText = await response.text();
+            console.error("Edge Function error response:", errorText);
+            try {
+              const errorJson = JSON.parse(errorText);
+              console.error("Edge Function error JSON:", errorJson);
+              if (errorJson.error) {
+                toast.error(`Analysis failed: ${errorJson.error}`);
+              } else if (errorJson.details) {
+                toast.error(`Analysis failed: ${JSON.stringify(errorJson.details)}`);
+              } else {
+                toast.error(`Analysis failed: ${errorText}`);
+              }
+            } catch {
+              toast.error(`Analysis failed: ${errorText || error.message}`);
+            }
+          }
+        } catch (parseErr) {
+          console.error("Could not parse error response:", parseErr);
+        }
+        
+        // Check if we got a response with error details
+        if (analysisData?.error) {
+          console.error("Edge Function error in data:", analysisData.error);
+          toast.error(`Analysis failed: ${analysisData.error}`);
+        } else if (!error.context) {
+          toast.error("Failed to analyze listing. Please check the console for details.");
+        }
+        setAnalyzing(false);
+        return;
       }
 
-      setTimeout(() => {
-        setAnalyzing(false);
-        onAnalyze(address, analysisData);
-      }, 500);
-    } catch (err) {
+      // Check if the response has the expected structure
+      console.log("Analysis response received:", analysisData);
+      
+      if (analysisData?.result) {
+        // Transform the Gemini response to match the Dashboard's expected structure
+        console.log("Transforming result data:", analysisData.result);
+        const transformedData = transformAnalysisData(address, analysisData.result);
+        console.log("Transformed data:", transformedData);
+        setTimeout(() => {
+          setAnalyzing(false);
+          onAnalyze(address, transformedData);
+        }, 500);
+      } else if (analysisData) {
+        // If response doesn't have .result, try to transform it
+        console.log("Transforming direct data:", analysisData);
+        const transformedData = transformAnalysisData(address, analysisData);
+        console.log("Transformed data:", transformedData);
+        setTimeout(() => {
+          setAnalyzing(false);
+          onAnalyze(address, transformedData);
+        }, 500);
+      } else {
+        console.error("No analysis data received");
+        throw new Error("No data received from analysis");
+      }
+    } catch (err: any) {
       console.error("Error analyzing listing:", err);
-      toast.error("Failed to analyze listing. Please try again.");
+      const errorMessage = err?.message || "Unknown error occurred";
+      toast.error(`Failed to analyze listing: ${errorMessage}`);
       setAnalyzing(false);
     }
   };

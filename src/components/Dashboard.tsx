@@ -6,8 +6,10 @@ import { SubscriptionDialog } from "./SubscriptionDialog";
 import { Navigation } from "./Navigation";
 import { LockedDashboard } from "./LockedDashboard";
 import { Paywall } from "./Paywall";
+import { supabase } from "../lib/supabaseClient";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Progress } from "./ui/progress";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -78,20 +80,51 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const [hasAnalyzedBefore, setHasAnalyzedBefore] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [checkingSubscription, setCheckingSubscription] = useState(true);
+
+  // Check subscription status
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (!address) {
+        setCheckingSubscription(false);
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase.functions.invoke(
+          "make-server-52cdd920/check-subscription",
+          {
+            body: { address },
+          }
+        );
+
+        if (!error && data?.hasSubscription) {
+          setIsSubscribed(true);
+        }
+      } catch (err) {
+        console.error("Error checking subscription:", err);
+      } finally {
+        setCheckingSubscription(false);
+      }
+    };
+
+    checkSubscription();
+  }, [address]);
 
   // Check if user has analyzed before (in real app, this would come from backend)
   useEffect(() => {
     const hasAnalyzed = localStorage.getItem('hasAnalyzedBefore');
     setHasAnalyzedBefore(!!hasAnalyzed);
     
-    // Show paywall after first analysis
-    if (analysisData && !hasAnalyzed) {
+    // Show paywall after first analysis (only if not subscribed)
+    if (analysisData && !hasAnalyzed && !isSubscribed) {
       setTimeout(() => {
         setShowPaywall(true);
         localStorage.setItem('hasAnalyzedBefore', 'true');
       }, 2000);
     }
-  }, [analysisData]);
+  }, [analysisData, isSubscribed]);
 
   // Show empty state if no analysis data
   if (!analysisData) {
@@ -112,14 +145,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
   const handleSubscriptionComplete = () => {
     setDialogOpen(false);
+    setIsSubscribed(true);
+    setShowPaywall(false);
     onSubscribe();
   };
 
   const handleNavigateToAnalysis = () => {
     onNavigate("address-input");
   };
-
-  const isSubscribed = false; // In real app, this would come from backend/user state
 
   return (
     <div className="min-h-screen bg-white">
