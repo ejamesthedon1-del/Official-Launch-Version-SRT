@@ -125,9 +125,9 @@ export function SlidingInfoSection() {
           Quicker Closings.
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-          From insight to execution, SmartRelatorTools streamlines every step,
-          <br />
-          turning your listings into high-performing sales machines.
+          From data to action. SmartRelatorTools 
+         <br />
+         transforms insights into an easy-to-follow plan.
           </p>
         </div>
 
