@@ -102,7 +102,9 @@ export function HomePage({
            Close Faster 
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          AI intelligence built to close deals 10× faster
+          AI intelligence built to
+          <br />
+          close deals 10× faster
           </p>
           <Button
             size="lg"
