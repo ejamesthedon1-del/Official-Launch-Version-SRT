@@ -120,10 +120,10 @@ export function SlidingInfoSection() {
             AI-Powered Insights
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Transform Your Real Estate Strategy
+          Every Listing Needs a Winning Plan.
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Harness the power of artificial intelligence to analyze properties, target buyers, and optimize your selling approach with data-driven precision.
+          Without a strategy, even the best properties can sit unsold.
           </p>
         </div>
 
