@@ -168,19 +168,23 @@ Deno.serve(async (req) => {
         return json({ error: "Gemini API key missing" }, 500);
       }
 
-      const prompt = `You are a real estate listing analysis AI. Analyze this property address and provide a JSON object with the following structure. For estimated values, use realistic numbers based on the property type and location. If specific details are not available, provide reasonable estimates:
+      const prompt = `Analyze this property address and return ONLY valid JSON. No explanations, no markdown, no code blocks. Start with { and end with }.
+
 {
-  "propertyType": "string (e.g., Single Family Home, Condo, Townhouse)",
-  "estimatedValue": number (estimated property value in USD),
-  "estimatedPrice": number (listing price, can be same as estimatedValue),
-  "beds": number (number of bedrooms, estimate if unknown),
-  "baths": number (number of bathrooms, estimate if unknown),
-  "sqft": number (square footage, estimate if unknown),
-  "marketTrend": "string (e.g., Hot Market, Stable Market, Slow Market)",
-  "keyFeatures": ["string"],
-  "recommendations": ["string"],
-  "riskFactors": ["string"]
+  "propertyType": "Single Family Home",
+  "estimatedValue": 500000,
+  "estimatedPrice": 500000,
+  "beds": 3,
+  "baths": 2.5,
+  "sqft": 2000,
+  "daysOnMarket": 0,
+  "marketTrend": "Stable Market",
+  "keyFeatures": ["feature1", "feature2"],
+  "recommendations": ["recommendation1", "recommendation2"],
+  "riskFactors": ["risk1", "risk2"]
 }
+
+Use actual listing data when available. If not available, provide realistic estimates based on property type and location.
 
 Address: ${address}`;
 
@@ -198,7 +202,7 @@ Address: ${address}`;
             }
           ],
           generationConfig: {
-            temperature: 0.7,
+            temperature: 0.5,
             maxOutputTokens: 2048,
             responseMimeType: "application/json"
           }
@@ -254,17 +258,72 @@ Address: ${address}`;
           );
         }
 
+        // Robust JSON parsing - handle multiple formats
         let parsed;
         try {
-          const jsonText = aiText.trim().replace(/```json\n?/g, "").replace(/```/g, "").trim();
-          parsed = JSON.parse(jsonText);
+          let jsonText = aiText.trim();
+          
+          // First, try parsing directly (in case responseMimeType worked correctly)
+          try {
+            parsed = JSON.parse(jsonText);
+            if (parsed && typeof parsed === 'object') {
+              // Success! Use this parsed result
+            } else {
+              throw new Error("Parsed data is not an object");
+            }
+          } catch (directParseError) {
+            // Direct parse failed, try cleaning the response
+            
+            // Remove markdown code blocks if present
+            jsonText = jsonText.replace(/```json\n?/gi, "").replace(/```\n?/g, "").trim();
+            
+            // Remove any text before the first {
+            const firstBrace = jsonText.indexOf('{');
+            if (firstBrace > 0) {
+              jsonText = jsonText.substring(firstBrace);
+            }
+            
+            // Find the matching closing brace for the first {
+            let braceCount = 0;
+            let endIndex = -1;
+            for (let i = 0; i < jsonText.length; i++) {
+              if (jsonText[i] === '{') braceCount++;
+              if (jsonText[i] === '}') braceCount--;
+              if (braceCount === 0 && jsonText[i] === '}') {
+                endIndex = i + 1;
+                break;
+              }
+            }
+            
+            if (endIndex > 0) {
+              jsonText = jsonText.substring(0, endIndex);
+            }
+            
+            // Try parsing the cleaned JSON
+            parsed = JSON.parse(jsonText);
+            
+            // Validate that we have the required fields
+            if (!parsed || typeof parsed !== 'object') {
+              throw new Error("Parsed data is not an object");
+            }
+          }
+          
         } catch (parseError) {
-          console.error("Failed to parse Gemini response as JSON:", aiText);
+          console.error("Failed to parse Gemini response as JSON");
+          console.error("Raw response length:", aiText.length);
+          console.error("Raw response (first 500 chars):", aiText.substring(0, 500));
+          console.error("Raw response (last 500 chars):", aiText.substring(Math.max(0, aiText.length - 500)));
           console.error("Parse error:", parseError.message);
+          console.error("Parse error stack:", parseError.stack);
+          
+          // Try to provide a helpful error with more context
           return json(
             {
               error: "AI response was not valid JSON",
-              rawResponse: aiText.substring(0, 500)
+              details: parseError.message,
+              rawResponse: aiText.substring(0, 1000),
+              rawResponseLength: aiText.length,
+              suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
             },
             500
           );

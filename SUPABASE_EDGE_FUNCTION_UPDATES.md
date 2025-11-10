@@ -211,33 +211,23 @@ Deno.serve(async (req) => {
         }, 500);
       }
 
-      const prompt = `You are a real estate listing analysis AI. Analyze this property address and provide accurate, real listing data when available. Search for ACTUAL property listing information from real estate websites, MLS databases, or property records. Use REAL data over estimates whenever possible.
+      const prompt = `Analyze this property address and return ONLY valid JSON. No explanations, no markdown, no code blocks. Start with { and end with }.
 
-CRITICAL: Provide actual listing data if the property is currently listed or recently sold. Only use estimates if no real listing data can be found.
-
-Return a JSON object with the following structure:
 {
-  "propertyType": "string (e.g., Single Family Home, Condo, Townhouse, Apartment)",
-  "estimatedValue": number (ACTUAL listing price if available, otherwise estimated property value in USD),
-  "estimatedPrice": number (ACTUAL current listing price if property is listed, otherwise estimated value in USD),
-  "beds": number (ACTUAL number of bedrooms from listing data, or realistic estimate if unknown - use whole numbers only),
-  "baths": number (ACTUAL number of bathrooms from listing data, or realistic estimate if unknown - can include half baths like 2.5),
-  "sqft": number (ACTUAL square footage from listing data, or realistic estimate if unknown),
-  "daysOnMarket": number (ACTUAL days the property has been on market if currently listed, or 0 if not listed or unknown),
-  "marketTrend": "string (e.g., Hot Market, Stable Market, Slow Market, Buyer's Market, Seller's Market)",
-  "keyFeatures": ["string"] (array of key property features and amenities),
-  "recommendations": ["string"] (array of actionable recommendations for the property),
-  "riskFactors": ["string"] (array of potential risks or concerns)
+  "propertyType": "Single Family Home",
+  "estimatedValue": 500000,
+  "estimatedPrice": 500000,
+  "beds": 3,
+  "baths": 2.5,
+  "sqft": 2000,
+  "daysOnMarket": 0,
+  "marketTrend": "Stable Market",
+  "keyFeatures": ["feature1", "feature2"],
+  "recommendations": ["recommendation1", "recommendation2"],
+  "riskFactors": ["risk1", "risk2"]
 }
 
-IMPORTANT GUIDELINES:
-- If the property is listed, use the ACTUAL listing price, beds, baths, and sqft from the listing
-- For daysOnMarket: Use the actual number of days if the property is currently listed, otherwise use 0
-- For beds and baths: Use whole numbers for beds (1, 2, 3, etc.) and can use decimals for baths (1.5, 2.5, etc.) if that's what the listing shows
-- For price: Prioritize actual listing price over estimated value
-- Only use estimates when actual listing data cannot be found
-- Be precise with numbers - avoid rounding unless necessary
-- For propertyType: Be specific (e.g., "Single Family Home", "Condominium", "Townhouse", "Multi-Family", etc.)
+Use actual listing data when available. If not available, provide realistic estimates based on property type and location.
 
 Address: ${address}`;
 
@@ -304,16 +294,71 @@ Address: ${address}`;
           }, 500);
         }
 
+        // Robust JSON parsing - handle multiple formats
         let parsed;
         try {
-          const jsonText = aiText.trim().replace(/```json\n?/g, "").replace(/```/g, "").trim();
-          parsed = JSON.parse(jsonText);
+          let jsonText = aiText.trim();
+          
+          // First, try parsing directly (in case responseMimeType worked correctly)
+          try {
+            parsed = JSON.parse(jsonText);
+            if (parsed && typeof parsed === 'object') {
+              // Success! Use this parsed result
+            } else {
+              throw new Error("Parsed data is not an object");
+            }
+          } catch (directParseError) {
+            // Direct parse failed, try cleaning the response
+            
+            // Remove markdown code blocks if present
+            jsonText = jsonText.replace(/```json\n?/gi, "").replace(/```\n?/g, "").trim();
+            
+            // Remove any text before the first {
+            const firstBrace = jsonText.indexOf('{');
+            if (firstBrace > 0) {
+              jsonText = jsonText.substring(firstBrace);
+            }
+            
+            // Find the matching closing brace for the first {
+            let braceCount = 0;
+            let endIndex = -1;
+            for (let i = 0; i < jsonText.length; i++) {
+              if (jsonText[i] === '{') braceCount++;
+              if (jsonText[i] === '}') braceCount--;
+              if (braceCount === 0 && jsonText[i] === '}') {
+                endIndex = i + 1;
+                break;
+              }
+            }
+            
+            if (endIndex > 0) {
+              jsonText = jsonText.substring(0, endIndex);
+            }
+            
+            // Try parsing the cleaned JSON
+            parsed = JSON.parse(jsonText);
+            
+            // Validate that we have the required fields
+            if (!parsed || typeof parsed !== 'object') {
+              throw new Error("Parsed data is not an object");
+            }
+          }
+          
         } catch (parseError) {
-          console.error("Failed to parse Gemini response as JSON:", aiText);
+          console.error("Failed to parse Gemini response as JSON");
+          console.error("Raw response length:", aiText.length);
+          console.error("Raw response (first 500 chars):", aiText.substring(0, 500));
+          console.error("Raw response (last 500 chars):", aiText.substring(Math.max(0, aiText.length - 500)));
           console.error("Parse error:", parseError.message);
+          console.error("Parse error stack:", parseError.stack);
+          
+          // Try to provide a helpful error with more context
           return json({
             error: "AI response was not valid JSON",
-            rawResponse: aiText.substring(0, 500)
+            details: parseError.message,
+            rawResponse: aiText.substring(0, 1000),
+            rawResponseLength: aiText.length,
+            suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
           }, 500);
         }
 
