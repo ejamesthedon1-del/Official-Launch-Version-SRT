@@ -6,22 +6,27 @@ import { Lock, Crown, CheckCircle, Star, ArrowRight, Zap } from "lucide-react";
 
 interface PaywallProps {
   onSubscribe: () => void;
+  onClose?: () => void;
   analysisData?: any;
 }
 
-export function Paywall({ onSubscribe, analysisData }: PaywallProps) {
+export function Paywall({ onSubscribe, onClose, analysisData }: PaywallProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
+      {/* Gradient overlay - allows partial visibility but not readable */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/85 to-white/95 backdrop-blur-md" />
+      
+      {/* Modal content - positioned on top of gradient */}
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="relative bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
       >
         <div className="p-8">
           {/* Header */}
@@ -163,7 +168,11 @@ export function Paywall({ onSubscribe, analysisData }: PaywallProps) {
             <Button 
               variant="ghost" 
               className="text-slate-500 hover:text-slate-700"
-              onClick={() => {/* Close paywall */}}
+              onClick={() => {
+                if (onClose) {
+                  onClose();
+                }
+              }}
             >
               Maybe Later
             </Button>

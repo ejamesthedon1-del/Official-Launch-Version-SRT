@@ -324,7 +324,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {!isSubscribed && showPaywall && (
             <div className="mb-8">
               <Paywall 
-                onSubscribe={handleSubscribe} 
+                onSubscribe={handleSubscribe}
+                onClose={() => setShowPaywall(false)}
                 analysisData={analysisData}
               />
             </div>
