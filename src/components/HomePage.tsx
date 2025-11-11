@@ -5,6 +5,7 @@ import {
   Home,
   BarChart3,
   FileText,
+  MapPin,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -153,7 +154,7 @@ export function HomePage({
             {/* Step 1: Analyze Listing */}
             <div className="relative">
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
-                {/* Dashboard mockup */}
+                {/* Address Input mockup */}
                 <div className="w-full h-full">
                   {/* Browser chrome */}
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
@@ -165,26 +166,56 @@ export function HomePage({
                         <div className="w-2 h-2 rounded-full bg-green-400" />
                       </div>
                       <div className="flex-1 bg-white rounded px-3 py-1 mx-4">
-                        <span className="text-xs text-slate-400">smartrealtortools.com/dashboard</span>
+                        <span className="text-xs text-slate-400">smartrealtortools.com/analyze</span>
                       </div>
                     </div>
                     
-                    {/* Dashboard content - scaled down */}
-                    <div className="flex-1 overflow-hidden relative">
-                      <div className="absolute inset-0" style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}>
-                        <DashboardPreview />
-                      </div>
-                      
-                      {/* Click cursor indicator */}
-                      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 z-20">
-                        <div className="relative">
-                          <svg width="32" height="32" viewBox="0 0 24 24" className="text-blue-600 drop-shadow-lg">
-                            <path
-                              fill="currentColor"
-                              d="M8 2l12 11-5.5-.5L12 18z"
-                            />
-                          </svg>
-                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 rounded-full animate-ping opacity-75" />
+                    {/* Address Input content */}
+                    <div className="flex-1 overflow-hidden relative bg-white p-4 md:p-6">
+                      <div className="h-full flex flex-col items-center justify-center">
+                        {/* Header */}
+                        <div className="text-center mb-6">
+                          <Badge className="mb-3 text-xs">Step 1 of 2</Badge>
+                          <h2 className="text-lg md:text-xl font-semibold text-slate-900 mb-2">Enter Your Property Address</h2>
+                          <p className="text-xs md:text-sm text-slate-600">
+                            Our AI will analyze your listing in seconds
+                          </p>
+                        </div>
+
+                        {/* Address Input Form */}
+                        <div className="w-full max-w-sm">
+                          <div className="bg-white rounded-lg border border-slate-200 p-4 md:p-6 shadow-sm">
+                            <div className="space-y-3">
+                              <label className="text-xs md:text-sm font-medium text-slate-700 block">
+                                Property Address
+                              </label>
+                              <div className="relative">
+                                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
+                                <input
+                                  type="text"
+                                  placeholder="123 Main Street, City, State ZIP"
+                                  className="w-full pl-10 pr-4 py-2.5 text-sm border border-slate-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  readOnly
+                                />
+                                
+                                {/* Mouse cursor hovering over input */}
+                                <div className="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 z-20">
+                                  <div className="relative">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" className="text-blue-600 drop-shadow-lg">
+                                      <path
+                                        fill="currentColor"
+                                        d="M8 2l12 11-5.5-.5L12 18z"
+                                      />
+                                    </svg>
+                                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full animate-ping opacity-75" />
+                                  </div>
+                                </div>
+                              </div>
+                              <p className="text-xs text-slate-500">
+                                Start typing to see address suggestions
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
