@@ -13,7 +13,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Progress } from "./ui/progress";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { CircularProgress } from "./CircularProgress";
 import {
   BarChart,
   Bar,
@@ -40,7 +40,6 @@ interface AnalysisData {
     baths: number;
     sqft: string;
     daysOnMarket: number;
-    imageUrl?: string | null; // Optional property image URL
   };
   overallScore: number;
   ratings: Array<{
@@ -259,26 +258,18 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Property Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
-              {/* Property Image */}
-              <div className="relative">
-                <div className="aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 shadow-md">
-                  <ImageWithFallback
-                    src={listing.imageUrl || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"}
-                    alt={listing.address}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer"
+              {/* Circular Progress Score */}
+              <div className="flex items-center justify-center">
+                <div className="text-center">
+                  <CircularProgress 
+                    percentage={overallScore} 
+                    size={240} 
+                    strokeWidth={24}
+                    showAnimation={true}
                   />
-                </div>
-                <div className="absolute top-3 left-3">
-                  <Badge className="bg-green-100 text-green-800 border-green-300">
-                    Active Listing
-                  </Badge>
-                </div>
-                <div className="absolute top-3 right-3">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg">
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse" />
-                      <span className="text-xs text-slate-700">Live</span>
-                    </div>
+                  <div className="mt-4">
+                    <div className="text-sm text-slate-600 mb-1">AI Listing Score</div>
+                    <div className="text-xs text-slate-500">{getScoreLabel(overallScore)}</div>
                   </div>
                 </div>
               </div>
@@ -286,18 +277,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Property Details */}
               <div className="flex flex-col justify-between">
                 <div>
-                  <div className="flex items-start justify-between mb-3 mt-2">
+                  <div className="mb-3 mt-2">
                     <div>
                       <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
                       <div className="flex items-center gap-2 text-slate-600">
                         <MapPin className="w-4 h-4" />
                         <span>{cityState}</span>
                       </div>
-                    </div>
-                    <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-xl px-4 py-3 text-center shadow-lg">
-                      <div className="text-xs opacity-90 mb-0.5">AI Score</div>
-                      <div className="text-3xl">{overallScore}</div>
-                      <div className="text-xs opacity-75">{getScoreLabel(overallScore)}</div>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3 mb-4">
