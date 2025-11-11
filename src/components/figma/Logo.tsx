@@ -1,10 +1,10 @@
-// Abstract Door Logo Component for Smart Realtor Tool
+// House Icon Logo Component for Smart Realtor Tool
 export const Logo = ({ className = "w-full h-full", gradient = "logoGradient" }) => (
   <svg viewBox="0 0 200 200" className={className}>
     <defs>
       <linearGradient id={gradient} x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
-        <stop offset="100%" style={{ stopColor: '#2563eb', stopOpacity: 1 }} />
+        <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
       </linearGradient>
       <linearGradient id="logoHeaderWhite" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 1 }} />
@@ -15,8 +15,29 @@ export const Logo = ({ className = "w-full h-full", gradient = "logoGradient" })
         <stop offset="100%" style={{ stopColor: '#e2e8f0', stopOpacity: 1 }} />
       </linearGradient>
     </defs>
-    <rect x="75" y="70" width="50" height="70" fill={`url(#${gradient})`} rx="6" />
-    <circle cx="110" cy="105" r="5" fill="white" opacity="0.8" />
-    <path d="M 70 65 L 100 50 L 130 65" stroke={`url(#${gradient})`} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    {/* V-shaped roof with rounded edges - positioned above door */}
+    <path 
+      d="M 70 75 Q 70 65 80 65 L 100 50 L 120 65 Q 130 65 130 75" 
+      fill={`url(#${gradient})`} 
+      stroke="none"
+    />
+    {/* Rectangular door with rounded corners - lower portion */}
+    <rect 
+      x="75" 
+      y="75" 
+      width="50" 
+      height="70" 
+      fill={`url(#${gradient})`} 
+      rx="6" 
+      ry="6"
+    />
+    {/* Circular doorknob on the right side of door */}
+    <circle 
+      cx="115" 
+      cy="110" 
+      r="3.5" 
+      fill="#e5e7eb" 
+      opacity="0.95"
+    />
   </svg>
 );
