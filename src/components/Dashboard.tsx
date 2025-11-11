@@ -40,6 +40,7 @@ interface AnalysisData {
     baths: number;
     sqft: string;
     daysOnMarket: number;
+    imageUrl?: string | null; // Optional property image URL
   };
   overallScore: number;
   ratings: Array<{
@@ -262,7 +263,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="relative">
                 <div className="aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 shadow-md">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+                    src={listing.imageUrl || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"}
                     alt={listing.address}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer"
                   />

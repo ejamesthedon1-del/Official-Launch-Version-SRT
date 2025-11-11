@@ -31,6 +31,10 @@ interface Prediction {
 function transformAnalysisData(address: string, geminiData: any): any {
   // If it already has the correct structure, return it
   if (geminiData.listing && geminiData.overallScore) {
+    // Preserve propertyImageUrl if it exists
+    if (geminiData.propertyImageUrl) {
+      geminiData.listing.imageUrl = geminiData.propertyImageUrl;
+    }
     return geminiData;
   }
 
@@ -67,7 +71,8 @@ function transformAnalysisData(address: string, geminiData: any): any {
       beds: beds,
       baths: baths,
       sqft: sqft > 0 ? sqft.toLocaleString() : "N/A",
-      daysOnMarket: daysOnMarket
+      daysOnMarket: daysOnMarket,
+      imageUrl: geminiData.propertyImageUrl || null // Add image URL if available
     },
     overallScore: 75, // Default score
     ratings: [
@@ -118,6 +123,7 @@ function transformAnalysisData(address: string, geminiData: any): any {
 
 export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInputProps) {
   const [address, setAddress] = useState("");
+  const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -179,6 +185,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
 
   const handleSelectPrediction = (prediction: Prediction) => {
     setAddress(prediction.description);
+    setSelectedPlaceId(prediction.place_id);
     setShowSuggestions(false);
     setPredictions([]);
     setSelectedIndex(-1);
@@ -212,7 +219,10 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
       const { data: analysisData, error } = await supabase.functions.invoke(
         "make-server-52cdd920/analyze-listing",
         {
-          body: { address },
+          body: { 
+            address,
+            placeId: selectedPlaceId || undefined // Send place_id if available
+          },
         }
       );
 
@@ -326,7 +336,13 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
                     type="text"
                     placeholder="123 Main Street, City, State ZIP"
                     value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                      // Clear place_id when user manually types (not selecting from autocomplete)
+                      if (selectedPlaceId) {
+                        setSelectedPlaceId(null);
+                      }
+                    }}
                     onKeyDown={handleKeyDown}
                     onFocus={() => {
                       if (predictions.length > 0) setShowSuggestions(true);
