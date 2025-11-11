@@ -2,11 +2,15 @@ import {
   ArrowRight,
   CheckCircle,
   Star,
+  Home,
+  BarChart3,
+  FileText,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { DashboardMockup } from "./DashboardMockup";
+import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
 
@@ -133,44 +137,254 @@ export function HomePage({
       {/* Sliding Info Section */}
       <SlidingInfoSection />
 
-      {/* How It Works */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
+      {/* Sell Faster in 3 Steps */}
+      <section className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
-              Simple Process
-            </Badge>
-            <h2 className="mb-4 text-slate-900">Get Your Analysis in Minutes</h2>
+            <h1 className="mb-4 text-slate-900">Sell Faster in 3 Steps</h1>
+            <p className="text-xl text-slate-600">
+              The fastest way to sell your listings
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                1
+          {/* Steps */}
+          <div className="grid lg:grid-cols-3 gap-12 items-start mb-16">
+            {/* Step 1: Analyze Listing */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+                {/* Dashboard mockup */}
+                <div className="w-full h-full">
+                  {/* Browser chrome */}
+                  <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+                    {/* Browser controls */}
+                    <div className="bg-slate-100 px-3 py-2 flex items-center gap-2 border-b border-slate-200 flex-shrink-0">
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-red-400" />
+                        <div className="w-2 h-2 rounded-full bg-yellow-400" />
+                        <div className="w-2 h-2 rounded-full bg-green-400" />
+                      </div>
+                      <div className="flex-1 bg-white rounded px-3 py-1 mx-4">
+                        <span className="text-xs text-slate-400">smartrealtortools.com/dashboard</span>
+                      </div>
+                    </div>
+                    
+                    {/* Dashboard content - scaled down */}
+                    <div className="flex-1 overflow-hidden relative">
+                      <div className="absolute inset-0" style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}>
+                        <DashboardPreview />
+                      </div>
+                      
+                      {/* Click cursor indicator */}
+                      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 z-20">
+                        <div className="relative">
+                          <svg width="32" height="32" viewBox="0 0 24 24" className="text-blue-600 drop-shadow-lg">
+                            <path
+                              fill="currentColor"
+                              d="M8 2l12 11-5.5-.5L12 18z"
+                            />
+                          </svg>
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 rounded-full animate-ping opacity-75" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="mb-2 text-slate-900">Enter Your Address</h3>
-              <p className="text-slate-600">
-                Input your property address and basic details
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                2
+              {/* Arrow to next step - hidden on mobile */}
+              <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
+                <ArrowRight className="w-12 h-12 text-slate-400" />
               </div>
-              <h3 className="mb-2 text-slate-900">AI Analyzes Your Listing</h3>
-              <p className="text-slate-600">
-                Our AI evaluates 10+ critical factors instantly
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                3
+              {/* Step label */}
+              <div className="text-center">
+                <div className="text-slate-500 mb-2">1</div>
+                <h3 className="text-slate-900 mb-2">Analyze Listing</h3>
+                <p className="text-sm text-slate-600">
+                  Simply enter your property address to get started
+                </p>
               </div>
-              <h3 className="mb-2 text-slate-900">Get Your Action Plan</h3>
-              <p className="text-slate-600">
-                Receive tailored marketing strategy to sell faster
-              </p>
             </div>
+
+            {/* Step 2: Get Listing Score */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+                {/* Score card mockup */}
+                <div className="w-full max-w-[280px]">
+                  <div className="bg-white rounded-2xl shadow-2xl p-6">
+                    {/* Header with badge */}
+                    <div className="flex items-center justify-between mb-6">
+                      <h4 className="text-slate-900">Listing Score</h4>
+                      <Badge className="bg-green-100 text-green-800 border-green-300">
+                        Analyzed
+                      </Badge>
+                    </div>
+                    {/* Large score display */}
+                    <div className="text-center mb-6">
+                      <div className="relative inline-block w-32 h-32">
+                        {/* Circular progress background */}
+                        <svg className="w-32 h-32 -rotate-90 absolute inset-0">
+                          <circle
+                            cx="64"
+                            cy="64"
+                            r="56"
+                            stroke="#e2e8f0"
+                            strokeWidth="8"
+                            fill="none"
+                          />
+                          <circle
+                            cx="64"
+                            cy="64"
+                            r="56"
+                            stroke="#3b82f6"
+                            strokeWidth="8"
+                            fill="none"
+                            strokeDasharray="352"
+                            strokeDashoffset="88"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center flex-col">
+                          <div className="text-blue-600" style={{ fontSize: '2rem' }}>85</div>
+                          <div className="text-xs text-slate-500">out of 100</div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Score breakdown */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600">Photos</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full w-4/5 bg-green-500 rounded-full" />
+                          </div>
+                          <span className="text-slate-900 w-6">90</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600">Description</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full w-3/5 bg-yellow-500 rounded-full" />
+                          </div>
+                          <span className="text-slate-900 w-6">75</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600">Pricing</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full w-[90%] bg-green-500 rounded-full" />
+                          </div>
+                          <span className="text-slate-900 w-6">90</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Arrow to next step - hidden on mobile */}
+              <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
+                <ArrowRight className="w-12 h-12 text-slate-400" />
+              </div>
+              {/* Step label */}
+              <div className="text-center">
+                <div className="text-slate-500 mb-2">2</div>
+                <h3 className="text-slate-900 mb-2">Get Your Listing Score</h3>
+                <p className="text-sm text-slate-600">
+                  Analyze your listing's strengths and weaknesses
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3: Get Marketing Plan */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+                {/* Marketing plan document mockup */}
+                <div className="w-full max-w-[280px]">
+                  <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    {/* Document header */}
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
+                      <div className="flex items-center gap-2 mb-1">
+                        <FileText className="w-4 h-4" />
+                        <div className="text-xs opacity-90">Marketing Plan</div>
+                      </div>
+                      <div style={{ fontSize: '0.95rem' }}>123 Oak Street</div>
+                    </div>
+                    {/* Document content */}
+                    <div className="p-6">
+                      {/* Week 1 section */}
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">
+                            1
+                          </div>
+                          <div className="text-sm text-slate-900">Week 1: Launch</div>
+                        </div>
+                        <div className="space-y-2 ml-8">
+                          <div className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                            <div className="text-xs text-slate-600 leading-relaxed">Professional photos</div>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                            <div className="text-xs text-slate-600 leading-relaxed">Social media campaign</div>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                            <div className="text-xs text-slate-600 leading-relaxed">Open house planning</div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Week 2 section */}
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs">
+                            2
+                          </div>
+                          <div className="text-sm text-slate-900">Week 2: Engage</div>
+                        </div>
+                        <div className="space-y-2 ml-8">
+                          <div className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
+                            <div className="text-xs text-slate-600 leading-relaxed">Email outreach</div>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
+                            <div className="text-xs text-slate-600 leading-relaxed">Targeted ads</div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* CTA badge */}
+                      <div className="mt-6 pt-4 border-t border-slate-200">
+                        <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1.5 rounded-full text-xs">
+                          <BarChart3 className="w-3 h-3" />
+                          <span>Track Progress</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Step label */}
+              <div className="text-center">
+                <div className="text-slate-500 mb-2">3</div>
+                <h3 className="text-slate-900 mb-2">Get Your Tailored Marketing Plan</h3>
+                <p className="text-sm text-slate-600">
+                  Receive a week-by-week action plan to sell faster
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center">
+            <Button size="lg" onClick={onGetStarted} className="gap-2 shadow-lg">
+              Get Started Free
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+            <p className="text-sm text-slate-500 mt-4">
+              No credit card required • Takes less than 2 minutes
+            </p>
           </div>
         </div>
       </section>
