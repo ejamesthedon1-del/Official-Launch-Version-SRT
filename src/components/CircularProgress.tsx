@@ -38,8 +38,11 @@ export function CircularProgress({
   const circumference = radius * Math.PI * 1.5;
   const offset = circumference - (displayPercentage / 100) * circumference;
 
-  const startAngle = 135;
-  const endAngle = startAngle + 270;
+  // Opening faces downward at bottom (90°)
+  // Arc covers 270°: start at 135° (bottom-right), go counterclockwise to 45° (bottom-left)
+  // This creates: bottom-right → right → top → left → bottom-left, with opening at bottom
+  const startAngle = 135; // Bottom-right
+  const endAngle = 45; // Bottom-left (135° + 270° = 405° = 45° after wrapping)
 
   const startRad = (startAngle * Math.PI) / 180;
   const endRad = (endAngle * Math.PI) / 180;
@@ -48,7 +51,7 @@ export function CircularProgress({
 
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="transform -rotate-90">
+      <svg width={size} height={size}>
         {/* Background Arc */}
         <path
           d={`
