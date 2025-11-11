@@ -142,9 +142,14 @@ export function HomePage({
       <section className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="mb-4 text-slate-900">Sell Faster in 3 Steps</h1>
-            <p className="text-xl text-slate-600">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
+              Simple Process
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Sell Faster in 3 Steps
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               The fastest way to sell your listings
             </p>
           </div>
@@ -393,17 +398,6 @@ export function HomePage({
                 </p>
               </div>
             </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="text-center">
-            <Button size="lg" onClick={onGetStarted} className="gap-2 shadow-lg">
-              Get Started Free
-              <ArrowRight className="w-5 h-5" />
-            </Button>
-            <p className="text-sm text-slate-500 mt-4">
-              No credit card required • Takes less than 2 minutes
-            </p>
           </div>
         </div>
       </section>
