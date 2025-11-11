@@ -12,3 +12,9 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// Type declarations for image imports
+declare module "*.png" {
+  const content: string;
+  export default content;
+}

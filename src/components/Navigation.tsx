@@ -50,13 +50,8 @@ export function Navigation({
             }`}
             style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
           >
-            <div 
-              className={`w-10 h-10 rounded-lg flex items-center justify-center p-1.5 ${
-                isHomePage ? "bg-white/20 backdrop-blur-sm" : "bg-blue-600"
-              }`}
-              style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
-            >
-              <Logo gradient={isHomePage ? "logoHeaderWhite" : "logoHeader"} />
+            <div className="w-10 h-10 flex items-center justify-center">
+              <Logo />
             </div>
             <span className="tracking-tight font-medium">Smart Realtor Tool</span>
           </button>
