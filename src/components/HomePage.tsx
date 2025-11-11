@@ -116,10 +116,10 @@ export function HomePage({
         </div>
 
         {/* Dashboard Preview */}
-        <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-20">
+        <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-8 md:pb-20">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent blur-2xl" />
-            <div className="relative transition-transform duration-500 hover:scale-[1.02]">
+            <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden">
               <DashboardMockup />
             </div>
           </div>
