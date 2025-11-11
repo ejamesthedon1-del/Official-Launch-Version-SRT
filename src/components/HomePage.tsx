@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   CheckCircle,
@@ -14,6 +15,243 @@ import { DashboardMockup } from "./DashboardMockup";
 import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
+
+// Animated Address Input Component for Step 1
+function AnimatedAddressInput() {
+  const [cursorPosition, setCursorPosition] = useState({ x: 30, y: 40 });
+  const [isClicked, setIsClicked] = useState(false);
+  const [typedText, setTypedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [showTextCursor, setShowTextCursor] = useState(true);
+  const animationRef = useRef<{
+    moveInterval?: NodeJS.Timeout;
+    typeInterval?: NodeJS.Timeout;
+    blinkInterval?: NodeJS.Timeout;
+    clickTimeout?: NodeJS.Timeout;
+    resetTimeout?: NodeJS.Timeout;
+  }>({});
+
+  const exampleAddress = "3404 American Dr APT 1105, Lago Vista, TX 78645";
+
+  useEffect(() => {
+    const cleanup = () => {
+      if (animationRef.current.moveInterval) clearInterval(animationRef.current.moveInterval);
+      if (animationRef.current.typeInterval) clearInterval(animationRef.current.typeInterval);
+      if (animationRef.current.blinkInterval) clearInterval(animationRef.current.blinkInterval);
+      if (animationRef.current.clickTimeout) clearTimeout(animationRef.current.clickTimeout);
+      if (animationRef.current.resetTimeout) clearTimeout(animationRef.current.resetTimeout);
+      animationRef.current = {};
+    };
+
+    const startAnimation = () => {
+      cleanup();
+      
+      // Move cursor to input field center (approximately 50% left, 62% top)
+      const targetX = 50;
+      const targetY = 62;
+      const startX = 30;
+      const startY = 40;
+      const moveDuration = 1800;
+      const moveSteps = 60;
+      let step = 0;
+      
+      animationRef.current.moveInterval = setInterval(() => {
+        step++;
+        const progress = step / moveSteps;
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease-out cubic
+        
+        setCursorPosition({
+          x: startX + (targetX - startX) * easeProgress,
+          y: startY + (targetY - startY) * easeProgress,
+        });
+        
+        if (step >= moveSteps) {
+          cleanup();
+          
+          // Click animation
+          animationRef.current.clickTimeout = setTimeout(() => {
+            setIsClicked(true);
+            setTimeout(() => {
+              setIsClicked(false);
+              setIsTyping(true);
+              
+              // Start typing
+              let charIndex = 0;
+              animationRef.current.typeInterval = setInterval(() => {
+                if (charIndex < exampleAddress.length) {
+                  setTypedText(exampleAddress.substring(0, charIndex + 1));
+                  charIndex++;
+                } else {
+                  cleanup();
+                  setIsTyping(false);
+                  
+                  // Blink cursor after typing completes
+                  animationRef.current.blinkInterval = setInterval(() => {
+                    setShowTextCursor((prev) => !prev);
+                  }, 530);
+                  
+                  // Reset animation after showing completed text
+                  animationRef.current.resetTimeout = setTimeout(() => {
+                    cleanup();
+                    // Reset everything to restart animation
+                    setTypedText("");
+                    setCursorPosition({ x: 30, y: 40 });
+                    setShowTextCursor(true);
+                    // Restart animation
+                    setTimeout(() => {
+                      startAnimation();
+                    }, 1000);
+                  }, 4000);
+                }
+              }, 70); // Typing speed
+            }, 150);
+          }, 200);
+        }
+      }, moveDuration / moveSteps);
+    };
+
+    // Start animation after initial delay
+    const initialDelay = setTimeout(() => {
+      startAnimation();
+    }, 800);
+
+    return () => {
+      clearTimeout(initialDelay);
+      cleanup();
+    };
+  }, [exampleAddress]);
+
+  return (
+    <>
+      <div className="bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+        {/* Address Input mockup */}
+        <div className="w-full h-full">
+          {/* Browser chrome */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col relative">
+            {/* Address Input content */}
+            <div className="flex-1 overflow-hidden relative bg-white p-4 md:p-6">
+              <div className="h-full flex flex-col items-center justify-center">
+                {/* Header */}
+                <div className="text-center mb-6">
+                  <Badge className="mb-3 text-xs">Step 1 of 2</Badge>
+                  <h2 className="text-lg md:text-xl font-semibold text-slate-900 mb-2">Enter Your Property Address</h2>
+                  <p className="text-xs md:text-sm text-slate-600">
+                    Our AI will analyze your listing in seconds
+                  </p>
+                </div>
+
+                {/* Address Input Form */}
+                <div className="w-full max-w-sm">
+                  <div className="bg-white rounded-lg border border-slate-200 p-4 md:p-6 shadow-sm">
+                    <div className="space-y-3">
+                      <label className="text-xs md:text-sm font-medium text-slate-700 block">
+                        Property Address
+                      </label>
+                      <div className="relative">
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value={typedText}
+                            placeholder={typedText ? "" : "123 Main Street, City, State ZIP"}
+                            className="w-full pl-10 pr-4 py-2.5 text-sm border border-slate-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                            readOnly
+                            style={{
+                              borderColor: isTyping || typedText ? "#3b82f6" : undefined,
+                              boxShadow: isTyping || typedText ? "0 0 0 3px rgba(59, 130, 246, 0.1)" : undefined,
+                            }}
+                          />
+                          {/* Visible typed text with cursor */}
+                          {typedText && (
+                            <span 
+                              className="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-slate-900 pointer-events-none whitespace-nowrap flex items-center"
+                            >
+                              {typedText}
+                              {showTextCursor && (
+                                <span className="inline-block w-0.5 h-4 bg-blue-600 ml-0.5" />
+                              )}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500">
+                        Start typing to see address suggestions
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* MacBook Cursor - Animated */}
+            <div
+              className="absolute z-50 pointer-events-none"
+              style={{
+                left: `${cursorPosition.x}%`,
+                top: `${cursorPosition.y}%`,
+                transform: "translate(-50%, -50%)",
+                transition: "left 0.03s linear, top 0.03s linear, opacity 0.3s ease-out",
+                opacity: isTyping || typedText ? 0 : 1,
+              }}
+            >
+              <div className="relative">
+                {/* MacBook trackpad cursor - rounded, soft pointer */}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  className="drop-shadow-2xl"
+                  style={{
+                    transform: isClicked ? "scale(0.88)" : "scale(1)",
+                    transition: "transform 0.12s ease-out",
+                  }}
+                >
+                  <defs>
+                    <filter id="cursorGlowMac" x="-100%" y="-100%" width="300%" height="300%">
+                      <feGaussianBlur stdDeviation="1.2" result="coloredBlur" />
+                      <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                    <linearGradient id="cursorShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#000000" stopOpacity="0.85" />
+                      <stop offset="100%" stopColor="#000000" stopOpacity="0.70" />
+                    </linearGradient>
+                  </defs>
+                  {/* MacBook-style cursor - more rounded, softer edges */}
+                  <path
+                    d="M4 2 Q4 2 6 2 L14 2 Q16 2 16 4 L16 9 Q16 10 15 10 L12 10 L10 17 L8 10 L5 10 Q4 10 4 9 Z"
+                    fill="url(#cursorShadow)"
+                    stroke="#ffffff"
+                    strokeWidth="0.6"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    filter="url(#cursorGlowMac)"
+                  />
+                </svg>
+                {/* Click ripple effect */}
+                {isClicked && (
+                  <div className="absolute inset-0 flex items-center justify-center -z-10">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full opacity-25 animate-ping" />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Step label */}
+      <div className="text-center">
+        <div className="text-slate-500 mb-2">1</div>
+        <h3 className="text-slate-900 mb-2">Analyze Listing</h3>
+        <p className="text-sm text-slate-600">
+          Simply enter your property address to get started
+        </p>
+      </div>
+    </>
+  );
+}
 
 interface HomePageProps {
   onGetStarted: () => void;
@@ -158,63 +396,7 @@ export function HomePage({
           <div className="grid lg:grid-cols-3 gap-12 items-start mb-16">
             {/* Step 1: Analyze Listing */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
-                {/* Address Input mockup */}
-                <div className="w-full h-full">
-                  {/* Browser chrome */}
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
-                    {/* Address Input content */}
-                    <div className="flex-1 overflow-hidden relative bg-white p-4 md:p-6">
-                      <div className="h-full flex flex-col items-center justify-center">
-                        {/* Header */}
-                        <div className="text-center mb-6">
-                          <Badge className="mb-3 text-xs">Step 1 of 2</Badge>
-                          <h2 className="text-lg md:text-xl font-semibold text-slate-900 mb-2">Enter Your Property Address</h2>
-                          <p className="text-xs md:text-sm text-slate-600">
-                            Our AI will analyze your listing in seconds
-                          </p>
-                        </div>
-
-                        {/* Address Input Form */}
-                        <div className="w-full max-w-sm">
-                          <div className="bg-white rounded-lg border border-slate-200 p-4 md:p-6 shadow-sm">
-                            <div className="space-y-3">
-                              <label className="text-xs md:text-sm font-medium text-slate-700 block">
-                                Property Address
-                              </label>
-                              <div className="relative">
-                                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
-                                <input
-                                  type="text"
-                                  placeholder="123 Main Street, City, State ZIP"
-                                  className="w-full pl-10 pr-4 py-2.5 text-sm border border-slate-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                  readOnly
-                                />
-                                
-                                {/* Mouse cursor hovering over "Street" word */}
-                                <div className="absolute top-1/2 left-[45%] -translate-y-1/2 z-20">
-                                  <div className="relative">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" className="text-blue-600 drop-shadow-lg">
-                                      <path
-                                        fill="currentColor"
-                                        d="M8 2l12 11-5.5-.5L12 18z"
-                                      />
-                                    </svg>
-                                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full animate-ping opacity-75" />
-                                  </div>
-                                </div>
-                              </div>
-                              <p className="text-xs text-slate-500">
-                                Start typing to see address suggestions
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <AnimatedAddressInput />
               {/* Arrow to next step - hidden on mobile */}
               <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
                 <ArrowRight className="w-12 h-12 text-slate-400" />
