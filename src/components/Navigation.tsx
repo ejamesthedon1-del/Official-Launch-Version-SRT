@@ -50,7 +50,7 @@ export function Navigation({
             }`}
             style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
           >
-            <div className="w-10 h-10 flex items-center justify-center">
+            <div className="w-12 h-12 flex items-center justify-center">
               <Logo />
             </div>
             <span className="tracking-tight font-medium">Smart Realtor Tool</span>
