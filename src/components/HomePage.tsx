@@ -23,15 +23,31 @@ function AnimatedAddressInput() {
   const [typedText, setTypedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showTextCursor, setShowTextCursor] = useState(true);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const animationRef = useRef<{
     moveInterval?: NodeJS.Timeout;
     typeInterval?: NodeJS.Timeout;
     blinkInterval?: NodeJS.Timeout;
     clickTimeout?: NodeJS.Timeout;
     resetTimeout?: NodeJS.Timeout;
+    suggestionsTimeout?: NodeJS.Timeout;
   }>({});
 
-  const exampleAddress = "3404 American Dr APT 1105, Lago Vista, TX 78645";
+  const exampleAddress = "3404 American Dr";
+  const suggestions = [
+    {
+      main: "3404 American Dr APT 1105",
+      secondary: "Lago Vista, TX 78645"
+    },
+    {
+      main: "3404 American Drive",
+      secondary: "Austin, TX"
+    },
+    {
+      main: "3404 American Blvd",
+      secondary: "Lago Vista, TX"
+    }
+  ];
 
   useEffect(() => {
     const cleanup = () => {
@@ -40,11 +56,13 @@ function AnimatedAddressInput() {
       if (animationRef.current.blinkInterval) clearInterval(animationRef.current.blinkInterval);
       if (animationRef.current.clickTimeout) clearTimeout(animationRef.current.clickTimeout);
       if (animationRef.current.resetTimeout) clearTimeout(animationRef.current.resetTimeout);
+      if (animationRef.current.suggestionsTimeout) clearTimeout(animationRef.current.suggestionsTimeout);
       animationRef.current = {};
     };
 
     const startAnimation = () => {
       cleanup();
+      setShowSuggestions(false);
       
       // Move cursor to input field center (approximately 50% left, 62% top)
       const targetX = 50;
@@ -66,7 +84,7 @@ function AnimatedAddressInput() {
         });
         
         if (step >= moveSteps) {
-          cleanup();
+          clearInterval(animationRef.current.moveInterval!);
           
           // Click animation
           animationRef.current.clickTimeout = setTimeout(() => {
@@ -81,8 +99,13 @@ function AnimatedAddressInput() {
                 if (charIndex < exampleAddress.length) {
                   setTypedText(exampleAddress.substring(0, charIndex + 1));
                   charIndex++;
+                  
+                  // Show suggestions after typing a few characters
+                  if (charIndex >= 3) {
+                    setShowSuggestions(true);
+                  }
                 } else {
-                  cleanup();
+                  clearInterval(animationRef.current.typeInterval!);
                   setIsTyping(false);
                   
                   // Blink cursor after typing completes
@@ -95,15 +118,16 @@ function AnimatedAddressInput() {
                     cleanup();
                     // Reset everything to restart animation
                     setTypedText("");
+                    setShowSuggestions(false);
                     setCursorPosition({ x: 30, y: 40 });
                     setShowTextCursor(true);
                     // Restart animation
                     setTimeout(() => {
                       startAnimation();
                     }, 1000);
-                  }, 4000);
+                  }, 5000);
                 }
-              }, 70); // Typing speed
+              }, 80); // Typing speed
             }, 150);
           }, 200);
         }
@@ -154,25 +178,48 @@ function AnimatedAddressInput() {
                             type="text"
                             value={typedText}
                             placeholder={typedText ? "" : "123 Main Street, City, State ZIP"}
-                            className="w-full pl-10 pr-4 py-2.5 text-sm border border-slate-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                            className="w-full pl-10 pr-8 py-2.5 text-sm border border-slate-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                             readOnly
                             style={{
                               borderColor: isTyping || typedText ? "#3b82f6" : undefined,
                               boxShadow: isTyping || typedText ? "0 0 0 3px rgba(59, 130, 246, 0.1)" : undefined,
+                              color: typedText ? "transparent" : undefined, // Hide input text to show overlay
                             }}
                           />
-                          {/* Visible typed text with cursor */}
+                          {/* Visible typed text with cursor - positioned to match input */}
                           {typedText && (
-                            <span 
-                              className="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-slate-900 pointer-events-none whitespace-nowrap flex items-center"
+                            <div 
+                              className="absolute left-10 right-8 top-1/2 -translate-y-1/2 text-sm text-slate-900 pointer-events-none flex items-center overflow-hidden"
                             >
-                              {typedText}
-                              {showTextCursor && (
-                                <span className="inline-block w-0.5 h-4 bg-blue-600 ml-0.5" />
+                              <span className="truncate">{typedText}</span>
+                              {showTextCursor && (isTyping || typedText) && (
+                                <span className="inline-block w-0.5 h-4 bg-blue-600 ml-0.5 flex-shrink-0 animate-pulse" />
                               )}
-                            </span>
+                            </div>
                           )}
                         </div>
+                        
+                        {/* Google-style Autosuggest Dropdown */}
+                        {showSuggestions && typedText.length >= 3 && (
+                          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-md shadow-xl z-50 overflow-hidden">
+                            {suggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-3 py-2.5 hover:bg-slate-50 transition-colors flex items-start gap-2.5 cursor-pointer border-b border-slate-100 last:border-b-0"
+                              >
+                                <MapPin className="w-3.5 h-3.5 text-slate-400 mt-0.5 flex-shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-xs text-slate-900 font-medium leading-tight">
+                                    {suggestion.main}
+                                  </div>
+                                  <div className="text-[10px] text-slate-500 truncate mt-0.5">
+                                    {suggestion.secondary}
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                       <p className="text-xs text-slate-500">
                         Start typing to see address suggestions
@@ -183,57 +230,41 @@ function AnimatedAddressInput() {
               </div>
             </div>
 
-            {/* MacBook Cursor - Animated */}
+            {/* Normal Black Pointer Cursor - Animated */}
             <div
               className="absolute z-50 pointer-events-none"
               style={{
                 left: `${cursorPosition.x}%`,
                 top: `${cursorPosition.y}%`,
                 transform: "translate(-50%, -50%)",
-                transition: "left 0.03s linear, top 0.03s linear, opacity 0.3s ease-out",
+                transition: "left 0.03s linear, top 0.03s linear, opacity 0.2s ease-out",
                 opacity: isTyping || typedText ? 0 : 1,
               }}
             >
               <div className="relative">
-                {/* MacBook trackpad cursor - rounded, soft pointer */}
+                {/* Simple black pointer cursor */}
                 <svg
                   width="20"
                   height="20"
-                  viewBox="0 0 20 20"
-                  className="drop-shadow-2xl"
+                  viewBox="0 0 24 24"
+                  className="drop-shadow-lg"
                   style={{
-                    transform: isClicked ? "scale(0.88)" : "scale(1)",
-                    transition: "transform 0.12s ease-out",
+                    transform: isClicked ? "scale(0.9)" : "scale(1)",
+                    transition: "transform 0.1s ease-out",
                   }}
                 >
-                  <defs>
-                    <filter id="cursorGlowMac" x="-100%" y="-100%" width="300%" height="300%">
-                      <feGaussianBlur stdDeviation="1.2" result="coloredBlur" />
-                      <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                    <linearGradient id="cursorShadow" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#000000" stopOpacity="0.85" />
-                      <stop offset="100%" stopColor="#000000" stopOpacity="0.70" />
-                    </linearGradient>
-                  </defs>
-                  {/* MacBook-style cursor - more rounded, softer edges */}
                   <path
-                    d="M4 2 Q4 2 6 2 L14 2 Q16 2 16 4 L16 9 Q16 10 15 10 L12 10 L10 17 L8 10 L5 10 Q4 10 4 9 Z"
-                    fill="url(#cursorShadow)"
+                    d="M3 3 L21 3 L21 12 L15 12 L12 21 L9 12 L3 12 Z"
+                    fill="#000000"
                     stroke="#ffffff"
-                    strokeWidth="0.6"
+                    strokeWidth="1"
                     strokeLinejoin="round"
-                    strokeLinecap="round"
-                    filter="url(#cursorGlowMac)"
                   />
                 </svg>
                 {/* Click ripple effect */}
                 {isClicked && (
                   <div className="absolute inset-0 flex items-center justify-center -z-10">
-                    <div className="w-12 h-12 bg-blue-500 rounded-full opacity-25 animate-ping" />
+                    <div className="w-10 h-10 bg-blue-500 rounded-full opacity-20 animate-ping" />
                   </div>
                 )}
               </div>
