@@ -147,11 +147,13 @@ function AnimatedAddressInput() {
 
   return (
     <>
-      <div className="bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+      <div className="bg-white rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative">
+        {/* Shadow fade effect on top */}
+        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
         {/* Address Input mockup */}
         <div className="w-full h-full">
           {/* Browser chrome */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col relative">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col relative border border-slate-200">
             {/* Address Input content */}
             <div className="flex-1 overflow-hidden relative bg-white p-4 md:p-6">
               <div className="h-full flex flex-col items-center justify-center">
@@ -277,14 +279,6 @@ function AnimatedAddressInput() {
             </div>
           </div>
         </div>
-      </div>
-      {/* Step label */}
-      <div className="text-center">
-        <div className="text-slate-500 mb-2">1</div>
-        <h3 className="text-slate-900 mb-2">Analyze Listing</h3>
-        <p className="text-sm text-slate-600">
-          Simply enter your property address to get started
-        </p>
       </div>
     </>
   );
@@ -450,10 +444,12 @@ export function HomePage({
 
             {/* Step 2: Get Listing Score */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+              <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                {/* Shadow fade effect on top */}
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
                 {/* Score card mockup */}
                 <div className="w-full max-w-[280px]">
-                  <div className="bg-white rounded-2xl shadow-2xl p-6">
+                  <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
                     {/* Header with badge */}
                     <div className="flex items-center justify-between mb-6">
                       <h4 className="text-slate-900">Listing Score</h4>
@@ -541,10 +537,12 @@ export function HomePage({
 
             {/* Step 3: Get Marketing Plan */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-green-400 via-green-500 to-green-600 rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center">
+              <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                {/* Shadow fade effect on top */}
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
                 {/* Marketing plan document mockup */}
                 <div className="w-full max-w-[280px]">
-                  <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                  <div className="bg-slate-50 rounded-2xl shadow-lg overflow-hidden border border-slate-200">
                     {/* Document header */}
                     <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
                       <div className="flex items-center gap-2 mb-1">
