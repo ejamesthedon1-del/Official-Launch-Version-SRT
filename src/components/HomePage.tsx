@@ -230,41 +230,47 @@ function AnimatedAddressInput() {
               </div>
             </div>
 
-            {/* Normal Black Pointer Cursor - Animated */}
+            {/* Realistic Mouse Pointer Cursor - Animated */}
             <div
               className="absolute z-50 pointer-events-none"
               style={{
                 left: `${cursorPosition.x}%`,
                 top: `${cursorPosition.y}%`,
-                transform: "translate(-50%, -50%)",
+                transform: "translate(0, 0)",
                 transition: "left 0.03s linear, top 0.03s linear, opacity 0.2s ease-out",
                 opacity: isTyping || typedText ? 0 : 1,
               }}
             >
               <div className="relative">
-                {/* Simple black pointer cursor */}
+                {/* Standard mouse pointer cursor - accurate arrow shape */}
                 <svg
                   width="20"
                   height="20"
-                  viewBox="0 0 24 24"
-                  className="drop-shadow-lg"
+                  viewBox="0 0 20 20"
                   style={{
                     transform: isClicked ? "scale(0.9)" : "scale(1)",
                     transition: "transform 0.1s ease-out",
+                    filter: "drop-shadow(0.5px 0.5px 1px rgba(0,0,0,0.5))",
                   }}
                 >
+                  {/* White outline layer for contrast */}
                   <path
-                    d="M3 3 L21 3 L21 12 L15 12 L12 21 L9 12 L3 12 Z"
-                    fill="#000000"
+                    d="M0.5 0.5 L0.5 14.5 L7 14.5 L10.5 19 L12 17.5 L9 14 L17.5 14 L17.5 0.5 Z"
+                    fill="#ffffff"
                     stroke="#ffffff"
-                    strokeWidth="1"
-                    strokeLinejoin="round"
+                    strokeWidth="1.2"
+                    strokeLinejoin="miter"
+                  />
+                  {/* Black pointer - classic cursor arrow */}
+                  <path
+                    d="M1 1 L1 14 L7.5 14 L11 18.5 L12.5 17 L9.5 13.5 L18 13.5 L18 1 Z"
+                    fill="#000000"
                   />
                 </svg>
                 {/* Click ripple effect */}
                 {isClicked && (
-                  <div className="absolute inset-0 flex items-center justify-center -z-10">
-                    <div className="w-10 h-10 bg-blue-500 rounded-full opacity-20 animate-ping" />
+                  <div className="absolute top-2.5 left-2.5 flex items-center justify-center -z-10">
+                    <div className="w-7 h-7 bg-blue-500 rounded-full opacity-25 animate-ping" />
                   </div>
                 )}
               </div>
