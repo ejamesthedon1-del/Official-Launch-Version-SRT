@@ -7,6 +7,18 @@ import {
   BarChart3,
   FileText,
   MapPin,
+  TrendingUp,
+  Eye,
+  Heart,
+  Share2,
+  Users,
+  Sparkles,
+  CheckCircle2,
+  Camera,
+  Clock,
+  Bed,
+  Bath,
+  Ruler,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -15,6 +27,8 @@ import { DashboardMockup } from "./DashboardMockup";
 import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
+import { CircularProgress } from "./CircularProgress";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 // Animated Address Input Component for Step 1
 function AnimatedAddressInput() {
@@ -537,69 +551,156 @@ export function HomePage({
 
             {/* Step 3: Get Marketing Plan */}
             <div className="relative">
-              <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+              <div className="bg-white rounded-3xl p-3 md:p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
                 {/* Shadow fade effect on top */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
-                {/* Marketing plan document mockup */}
-                <div className="w-full max-w-[280px]">
-                  <div className="bg-slate-50 rounded-2xl shadow-lg overflow-hidden border border-slate-200">
-                    {/* Document header */}
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
-                      <div className="flex items-center gap-2 mb-1">
-                        <FileText className="w-4 h-4" />
-                        <div className="text-xs opacity-90">Marketing Plan</div>
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+                {/* Dashboard preview - scaled down */}
+                <div className="w-full h-full overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 rounded-xl">
+                  <div className="p-2 md:p-3 h-full overflow-y-auto">
+                    {/* Property Header - Scaled Down */}
+                    <div className="bg-white rounded-lg shadow-md border border-slate-200/50 overflow-hidden mb-2">
+                      <div className="grid grid-cols-2 gap-2 p-2">
+                        {/* Circular Progress Score */}
+                        <div className="flex items-center justify-center">
+                          <CircularProgress 
+                            percentage={85} 
+                            size={80} 
+                            strokeWidth={8}
+                            showAnimation={false}
+                          />
+                        </div>
+                        {/* Property Details */}
+                        <div className="flex flex-col justify-center">
+                          <h3 className="text-[10px] md:text-xs font-semibold text-slate-900 mb-0.5 line-clamp-1">3404 American Dr</h3>
+                          <div className="flex items-center gap-1 text-[8px] md:text-[9px] text-slate-600 mb-1">
+                            <MapPin className="w-2.5 h-2.5" />
+                            <span className="line-clamp-1">Lago Vista, TX</span>
+                          </div>
+                          <div className="grid grid-cols-3 gap-1">
+                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
+                              <Bed className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                              <div className="text-[8px] text-slate-600">2</div>
+                            </div>
+                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
+                              <Bath className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                              <div className="text-[8px] text-slate-600">2</div>
+                            </div>
+                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
+                              <Ruler className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                              <div className="text-[8px] text-slate-600">1,204</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div style={{ fontSize: '0.95rem' }}>123 Oak Street</div>
                     </div>
-                    {/* Document content */}
-                    <div className="p-6">
-                      {/* Week 1 section */}
-                      <div className="mb-4">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">
-                            1
+
+                    {/* Analytics Grid - Scaled Down */}
+                    <div className="grid grid-cols-3 gap-1.5 mb-2">
+                      {/* Performance Analytics */}
+                      <div className="col-span-2 bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <TrendingUp className="w-2.5 h-2.5 text-blue-600" />
+                          Analytics
+                        </h4>
+                        <div className="grid grid-cols-2 gap-1 mb-1.5">
+                          <div className="text-center p-1 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded border border-blue-200/50">
+                            <Eye className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                            <div className="text-[8px] text-slate-900 font-semibold">245</div>
+                            <div className="text-[7px] text-slate-600">Views</div>
                           </div>
-                          <div className="text-sm text-slate-900">Week 1: Launch</div>
-                        </div>
-                        <div className="space-y-2 ml-8">
-                          <div className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
-                            <div className="text-xs text-slate-600 leading-relaxed">Professional photos</div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
-                            <div className="text-xs text-slate-600 leading-relaxed">Social media campaign</div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
-                            <div className="text-xs text-slate-600 leading-relaxed">Open house planning</div>
+                          <div className="text-center p-1 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded border border-blue-200/50">
+                            <Heart className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                            <div className="text-[8px] text-slate-900 font-semibold">18</div>
+                            <div className="text-[7px] text-slate-600">Favs</div>
                           </div>
                         </div>
-                      </div>
-                      {/* Week 2 section */}
-                      <div className="mb-4">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs">
-                            2
-                          </div>
-                          <div className="text-sm text-slate-900">Week 2: Engage</div>
-                        </div>
-                        <div className="space-y-2 ml-8">
-                          <div className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
-                            <div className="text-xs text-slate-600 leading-relaxed">Email outreach</div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
-                            <div className="text-xs text-slate-600 leading-relaxed">Targeted ads</div>
-                          </div>
+                        {/* Mini Bar Chart */}
+                        <div className="h-16">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={[
+                              { category: "Cond", score: 85 },
+                              { category: "Loc", score: 80 },
+                              { category: "Amen", score: 75 },
+                            ]}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                              <XAxis dataKey="category" tick={{ fontSize: 6, fill: '#64748b' }} />
+                              <YAxis hide domain={[0, 100]} />
+                              <Bar dataKey="score" fill="#3b82f6" radius={[2, 2, 0, 0]} />
+                            </BarChart>
+                          </ResponsiveContainer>
                         </div>
                       </div>
-                      {/* CTA badge */}
-                      <div className="mt-6 pt-4 border-t border-slate-200">
-                        <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1.5 rounded-full text-xs">
-                          <BarChart3 className="w-3 h-3" />
-                          <span>Track Progress</span>
+
+                      {/* AI Insights */}
+                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <Sparkles className="w-2.5 h-2.5 text-blue-600" />
+                          Insights
+                        </h4>
+                        <div className="space-y-1">
+                          {[
+                            "Optimize pricing",
+                            "Enhance marketing"
+                          ].map((priority, index) => (
+                            <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded p-1">
+                              <div className="flex items-start gap-1">
+                                <CheckCircle2 className="w-1.5 h-1.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                                <div className="text-[7px] text-slate-900 leading-tight line-clamp-2">{priority}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Grid - Photo Analysis & Timeline */}
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {/* Photo Analysis */}
+                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <Camera className="w-2.5 h-2.5 text-blue-600" />
+                          Photos
+                        </h4>
+                        <div className="space-y-1">
+                          {[
+                            { name: "Living", score: 85 },
+                            { name: "Kitchen", score: 78 },
+                          ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-1">
+                              <div className="text-[7px] text-slate-700 w-10 flex-shrink-0">{item.name}</div>
+                              <div className="flex-1 bg-slate-100 rounded-full h-1 overflow-hidden">
+                                <div 
+                                  className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full"
+                                  style={{ width: `${item.score}%` }}
+                                />
+                              </div>
+                              <div className="text-[7px] text-slate-900 w-4">{item.score}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Marketing Timeline */}
+                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <Clock className="w-2.5 h-2.5 text-blue-600" />
+                          Timeline
+                        </h4>
+                        <div className="space-y-1">
+                          {[
+                            { title: "Price optimization", date: "Today" },
+                            { title: "Photo update", date: "2d ago" },
+                          ].map((item, index) => (
+                            <div key={index} className="flex gap-1">
+                              <div className="flex-shrink-0 w-3 h-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
+                                <CheckCircle2 className="w-1.5 h-1.5 text-white" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-[7px] text-slate-900 line-clamp-1">{item.title}</div>
+                                <div className="text-[6px] text-slate-500">{item.date}</div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -611,7 +712,7 @@ export function HomePage({
                 <div className="text-slate-500 mb-2">3</div>
                 <h3 className="text-slate-900 mb-2">Get Your Tailored Marketing Plan</h3>
                 <p className="text-sm text-slate-600">
-                  Receive a week-by-week action plan to sell faster
+                  Access your complete dashboard with insights and analytics
                 </p>
               </div>
             </div>
