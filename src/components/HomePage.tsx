@@ -404,8 +404,9 @@ export function HomePage({
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
           Smarter guidance, faster results. 
           <br />
-          Optimize every listing and
-          close with confidence.
+          Optimize every listing 
+          <br />
+          andclose with confidence.
       </p>
           <Button
             size="lg"
