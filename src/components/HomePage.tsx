@@ -402,7 +402,7 @@ export function HomePage({
           in Minutes.
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          From Listing to Closing 
+          From listing to closing 
           <br />
           Fast, simple, and smart.
       
