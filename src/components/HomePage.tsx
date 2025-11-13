@@ -402,8 +402,7 @@ export function HomePage({
           in Minutes.
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          Smarter guidance, faster results. 
-          <br />
+    
           Optimize every listing and
           <br />
           close with confidence.
