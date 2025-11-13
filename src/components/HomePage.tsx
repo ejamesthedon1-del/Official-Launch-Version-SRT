@@ -28,6 +28,7 @@ import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
 import { CircularProgress } from "./CircularProgress";
+import { Navigation } from "./Navigation";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 // Animated Address Input Component for Step 1
@@ -337,51 +338,15 @@ export function HomePage({
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <Navigation 
+        currentView="home" 
+        onNavigate={onNavigate} 
+        onMenuClick={onMenuClick}
+      />
+
       {/* Hero Section with Integrated Header */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 overflow-hidden">
-        {/* Navigation */}
-        <div className="relative z-10">
-          <div className="container mx-auto max-w-6xl px-4 py-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-white">
-                <div className="w-12 h-12 flex items-center justify-center">
-                  <Logo />
-                </div>
-                <span className="tracking-tight">Smart Realtor Tool</span>
-              </div>
-              <div className="hidden md:flex items-center gap-8 text-white/90 text-sm">
-                <button className="hover:text-white transition-colors">
-                  Pricing
-                </button>
-                <button className="hover:text-white transition-colors">
-                  Features
-                </button>
-                <button className="hover:text-white transition-colors">
-                  Blog
-                </button>
-              </div>
-
-              {/* Mobile Hamburger Menu */}
-              <button
-                onClick={() => {
-                  console.log("🍔 Hamburger clicked!");
-                  console.log("🍔 onMenuClick exists?", !!onMenuClick);
-                  if (onMenuClick) {
-                    console.log("🍔 Calling onMenuClick now...");
-                    onMenuClick();
-                  }
-                }}
-                className="md:hidden flex flex-col gap-1.5 p-3 hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
-                aria-label="Menu"
-                type="button"
-              >
-                <span className="w-6 h-0.5 bg-white rounded-full" />
-                <span className="w-6 h-0.5 bg-white rounded-full" />
-              </button>
-            </div>
-          </div>
-        </div>
-
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 overflow-hidden pt-20 md:pt-24">
         {/* Hero Content */}
         <div className="container mx-auto max-w-4xl px-4 pt-12 pb-32 text-center relative z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">

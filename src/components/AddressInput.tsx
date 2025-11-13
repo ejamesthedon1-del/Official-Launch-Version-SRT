@@ -309,7 +309,6 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
       <Navigation
         currentView="address-input"
         onNavigate={onNavigate}
-        showAnalyze={false}
         onMenuClick={onMenuClick}
       />
 
