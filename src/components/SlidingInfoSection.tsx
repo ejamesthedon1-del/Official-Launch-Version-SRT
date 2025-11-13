@@ -16,9 +16,9 @@ export function SlidingInfoSection() {
         </div>
 
         {/* Scrollable Cards */}
-        <div className="relative -mx-4 px-4 md:px-8">
-          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory">
-            <div className="flex gap-6 pb-4">
+        <div className="relative -mx-4">
+          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory px-4 md:px-8">
+            <div className="flex gap-6 pb-4 pr-4 md:pr-8">
               {/* Card 1: Blue Card Bottom Text */}
               <div className="flex-shrink-0 w-[85vw] md:w-[400px] snap-start">
                 <BlueCardBottomText
