@@ -756,36 +756,18 @@ export function HomePage({
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Compare and Contrast */}
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
-              Trusted by Realtors
-            </Badge>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">What Real Estate Professionals Say</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6 bg-white border-slate-200 hover:shadow-lg transition-shadow">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 fill-blue-600 text-blue-600"
-                    />
-                  ))}
-                </div>
-                <p className="text-sm mb-4 text-slate-700">"{testimonial.content}"</p>
-                <div>
-                  <div className="text-slate-900">{testimonial.name}</div>
-                  <div className="text-sm text-slate-500">
-                    {testimonial.role}
-                  </div>
-                </div>
-              </Card>
-            ))}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
+              No generic
+              <br />
+              analysis.
+            </h2>
+            <p className="text-lg md:text-xl text-slate-600">
+              100% tailored to your listing
+            </p>
           </div>
         </div>
       </section>
