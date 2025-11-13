@@ -442,7 +442,7 @@ export function HomePage({
             <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
               Simple Process
             </Badge>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-4">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
               Sell Faster in 3 Steps
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
