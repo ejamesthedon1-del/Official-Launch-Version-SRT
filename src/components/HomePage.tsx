@@ -395,7 +395,7 @@ export function HomePage({
         </div>
 
         {/* Hero Content */}
-        <div className="container mx-auto max-w-4xl px-4 pt-12 pb-32 text-center relative z-10">
+        <div className="container mx-auto max-w-4xl px-4 pt-6 pb-12 text-center relative z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">
           Every Listing Optimized
             <br />
@@ -417,7 +417,7 @@ export function HomePage({
         </div>
 
         {/* Dashboard Preview */}
-        <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-8 md:pb-20">
+        <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-4 md:pb-8">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent blur-2xl" />
             <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden">
@@ -430,8 +430,8 @@ export function HomePage({
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
         
-        {/* Fade to white transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-white/50 to-white pointer-events-none" />
+        {/* Seamless fade to white transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-blue-400/20 via-blue-100/40 via-white/70 to-white pointer-events-none" />
       </section>
 
       {/* Sliding Info Section */}
