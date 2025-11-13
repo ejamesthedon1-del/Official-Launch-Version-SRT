@@ -402,11 +402,11 @@ export function HomePage({
           in Minutes.
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          From listing to closing. 
+          Smarter guidance, faster results. 
           <br />
-          Fast, simple, and smart.
-      
-          </p>
+          Optimize every listing and
+          close with confidence.
+      </p>
           <Button
             size="lg"
             onClick={onGetStarted}
