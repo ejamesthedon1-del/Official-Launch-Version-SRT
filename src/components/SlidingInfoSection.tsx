@@ -189,10 +189,10 @@ function AnalyzingListingAnimation() {
     >
       {/* Dashboard Container - Positioned to left corner, partially off-screen */}
       <div
-        className="absolute h-full rounded-2xl overflow-visible"
+        className="absolute h-full rounded-3xl overflow-hidden"
         style={{
-          left: "-80px",
-          top: "20px",
+          left: "-120px",
+          top: "-10px",
           width: "400px",
           background: "rgba(255, 255, 255, 0.95)",
           border: "1px solid rgba(255, 255, 255, 0.3)",
@@ -220,7 +220,7 @@ function AnalyzingListingAnimation() {
 
         {/* Dashboard Header */}
         <div
-          className="px-5 py-3 border-b"
+          className="px-5 py-3 border-b rounded-t-3xl"
           style={{
             background: "linear-gradient(to bottom, #FFFFFF, #F9FAFB)",
             borderColor: "rgba(0, 0, 0, 0.06)",
