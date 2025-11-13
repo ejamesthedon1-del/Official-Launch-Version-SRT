@@ -20,14 +20,14 @@ export function SlidingInfoSection() {
           <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory px-4 md:px-8">
             <div className="flex gap-6 pb-4 pr-4 md:pr-8">
               {/* Card 1: Blue Card Bottom Text */}
-              <div className="flex-shrink-0 w-[calc(100vw-2rem)] md:w-[360px] snap-start">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
                 <BlueCardBottomText
                   title="Our AI doesn't just analyze — it guides you towards your next closing"
                 />
               </div>
 
               {/* Card 2: Light Card With Animation */}
-              <div className="flex-shrink-0 w-[calc(100vw-2rem)] md:w-[360px] snap-start">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
                 <LightCardWithAnimation
                   title="Equip your buyers and sellers with real-time market intelligence"
                   description="Provide your clients with up-to-the-minute insights that help them make informed decisions faster."
@@ -35,7 +35,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 3: Light Card With Buyer Matching */}
-              <div className="flex-shrink-0 w-[calc(100vw-2rem)] md:w-[360px] snap-start">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
                 <LightCardWithBuyerMatching
                   title="Reach Buyers That Actually Matter"
                   description="Save time and effort by understanding which audience aligns with your property."
@@ -43,7 +43,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 4: Blue Card With Progress Animation */}
-              <div className="flex-shrink-0 w-[calc(100vw-2rem)] md:w-[360px] snap-start">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
                 <BlueCardWithProgressAnimation
                   title="The Fastest Path from Listing to Closing"
                   description="From analysis to match to marketing to close — your AI-powered workflow accelerates every step."
@@ -112,24 +112,19 @@ function BlueCardBottomText({ title }: { title: string }) {
       {/* Content at bottom */}
       <div className="relative z-30 space-y-3">
         <h3
-          className="text-white"
+          className="text-white text-lg font-medium leading-tight"
           style={{
-            fontFamily: "Inter, system-ui, sans-serif",
             fontSize: "18px",
-            fontWeight: 500,
             lineHeight: "140%",
           }}
         >
           {title}
         </h3>
         <p
-          className="text-white"
+          className="text-white text-sm leading-relaxed opacity-90"
           style={{
-            fontFamily: "Inter, system-ui, sans-serif",
             fontSize: "14px",
-            fontWeight: 400,
             lineHeight: "150%",
-            opacity: 0.9,
           }}
         >
           Smart Realtor Tools turns real-time market intelligence into actionable insights, helping you close smarter and faster.
@@ -515,21 +510,19 @@ function BlueCardWithProgressAnimation({
       <div className="relative z-20 flex flex-col justify-end" style={{ minHeight: "360px" }}>
         <div className="space-y-3">
           <h3
+            className="text-slate-900 text-lg font-bold leading-tight"
             style={{
-              fontFamily: "Inter, system-ui, sans-serif",
               fontSize: "18px",
-              fontWeight: 700,
               lineHeight: "140%",
-              color: "#1B1F23",
             }}
           >
             {title}
           </h3>
           <p
+            className="text-slate-600 text-sm leading-tight"
             style={{
               fontSize: "14px",
               lineHeight: "140%",
-              color: "#6B7280",
             }}
           >
             {description}
@@ -856,21 +849,19 @@ function LightCardWithAnimation({
       <div className="relative z-20 flex flex-col justify-end" style={{ minHeight: "360px" }}>
         <div className="space-y-3">
           <h3
+            className="text-slate-900 text-lg font-bold leading-tight"
             style={{
-              fontFamily: "Inter, system-ui, sans-serif",
               fontSize: "18px",
-              fontWeight: 700,
               lineHeight: "140%",
-              color: "#1B1F23",
             }}
           >
             {title}
                           </h3>
           <p
+            className="text-slate-600 text-sm leading-tight"
             style={{
               fontSize: "14px",
               lineHeight: "140%",
-              color: "#6B7280",
             }}
           >
             {description}
