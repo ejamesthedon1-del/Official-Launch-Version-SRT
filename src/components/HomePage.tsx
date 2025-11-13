@@ -412,7 +412,7 @@ export function HomePage({
             onClick={onGetStarted}
             className="bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2"
           >
-            Get Free Listing Analysis <ArrowRight className="w-4 h-4" />
+            Get Listing Analysis Free <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
 
