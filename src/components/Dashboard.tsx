@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, Heart, Share2, Camera, Users, CheckCircle2, AlertCircle, ChevronRight, Sparkles, Clock, Ruler, Bell, Settings, LogOut, Menu, X, Home } from "lucide-react";
+import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, Heart, Share2, Camera, Users, CheckCircle2, AlertCircle, ChevronRight, Sparkles, Clock, Ruler, Bell, Settings } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { SubscriptionDialog } from "./SubscriptionDialog";
@@ -83,7 +83,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [hasAnalyzedBefore, setHasAnalyzedBefore] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [checkingSubscription, setCheckingSubscription] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Check subscription status
   useEffect(() => {
@@ -200,46 +199,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
       <div className="flex">
-        {/* Sidebar */}
-        <aside className={`
-          fixed lg:sticky top-0 left-0 h-screen bg-white border-r border-slate-200 
-          w-64 transform transition-transform duration-300 z-40 lg:translate-x-0
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        `}>
-          <div className="p-6 pt-20 lg:pt-6">
-            <div className="space-y-2">
-              <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700">
-                <Home className="w-5 h-5" />
-                <span>Dashboard</span>
-              </a>
-              <button onClick={() => onNavigate("address-input")} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors w-full text-left">
-                <TrendingUp className="w-5 h-5" />
-                <span>Analytics</span>
-              </button>
-              <button onClick={() => onNavigate("address-input")} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors w-full text-left">
-                <Users className="w-5 h-5" />
-                <span>Listings</span>
-              </button>
-              <button onClick={() => onNavigate("marketing-plan")} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors w-full text-left">
-                <Calendar className="w-5 h-5" />
-                <span>Schedule</span>
-              </button>
-              <button onClick={() => onNavigate("address-input")} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors w-full text-left">
-                <Sparkles className="w-5 h-5" />
-                <span>AI Tools</span>
-              </button>
-            </div>
-            <div className="mt-8 pt-8 border-t border-slate-200">
-              <button onClick={() => onNavigate("home")} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors w-full text-left">
-                <LogOut className="w-5 h-5" />
-                <span>Sign Out</span>
-              </button>
-            </div>
-          </div>
-        </aside>
-
         {/* Main Content */}
-        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-20 md:pt-24">
           {/* Property Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
@@ -306,19 +267,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           </div>
 
           {/* Alert Banner - Between score card and Performance Analytics */}
-          {insights.alerts.length > 0 && (
-            <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="mb-1">{insights.alerts[0].title}</div>
-                  <p className="text-sm text-muted-foreground">
-                    {insights.alerts[0].message}
-                  </p>
-                </div>
+        {insights.alerts.length > 0 && (
+          <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="mb-1">{insights.alerts[0].title}</div>
+                <p className="text-sm text-muted-foreground">
+                  {insights.alerts[0].message}
+                </p>
               </div>
-            </Card>
-          )}
+            </div>
+          </Card>
+        )}
 
           {/* Paywall Modal - Right after the property header/score section */}
           {!isSubscribed && showPaywall && (
@@ -355,17 +316,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         <Heart className="w-5 h-5 text-blue-600 mx-auto mb-2" />
                         <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
                         <div className="text-xs text-slate-600">Favorites</div>
-                      </div>
+              </div>
                       <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
                         <Share2 className="w-5 h-5 text-blue-600 mx-auto mb-2" />
                         <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
                         <div className="text-xs text-slate-600">Shares</div>
-                      </div>
+                  </div>
                       <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
                         <Users className="w-5 h-5 text-blue-600 mx-auto mb-2" />
                         <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
                         <div className="text-xs text-slate-600">Inquiries</div>
-                      </div>
+                </div>
                     </div>
 
                     <div className="h-52">
@@ -401,8 +362,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2 mb-2">
                             <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                             <div className="text-xs text-slate-900">{priority}</div>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
                       ))}
                     </div>
                   </div>
@@ -426,12 +387,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                               className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full transition-all"
                               style={{ width: `${item.score}%` }}
                             />
-                          </div>
-                          <div className="text-sm text-slate-900 w-8">{item.score}</div>
-                        </div>
-                      ))}
-                    </div>
                   </div>
+                          <div className="text-sm text-slate-900 w-8">{item.score}</div>
+                </div>
+                  ))}
+                </div>
+              </div>
 
                   {/* Marketing Timeline */}
                   <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
@@ -447,46 +408,46 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div key={index} className="flex gap-3 group cursor-pointer hover:bg-slate-50 p-2 rounded-lg transition-colors">
                             <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
                               <Icon className="w-5 h-5 text-white" />
-                            </div>
+              </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
                                 <div className="text-sm text-slate-900">{item.title}</div>
                                 <div className="text-xs text-slate-500">{item.date}</div>
-                              </div>
-                            </div>
-                          </div>
+                  </div>
+                  </div>
+                </div>
                         );
                       })}
                     </div>
-                  </div>
                 </div>
               </div>
-
-              {/* Lock Overlay */}
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-md rounded-2xl flex items-start justify-center pt-8">
-                <Card className="p-8 text-center max-w-md mx-4">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <Eye className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                    Unlock Detailed Insights
-                  </h3>
-                  <p className="text-slate-600 mb-6">
-                    Get access to detailed factor breakdowns, performance charts, buyer insights, and complete marketing strategies.
-                  </p>
-                  <Button
-                    size="lg"
-                    onClick={handleSubscribe}
-                    className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full"
-                  >
-                    Upgrade to Premium <Eye className="w-4 h-4" />
-                  </Button>
-                </Card>
-              </div>
             </div>
-          ) : (
-            /* Premium Content (if subscribed) */
-            <>
+
+            {/* Lock Overlay */}
+              <div className="absolute inset-0 bg-white/80 backdrop-blur-md rounded-2xl flex items-start justify-center pt-8">
+              <Card className="p-8 text-center max-w-md mx-4">
+                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Eye className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  Unlock Detailed Insights
+                </h3>
+                <p className="text-slate-600 mb-6">
+                  Get access to detailed factor breakdowns, performance charts, buyer insights, and complete marketing strategies.
+                </p>
+                <Button
+                  size="lg"
+                  onClick={handleSubscribe}
+                  className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full"
+                >
+                  Upgrade to Premium <Eye className="w-4 h-4" />
+                </Button>
+              </Card>
+            </div>
+          </div>
+        ) : (
+          /* Premium Content (if subscribed) */
+          <>
               {/* Analytics Grid */}
               <div className="grid lg:grid-cols-3 gap-6 mb-6">
                 {/* Key Metrics */}
@@ -621,112 +582,105 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
               </div>
 
-              {/* Detailed Ratings */}
-              <div className="mb-8">
-                <div className="mb-6">
-                  <h2 className="mb-2 text-slate-900">Top 10 Factors Affecting Selling Time</h2>
-                  <p className="text-slate-600">
-                    Ranked by impact on your ability to sell within 30 days
-                  </p>
-                </div>
-                
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {ratings.map((rating, index) => (
-                    <RatingCard key={index} {...rating} />
-                  ))}
-                </div>
+            {/* Detailed Ratings */}
+            <div className="mb-8">
+              <div className="mb-6">
+                <h2 className="mb-2 text-slate-900">Top 10 Factors Affecting Selling Time</h2>
+                <p className="text-slate-600">
+                  Ranked by impact on your ability to sell within 30 days
+                </p>
               </div>
-
-              {/* Charts */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <Card className="p-6">
-                  <h3 className="mb-6">Factor Performance Scores</h3>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={categoryScores}>
-                      <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
-                      <XAxis 
-                        dataKey="category" 
-                        tick={{ fontSize: 12 }}
-                        angle={-45}
-                        textAnchor="end"
-                        height={80}
-                      />
-                      <YAxis domain={[0, 100]} />
-                      <Tooltip />
-                      <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Card>
-
-                <Card className="p-6">
-                  <h3 className="mb-6">Key Areas Assessment</h3>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <RadarChart data={radarData}>
-                      <PolarGrid />
-                      <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
-                      <PolarRadiusAxis domain={[0, 100]} />
-                      <Radar
-                        name="Your Listing"
-                        dataKey="A"
-                        stroke="hsl(var(--primary))"
-                        fill="hsl(var(--primary))"
-                        fillOpacity={0.6}
-                      />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </Card>
+              
+              <div className="grid sm:grid-cols-2 gap-6">
+                {ratings.map((rating, index) => (
+                  <RatingCard key={index} {...rating} />
+                ))}
               </div>
+            </div>
 
-              {/* Key Insights */}
-              <Card className="p-6 mb-8">
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Eye className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="mb-2">Key Insights & Priorities</h3>
-                    <p className="text-slate-600">
-                      Based on our AI analysis of thousands of successful listings
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  {insights.topPriorities.map((priority, index) => (
-                    <div key={index} className="flex gap-3 p-4 bg-muted/50 rounded-lg">
-                      <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs text-primary-foreground">{index + 1}</span>
-                      </div>
-                      <div>
-                        <p className="text-sm">{priority}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+            {/* Charts */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Card className="p-6">
+                <h3 className="mb-6">Factor Performance Scores</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={categoryScores}>
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                    <XAxis 
+                      dataKey="category" 
+                      tick={{ fontSize: 12 }}
+                      angle={-45}
+                      textAnchor="end"
+                      height={80}
+                    />
+                    <YAxis domain={[0, 100]} />
+                    <Tooltip />
+                    <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
               </Card>
 
-              {/* Locked Premium Section */}
-              <div className="mb-8">
-                <div className="mb-6">
-                  <h2 className="mb-2">Complete Marketing Plan</h2>
+              <Card className="p-6">
+                <h3 className="mb-6">Key Areas Assessment</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <RadarChart data={radarData}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
+                    <PolarRadiusAxis domain={[0, 100]} />
+                    <Radar
+                      name="Your Listing"
+                      dataKey="A"
+                      stroke="hsl(var(--primary))"
+                      fill="hsl(var(--primary))"
+                      fillOpacity={0.6}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </Card>
+            </div>
+
+            {/* Key Insights */}
+            <Card className="p-6 mb-8">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Eye className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="mb-2">Key Insights & Priorities</h3>
                   <p className="text-slate-600">
-                    Get your full AI-generated marketing strategy to maximize your listing's potential
+                    Based on our AI analysis of thousands of successful listings
                   </p>
                 </div>
-                <LockedSection onSubscribe={handleSubscribe} />
               </div>
-            </>
-          )}
-        </main>
+
+              <div className="space-y-4">
+                {insights.topPriorities.map((priority, index) => (
+                  <div key={index} className="flex gap-3 p-4 bg-muted/50 rounded-lg">
+                    <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs text-primary-foreground">{index + 1}</span>
+                    </div>
+                    <div>
+                      <p className="text-sm">{priority}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Locked Premium Section */}
+            <div className="mb-8">
+              <div className="mb-6">
+                <h2 className="mb-2">Complete Marketing Plan</h2>
+                <p className="text-slate-600">
+                  Get your full AI-generated marketing strategy to maximize your listing's potential
+                </p>
+              </div>
+              <LockedSection onSubscribe={handleSubscribe} />
+            </div>
+          </>
+        )}
+      </main>
       </div>
 
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
 
       <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubscribe={handleSubscriptionComplete} address={address} />
       

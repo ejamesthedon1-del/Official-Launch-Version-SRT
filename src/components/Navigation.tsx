@@ -76,7 +76,7 @@ export function Navigation({
                 onClick={() => onNavigate("address-input")}
                 className={`hover:opacity-80 transition-colors ${
                   currentView === "address-input" 
-                    ? "text-blue-600 font-medium" 
+                    ? (isHomePage ? "text-white font-medium" : "text-blue-600 font-medium")
                     : ""
                 }`}
               >
@@ -84,11 +84,26 @@ export function Navigation({
               </button>
             )}
 
-            <button className="hover:opacity-80 transition-colors">
-              Pricing
+            <button
+              onClick={() => onNavigate("dashboard")}
+              className={`hover:opacity-80 transition-colors ${
+                currentView === "dashboard" 
+                  ? (isHomePage ? "text-white font-medium" : "text-blue-600 font-medium")
+                  : ""
+              }`}
+            >
+              Dashboard
             </button>
-            <button className="hover:opacity-80 transition-colors">
-              Features
+
+            <button
+              onClick={() => onNavigate("marketing-plan")}
+              className={`hover:opacity-80 transition-colors ${
+                currentView === "marketing-plan" 
+                  ? (isHomePage ? "text-white font-medium" : "text-blue-600 font-medium")
+                  : ""
+              }`}
+            >
+              Marketing Plan
             </button>
           </nav>
 
