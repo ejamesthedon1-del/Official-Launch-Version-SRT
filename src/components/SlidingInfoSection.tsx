@@ -67,11 +67,9 @@ export function SlidingInfoSection() {
             Listing Sell Faster
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            From data to action. 
+          See what works. Fix what doesn’t.
             <br />
-            SmartRelatorTools transforms 
-            <br />
-            insights into an easy-to-follow plan.
+           Sell Faster.
           </p>
         </div>
 
