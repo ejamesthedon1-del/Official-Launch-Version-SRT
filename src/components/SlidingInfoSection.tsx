@@ -66,11 +66,6 @@ export function SlidingInfoSection() {
             <br />
           listings sell faster
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-          See what works. Fix what doesn’t.
-            <br />
-           Sell Faster.
-          </p>
         </div>
 
         {/* Scrollable Cards */}
