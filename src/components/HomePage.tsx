@@ -765,9 +765,11 @@ export function HomePage({
               <br />
               analysis.
             </h2>
-            <p className="text-lg md:text-xl text-slate-600">
-              100% tailored to your listing
-            </p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900">
+              100% tailored
+              <br />
+              to your listing
+            </h2>
           </div>
         </div>
       </section>
