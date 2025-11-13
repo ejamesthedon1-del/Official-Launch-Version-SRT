@@ -441,11 +441,11 @@ export function HomePage({
       <section className="min-h-screen bg-white py-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="text-left mb-12">
+          <div className="text-center mb-12">
             <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-6">
               Sell Faster in 3 Steps
             </h2>
-            <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl">
+            <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
               Optimize every listing and
               <br />
               sell faster with confidence.
@@ -455,33 +455,27 @@ export function HomePage({
           {/* Steps */}
           <div className="grid lg:grid-cols-3 gap-12 items-start mb-16">
             {/* Step 1: Analyze Listing */}
-            <div className="relative flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="text-4xl md:text-5xl font-medium text-slate-900">1</div>
+            <div className="relative">
+              <AnimatedAddressInput />
+              {/* Arrow to next step - hidden on mobile */}
+              <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
+                <ArrowRight className="w-12 h-12 text-slate-400" />
               </div>
-              <div className="flex-1 relative">
-                <AnimatedAddressInput />
-                {/* Arrow to next step - hidden on mobile */}
-                <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
-                  <ArrowRight className="w-12 h-12 text-slate-400" />
+              {/* Step label */}
+              <div className="text-left mt-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-4xl md:text-5xl font-medium text-slate-900">1</div>
+                  <h3 className="text-xl md:text-2xl text-slate-900">Analyze Listing</h3>
                 </div>
-                {/* Step label */}
-                <div className="text-left mt-4">
-                  <h3 className="text-xl md:text-2xl text-slate-900 mb-2">Analyze Listing</h3>
-                  <p className="text-base text-slate-600">
-                    Simply enter your property address to get started
-                  </p>
-                </div>
+                <p className="text-base text-slate-600">
+                  Simply enter your property address to get started
+                </p>
               </div>
             </div>
 
             {/* Step 2: Get Listing Score */}
-            <div className="relative flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="text-4xl md:text-5xl font-medium text-slate-900">2</div>
-              </div>
-              <div className="flex-1 relative">
-                <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+            <div className="relative">
+              <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
                   {/* Shadow fade effect on top */}
                   <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
                   {/* Score card mockup */}
@@ -558,27 +552,25 @@ export function HomePage({
                   </div>
                 </div>
               </div>
-                {/* Arrow to next step - hidden on mobile */}
-                <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
-                  <ArrowRight className="w-12 h-12 text-slate-400" />
+              {/* Arrow to next step - hidden on mobile */}
+              <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
+                <ArrowRight className="w-12 h-12 text-slate-400" />
+              </div>
+              {/* Step label */}
+              <div className="text-left mt-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-4xl md:text-5xl font-medium text-slate-900">2</div>
+                  <h3 className="text-xl md:text-2xl text-slate-900">Get Your Listing Score</h3>
                 </div>
-                {/* Step label */}
-                <div className="text-left mt-4">
-                  <h3 className="text-xl md:text-2xl text-slate-900 mb-2">Get Your Listing Score</h3>
-                  <p className="text-base text-slate-600">
-                    Analyze your listing's strengths and weaknesses
-                  </p>
-                </div>
+                <p className="text-base text-slate-600">
+                  Analyze your listing's strengths and weaknesses
+                </p>
               </div>
             </div>
 
             {/* Step 3: Get Marketing Plan */}
-            <div className="relative flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="text-4xl md:text-5xl font-medium text-slate-900">3</div>
-              </div>
-              <div className="flex-1 relative">
-                <div className="bg-white rounded-3xl p-3 md:p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+            <div className="relative">
+              <div className="bg-white rounded-3xl p-3 md:p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
                 {/* Shadow fade effect on top */}
                 <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
                 {/* Dashboard preview - scaled down */}
@@ -734,13 +726,15 @@ export function HomePage({
                   </div>
                 </div>
               </div>
-                {/* Step label */}
-                <div className="text-left mt-4">
-                  <h3 className="text-xl md:text-2xl text-slate-900 mb-2">Get Your Tailored Marketing Plan</h3>
-                  <p className="text-base text-slate-600">
-                    Access your complete dashboard with insights and analytics
-                  </p>
+              {/* Step label */}
+              <div className="text-left mt-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-4xl md:text-5xl font-medium text-slate-900">3</div>
+                  <h3 className="text-xl md:text-2xl text-slate-900">Get Your Tailored Marketing Plan</h3>
                 </div>
+                <p className="text-base text-slate-600">
+                  Access your complete dashboard with insights and analytics
+                </p>
               </div>
             </div>
           </div>
