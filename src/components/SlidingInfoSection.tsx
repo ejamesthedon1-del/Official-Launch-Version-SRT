@@ -54,7 +54,7 @@ const infoCards = [
 
 export function SlidingInfoSection() {
   return (
-    <section className="w-full py-20 px-4 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <section className="w-full py-20 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

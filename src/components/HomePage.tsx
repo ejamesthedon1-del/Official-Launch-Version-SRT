@@ -429,13 +429,16 @@ export function HomePage({
         {/* Decorative elements */}
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
+        
+        {/* Fade to white transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-white/50 to-white pointer-events-none" />
       </section>
 
       {/* Sliding Info Section */}
       <SlidingInfoSection />
 
       {/* Sell Faster in 3 Steps */}
-      <section className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-20 px-6">
+      <section className="min-h-screen bg-white py-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
