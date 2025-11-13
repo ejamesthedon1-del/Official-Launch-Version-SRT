@@ -62,9 +62,9 @@ export function SlidingInfoSection() {
             AI-Powered Insights
           </Badge>
           <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
-          4 ways we help you
+          4 ways we help sell
             <br />
-          sell your listing faster
+          your listings faster
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
           See what works. Fix what doesn’t.
