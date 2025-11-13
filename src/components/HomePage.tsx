@@ -402,9 +402,10 @@ export function HomePage({
           in Minutes.
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          Advanced AI Marketing Intelligence.
+          From Listing to Closing 
           <br />
-          Instantly turn listings into closings.
+          Fast, simple, and smart.
+      
           </p>
           <Button
             size="lg"
