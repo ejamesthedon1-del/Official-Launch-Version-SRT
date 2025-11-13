@@ -442,7 +442,7 @@ export function HomePage({
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
               Sell Faster in 3 Steps
             </h2>
             <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
