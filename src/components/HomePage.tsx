@@ -740,7 +740,7 @@ export function HomePage({
             <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
               Trusted by Realtors
             </Badge>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-4">What Real Estate Professionals Say</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">What Real Estate Professionals Say</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -771,7 +771,7 @@ export function HomePage({
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-4xl">
           <Card className="p-12 text-center bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 border-0 shadow-2xl">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl text-white mb-4">Ready to Sell Your Listings Faster?</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-4">Ready to Sell Your Listings Faster?</h2>
             <p className="text-xl text-white/90 mb-8">
               Join hundreds of realtors using AI to optimize their listings and
               close deals faster.

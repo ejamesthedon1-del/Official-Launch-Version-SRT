@@ -61,7 +61,7 @@ export function SlidingInfoSection() {
           <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
             AI-Powered Insights
           </Badge>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
           Insights That Make Every
             <br />
             Listing Sell Faster
