@@ -420,7 +420,10 @@ export function HomePage({
         <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-4 md:pb-8">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent blur-2xl" />
-            <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden">
+            <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden opacity-90" style={{
+              maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)'
+            }}>
               <DashboardMockup />
             </div>
           </div>
