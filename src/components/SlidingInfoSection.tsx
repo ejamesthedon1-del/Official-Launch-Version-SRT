@@ -58,10 +58,7 @@ export function SlidingInfoSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
-            AI-Powered Insights
-          </Badge>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-4">
           4 ways we help your
             <br />
           listings sell faster
