@@ -58,10 +58,8 @@ export function SlidingInfoSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-4">
-          4 ways we help your
-            <br />
-          listings sell faster
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-slate-900 mb-4">
+          4 ways we help your listings sell faster
           </h2>
         </div>
 
