@@ -453,7 +453,7 @@ export function HomePage({
           </div>
 
           {/* Steps */}
-          <div className="grid lg:grid-cols-3 gap-12 items-start mb-16">
+          <div className="grid lg:grid-cols-3 gap-16 items-start mb-16">
             {/* Step 1: Analyze Listing */}
             <div className="relative">
               <AnimatedAddressInput />
@@ -465,11 +465,14 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">1</div>
-                  <h3 className="text-4xl md:text-5xl font-medium text-slate-900">Analyze Listing</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Analyze Listing</h3>
                 </div>
-                <p className="text-base text-slate-600">
-                  Simply enter your property address to get started
-                </p>
+                <div className="flex items-start gap-3">
+                  <div className="text-xl md:text-2xl text-slate-900 opacity-0">1</div>
+                  <p className="text-base text-slate-600 max-w-md">
+                    Simply enter your property address to get started
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -560,11 +563,14 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">2</div>
-                  <h3 className="text-4xl md:text-5xl font-medium text-slate-900">Get Your Listing Score</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get Your Listing Score</h3>
                 </div>
-                <p className="text-base text-slate-600">
-                  Analyze your listing's strengths and weaknesses
-                </p>
+                <div className="flex items-start gap-3">
+                  <div className="text-xl md:text-2xl text-slate-900 opacity-0">2</div>
+                  <p className="text-base text-slate-600 max-w-md">
+                    Analyze your listing's strengths and weaknesses
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -730,11 +736,14 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">3</div>
-                  <h3 className="text-4xl md:text-5xl font-medium text-slate-900">Get Your Tailored Marketing Plan</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get Your Tailored Marketing Plan</h3>
                 </div>
-                <p className="text-base text-slate-600">
-                  Access your complete dashboard with insights and analytics
-                </p>
+                <div className="flex items-start gap-3">
+                  <div className="text-xl md:text-2xl text-slate-900 opacity-0">3</div>
+                  <p className="text-base text-slate-600 max-w-md">
+                    Access your complete dashboard with insights and analytics
+                  </p>
+                </div>
               </div>
             </div>
           </div>
