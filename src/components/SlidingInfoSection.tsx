@@ -192,7 +192,7 @@ function AnalyzingListingAnimation() {
         className="absolute h-full rounded-3xl overflow-hidden"
         style={{
           left: "-120px",
-          top: "-10px",
+          top: "-40px",
           width: "400px",
           background: "rgba(255, 255, 255, 0.95)",
           border: "1px solid rgba(255, 255, 255, 0.3)",
