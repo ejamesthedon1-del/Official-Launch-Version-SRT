@@ -761,14 +761,9 @@ export function HomePage({
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
-              No generic
+              No generic analysis.
               <br />
-              analysis.
-            </h2>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900">
-              100% tailored
-              <br />
-              to your listing
+              Tailored to your listings.
             </h2>
           </div>
         </div>
