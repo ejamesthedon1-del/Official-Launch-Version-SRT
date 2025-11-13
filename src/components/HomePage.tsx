@@ -464,8 +464,8 @@ export function HomePage({
               {/* Step label */}
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="text-4xl md:text-5xl font-medium text-slate-900">1</div>
-                  <h3 className="text-xl md:text-2xl text-slate-900">Analyze Listing</h3>
+                  <div className="text-xl md:text-2xl text-slate-900">1</div>
+                  <h3 className="text-4xl md:text-5xl font-medium text-slate-900">Analyze Listing</h3>
                 </div>
                 <p className="text-base text-slate-600">
                   Simply enter your property address to get started
@@ -559,8 +559,8 @@ export function HomePage({
               {/* Step label */}
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="text-4xl md:text-5xl font-medium text-slate-900">2</div>
-                  <h3 className="text-xl md:text-2xl text-slate-900">Get Your Listing Score</h3>
+                  <div className="text-xl md:text-2xl text-slate-900">2</div>
+                  <h3 className="text-4xl md:text-5xl font-medium text-slate-900">Get Your Listing Score</h3>
                 </div>
                 <p className="text-base text-slate-600">
                   Analyze your listing's strengths and weaknesses
@@ -729,8 +729,8 @@ export function HomePage({
               {/* Step label */}
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="text-4xl md:text-5xl font-medium text-slate-900">3</div>
-                  <h3 className="text-xl md:text-2xl text-slate-900">Get Your Tailored Marketing Plan</h3>
+                  <div className="text-xl md:text-2xl text-slate-900">3</div>
+                  <h3 className="text-4xl md:text-5xl font-medium text-slate-900">Get Your Tailored Marketing Plan</h3>
                 </div>
                 <p className="text-base text-slate-600">
                   Access your complete dashboard with insights and analytics
