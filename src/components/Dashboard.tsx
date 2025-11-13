@@ -240,21 +240,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
         {/* Main Content */}
         <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full">
-        {/* Alert Banner */}
-        {insights.alerts.length > 0 && (
-          <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-              <div>
-                <div className="mb-1">{insights.alerts[0].title}</div>
-                <p className="text-sm text-muted-foreground">
-                  {insights.alerts[0].message}
-                </p>
-              </div>
-            </div>
-          </Card>
-        )}
-
           {/* Property Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
@@ -319,6 +304,21 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
             </div>
           </div>
+
+          {/* Alert Banner - Between score card and Performance Analytics */}
+          {insights.alerts.length > 0 && (
+            <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                <div>
+                  <div className="mb-1">{insights.alerts[0].title}</div>
+                  <p className="text-sm text-muted-foreground">
+                    {insights.alerts[0].message}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Paywall Modal - Right after the property header/score section */}
           {!isSubscribed && showPaywall && (
