@@ -441,7 +441,7 @@ export function HomePage({
       <SlidingInfoSection />
 
       {/* Sell Faster in 3 Steps */}
-      <section className="min-h-screen bg-white py-20 px-6">
+      <section className="min-h-screen bg-white pt-12 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
@@ -473,7 +473,8 @@ export function HomePage({
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">1</div>
                   <p className="text-base text-slate-600 max-w-md">
-                    Simply enter your property address to get started
+                    Simply enter your property<br />
+                    address to get started
                   </p>
                 </div>
               </div>
@@ -571,7 +572,8 @@ export function HomePage({
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">2</div>
                   <p className="text-base text-slate-600 max-w-md">
-                    Analyze your listing's strengths and weaknesses
+                    Analyze your listing's strengths<br />
+                    and weaknesses
                   </p>
                 </div>
               </div>
@@ -744,7 +746,8 @@ export function HomePage({
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">3</div>
                   <p className="text-base text-slate-600 max-w-md">
-                    Access your complete dashboard with insights and analytics
+                    Access your complete dashboard<br />
+                    with insights and analytics
                   </p>
                 </div>
               </div>
