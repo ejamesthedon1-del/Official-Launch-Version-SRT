@@ -405,7 +405,7 @@ export function HomePage({
     
           Optimize every listing and
           <br />
-          close with confidence.
+          sell faster with confidence.
       </p>
           <Button
             size="lg"
