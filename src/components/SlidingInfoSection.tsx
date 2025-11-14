@@ -28,7 +28,8 @@ export function SlidingInfoSection() {
             const offset = rect.left - scrollRect.left + 16;
             setLeftPadding(`${Math.max(0, offset)}px`);
             // Add right padding to allow last card to scroll fully into view
-            setRightPadding('calc(100vw - 68vw - 1rem)');
+            // Account for 0.5in added to card width
+            setRightPadding('calc(100vw - 68vw - 0.5in - 1rem)');
           }
         }
       } else {
@@ -58,7 +59,8 @@ export function SlidingInfoSection() {
           if (!isNaN(paddingValue)) {
             // Scroll to position the first card center in viewport
             // Account for negative margin (-16px) and center the card
-            const cardWidth = window.innerWidth * 0.68; // 68vw
+            // Card width is now 68vw + 0.5in (48px)
+            const cardWidth = window.innerWidth * 0.68 + 48; // 68vw + 0.5in
             const scrollPosition = paddingValue - 16 + (cardWidth / 2) - (window.innerWidth / 2);
             scrollContainer.scrollTo({ left: Math.max(0, scrollPosition), behavior: 'auto' });
           }
@@ -87,14 +89,14 @@ export function SlidingInfoSection() {
           <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 md:mx-0" id="cards-scroll-container">
             <div ref={cardsContainerRef} className="flex gap-6 pb-4 md:pl-0" style={{ paddingLeft: leftPadding, paddingRight: rightPadding }}>
               {/* Card 1: Blue Card Bottom Text */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
+              <div className="flex-shrink-0 snap-center w-[calc(68vw+0.5in)] md:w-[368px]">
                 <BlueCardBottomText
                   title="Accelerate Your Listings With Intelligent Data"
                 />
               </div>
 
               {/* Card 2: Light Card With Animation */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
+              <div className="flex-shrink-0 snap-center w-[calc(68vw+0.5in)] md:w-[368px]">
                 <LightCardWithAnimation
                   title="Help clients move confidently with real-time market intelligence."
                   description="Provide your clients with up-to-the-minute insights that help them make informed decisions faster."
@@ -102,7 +104,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 3: Light Card With Buyer Matching */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
+              <div className="flex-shrink-0 snap-center w-[calc(68vw+0.5in)] md:w-[368px]">
                 <LightCardWithBuyerMatching
                   title="Reach Buyers That Actually Matter"
                   description="Save time and effort by understanding which audience aligns with your property."
@@ -110,7 +112,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 4: Blue Card With Progress Animation */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
+              <div className="flex-shrink-0 snap-center w-[calc(68vw+0.5in)] md:w-[368px]">
                 <BlueCardWithProgressAnimation
                   title="The Fastest Path from Listing to Closing"
                   description="From analysis to match to marketing to close — your AI-powered workflow accelerates every step."
@@ -147,7 +149,7 @@ export function SlidingInfoSection() {
 function BlueCardBottomText({ title }: { title: string }) {
   return (
     <motion.div
-      className="relative overflow-hidden rounded-3xl p-8 flex flex-col justify-end h-full min-h-[420px]"
+      className="relative overflow-hidden rounded-3xl p-8 flex flex-col justify-end h-full min-h-[468px]"
       style={{
         background: "linear-gradient(135deg, #2D7FFF 0%, #609BFF 100%)",
       }}
@@ -510,7 +512,7 @@ function BlueCardWithProgressAnimation({
 }) {
   return (
     <motion.div
-      className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
+      className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[468px]"
       style={{
         backgroundColor: "#F7F9FC",
         border: "1px solid rgba(0, 0, 0, 0.08)",
@@ -808,7 +810,7 @@ function LightCardWithAnimation({
 }) {
   return (
     <motion.div
-      className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
+      className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[468px]"
       style={{
         backgroundColor: "#F7F9FC",
         border: "1px solid rgba(0, 0, 0, 0.08)",
@@ -1041,7 +1043,7 @@ function LightCardWithBuyerMatching({
 }) {
   return (
     <motion.div
-      className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
+      className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[468px]"
       style={{
         backgroundColor: "#F7F9FC",
         border: "1px solid rgba(0, 0, 0, 0.08)",
