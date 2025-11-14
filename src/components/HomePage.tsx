@@ -541,12 +541,12 @@ export function HomePage({
                 {/* PDF Marketing Plan Mockup */}
                 <div className="w-full h-full overflow-hidden bg-white rounded-xl shadow-lg border border-slate-200 relative">
                   {/* PDF Document Header */}
-                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-2 border-b border-blue-800">
+                  <div className="bg-white px-3 py-2 border-b border-slate-200">
                     <div className="flex items-center gap-2 mb-1">
-                      <FileText className="w-3 h-3 text-white" />
-                      <div className="text-[10px] text-white/90 font-medium">30-Day Marketing Plan</div>
+                      <FileText className="w-3 h-3 text-slate-700" />
+                      <div className="text-[10px] text-slate-900 font-medium">30-Day Marketing Plan</div>
                     </div>
-                    <div className="text-[9px] text-white/80">123 Oak Street, Springfield, IL</div>
+                    <div className="text-[9px] text-slate-600">123 Oak Street, Springfield, IL</div>
                   </div>
                   
                   {/* PDF Content */}
@@ -570,22 +570,22 @@ export function HomePage({
                     {/* Week 1 Section */}
                     <div className="mb-2">
                       <div className="flex items-center gap-2 mb-1.5">
-                        <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] font-bold">
+                        <div className="w-5 h-5 rounded-full bg-slate-400 text-white flex items-center justify-center text-[9px] font-bold">
                           1
                         </div>
                         <div className="text-[10px] font-semibold text-slate-900">Week 1: Immediate Market Repositioning</div>
                       </div>
                       <div className="space-y-1 ml-7">
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Price adjustment to create market attention</div>
                         </div>
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Enhanced photography & video production</div>
                         </div>
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Marketing blitz launch with targeted ads</div>
                         </div>
                       </div>
@@ -594,18 +594,18 @@ export function HomePage({
                     {/* Week 2 Section */}
                     <div className="mb-2">
                       <div className="flex items-center gap-2 mb-1.5">
-                        <div className="w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] font-bold">
+                        <div className="w-5 h-5 rounded-full bg-slate-400 text-white flex items-center justify-center text-[9px] font-bold">
                           2
                         </div>
                         <div className="text-[10px] font-semibold text-slate-900">Week 2: Expanded Reach & Targeting</div>
                       </div>
                       <div className="space-y-1 ml-7">
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-purple-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Investor outreach & ROI projections</div>
                         </div>
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-purple-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Luxury marketing campaign launch</div>
                         </div>
                       </div>
@@ -614,18 +614,18 @@ export function HomePage({
                     {/* Week 3 Section */}
                     <div className="mb-2">
                       <div className="flex items-center gap-2 mb-1.5">
-                        <div className="w-5 h-5 rounded-full bg-green-600 text-white flex items-center justify-center text-[9px] font-bold">
+                        <div className="w-5 h-5 rounded-full bg-slate-400 text-white flex items-center justify-center text-[9px] font-bold">
                           3
                         </div>
                         <div className="text-[10px] font-semibold text-slate-900">Week 3: Strategic Incentives</div>
                       </div>
                       <div className="space-y-1 ml-7">
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Closing cost credits & incentives</div>
                         </div>
                         <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
                           <div className="text-[8px] text-slate-700 leading-tight">Intense open house schedule</div>
                         </div>
                       </div>
@@ -633,7 +633,7 @@ export function HomePage({
 
                     {/* Footer Badge */}
                     <div className="mt-2 pt-2 border-t border-slate-200">
-                      <div className="inline-flex items-center gap-1.5 bg-green-100 text-green-800 px-2 py-1 rounded-full text-[8px]">
+                      <div className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-2 py-1 rounded-full text-[8px]">
                         <BarChart3 className="w-2.5 h-2.5" />
                         <span>Track Progress</span>
                       </div>
