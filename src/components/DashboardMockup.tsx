@@ -58,7 +58,7 @@ export function DashboardMockup() {
         {/* Property Header Section */}
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg overflow-hidden mb-2 md:mb-4">
           <div className="grid lg:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
-            {/* Left Column: Image and Score Side by Side */}
+            {/* Left Column: Image only on desktop, Image and Score on mobile */}
             <div className="flex gap-2 md:gap-4 items-start">
               {/* Property Image - Wider, covers more width */}
               <div className="flex-shrink-0 w-48 h-32 md:w-72 md:h-40">
@@ -71,8 +71,8 @@ export function DashboardMockup() {
                 </div>
               </div>
 
-              {/* Circular Progress Score */}
-              <div className="flex flex-col flex-1">
+              {/* Circular Progress Score - Only visible on mobile */}
+              <div className="flex flex-col flex-1 lg:hidden">
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
@@ -96,7 +96,7 @@ export function DashboardMockup() {
               </div>
             </div>
 
-            {/* Right Column: Property Details */}
+            {/* Right Column: Property Details and Score (Desktop) */}
             <div className="flex flex-col justify-between">
               <div>
                 <h2 className="text-slate-900 mb-0.5 md:mb-1 text-sm md:text-lg font-semibold line-clamp-2">{streetAddress}</h2>
@@ -126,6 +126,30 @@ export function DashboardMockup() {
                   <div className="bg-white rounded-lg p-1 md:p-1.5 text-center">
                     <Ruler className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5" />
                     <div className="text-[9px] md:text-[10px] text-slate-600">{sqft} sqft</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Circular Progress Score - Only visible on desktop */}
+              <div className="hidden lg:flex flex-col items-center mt-4">
+                <div className="text-center">
+                  <CircularProgress 
+                    percentage={overallScore} 
+                    size={80} 
+                    strokeWidth={12}
+                    showAnimation={true}
+                  />
+                  <div className="mt-1 md:mt-2">
+                    <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">Smart AI Listing Score</div>
+                    <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
+                  </div>
+                </div>
+                {/* Analysis message aligned with address */}
+                <div className="mt-2 md:mt-3">
+                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px]">
+                    <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
+                      This property shows strong potential with competitive pricing and good location appeal.
+                    </p>
                   </div>
                 </div>
               </div>
