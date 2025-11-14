@@ -214,7 +214,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     showAnimation={true}
                   />
                   <div className="mt-4">
-                    <div className="text-sm text-slate-600 mb-1">AI Listing Score</div>
+                    <div className="text-sm text-slate-600 mb-1">AI Smart Listing Score</div>
                     <div className="text-xs text-slate-500">{getScoreLabel(overallScore)}</div>
                   </div>
                 </div>
