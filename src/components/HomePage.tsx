@@ -268,7 +268,6 @@ function AnimatedAddressInput() {
                     transform: isClicked ? "scale(0.9)" : "scale(1)",
                     transition: "transform 0.1s ease-out",
                     filter: "drop-shadow(0.5px 0.5px 1px rgba(0,0,0,0.5))",
-                    mixBlendMode: "multiply",
                     imageRendering: "crisp-edges",
                   }}
                 />
