@@ -1,15 +1,52 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Sparkles, Video, Mic, Home, TrendingUp, User, Target, Brain, BarChart3 } from "lucide-react";
 import videoCallImage from "../assets/video-call-laptop.png";
 
 export function SlidingInfoSection() {
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const [leftPadding, setLeftPadding] = useState<string>("1rem");
+
+  useEffect(() => {
+    const calculatePadding = () => {
+      if (headlineRef.current && cardsContainerRef.current && window.innerWidth < 768) {
+        // Find the "4" character in the headline
+        const range = document.createRange();
+        const textNode = headlineRef.current.childNodes[0];
+        if (textNode && textNode.textContent) {
+          range.setStart(textNode, 0);
+          range.setEnd(textNode, 1);
+          const rect = range.getBoundingClientRect();
+          // Get the scrollable container (parent of cardsContainerRef)
+          const scrollContainer = cardsContainerRef.current.parentElement;
+          if (scrollContainer) {
+            const scrollRect = scrollContainer.getBoundingClientRect();
+            // Account for the negative margin (-mx-4 = -1rem = -16px)
+            const offset = rect.left - scrollRect.left + 16;
+            setLeftPadding(`${Math.max(0, offset)}px`);
+          }
+        }
+      } else {
+        setLeftPadding("0");
+      }
+    };
+
+    // Use setTimeout to ensure DOM is fully rendered
+    const timeoutId = setTimeout(calculatePadding, 0);
+    window.addEventListener("resize", calculatePadding);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", calculatePadding);
+    };
+  }, []);
+
   return (
     <section className="w-full py-20 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 px-4">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-950 font-medium mb-4">
+          <h2 ref={headlineRef} className="text-4xl md:text-5xl lg:text-6xl text-slate-950 font-medium mb-4">
           4 ways we help your
             <br />
           listings sell faster
@@ -19,7 +56,7 @@ export function SlidingInfoSection() {
         {/* Scrollable Cards */}
         <div className="relative mt-2">
           <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 md:mx-0">
-            <div className="flex gap-6 pb-4 pl-4 md:pl-0">
+            <div ref={cardsContainerRef} className="flex gap-6 pb-4 md:pl-0" style={{ paddingLeft: leftPadding }}>
               {/* Card 1: Blue Card Bottom Text */}
               <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
                 <BlueCardBottomText
