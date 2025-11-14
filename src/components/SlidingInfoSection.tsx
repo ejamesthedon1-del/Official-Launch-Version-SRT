@@ -67,7 +67,7 @@ export function SlidingInfoSection() {
               {/* Card 2: Light Card With Animation */}
               <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
                 <LightCardWithAnimation
-                  title="Equip your buyers and sellers with real-time market intelligence"
+                  title="Help clients move confidently with real-time market intelligence."
                   description="Provide your clients with up-to-the-minute insights that help them make informed decisions faster."
                 />
               </div>
@@ -505,7 +505,7 @@ function BlueCardWithProgressAnimation({
       <div className="relative z-20 flex flex-col justify-end" style={{ minHeight: "360px" }}>
         <div className="space-y-3">
           <h3
-            className="text-slate-900 text-lg font-bold leading-tight"
+            className="text-slate-900 text-lg font-medium leading-tight"
             style={{
               fontSize: "18px",
               lineHeight: "140%",
@@ -803,7 +803,7 @@ function LightCardWithAnimation({
       <div className="relative z-20 flex flex-col justify-end" style={{ minHeight: "360px" }}>
         <div className="space-y-3">
           <h3
-            className="text-slate-900 text-lg font-bold leading-tight"
+            className="text-slate-900 text-lg font-medium leading-tight"
             style={{
               fontSize: "18px",
               lineHeight: "140%",
@@ -1036,7 +1036,7 @@ function LightCardWithBuyerMatching({
             style={{
               fontFamily: "Inter, system-ui, sans-serif",
               fontSize: "18px",
-              fontWeight: 700,
+              fontWeight: 500,
               lineHeight: "140%",
               color: "#1B1F23",
             }}
