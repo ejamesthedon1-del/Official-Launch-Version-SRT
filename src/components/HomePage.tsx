@@ -21,7 +21,6 @@ import {
   Ruler,
 } from "lucide-react";
 import { Button } from "./ui/button";
-import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { DashboardMockup } from "./DashboardMockup";
 import { DashboardPreview } from "./DashboardPreview";
@@ -663,44 +662,6 @@ export function HomePage({
         </div>
       </section>
 
-      {/* Compare and Contrast */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
-              AI Intelligence.
-              <br />
-              Tailored to your listings.
-            </h2>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="p-12 text-center bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 border-0 shadow-2xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-4">Ready to Sell Your Listings Faster?</h2>
-            <p className="text-xl text-white/90 mb-8">
-              Join hundreds of realtors using AI to optimize their listings and
-              close deals faster.
-            </p>
-            <Button size="lg" onClick={onGetStarted} className="gap-2 bg-white text-blue-600 hover:bg-blue-50 shadow-lg">
-              Get Started Free <ArrowRight className="w-4 h-4" />
-            </Button>
-            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-white/90">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-white" />
-                <span>No credit card required</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-white" />
-                <span>Free analysis</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-12 px-4">
