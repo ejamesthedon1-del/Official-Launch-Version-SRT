@@ -538,157 +538,110 @@ export function HomePage({
                 <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/20 pointer-events-none z-10 rounded-3xl" />
                 {/* Shadow fade effect on top */}
                 <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-20 rounded-t-3xl" />
-                {/* Dashboard preview - scaled down */}
-                <div className="w-full h-full overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 rounded-xl">
-                  <div className="p-2 md:p-3 h-full overflow-y-auto">
-                    {/* Property Header - Scaled Down */}
-                    <div className="bg-white rounded-lg shadow-md border border-slate-200/50 overflow-hidden mb-2">
-                      <div className="grid grid-cols-2 gap-2 p-2">
-                        {/* Circular Progress Score */}
-                        <div className="flex items-center justify-center">
-                          <CircularProgress 
-                            percentage={85} 
-                            size={80} 
-                            strokeWidth={8}
-                            showAnimation={false}
-                          />
+                {/* PDF Marketing Plan Mockup */}
+                <div className="w-full h-full overflow-hidden bg-white rounded-xl shadow-lg border border-slate-200 relative">
+                  {/* PDF Document Header */}
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-2 border-b border-blue-800">
+                    <div className="flex items-center gap-2 mb-1">
+                      <FileText className="w-3 h-3 text-white" />
+                      <div className="text-[10px] text-white/90 font-medium">30-Day Marketing Plan</div>
+                    </div>
+                    <div className="text-[9px] text-white/80">123 Oak Street, Springfield, IL</div>
+                  </div>
+                  
+                  {/* PDF Content */}
+                  <div className="p-2.5 h-full overflow-y-auto bg-white">
+                    {/* Success Metrics */}
+                    <div className="grid grid-cols-3 gap-1.5 mb-2.5 pb-2 border-b border-slate-200">
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-slate-900 mb-0.5">85%</div>
+                        <div className="text-[8px] text-slate-600">Success</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-slate-900 mb-0.5">21-28</div>
+                        <div className="text-[8px] text-slate-600">Days</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-sm font-bold text-slate-900 mb-0.5">$379K</div>
+                        <div className="text-[8px] text-slate-600">Price</div>
+                      </div>
+                    </div>
+
+                    {/* Week 1 Section */}
+                    <div className="mb-2">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] font-bold">
+                          1
                         </div>
-                        {/* Property Details */}
-                        <div className="flex flex-col justify-center">
-                          <h3 className="text-[10px] md:text-xs font-semibold text-slate-900 mb-0.5 line-clamp-1">3404 American Dr</h3>
-                          <div className="flex items-center gap-1 text-[8px] md:text-[9px] text-slate-600 mb-1">
-                            <MapPin className="w-2.5 h-2.5" />
-                            <span className="line-clamp-1">Lago Vista, TX</span>
-                          </div>
-                          <div className="grid grid-cols-3 gap-1">
-                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
-                              <Bed className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
-                              <div className="text-[8px] text-slate-600">2</div>
-                            </div>
-                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
-                              <Bath className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
-                              <div className="text-[8px] text-slate-600">2</div>
-                            </div>
-                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
-                              <Ruler className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
-                              <div className="text-[8px] text-slate-600">1,204</div>
-                            </div>
-                          </div>
+                        <div className="text-[10px] font-semibold text-slate-900">Week 1: Immediate Market Repositioning</div>
+                      </div>
+                      <div className="space-y-1 ml-7">
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Price adjustment to create market attention</div>
+                        </div>
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Enhanced photography & video production</div>
+                        </div>
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Marketing blitz launch with targeted ads</div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Analytics Grid - Scaled Down */}
-                    <div className="grid grid-cols-3 gap-1.5 mb-2">
-                      {/* Performance Analytics */}
-                      <div className="col-span-2 bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
-                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
-                          <TrendingUp className="w-2.5 h-2.5 text-blue-600" />
-                          Analytics
-                        </h4>
-                        <div className="grid grid-cols-2 gap-1 mb-1.5">
-                          <div className="text-center p-1 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded border border-blue-200/50">
-                            <Eye className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
-                            <div className="text-[8px] text-slate-900 font-semibold">245</div>
-                            <div className="text-[7px] text-slate-600">Views</div>
-                          </div>
-                          <div className="text-center p-1 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded border border-blue-200/50">
-                            <Heart className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
-                            <div className="text-[8px] text-slate-900 font-semibold">18</div>
-                            <div className="text-[7px] text-slate-600">Favs</div>
-                          </div>
+                    {/* Week 2 Section */}
+                    <div className="mb-2">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <div className="w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] font-bold">
+                          2
                         </div>
-                        {/* Mini Bar Chart */}
-                        <div className="h-16">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={[
-                              { category: "Cond", score: 85 },
-                              { category: "Loc", score: 80 },
-                              { category: "Amen", score: 75 },
-                            ]}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                              <XAxis dataKey="category" tick={{ fontSize: 6, fill: '#64748b' }} />
-                              <YAxis hide domain={[0, 100]} />
-                              <Bar dataKey="score" fill="#3b82f6" radius={[2, 2, 0, 0]} />
-                            </BarChart>
-                          </ResponsiveContainer>
-                        </div>
+                        <div className="text-[10px] font-semibold text-slate-900">Week 2: Expanded Reach & Targeting</div>
                       </div>
-
-                      {/* AI Insights */}
-                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
-                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
-                          <Sparkles className="w-2.5 h-2.5 text-blue-600" />
-                          Insights
-                        </h4>
-                        <div className="space-y-1">
-                          {[
-                            "Optimize pricing",
-                            "Enhance marketing"
-                          ].map((priority, index) => (
-                            <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded p-1">
-                              <div className="flex items-start gap-1">
-                                <CheckCircle2 className="w-1.5 h-1.5 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <div className="text-[7px] text-slate-900 leading-tight line-clamp-2">{priority}</div>
-                              </div>
-                            </div>
-                          ))}
+                      <div className="space-y-1 ml-7">
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-purple-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Investor outreach & ROI projections</div>
+                        </div>
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-purple-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Luxury marketing campaign launch</div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Bottom Grid - Photo Analysis & Timeline */}
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {/* Photo Analysis */}
-                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
-                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
-                          <Camera className="w-2.5 h-2.5 text-blue-600" />
-                          Photos
-                        </h4>
-                        <div className="space-y-1">
-                          {[
-                            { name: "Living", score: 85 },
-                            { name: "Kitchen", score: 78 },
-                          ].map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-1">
-                              <div className="text-[7px] text-slate-700 w-10 flex-shrink-0">{item.name}</div>
-                              <div className="flex-1 bg-slate-100 rounded-full h-1 overflow-hidden">
-                                <div 
-                                  className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full"
-                                  style={{ width: `${item.score}%` }}
-                                />
-                              </div>
-                              <div className="text-[7px] text-slate-900 w-4">{item.score}</div>
-                            </div>
-                          ))}
+                    {/* Week 3 Section */}
+                    <div className="mb-2">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <div className="w-5 h-5 rounded-full bg-green-600 text-white flex items-center justify-center text-[9px] font-bold">
+                          3
+                        </div>
+                        <div className="text-[10px] font-semibold text-slate-900">Week 3: Strategic Incentives</div>
+                      </div>
+                      <div className="space-y-1 ml-7">
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Closing cost credits & incentives</div>
+                        </div>
+                        <div className="flex items-start gap-1.5">
+                          <CheckCircle className="w-2.5 h-2.5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-[8px] text-slate-700 leading-tight">Intense open house schedule</div>
                         </div>
                       </div>
+                    </div>
 
-                      {/* Marketing Timeline */}
-                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
-                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
-                          <Clock className="w-2.5 h-2.5 text-blue-600" />
-                          Timeline
-                        </h4>
-                        <div className="space-y-1">
-                          {[
-                            { title: "Price optimization", date: "Today" },
-                            { title: "Photo update", date: "2d ago" },
-                          ].map((item, index) => (
-                            <div key={index} className="flex gap-1">
-                              <div className="flex-shrink-0 w-3 h-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
-                                <CheckCircle2 className="w-1.5 h-1.5 text-white" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="text-[7px] text-slate-900 line-clamp-1">{item.title}</div>
-                                <div className="text-[6px] text-slate-500">{item.date}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                    {/* Footer Badge */}
+                    <div className="mt-2 pt-2 border-t border-slate-200">
+                      <div className="inline-flex items-center gap-1.5 bg-green-100 text-green-800 px-2 py-1 rounded-full text-[8px]">
+                        <BarChart3 className="w-2.5 h-2.5" />
+                        <span>Track Progress</span>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* PDF Page Edge Shadow */}
+                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-r from-transparent via-slate-300/50 to-slate-400/30 pointer-events-none" />
                 </div>
               </div>
               {/* Step label */}
