@@ -61,7 +61,7 @@ export function DashboardMockup() {
             {/* Left Column: Image and Score Side by Side */}
             <div className="flex gap-2 md:gap-4 items-center">
               {/* Property Image - Wider, covers more width */}
-              <div className="flex-shrink-0 w-40 h-32 md:w-56 md:h-40">
+              <div className="flex-shrink-0 w-48 h-32 md:w-72 md:h-40">
                 <div className="relative w-full h-full rounded-lg overflow-hidden">
                   <img
                     src={houseImage}
@@ -76,8 +76,8 @@ export function DashboardMockup() {
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
-                    size={100} 
-                    strokeWidth={14}
+                    size={80} 
+                    strokeWidth={12}
                     showAnimation={true}
                   />
                   <div className="mt-1 md:mt-2">
