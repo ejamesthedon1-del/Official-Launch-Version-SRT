@@ -1,7 +1,7 @@
 import { MapPin, Bed, Bath, Ruler, TrendingUp, Eye, Heart, Share2, Users, Sparkles, CheckCircle2, Camera, Clock } from "lucide-react";
 import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import houseImage from "../assets/luxury-house-twilight.png";
+import houseImage from "../assets/luxury-house-twilight.jpg";
 
 export function DashboardMockup() {
   // Sample data for preview
