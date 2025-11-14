@@ -270,12 +270,6 @@ function AnimatedAddressInput() {
                     filter: "drop-shadow(0.5px 0.5px 1px rgba(0,0,0,0.5))",
                   }}
                 />
-                {/* Click ripple effect */}
-                {isClicked && (
-                  <div className="absolute top-2.5 left-2.5 flex items-center justify-center -z-10">
-                    <div className="w-7 h-7 bg-blue-500 rounded-full opacity-25 animate-ping" />
-                  </div>
-                )}
               </div>
             </div>
           </div>
