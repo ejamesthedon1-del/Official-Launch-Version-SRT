@@ -162,9 +162,11 @@ function AnimatedAddressInput() {
 
   return (
     <>
-      <div className="bg-white rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative">
+      <div className="bg-slate-300 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative">
+        {/* White overlay fade effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/20 pointer-events-none z-10 rounded-3xl" />
         {/* Shadow fade effect on top */}
-        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-20 rounded-t-3xl" />
         {/* Address Input mockup */}
         <div className="w-full h-full">
           {/* Browser chrome */}
@@ -471,9 +473,11 @@ export function HomePage({
 
             {/* Step 2: Get Listing Score */}
             <div className="relative">
-              <div className="bg-white rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+              <div className="bg-slate-300 rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                {/* White overlay fade effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/20 pointer-events-none z-10 rounded-3xl" />
                 {/* Shadow fade effect on top */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-20 rounded-t-3xl" />
                 {/* Desktop Browser Mockup */}
                 <div className="w-full h-full">
                   {/* Browser chrome */}
@@ -484,9 +488,6 @@ export function HomePage({
                         <div className="w-2 h-2 rounded-full bg-red-400" />
                         <div className="w-2 h-2 rounded-full bg-yellow-400" />
                         <div className="w-2 h-2 rounded-full bg-green-400" />
-                      </div>
-                      <div className="flex-1 bg-white rounded px-3 py-1 mx-4">
-                        <span className="text-xs text-slate-400">smartrealtortools.com/dashboard</span>
                       </div>
                     </div>
                     
@@ -532,9 +533,11 @@ export function HomePage({
 
             {/* Step 3: Get Marketing Plan */}
             <div className="relative">
-              <div className="bg-white rounded-3xl p-3 md:p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+              <div className="bg-slate-300 rounded-3xl p-3 md:p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                {/* White overlay fade effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/20 pointer-events-none z-10 rounded-3xl" />
                 {/* Shadow fade effect on top */}
-                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-20 rounded-t-3xl" />
                 {/* Dashboard preview - scaled down */}
                 <div className="w-full h-full overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 rounded-xl">
                   <div className="p-2 md:p-3 h-full overflow-y-auto">
