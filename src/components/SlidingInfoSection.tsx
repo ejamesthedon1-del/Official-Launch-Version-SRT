@@ -791,11 +791,12 @@ function LightCardWithAnimation({
 
       {/* Overlay that fades video into card background */}
       <div
-        className="absolute inset-x-0 top-0 pointer-events-none z-10"
+        className="absolute top-0 right-0 pointer-events-none z-10"
         style={{
-          height: "330px",
+          width: "240px",
+          height: "180px",
           background:
-            "linear-gradient(to bottom, rgba(247, 249, 252, 0), rgba(247, 249, 252, 0.05) 20%, rgba(247, 249, 252, 0.15) 35%, rgba(247, 249, 252, 0.35) 50%, rgba(247, 249, 252, 0.55) 65%, rgba(247, 249, 252, 0.75) 80%, rgba(247, 249, 252, 0.92) 92%, #F7F9FC 100%)",
+            "radial-gradient(circle at top right, rgba(247, 249, 252, 0.3) 0%, rgba(247, 249, 252, 0.6) 40%, rgba(247, 249, 252, 0.85) 70%, #F7F9FC 100%)",
         }}
       />
 
@@ -847,17 +848,18 @@ function VideoCallAnimation() {
 
   return (
     <motion.div
-      className="absolute top-0 left-0 right-0 z-0"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      className="absolute top-0 right-0 z-0"
+      initial={{ opacity: 0, scale: 0.8, x: 20, y: -20 }}
+      animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
       transition={{
         duration: 0.5,
         ease: "easeOut",
         delay: 0.2,
       }}
       style={{
-        height: "290px",
-        padding: "20px",
+        width: "240px",
+        height: "180px",
+        padding: "12px",
       }}
     >
       {/* Video Call Window */}
