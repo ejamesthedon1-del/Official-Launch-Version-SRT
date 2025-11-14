@@ -5,10 +5,10 @@ import videoCallImage from "../assets/video-call-laptop.png";
 
 export function SlidingInfoSection() {
   return (
-    <section className="w-full py-20 px-4 bg-white">
+    <section className="w-full py-20 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 px-4">
           <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
           4 ways we help your
             <br />
@@ -18,10 +18,10 @@ export function SlidingInfoSection() {
 
         {/* Scrollable Cards */}
         <div className="relative">
-          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory px-4 md:px-8">
-            <div className="flex gap-6 pb-4 pr-4 md:pr-8">
+          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+            <div className="flex gap-6 pb-4">
               {/* Card 1: Blue Card Bottom Text */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start pl-4 md:pl-0">
                 <BlueCardBottomText
                   title="Our AI doesn't just analyze — it guides you towards your next closing"
                 />
@@ -44,7 +44,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 4: Blue Card With Progress Animation */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start pr-4 md:pr-0">
                 <BlueCardWithProgressAnimation
                   title="The Fastest Path from Listing to Closing"
                   description="From analysis to match to marketing to close — your AI-powered workflow accelerates every step."
