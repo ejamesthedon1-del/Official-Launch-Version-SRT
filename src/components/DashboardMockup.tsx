@@ -58,21 +58,21 @@ export function DashboardMockup() {
         {/* Property Header Section */}
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 overflow-hidden mb-2 md:mb-4">
           <div className="flex flex-col lg:flex-row gap-2 md:gap-4 p-2 md:p-4">
-            {/* Property Image - Left Side - Smaller */}
-            <div className="flex-shrink-0 w-full lg:w-48 order-1 lg:order-1">
-              <div className="relative w-full h-48 lg:h-full rounded-lg overflow-hidden">
-                <img
-                  src={houseImage}
-                  alt={streetAddress}
-                  className="w-full h-full object-cover"
-                />
+            {/* Left Side: Image and Score Side by Side */}
+            <div className="flex flex-col lg:flex-row gap-2 md:gap-4 flex-1">
+              {/* Property Image - Smaller */}
+              <div className="flex-shrink-0 w-full lg:w-40 h-40 lg:h-auto">
+                <div className="relative w-full h-full rounded-lg overflow-hidden">
+                  <img
+                    src={houseImage}
+                    alt={streetAddress}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Circular Progress Score and Property Details */}
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-4 order-2 lg:order-2">
-              {/* Circular Progress Score */}
-              <div className="flex items-center justify-center">
+              {/* Circular Progress Score - Right next to image */}
+              <div className="flex items-center justify-center lg:justify-start">
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
@@ -86,9 +86,10 @@ export function DashboardMockup() {
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Property Details */}
-              <div className="flex flex-col justify-between">
+            {/* Property Details - Right Side */}
+            <div className="flex flex-col justify-between lg:w-auto">
               <div>
                 <h2 className="text-slate-900 mb-0.5 md:mb-1 text-sm md:text-lg font-semibold line-clamp-2">{streetAddress}</h2>
                 <div className="flex items-center gap-1 text-slate-600 mb-2 md:mb-3">
