@@ -60,7 +60,7 @@ export function SlidingInfoSection() {
               {/* Card 1: Blue Card Bottom Text */}
               <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
                 <BlueCardBottomText
-                  title="Our AI doesn't just analyze — it guides you towards your next closing"
+                  title="Accelerate Your Listings With Intelligent Data"
                 />
               </div>
 
