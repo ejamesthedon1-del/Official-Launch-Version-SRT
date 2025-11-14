@@ -859,7 +859,6 @@ function VideoCallAnimation() {
       style={{
         width: "240px",
         height: "180px",
-        padding: "12px",
       }}
     >
       {/* Video Call Window */}
@@ -880,6 +879,8 @@ function VideoCallAnimation() {
             className="w-full h-full object-cover"
             style={{
               objectPosition: "center",
+              width: "100%",
+              height: "100%",
             }}
           />
           </div>
