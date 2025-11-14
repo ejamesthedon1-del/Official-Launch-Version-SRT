@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Sparkles, Video, Mic, Home, TrendingUp, User, Target, Brain, BarChart3 } from "lucide-react";
-import videoCallMockup from "../assets/video-call-mockup.png";
+import videoCallImage from "../assets/video-call-laptop.png";
 
 export function SlidingInfoSection() {
   return (
@@ -956,13 +956,15 @@ function VideoCallAnimation() {
           </div>
         </div>
 
-        {/* Video Content - Image */}
-        <div className="relative w-full h-full overflow-hidden" style={{ marginTop: "48px" }}>
+        {/* Video Content */}
+        <div className="relative w-full h-full" style={{ marginTop: "48px" }}>
           <img
-            src={videoCallMockup}
+            src={videoCallImage}
             alt="Video call interface"
             className="w-full h-full object-cover"
-            style={{ objectPosition: "center" }}
+            style={{
+              objectPosition: "center",
+            }}
           />
         </div>
 
