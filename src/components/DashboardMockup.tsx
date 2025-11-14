@@ -57,9 +57,9 @@ export function DashboardMockup() {
       <div className="p-3 md:p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
         {/* Property Header Section */}
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 overflow-hidden mb-2 md:mb-4">
-          <div className="grid lg:grid-cols-3 gap-2 md:gap-4 p-2 md:p-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-4 p-2 md:p-4">
             {/* Property Image - Left Side */}
-            <div className="lg:col-span-1 hidden lg:block">
+            <div className="lg:col-span-1 order-1 lg:order-1">
               <div className="relative w-full h-full min-h-[200px] rounded-lg overflow-hidden">
                 <img
                   src={houseImage}
@@ -70,7 +70,7 @@ export function DashboardMockup() {
             </div>
 
             {/* Circular Progress Score and Property Details */}
-            <div className="lg:col-span-2 grid lg:grid-cols-2 gap-2 md:gap-4">
+            <div className="lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-4 order-2 lg:order-2">
               {/* Circular Progress Score */}
               <div className="flex items-center justify-center">
                 <div className="text-center">
