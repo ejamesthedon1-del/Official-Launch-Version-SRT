@@ -29,6 +29,7 @@ import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
 import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import mouseCursorSvg from "../assets/computer-mouse-pointer-cursor-computer-icons-cursor.svg";
 
 // Animated Address Input Component for Step 1
 function AnimatedAddressInput() {
@@ -258,31 +259,17 @@ function AnimatedAddressInput() {
               }}
             >
               <div className="relative">
-                {/* Standard mouse pointer cursor - accurate arrow shape */}
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
+                {/* Mouse pointer cursor from uploaded SVG */}
+                <img
+                  src={mouseCursorSvg}
+                  alt="Mouse cursor"
+                  className="w-5 h-5"
                   style={{
                     transform: isClicked ? "scale(0.9)" : "scale(1)",
                     transition: "transform 0.1s ease-out",
                     filter: "drop-shadow(0.5px 0.5px 1px rgba(0,0,0,0.5))",
                   }}
-                >
-                  {/* White outline layer for contrast */}
-                  <path
-                    d="M0.5 0.5 L0.5 14.5 L7 14.5 L10.5 19 L12 17.5 L9 14 L17.5 14 L17.5 0.5 Z"
-                    fill="#ffffff"
-                    stroke="#ffffff"
-                    strokeWidth="1.2"
-                    strokeLinejoin="miter"
-                  />
-                  {/* Black pointer - classic cursor arrow */}
-                  <path
-                    d="M1 1 L1 14 L7.5 14 L11 18.5 L12.5 17 L9.5 13.5 L18 13.5 L18 1 Z"
-                    fill="#000000"
-                  />
-                </svg>
+                />
                 {/* Click ripple effect */}
                 {isClicked && (
                   <div className="absolute top-2.5 left-2.5 flex items-center justify-center -z-10">
