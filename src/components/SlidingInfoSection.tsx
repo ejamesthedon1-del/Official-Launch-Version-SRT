@@ -18,17 +18,17 @@ export function SlidingInfoSection() {
 
         {/* Scrollable Cards */}
         <div className="relative mt-2">
-          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory pl-4 pr-4 md:pl-0 md:pr-0">
+          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory pl-4 pr-2 md:pl-0 md:pr-0">
             <div className="flex gap-6 pb-4">
               {/* Card 1: Blue Card Bottom Text */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[72vw] md:w-[320px] snap-start">
                 <BlueCardBottomText
                   title="Our AI doesn't just analyze — it guides you towards your next closing"
                 />
               </div>
 
               {/* Card 2: Light Card With Animation */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[72vw] md:w-[320px] snap-start">
                 <LightCardWithAnimation
                   title="Equip your buyers and sellers with real-time market intelligence"
                   description="Provide your clients with up-to-the-minute insights that help them make informed decisions faster."
@@ -36,7 +36,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 3: Light Card With Buyer Matching */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[72vw] md:w-[320px] snap-start">
                 <LightCardWithBuyerMatching
                   title="Reach Buyers That Actually Matter"
                   description="Save time and effort by understanding which audience aligns with your property."
@@ -44,7 +44,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 4: Blue Card With Progress Animation */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[72vw] md:w-[320px] snap-start">
                 <BlueCardWithProgressAnimation
                   title="The Fastest Path from Listing to Closing"
                   description="From analysis to match to marketing to close — your AI-powered workflow accelerates every step."
