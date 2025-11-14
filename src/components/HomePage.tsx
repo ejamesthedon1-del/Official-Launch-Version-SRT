@@ -471,77 +471,39 @@ export function HomePage({
 
             {/* Step 2: Get Listing Score */}
             <div className="relative">
-              <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
-                  {/* Shadow fade effect on top */}
-                  <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
-                  {/* Score card mockup */}
-                  <div className="w-full max-w-[280px]">
-                    <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
-                      {/* Header with badge */}
-                      <div className="flex items-center justify-between mb-6">
-                        <h4 className="text-slate-900">Listing Score</h4>
-                        <Badge className="bg-green-100 text-green-800 border-green-300">
-                          Analyzed
-                        </Badge>
+              <div className="bg-white rounded-3xl p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                {/* Shadow fade effect on top */}
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+                {/* Desktop Browser Mockup */}
+                <div className="w-full h-full">
+                  {/* Browser chrome */}
+                  <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col relative border border-slate-200">
+                    {/* Browser controls */}
+                    <div className="bg-slate-100 px-3 py-2 flex items-center gap-2 border-b border-slate-200 flex-shrink-0">
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-red-400" />
+                        <div className="w-2 h-2 rounded-full bg-yellow-400" />
+                        <div className="w-2 h-2 rounded-full bg-green-400" />
                       </div>
-                    {/* Large score display */}
-                    <div className="text-center mb-6">
-                      <div className="relative inline-block w-32 h-32">
-                        {/* Circular progress background */}
-                        <svg className="w-32 h-32 -rotate-90 absolute inset-0">
-                          <circle
-                            cx="64"
-                            cy="64"
-                            r="56"
-                            stroke="#e2e8f0"
-                            strokeWidth="8"
-                            fill="none"
-                          />
-                          <circle
-                            cx="64"
-                            cy="64"
-                            r="56"
-                            stroke="#3b82f6"
-                            strokeWidth="8"
-                            fill="none"
-                            strokeDasharray="352"
-                            strokeDashoffset="88"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        <div className="absolute inset-0 flex items-center justify-center flex-col">
-                          <div className="text-blue-600" style={{ fontSize: '2rem' }}>85</div>
-                          <div className="text-xs text-slate-500">out of 100</div>
-                        </div>
+                      <div className="flex-1 bg-white rounded px-3 py-1 mx-4">
+                        <span className="text-xs text-slate-400">smartrealtortools.com/dashboard</span>
                       </div>
                     </div>
-                    {/* Score breakdown */}
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-600">Photos</span>
-                        <div className="flex items-center gap-2">
-                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                            <div className="h-full w-4/5 bg-green-500 rounded-full" />
+                    
+                    {/* Dashboard content - scaled down */}
+                    <div className="flex-1 overflow-hidden relative bg-gradient-to-br from-slate-50 via-white to-blue-50/30 p-3 md:p-4">
+                      <div className="bg-white rounded-xl shadow-lg border border-slate-200/50 overflow-hidden h-full flex items-center justify-center">
+                        <div className="text-center">
+                          <CircularProgress 
+                            percentage={85} 
+                            size={180} 
+                            strokeWidth={18}
+                            showAnimation={true}
+                          />
+                          <div className="mt-3">
+                            <div className="text-xs text-slate-600 mb-1">AI Listing Score</div>
+                            <div className="text-[10px] text-slate-500">Very Good</div>
                           </div>
-                          <span className="text-slate-900 w-6">90</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-600">Description</span>
-                        <div className="flex items-center gap-2">
-                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                            <div className="h-full w-3/5 bg-yellow-500 rounded-full" />
-                          </div>
-                          <span className="text-slate-900 w-6">75</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-600">Pricing</span>
-                        <div className="flex items-center gap-2">
-                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                            <div className="h-full w-[90%] bg-green-500 rounded-full" />
-                          </div>
-                          <span className="text-slate-900 w-6">90</span>
                         </div>
                       </div>
                     </div>
