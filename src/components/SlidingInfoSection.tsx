@@ -6,7 +6,9 @@ import videoCallImage from "../assets/video-call-laptop.png";
 export function SlidingInfoSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [leftPadding, setLeftPadding] = useState<string>("1rem");
+  const [rightPadding, setRightPadding] = useState<string>("0");
 
   useEffect(() => {
     const calculatePadding = () => {
@@ -25,10 +27,13 @@ export function SlidingInfoSection() {
             // Account for the negative margin (-mx-4 = -1rem = -16px)
             const offset = rect.left - scrollRect.left + 16;
             setLeftPadding(`${Math.max(0, offset)}px`);
+            // Add right padding to allow last card to scroll fully into view
+            setRightPadding('calc(100vw - 68vw - 1rem)');
           }
         }
       } else {
         setLeftPadding("0");
+        setRightPadding("0");
       }
     };
 
@@ -40,6 +45,30 @@ export function SlidingInfoSection() {
       window.removeEventListener("resize", calculatePadding);
     };
   }, []);
+
+  // Scroll first card into view on mobile when section loads
+  useEffect(() => {
+    if (window.innerWidth < 768 && scrollContainerRef.current && leftPadding !== "1rem") {
+      const scrollContainer = scrollContainerRef.current;
+      // Scroll to show the first card fully - scroll to the left padding position
+      const scrollToFirstCard = () => {
+        if (scrollContainer) {
+          // Parse the left padding value (remove 'px' and convert to number)
+          const paddingValue = parseFloat(leftPadding.replace('px', ''));
+          if (!isNaN(paddingValue)) {
+            // Scroll to position the first card center in viewport
+            // Account for negative margin (-16px) and center the card
+            const cardWidth = window.innerWidth * 0.68; // 68vw
+            const scrollPosition = paddingValue - 16 + (cardWidth / 2) - (window.innerWidth / 2);
+            scrollContainer.scrollTo({ left: Math.max(0, scrollPosition), behavior: 'auto' });
+          }
+        }
+      };
+      // Delay to ensure layout is complete
+      const timeoutId = setTimeout(scrollToFirstCard, 200);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [leftPadding]);
 
   return (
     <section className="w-full py-20 bg-white">
@@ -55,17 +84,17 @@ export function SlidingInfoSection() {
 
         {/* Scrollable Cards */}
         <div className="relative mt-2">
-          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 md:mx-0">
-            <div ref={cardsContainerRef} className="flex gap-6 pb-4 md:pl-0" style={{ paddingLeft: leftPadding }}>
+          <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 md:mx-0" id="cards-scroll-container">
+            <div ref={cardsContainerRef} className="flex gap-6 pb-4 md:pl-0" style={{ paddingLeft: leftPadding, paddingRight: rightPadding }}>
               {/* Card 1: Blue Card Bottom Text */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
                 <BlueCardBottomText
                   title="Accelerate Your Listings With Intelligent Data"
                 />
               </div>
 
               {/* Card 2: Light Card With Animation */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
                 <LightCardWithAnimation
                   title="Help clients move confidently with real-time market intelligence."
                   description="Provide your clients with up-to-the-minute insights that help them make informed decisions faster."
@@ -73,7 +102,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 3: Light Card With Buyer Matching */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
                 <LightCardWithBuyerMatching
                   title="Reach Buyers That Actually Matter"
                   description="Save time and effort by understanding which audience aligns with your property."
@@ -81,7 +110,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 4: Blue Card With Progress Animation */}
-              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-start">
+              <div className="flex-shrink-0 w-[68vw] md:w-[320px] snap-center">
                 <BlueCardWithProgressAnimation
                   title="The Fastest Path from Listing to Closing"
                   description="From analysis to match to marketing to close — your AI-powered workflow accelerates every step."
@@ -105,6 +134,9 @@ export function SlidingInfoSection() {
         }
         .snap-start {
           scroll-snap-align: start;
+        }
+        .snap-center {
+          scroll-snap-align: center;
         }
       `}</style>
     </section>
