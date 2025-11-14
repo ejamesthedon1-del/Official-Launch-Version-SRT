@@ -57,9 +57,9 @@ export function DashboardMockup() {
       <div className="p-3 md:p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
         {/* Property Header Section */}
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg overflow-hidden mb-2 md:mb-4">
-          <div className="grid lg:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
-            {/* Left Column: Image only on desktop, Image and Score on mobile */}
-            <div className="flex gap-2 md:gap-4 items-start">
+          <div className="grid lg:grid-cols-3 gap-2 md:gap-4 p-2 md:p-4">
+            {/* Column 1: Image only on desktop, Image and Score on mobile */}
+            <div className="flex flex-col lg:flex-row gap-2 md:gap-4 items-start">
               {/* Property Image - Wider, covers more width */}
               <div className="flex-shrink-0 w-48 h-32 md:w-72 md:h-40">
                 <div className="relative w-full h-full rounded-lg overflow-hidden">
@@ -85,21 +85,23 @@ export function DashboardMockup() {
                     <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
                   </div>
                 </div>
-                {/* Analysis message aligned with address */}
-                <div className="mt-2 md:mt-3">
-                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px]">
+              </div>
+            </div>
+
+            {/* Column 2: Property Details (closer to image on desktop) */}
+            <div className="flex flex-col justify-between">
+              <div>
+                {/* Mobile: Address and Analysis Message on same line */}
+                <div className="lg:hidden flex items-start gap-2 mb-2 md:mb-3">
+                  <h2 className="text-slate-900 text-sm md:text-lg font-semibold line-clamp-2 flex-1">{streetAddress}</h2>
+                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[140px] md:max-w-[160px] flex-shrink-0">
                     <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
                       This property shows strong potential with competitive pricing and good location appeal.
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Right Column: Property Details and Score (Desktop) */}
-            <div className="flex flex-col justify-between">
-              <div>
-                <h2 className="text-slate-900 mb-0.5 md:mb-1 text-sm md:text-lg font-semibold line-clamp-2">{streetAddress}</h2>
+                {/* Desktop: Address only */}
+                <h2 className="hidden lg:block text-slate-900 mb-0.5 md:mb-1 text-sm md:text-lg font-semibold line-clamp-2">{streetAddress}</h2>
                 <div className="flex items-center gap-1 text-slate-600 mb-2 md:mb-3">
                   <MapPin className="w-2.5 h-2.5 md:w-3 md:h-3" />
                   <span className="text-[10px] md:text-xs line-clamp-1">{cityState}</span>
@@ -129,28 +131,28 @@ export function DashboardMockup() {
                   </div>
                 </div>
               </div>
-              
-              {/* Circular Progress Score - Only visible on desktop */}
-              <div className="hidden lg:flex flex-col items-center mt-4">
-                <div className="text-center">
-                  <CircularProgress 
-                    percentage={overallScore} 
-                    size={80} 
-                    strokeWidth={12}
-                    showAnimation={true}
-                  />
-                  <div className="mt-1 md:mt-2">
-                    <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">Smart AI Listing Score</div>
-                    <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
-                  </div>
+            </div>
+
+            {/* Column 3: Score Bar and Message (Desktop only) */}
+            <div className="hidden lg:flex flex-col items-center justify-center">
+              <div className="text-center">
+                <CircularProgress 
+                  percentage={overallScore} 
+                  size={80} 
+                  strokeWidth={12}
+                  showAnimation={true}
+                />
+                <div className="mt-1 md:mt-2">
+                  <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">Smart AI Listing Score</div>
+                  <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
                 </div>
-                {/* Analysis message aligned with address */}
-                <div className="mt-2 md:mt-3">
-                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px]">
-                    <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
-                      This property shows strong potential with competitive pricing and good location appeal.
-                    </p>
-                  </div>
+              </div>
+              {/* Analysis message */}
+              <div className="mt-2 md:mt-3">
+                <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px]">
+                  <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
+                    This property shows strong potential with competitive pricing and good location appeal.
+                  </p>
                 </div>
               </div>
             </div>
