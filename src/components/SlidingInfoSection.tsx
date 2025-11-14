@@ -81,8 +81,6 @@ function BlueCardBottomText({ title }: { title: string }) {
       className="relative overflow-hidden rounded-3xl p-8 flex flex-col justify-end h-full min-h-[420px]"
       style={{
         background: "linear-gradient(135deg, #2D7FFF 0%, #609BFF 100%)",
-        boxShadow:
-          "inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 8px 24px rgba(45, 127, 255, 0.2)",
       }}
       whileHover={{ y: -2 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
@@ -446,13 +444,10 @@ function BlueCardWithProgressAnimation({
       className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
       style={{
         backgroundColor: "#F7F9FC",
-        boxShadow:
-          "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.04)",
+        border: "1px solid rgba(0, 0, 0, 0.08)",
       }}
       whileHover={{
         y: -4,
-        boxShadow:
-          "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 12px 32px rgba(0, 0, 0, 0.08)",
       }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
@@ -747,13 +742,10 @@ function LightCardWithAnimation({
       className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
       style={{
         backgroundColor: "#F7F9FC",
-        boxShadow:
-          "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.04)",
+        border: "1px solid rgba(0, 0, 0, 0.08)",
       }}
       whileHover={{
         y: -4,
-        boxShadow:
-          "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 12px 32px rgba(0, 0, 0, 0.08)",
       }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
@@ -980,13 +972,10 @@ function LightCardWithBuyerMatching({
       className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
       style={{
         backgroundColor: "#F7F9FC",
-        boxShadow:
-          "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.04)",
+        border: "1px solid rgba(0, 0, 0, 0.08)",
       }}
       whileHover={{
         y: -4,
-        boxShadow:
-          "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 12px 32px rgba(0, 0, 0, 0.08)",
       }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
