@@ -446,7 +446,6 @@ function BlueCardWithProgressAnimation({
       className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
       style={{
         backgroundColor: "#F7F9FC",
-        border: "1px solid #E6EAF0",
         boxShadow:
           "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.04)",
       }}
@@ -748,7 +747,6 @@ function LightCardWithAnimation({
       className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
       style={{
         backgroundColor: "#F7F9FC",
-        border: "1px solid #E6EAF0",
         boxShadow:
           "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.04)",
       }}
@@ -982,7 +980,6 @@ function LightCardWithBuyerMatching({
       className="relative overflow-hidden rounded-3xl p-8 h-full min-h-[420px]"
       style={{
         backgroundColor: "#F7F9FC",
-        border: "1px solid #E6EAF0",
         boxShadow:
           "inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.04)",
       }}
