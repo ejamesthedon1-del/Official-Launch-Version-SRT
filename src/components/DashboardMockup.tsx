@@ -59,7 +59,7 @@ export function DashboardMockup() {
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg overflow-hidden mb-2 md:mb-4">
           <div className="grid lg:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
             {/* Left Column: Image and Score Side by Side */}
-            <div className="flex gap-2 md:gap-4 items-center">
+            <div className="flex gap-2 md:gap-4 items-start">
               {/* Property Image - Wider, covers more width */}
               <div className="flex-shrink-0 w-48 h-32 md:w-72 md:h-40">
                 <div className="relative w-full h-full rounded-lg overflow-hidden">
@@ -72,7 +72,7 @@ export function DashboardMockup() {
               </div>
 
               {/* Circular Progress Score */}
-              <div className="flex items-center justify-center flex-1">
+              <div className="flex flex-col flex-1">
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
@@ -82,12 +82,15 @@ export function DashboardMockup() {
                   />
                   <div className="mt-1 md:mt-2">
                     <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">Smart AI Listing Score</div>
-                    <div className="text-[9px] md:text-[10px] text-slate-500 mb-1 md:mb-1.5">Good</div>
-                    <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px] mx-auto">
-                      <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
-                        This property shows strong potential with competitive pricing and good location appeal.
-                      </p>
-                    </div>
+                    <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
+                  </div>
+                </div>
+                {/* Analysis message aligned with address */}
+                <div className="mt-2 md:mt-3">
+                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px]">
+                    <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
+                      This property shows strong potential with competitive pricing and good location appeal.
+                    </p>
                   </div>
                 </div>
               </div>
