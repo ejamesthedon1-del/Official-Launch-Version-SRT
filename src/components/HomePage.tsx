@@ -30,276 +30,7 @@ import { SlidingInfoSection } from "./SlidingInfoSection";
 import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-// Desktop Browser Address Input Component for Step 1
-function DesktopBrowserAddressInput() {
-  return (
-    <div className="bg-slate-100 rounded-3xl p-6 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative">
-      {/* Smooth AI-like fade effect around edges */}
-      <div className="absolute inset-0 pointer-events-none z-10" style={{
-        background: 'radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(148, 163, 184, 0.1) 60%, rgba(148, 163, 184, 0.2) 80%, rgba(148, 163, 184, 0.3) 100%)',
-        maskImage: 'radial-gradient(circle at center, black 0%, black 40%, transparent 70%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(circle at center, black 0%, black 40%, transparent 70%, transparent 100%)',
-      }} />
-      
-      {/* Desktop Browser Mockup */}
-      <div className="w-full h-full bg-white rounded-2xl shadow-lg overflow-hidden relative z-0" style={{
-        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)'
-      }}>
-        {/* Browser Chrome */}
-        <div className="bg-slate-50 border-b border-slate-200 px-4 py-2.5 flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
-          </div>
-          <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-slate-500 border border-slate-200">
-            smartrealtortools.com/analyze
-          </div>
-        </div>
-        
-        {/* Browser Content */}
-        <div className="p-8 h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-white">
-          <div className="w-full max-w-lg">
-            {/* Wide Address Input Bar */}
-            <div className="relative">
-              <div className="bg-white rounded-lg border-2 border-slate-200 shadow-sm p-4 flex items-center gap-3" style={{
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)'
-              }}>
-                <MapPin className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Enter property address..."
-                  className="flex-1 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none"
-                  readOnly
-                />
-              </div>
-              
-              {/* Mouse Cursor Icon */}
-              <div className="absolute -right-8 top-1/2 -translate-y-1/2 z-20">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  style={{
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                  }}
-                >
-                  <path
-                    d="M1 1 L1 16 L8 16 L12 22 L14 20 L10 15 L20 15 L20 1 Z"
-                    fill="#000000"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Desktop Dashboard Score Component for Step 2
-function DesktopDashboardScore() {
-  return (
-    <div className="bg-slate-100 rounded-3xl p-6 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative">
-      {/* Smooth AI-like fade effect around edges */}
-      <div className="absolute inset-0 pointer-events-none z-10" style={{
-        background: 'radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(148, 163, 184, 0.1) 60%, rgba(148, 163, 184, 0.2) 80%, rgba(148, 163, 184, 0.3) 100%)',
-        maskImage: 'radial-gradient(circle at center, black 0%, black 40%, transparent 70%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(circle at center, black 0%, black 40%, transparent 70%, transparent 100%)',
-      }} />
-      
-      {/* Desktop Dashboard Mockup - Cropped to show only score */}
-      <div className="w-full h-full bg-white rounded-2xl shadow-lg overflow-hidden relative z-0" style={{
-        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)'
-      }}>
-        {/* Browser Chrome */}
-        <div className="bg-slate-50 border-b border-slate-200 px-4 py-2.5 flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
-          </div>
-          <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-slate-500 border border-slate-200">
-            smartrealtortools.com/dashboard
-          </div>
-        </div>
-        
-        {/* Dashboard Content - Cropped to show only score section */}
-        <div className="p-8 h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
-          {/* Score Display - Centered and focused */}
-          <div className="text-center">
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold text-slate-900 mb-1">Listing Score</h3>
-              <Badge className="bg-green-100 text-green-800 border-green-300 text-xs">
-                Analyzed
-              </Badge>
-            </div>
-            
-            {/* Large Circular Progress Score */}
-            <div className="relative inline-block mb-4">
-              <CircularProgress 
-                percentage={85} 
-                size={140} 
-                strokeWidth={10}
-                showAnimation={false}
-              />
-              <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <div className="text-5xl font-semibold text-blue-600">85</div>
-                <div className="text-sm text-slate-500 mt-1">out of 100</div>
-              </div>
-            </div>
-            
-            {/* Score Breakdown */}
-            <div className="space-y-2.5 mt-6">
-              <div className="flex items-center justify-between text-sm min-w-[200px]">
-                <span className="text-slate-600">Photos</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full w-[90%] bg-green-500 rounded-full" />
-                  </div>
-                  <span className="text-slate-900 w-8 text-right">90</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-600">Description</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full w-[75%] bg-yellow-500 rounded-full" />
-                  </div>
-                  <span className="text-slate-900 w-8 text-right">75</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-600">Pricing</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full w-[90%] bg-green-500 rounded-full" />
-                  </div>
-                  <span className="text-slate-900 w-8 text-right">90</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Fade edges to show cropping effect */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: 'linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent 10%, transparent 90%, rgba(255,255,255,0.95) 100%)',
-          }} />
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: 'linear-gradient(to left, rgba(255,255,255,0.95) 0%, transparent 10%, transparent 90%, rgba(255,255,255,0.95) 100%)',
-          }} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// PDF Marketing Plan Component for Step 3
-function PDFMarketingPlan() {
-  return (
-    <div className="bg-slate-100 rounded-3xl p-6 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative">
-      {/* Smooth AI-like fade effect around edges */}
-      <div className="absolute inset-0 pointer-events-none z-10" style={{
-        background: 'radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(148, 163, 184, 0.1) 60%, rgba(148, 163, 184, 0.2) 80%, rgba(148, 163, 184, 0.3) 100%)',
-        maskImage: 'radial-gradient(circle at center, black 0%, black 40%, transparent 70%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(circle at center, black 0%, black 40%, transparent 70%, transparent 100%)',
-      }} />
-      
-      {/* Desktop PDF Viewer Mockup */}
-      <div className="w-full h-full bg-white rounded-2xl shadow-lg overflow-hidden relative z-0" style={{
-        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)'
-      }}>
-        {/* Browser Chrome */}
-        <div className="bg-slate-50 border-b border-slate-200 px-4 py-2.5 flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
-          </div>
-          <div className="flex-1 bg-white rounded-md px-3 py-1 text-xs text-slate-500 border border-slate-200">
-            Marketing Plan - 3404 American Dr.pdf
-          </div>
-        </div>
-        
-        {/* PDF Viewer Toolbar */}
-        <div className="bg-slate-50 border-b border-slate-200 px-4 py-2 flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded border border-slate-300 bg-white flex items-center justify-center">
-              <span className="text-xs text-slate-600">-</span>
-            </div>
-            <div className="w-6 h-6 rounded border border-slate-300 bg-white flex items-center justify-center">
-              <span className="text-xs text-slate-600">+</span>
-            </div>
-            <div className="text-xs text-slate-600 px-2">100%</div>
-          </div>
-          <div className="flex-1" />
-          <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-slate-500" />
-            <span className="text-xs text-slate-600">Page 1 of 1</span>
-          </div>
-        </div>
-        
-        {/* PDF Document Content */}
-        <div className="p-6 h-full overflow-auto bg-slate-100 flex items-center justify-center">
-          <div className="bg-white rounded-lg shadow-md p-6 max-w-md w-full relative" style={{
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
-            border: '1px solid rgba(0, 0, 0, 0.05)'
-          }}>
-            {/* PDF Header */}
-            <div className="border-b border-slate-200 pb-4 mb-4">
-              <div className="flex items-center gap-2 mb-2">
-                <FileText className="w-5 h-5 text-blue-600" />
-                <h3 className="text-lg font-semibold text-slate-900">AI Marketing Plan</h3>
-              </div>
-              <p className="text-sm text-slate-600">3404 American Dr, Lago Vista, TX</p>
-            </div>
-            
-            {/* PDF Content */}
-            <div className="space-y-4">
-              <div>
-                <h4 className="text-sm font-semibold text-slate-900 mb-2">Week 1: Launch Strategy</h4>
-                <ul className="space-y-1.5 text-xs text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Professional photography optimization</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Social media campaign launch</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Open house planning and promotion</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="text-sm font-semibold text-slate-900 mb-2">Week 2: Engagement</h4>
-                <ul className="space-y-1.5 text-xs text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Targeted email outreach</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Digital advertising campaign</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            {/* Page Edge Shadow */}
-            <div className="absolute -right-1 top-0 bottom-0 w-1 bg-gradient-to-r from-transparent to-slate-200/50 pointer-events-none" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Animated Address Input Component for Step 1 (old - keeping for reference)
+// Animated Address Input Component for Step 1
 function AnimatedAddressInput() {
   const [cursorPosition, setCursorPosition] = useState({ x: 30, y: 40 });
   const [isClicked, setIsClicked] = useState(false);
@@ -728,7 +459,7 @@ export function HomePage({
           <div className="grid lg:grid-cols-3 gap-16 items-start mb-16">
             {/* Step 1: Analyze Listing */}
             <div className="relative">
-              <DesktopBrowserAddressInput />
+              <AnimatedAddressInput />
               {/* Arrow to next step - hidden on mobile */}
               <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
                 <ArrowRight className="w-12 h-12 text-slate-400" />
@@ -751,7 +482,83 @@ export function HomePage({
 
             {/* Step 2: Get Listing Score */}
             <div className="relative">
-              <DesktopDashboardScore />
+              <div className="bg-white rounded-3xl p-8 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                  {/* Shadow fade effect on top */}
+                  <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+                  {/* Score card mockup */}
+                  <div className="w-full max-w-[280px]">
+                    <div className="bg-slate-50 rounded-2xl shadow-lg p-6 border border-slate-200">
+                      {/* Header with badge */}
+                      <div className="flex items-center justify-between mb-6">
+                        <h4 className="text-slate-900">Listing Score</h4>
+                        <Badge className="bg-green-100 text-green-800 border-green-300">
+                          Analyzed
+                        </Badge>
+                      </div>
+                    {/* Large score display */}
+                    <div className="text-center mb-6">
+                      <div className="relative inline-block w-32 h-32">
+                        {/* Circular progress background */}
+                        <svg className="w-32 h-32 -rotate-90 absolute inset-0">
+                          <circle
+                            cx="64"
+                            cy="64"
+                            r="56"
+                            stroke="#e2e8f0"
+                            strokeWidth="8"
+                            fill="none"
+                          />
+                          <circle
+                            cx="64"
+                            cy="64"
+                            r="56"
+                            stroke="#3b82f6"
+                            strokeWidth="8"
+                            fill="none"
+                            strokeDasharray="352"
+                            strokeDashoffset="88"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center flex-col">
+                          <div className="text-blue-600" style={{ fontSize: '2rem' }}>85</div>
+                          <div className="text-xs text-slate-500">out of 100</div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Score breakdown */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600">Photos</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full w-4/5 bg-green-500 rounded-full" />
+                          </div>
+                          <span className="text-slate-900 w-6">90</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600">Description</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full w-3/5 bg-yellow-500 rounded-full" />
+                          </div>
+                          <span className="text-slate-900 w-6">75</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600">Pricing</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full w-[90%] bg-green-500 rounded-full" />
+                          </div>
+                          <span className="text-slate-900 w-6">90</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               {/* Arrow to next step - hidden on mobile */}
               <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 z-10">
                 <ArrowRight className="w-12 h-12 text-slate-400" />
@@ -774,7 +581,162 @@ export function HomePage({
 
             {/* Step 3: Get Marketing Plan */}
             <div className="relative">
-              <PDFMarketingPlan />
+              <div className="bg-white rounded-3xl p-3 md:p-4 mb-6 shadow-xl overflow-hidden aspect-square flex items-center justify-center relative border border-slate-200">
+                {/* Shadow fade effect on top */}
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/5 via-black/2 to-transparent pointer-events-none z-10 rounded-t-3xl" />
+                {/* Dashboard preview - scaled down */}
+                <div className="w-full h-full overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 rounded-xl">
+                  <div className="p-2 md:p-3 h-full overflow-y-auto">
+                    {/* Property Header - Scaled Down */}
+                    <div className="bg-white rounded-lg shadow-md border border-slate-200/50 overflow-hidden mb-2">
+                      <div className="grid grid-cols-2 gap-2 p-2">
+                        {/* Circular Progress Score */}
+                        <div className="flex items-center justify-center">
+                          <CircularProgress 
+                            percentage={85} 
+                            size={80} 
+                            strokeWidth={8}
+                            showAnimation={false}
+                          />
+                        </div>
+                        {/* Property Details */}
+                        <div className="flex flex-col justify-center">
+                          <h3 className="text-[10px] md:text-xs font-semibold text-slate-900 mb-0.5 line-clamp-1">3404 American Dr</h3>
+                          <div className="flex items-center gap-1 text-[8px] md:text-[9px] text-slate-600 mb-1">
+                            <MapPin className="w-2.5 h-2.5" />
+                            <span className="line-clamp-1">Lago Vista, TX</span>
+                          </div>
+                          <div className="grid grid-cols-3 gap-1">
+                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
+                              <Bed className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                              <div className="text-[8px] text-slate-600">2</div>
+                            </div>
+                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
+                              <Bath className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                              <div className="text-[8px] text-slate-600">2</div>
+                            </div>
+                            <div className="bg-slate-50 rounded p-1 text-center border border-slate-200">
+                              <Ruler className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                              <div className="text-[8px] text-slate-600">1,204</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Analytics Grid - Scaled Down */}
+                    <div className="grid grid-cols-3 gap-1.5 mb-2">
+                      {/* Performance Analytics */}
+                      <div className="col-span-2 bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <TrendingUp className="w-2.5 h-2.5 text-blue-600" />
+                          Analytics
+                        </h4>
+                        <div className="grid grid-cols-2 gap-1 mb-1.5">
+                          <div className="text-center p-1 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded border border-blue-200/50">
+                            <Eye className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                            <div className="text-[8px] text-slate-900 font-semibold">245</div>
+                            <div className="text-[7px] text-slate-600">Views</div>
+                          </div>
+                          <div className="text-center p-1 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded border border-blue-200/50">
+                            <Heart className="w-2 h-2 text-blue-600 mx-auto mb-0.5" />
+                            <div className="text-[8px] text-slate-900 font-semibold">18</div>
+                            <div className="text-[7px] text-slate-600">Favs</div>
+                          </div>
+                        </div>
+                        {/* Mini Bar Chart */}
+                        <div className="h-16">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={[
+                              { category: "Cond", score: 85 },
+                              { category: "Loc", score: 80 },
+                              { category: "Amen", score: 75 },
+                            ]}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                              <XAxis dataKey="category" tick={{ fontSize: 6, fill: '#64748b' }} />
+                              <YAxis hide domain={[0, 100]} />
+                              <Bar dataKey="score" fill="#3b82f6" radius={[2, 2, 0, 0]} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+
+                      {/* AI Insights */}
+                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <Sparkles className="w-2.5 h-2.5 text-blue-600" />
+                          Insights
+                        </h4>
+                        <div className="space-y-1">
+                          {[
+                            "Optimize pricing",
+                            "Enhance marketing"
+                          ].map((priority, index) => (
+                            <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded p-1">
+                              <div className="flex items-start gap-1">
+                                <CheckCircle2 className="w-1.5 h-1.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                                <div className="text-[7px] text-slate-900 leading-tight line-clamp-2">{priority}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Grid - Photo Analysis & Timeline */}
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {/* Photo Analysis */}
+                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <Camera className="w-2.5 h-2.5 text-blue-600" />
+                          Photos
+                        </h4>
+                        <div className="space-y-1">
+                          {[
+                            { name: "Living", score: 85 },
+                            { name: "Kitchen", score: 78 },
+                          ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-1">
+                              <div className="text-[7px] text-slate-700 w-10 flex-shrink-0">{item.name}</div>
+                              <div className="flex-1 bg-slate-100 rounded-full h-1 overflow-hidden">
+                                <div 
+                                  className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full"
+                                  style={{ width: `${item.score}%` }}
+                                />
+                              </div>
+                              <div className="text-[7px] text-slate-900 w-4">{item.score}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Marketing Timeline */}
+                      <div className="bg-white rounded-lg shadow-md border border-slate-200/50 p-1.5">
+                        <h4 className="text-[9px] md:text-[10px] text-slate-900 mb-0.5 flex items-center gap-1">
+                          <Clock className="w-2.5 h-2.5 text-blue-600" />
+                          Timeline
+                        </h4>
+                        <div className="space-y-1">
+                          {[
+                            { title: "Price optimization", date: "Today" },
+                            { title: "Photo update", date: "2d ago" },
+                          ].map((item, index) => (
+                            <div key={index} className="flex gap-1">
+                              <div className="flex-shrink-0 w-3 h-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
+                                <CheckCircle2 className="w-1.5 h-1.5 text-white" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-[7px] text-slate-900 line-clamp-1">{item.title}</div>
+                                <div className="text-[6px] text-slate-500">{item.date}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               {/* Step label */}
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
