@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
   CardElement,
   useStripe,
   useElements,
+  PaymentRequestButtonElement,
 } from "@stripe/react-stripe-js";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
@@ -34,6 +35,9 @@ function PaymentFormInner({
   const [loading, setLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const [paymentRequest, setPaymentRequest] = useState<any>(null);
+  const [canUseApplePay, setCanUseApplePay] = useState(false);
+  const paymentRequestButtonRef = useRef<HTMLDivElement>(null);
 
   // Create payment intent when component mounts
   useEffect(() => {
@@ -64,6 +68,82 @@ function PaymentFormInner({
 
     createPaymentIntent();
   }, [amount, address]);
+
+  // Initialize Apple Pay / Payment Request
+  useEffect(() => {
+    if (!stripe || !clientSecret) return;
+
+    const pr = stripe.paymentRequest({
+      country: 'US',
+      currency: 'usd',
+      total: {
+        label: 'Smart Realtor Tool - One-time Payment',
+        amount: amount * 100, // Amount in cents
+      },
+      requestPayerName: true,
+      requestPayerEmail: true,
+    });
+
+    pr.canMakePayment().then((result) => {
+      if (result) {
+        setPaymentRequest(pr);
+        setCanUseApplePay(true);
+      }
+    });
+
+    pr.on('paymentmethod', async (ev) => {
+      setLoading(true);
+      
+      try {
+        // Confirm payment with the payment method from Apple Pay
+        const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(
+          clientSecret,
+          {
+            payment_method: ev.paymentMethod.id,
+          },
+          { handleActions: false }
+        );
+
+        if (confirmError) {
+          ev.complete('fail');
+          toast.error(confirmError.message || "Payment failed");
+          setLoading(false);
+          return;
+        }
+
+        // Verify payment on backend
+        if (paymentIntent?.id) {
+          const { data: verifyData, error: verifyError } = await supabase.functions.invoke(
+            "make-server-52cdd920/verify-payment",
+            {
+              body: { paymentIntentId: paymentIntent.id },
+            }
+          );
+
+          if (verifyError || !verifyData?.success) {
+            ev.complete('fail');
+            toast.error("Payment verification failed");
+            setLoading(false);
+            return;
+          }
+        }
+
+        ev.complete('success');
+        toast.success("Payment successful!");
+        onSuccess();
+      } catch (error) {
+        ev.complete('fail');
+        console.error("Apple Pay payment error:", error);
+        toast.error(error instanceof Error ? error.message : "Payment failed");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      // Cleanup if needed
+    };
+  }, [stripe, clientSecret, amount, onSuccess]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -144,6 +224,31 @@ function PaymentFormInner({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Apple Pay / Payment Request Button */}
+      {canUseApplePay && paymentRequest && (
+        <div className="space-y-2">
+          <Label>Quick Pay</Label>
+          <div ref={paymentRequestButtonRef} className="payment-request-button">
+            <PaymentRequestButtonElement
+              options={{
+                paymentRequest,
+                style: {
+                  paymentRequestButton: {
+                    theme: 'dark',
+                    height: '48px',
+                  },
+                },
+              }}
+            />
+          </div>
+          <div className="relative flex items-center">
+            <div className="flex-grow border-t border-border"></div>
+            <span className="px-3 text-xs text-muted-foreground">or</span>
+            <div className="flex-grow border-t border-border"></div>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-2">
         <Label>Card Details</Label>
         <div className="p-3 border rounded-md bg-background">
