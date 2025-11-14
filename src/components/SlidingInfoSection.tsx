@@ -214,43 +214,6 @@ function AnalyzingListingAnimation() {
           }}
         />
 
-        {/* Dashboard Header */}
-        <div
-          className="px-5 py-3 border-b rounded-t-3xl"
-          style={{
-            background: "linear-gradient(to bottom, #FFFFFF, #F9FAFB)",
-            borderColor: "rgba(0, 0, 0, 0.06)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <div
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontSize: "11px",
-                fontWeight: 600,
-                color: "#1B1F23",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              AI Analysis
-            </div>
-            <div className="flex gap-1">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FF5F57" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FFBD2E" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#28CA42" }}
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Content - Adjusted for left-side placement */}
         <div className="p-5 space-y-3.5" style={{ paddingLeft: "100px" }}>
           {/* Status Text with Circular Indicator */}
@@ -560,43 +523,6 @@ function ProgressFlowAnimation() {
             "0 20px 40px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9)",
         }}
       >
-        {/* Dashboard Header */}
-        <div
-          className="px-5 py-3 border-b"
-          style={{
-            background: "#FFFFFF",
-            borderColor: "rgba(0, 0, 0, 0.06)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <div
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontSize: "11px",
-                fontWeight: 600,
-                color: "#1B1F23",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Pipeline Dashboard
-            </div>
-            <div className="flex gap-1">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FF5F57" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FFBD2E" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#28CA42" }}
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Dashboard Content */}
         <div className="p-5 space-y-4">
           {/* Active Listings Stats */}
@@ -917,47 +843,8 @@ function VideoCallAnimation() {
             "0 20px 40px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9)",
         }}
       >
-        {/* Video Call Header Bar */}
-        <div
-          className="absolute top-0 left-0 right-0 px-4 py-3 border-b z-20"
-          style={{
-            background: "#FFFFFF",
-            borderColor: "rgba(0, 0, 0, 0.06)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Video className="w-3.5 h-3.5" style={{ color: "#2D7FFF" }} />
-              <div
-                style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: "#1B1F23",
-                }}
-              >
-                Client Meeting
-              </div>
-            </div>
-            <div className="flex gap-1">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FF5F57" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FFBD2E" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#28CA42" }}
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Video Content */}
-        <div className="relative w-full h-full" style={{ marginTop: "48px" }}>
+        <div className="relative w-full h-full">
           <img
             src={videoCallImage}
             alt="Video call interface"
@@ -1177,43 +1064,6 @@ function CleanSpotlightAlignment() {
             "0 20px 40px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9)",
         }}
       >
-        {/* Dashboard Header */}
-        <div
-          className="px-5 py-3 border-b"
-          style={{
-            background: "#FFFFFF",
-            borderColor: "rgba(0, 0, 0, 0.06)",
-          }}
-        >
-          <div className="flex items-center justify-between">
-            <div
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontSize: "11px",
-                fontWeight: 600,
-                color: "#1B1F23",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Buyer Match
-            </div>
-            <div className="flex gap-1">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FF5F57" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#FFBD2E" }}
-              />
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#28CA42" }}
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Content */}
         <div className="p-5 space-y-4">
           {/* Property Card */}
