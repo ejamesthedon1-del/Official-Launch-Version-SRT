@@ -21,6 +21,15 @@ interface SubscriptionDialogProps {
 
 export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = "" }: SubscriptionDialogProps) {
   const [showPayment, setShowPayment] = useState(false);
+  
+  // Reset payment form when dialog closes
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      setShowPayment(false);
+    }
+    onOpenChange(newOpen);
+  };
+  
   const features = [
     "Complete 30-Day Action Plan",
     "Week-by-Week Marketing Strategy",
@@ -37,7 +46,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
   ];
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-[90%] sm:max-w-sm md:max-w-md max-h-[85vh] overflow-y-auto p-4 md:p-6">
         <DialogHeader className="text-center mb-4">
           <DialogTitle className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
