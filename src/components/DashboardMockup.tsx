@@ -82,10 +82,10 @@ export function DashboardMockup() {
                   />
                   <div className="mt-1 md:mt-2">
                     <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">Smart AI Listing Score</div>
-                    <div className="text-[9px] md:text-[10px] text-slate-500 mb-1.5 md:mb-2">Good</div>
-                    <div className="bg-blue-50/50 rounded-lg p-1.5 md:p-2 max-w-[140px] md:max-w-[180px] mx-auto">
-                      <p className="text-[8px] md:text-[9px] text-slate-700 leading-relaxed">
-                        This property shows strong potential with competitive pricing and good location appeal. Minor improvements to staging could enhance marketability.
+                    <div className="text-[9px] md:text-[10px] text-slate-500 mb-1 md:mb-1.5">Good</div>
+                    <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px] mx-auto">
+                      <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
+                        This property shows strong potential with competitive pricing and good location appeal.
                       </p>
                     </div>
                   </div>
