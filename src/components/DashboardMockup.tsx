@@ -100,7 +100,7 @@ export function DashboardMockup() {
             <div className="flex flex-col justify-between">
               <div>
                 {/* Mobile: Address section aligned with analysis message */}
-                <div className="lg:hidden mt-1 mb-1 md:mb-1.5">
+                <div className="lg:hidden mt-[calc(80px+1rem)] md:mt-[calc(80px+1.5rem)] mb-1 md:mb-1.5">
                   <h2 className="text-slate-900 text-sm md:text-lg font-semibold line-clamp-2 mb-0.5">{streetAddress}</h2>
                   <div className="flex items-center gap-1 text-slate-600">
                     <MapPin className="w-2.5 h-2.5 md:w-3 md:h-3" />
