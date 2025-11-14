@@ -59,7 +59,7 @@ export function DashboardMockup() {
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg overflow-hidden mb-2 md:mb-4">
           <div className="grid lg:grid-cols-3 gap-2 md:gap-4 p-2 md:p-4">
             {/* Column 1: Image only on desktop, Image and Score on mobile */}
-            <div className="flex flex-col lg:flex-row gap-2 md:gap-4 items-start">
+            <div className="flex gap-2 md:gap-4 items-start">
               {/* Property Image - Wider, covers more width */}
               <div className="flex-shrink-0 w-48 h-32 md:w-72 md:h-40">
                 <div className="relative w-full h-full rounded-lg overflow-hidden">
@@ -85,24 +85,31 @@ export function DashboardMockup() {
                     <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
                   </div>
                 </div>
+                {/* Analysis message - moved down a tiny bit and aligned with address */}
+                <div className="mt-3 md:mt-4">
+                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[160px] md:max-w-[200px]">
+                    <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
+                      This property shows strong potential with competitive pricing and good location appeal.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Column 2: Property Details (closer to image on desktop) */}
             <div className="flex flex-col justify-between">
               <div>
-                {/* Mobile: Address and Analysis Message on same line */}
-                <div className="lg:hidden flex items-start gap-2 mb-2 md:mb-3">
-                  <h2 className="text-slate-900 text-sm md:text-lg font-semibold line-clamp-2 flex-1">{streetAddress}</h2>
-                  <div className="bg-blue-50/50 rounded-lg p-1 md:p-1.5 max-w-[140px] md:max-w-[160px] flex-shrink-0">
-                    <p className="text-[8px] md:text-[9px] text-slate-700 leading-tight">
-                      This property shows strong potential with competitive pricing and good location appeal.
-                    </p>
+                {/* Mobile: Address section aligned with analysis message */}
+                <div className="lg:hidden mt-3 md:mt-4 mb-1 md:mb-1.5">
+                  <h2 className="text-slate-900 text-sm md:text-lg font-semibold line-clamp-2 mb-0.5">{streetAddress}</h2>
+                  <div className="flex items-center gap-1 text-slate-600">
+                    <MapPin className="w-2.5 h-2.5 md:w-3 md:h-3" />
+                    <span className="text-[10px] md:text-xs line-clamp-1">{cityState}</span>
                   </div>
                 </div>
                 {/* Desktop: Address only */}
                 <h2 className="hidden lg:block text-slate-900 mb-0.5 md:mb-1 text-sm md:text-lg font-semibold line-clamp-2">{streetAddress}</h2>
-                <div className="flex items-center gap-1 text-slate-600 mb-2 md:mb-3">
+                <div className="hidden lg:flex items-center gap-1 text-slate-600 mb-2 md:mb-3">
                   <MapPin className="w-2.5 h-2.5 md:w-3 md:h-3" />
                   <span className="text-[10px] md:text-xs line-clamp-1">{cityState}</span>
                 </div>
