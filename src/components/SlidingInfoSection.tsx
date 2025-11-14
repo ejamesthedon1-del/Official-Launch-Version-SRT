@@ -9,7 +9,7 @@ export function SlidingInfoSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 px-4">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-950 font-medium mb-4">
           4 ways we help your
             <br />
           listings sell faster
@@ -17,11 +17,11 @@ export function SlidingInfoSection() {
         </div>
 
         {/* Scrollable Cards */}
-        <div className="relative">
+        <div className="relative mt-2">
           <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory">
             <div className="flex gap-6 pb-4">
               {/* Card 1: Blue Card Bottom Text */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start pl-4 md:pl-0">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
                 <BlueCardBottomText
                   title="Our AI doesn't just analyze — it guides you towards your next closing"
                 />
@@ -44,7 +44,7 @@ export function SlidingInfoSection() {
               </div>
 
               {/* Card 4: Blue Card With Progress Animation */}
-              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start pr-4 md:pr-0">
+              <div className="flex-shrink-0 w-[75vw] md:w-[320px] snap-start">
                 <BlueCardWithProgressAnimation
                   title="The Fastest Path from Listing to Closing"
                   description="From analysis to match to marketing to close — your AI-powered workflow accelerates every step."
