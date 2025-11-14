@@ -38,7 +38,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto p-4 md:p-6">
+      <DialogContent className="max-w-[90%] sm:max-w-sm md:max-w-md max-h-[85vh] overflow-y-auto p-4 md:p-6">
         <DialogHeader className="text-center mb-4">
           <DialogTitle className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
             Upgrade to Premium
