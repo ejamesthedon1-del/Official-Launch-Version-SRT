@@ -1,12 +1,13 @@
 import { MapPin, Bed, Bath, Ruler, TrendingUp, Eye, Heart, Share2, Users, Sparkles, CheckCircle2, Camera, Clock } from "lucide-react";
 import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import houseImage from "../assets/luxury-house-twilight.png";
 
 export function DashboardMockup() {
   // Sample data for preview
   const overallScore = 72;
-  const streetAddress = "3404 American Dr APT 1105";
-  const cityState = "Lago Vista, TX 78645";
+  const streetAddress = "123 Oak Street";
+  const cityState = "Springfield, IL";
   const price = "$395,000";
   const daysOnMarket = 61;
   const beds = 2;
@@ -56,25 +57,38 @@ export function DashboardMockup() {
       <div className="p-3 md:p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
         {/* Property Header Section */}
         <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 overflow-hidden mb-2 md:mb-4">
-          <div className="grid lg:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
-            {/* Circular Progress Score */}
-            <div className="flex items-center justify-center">
-              <div className="text-center">
-                <CircularProgress 
-                  percentage={overallScore} 
-                  size={100} 
-                  strokeWidth={14}
-                  showAnimation={true}
+          <div className="grid lg:grid-cols-3 gap-2 md:gap-4 p-2 md:p-4">
+            {/* Property Image - Left Side */}
+            <div className="lg:col-span-1 hidden lg:block">
+              <div className="relative w-full h-full min-h-[200px] rounded-lg overflow-hidden">
+                <img
+                  src={houseImage}
+                  alt={streetAddress}
+                  className="w-full h-full object-cover"
                 />
-                <div className="mt-1 md:mt-2">
-                  <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">AI Listing Score</div>
-                  <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
-                </div>
               </div>
             </div>
 
-            {/* Property Details */}
-            <div className="flex flex-col justify-between">
+            {/* Circular Progress Score and Property Details */}
+            <div className="lg:col-span-2 grid lg:grid-cols-2 gap-2 md:gap-4">
+              {/* Circular Progress Score */}
+              <div className="flex items-center justify-center">
+                <div className="text-center">
+                  <CircularProgress 
+                    percentage={overallScore} 
+                    size={100} 
+                    strokeWidth={14}
+                    showAnimation={true}
+                  />
+                  <div className="mt-1 md:mt-2">
+                    <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">AI Listing Score</div>
+                    <div className="text-[9px] md:text-[10px] text-slate-500">Good</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Property Details */}
+              <div className="flex flex-col justify-between">
               <div>
                 <h2 className="text-slate-900 mb-0.5 md:mb-1 text-sm md:text-lg font-semibold line-clamp-2">{streetAddress}</h2>
                 <div className="flex items-center gap-1 text-slate-600 mb-2 md:mb-3">
@@ -106,6 +120,7 @@ export function DashboardMockup() {
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </div>
