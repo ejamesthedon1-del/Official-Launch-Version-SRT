@@ -200,7 +200,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
       <div className="flex">
         {/* Main Content */}
-        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-20 md:pt-24">
+        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-12 md:pt-24">
           {/* Property Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
