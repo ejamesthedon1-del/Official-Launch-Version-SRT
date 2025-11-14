@@ -48,19 +48,19 @@ function AnimatedAddressInput() {
     suggestionsTimeout?: NodeJS.Timeout;
   }>({});
 
-  const exampleAddress = "3404 American Dr";
+  const exampleAddress = "123 Oak Street";
   const suggestions = [
     {
-      main: "3404 American Dr APT 1105",
-      secondary: "Lago Vista, TX 78645"
+      main: "123 Oak Street APT 4B",
+      secondary: "Springfield, IL 62701"
     },
     {
-      main: "3404 American Drive",
-      secondary: "Austin, TX"
+      main: "123 Oak Street",
+      secondary: "Springfield, IL"
     },
     {
-      main: "3404 American Blvd",
-      secondary: "Lago Vista, TX"
+      main: "123 Oak Avenue",
+      secondary: "Springfield, IL"
     }
   ];
 
