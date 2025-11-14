@@ -29,7 +29,7 @@ import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
 import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import mouseCursorSvg from "../assets/computer-mouse-pointer-cursor-computer-icons-cursor.svg";
+import CursorIcon from "./CursorIcon";
 
 // Animated Address Input Component for Step 1
 function AnimatedAddressInput() {
@@ -258,18 +258,19 @@ function AnimatedAddressInput() {
                 opacity: isTyping || typedText ? 0 : 1,
               }}
             >
-              <div className="relative">
-                {/* Mouse pointer cursor from uploaded SVG */}
-                <img
-                  src={mouseCursorSvg}
-                  alt="Mouse cursor"
-                  className="w-5 h-5"
-                  style={{
-                    transform: isClicked ? "scale(0.9)" : "scale(1)",
-                    transition: "transform 0.1s ease-out",
-                    filter: "drop-shadow(0.5px 0.5px 1px rgba(0,0,0,0.5))",
-                    imageRendering: "crisp-edges",
-                  }}
+              <div 
+                className="relative pointer-events-none"
+                style={{
+                  transform: isClicked ? "scale(0.9)" : "scale(1)",
+                  transition: "transform 0.1s ease-out",
+                  filter: "drop-shadow(0.5px 0.5px 1px rgba(0,0,0,0.5))",
+                }}
+              >
+                {/* Mouse pointer cursor */}
+                <CursorIcon
+                  width={20}
+                  height={20}
+                  color="#000000"
                 />
                 {/* Click ripple effect */}
                 {isClicked && (
