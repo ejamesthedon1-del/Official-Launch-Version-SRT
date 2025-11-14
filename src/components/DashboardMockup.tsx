@@ -122,7 +122,6 @@ export function DashboardMockup() {
                 </div>
               </div>
             </div>
-            </div>
           </div>
         </div>
 
