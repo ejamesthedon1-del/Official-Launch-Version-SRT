@@ -56,12 +56,12 @@ export function DashboardMockup() {
       {/* Dashboard Content - Non-scrollable, fits container */}
       <div className="p-3 md:p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
         {/* Property Header Section */}
-        <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 overflow-hidden mb-2 md:mb-4">
+        <div className="bg-white rounded-lg md:rounded-xl shadow-lg overflow-hidden mb-2 md:mb-4">
           <div className="grid lg:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
             {/* Left Column: Image and Score Side by Side */}
             <div className="flex gap-2 md:gap-4 items-center">
-              {/* Property Image - Smaller, fits in container */}
-              <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
+              {/* Property Image - Wider, covers more width */}
+              <div className="flex-shrink-0 w-40 h-32 md:w-56 md:h-40">
                 <div className="relative w-full h-full rounded-lg overflow-hidden">
                   <img
                     src={houseImage}
@@ -97,25 +97,25 @@ export function DashboardMockup() {
                   <span className="text-[10px] md:text-xs line-clamp-1">{cityState}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-1.5 md:gap-2 mb-2 md:mb-3">
-                  <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-1.5 md:p-2 border border-slate-200">
+                  <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-1.5 md:p-2">
                     <div className="text-[9px] md:text-[10px] text-slate-600 mb-0.5">List Price</div>
                     <div className="text-slate-900 text-xs md:text-sm font-semibold">{price}</div>
                   </div>
-                  <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-1.5 md:p-2 border border-slate-200">
+                  <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-1.5 md:p-2">
                     <div className="text-[9px] md:text-[10px] text-slate-600 mb-0.5">Days on Market</div>
                     <div className="text-slate-900 text-xs md:text-sm font-semibold">{daysOnMarket} days</div>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-1 md:gap-1.5">
-                  <div className="bg-white rounded-lg p-1 md:p-1.5 border border-slate-200 text-center">
+                  <div className="bg-white rounded-lg p-1 md:p-1.5 text-center">
                     <Bed className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5" />
                     <div className="text-[9px] md:text-[10px] text-slate-600">{beds} Beds</div>
                   </div>
-                  <div className="bg-white rounded-lg p-1 md:p-1.5 border border-slate-200 text-center">
+                  <div className="bg-white rounded-lg p-1 md:p-1.5 text-center">
                     <Bath className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5" />
                     <div className="text-[9px] md:text-[10px] text-slate-600">{baths} Baths</div>
                   </div>
-                  <div className="bg-white rounded-lg p-1 md:p-1.5 border border-slate-200 text-center">
+                  <div className="bg-white rounded-lg p-1 md:p-1.5 text-center">
                     <Ruler className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5" />
                     <div className="text-[9px] md:text-[10px] text-slate-600">{sqft} sqft</div>
                   </div>
@@ -128,7 +128,7 @@ export function DashboardMockup() {
         {/* Analytics Grid - Hidden on mobile, shown on larger screens */}
         <div className="hidden md:grid lg:grid-cols-3 gap-3 md:gap-4 mb-2 md:mb-4">
           {/* Performance Analytics */}
-          <div className="lg:col-span-2 bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 p-2 md:p-4">
+          <div className="lg:col-span-2 bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-4">
             <h3 className="text-slate-900 mb-1 text-xs md:text-sm flex items-center gap-1 md:gap-1.5">
               <TrendingUp className="w-3 h-3 md:w-4 md:h-4 text-blue-600" />
               Performance Analytics
@@ -136,22 +136,22 @@ export function DashboardMockup() {
             <p className="text-[9px] md:text-[10px] text-slate-600 mb-2 md:mb-3">7-day engagement overview</p>
             
             <div className="grid grid-cols-4 gap-1.5 md:gap-2 mb-3 md:mb-4">
-              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50">
+              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
                 <Eye className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5 md:mb-1" />
                 <div className="text-slate-900 text-[10px] md:text-xs font-semibold">0</div>
                 <div className="text-[8px] md:text-[9px] text-slate-600">Views</div>
               </div>
-              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50">
+              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
                 <Heart className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5 md:mb-1" />
                 <div className="text-slate-900 text-[10px] md:text-xs font-semibold">0</div>
                 <div className="text-[8px] md:text-[9px] text-slate-600">Favorites</div>
               </div>
-              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50">
+              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
                 <Share2 className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5 md:mb-1" />
                 <div className="text-slate-900 text-[10px] md:text-xs font-semibold">0</div>
                 <div className="text-[8px] md:text-[9px] text-slate-600">Shares</div>
               </div>
-              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50">
+              <div className="text-center p-1.5 md:p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
                 <Users className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mx-auto mb-0.5 md:mb-1" />
                 <div className="text-slate-900 text-[10px] md:text-xs font-semibold">0</div>
                 <div className="text-[8px] md:text-[9px] text-slate-600">Inquiries</div>
@@ -186,7 +186,7 @@ export function DashboardMockup() {
           </div>
 
           {/* AI Insights */}
-          <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 p-2 md:p-4">
+          <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-4">
             <h3 className="text-slate-900 mb-1 text-xs md:text-sm flex items-center gap-1 md:gap-1.5">
               <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-blue-600" />
               AI Insights
@@ -194,7 +194,7 @@ export function DashboardMockup() {
             <p className="text-[9px] md:text-[10px] text-slate-600 mb-2 md:mb-3">Smart recommendations</p>
             <div className="space-y-1.5 md:space-y-2">
               {topPriorities.slice(0, 2).map((priority, index) => (
-                <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-1.5 md:p-2">
+                <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg p-1.5 md:p-2">
                   <div className="flex items-start gap-1 md:gap-1.5">
                     <CheckCircle2 className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600 mt-0.5 flex-shrink-0" />
                     <div className="text-[9px] md:text-[10px] text-slate-900 leading-tight line-clamp-2">{priority}</div>
@@ -208,7 +208,7 @@ export function DashboardMockup() {
         {/* Bottom Grid - Hidden on mobile */}
         <div className="hidden md:grid lg:grid-cols-2 gap-3 md:gap-4">
           {/* Photo Analysis */}
-          <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 p-2 md:p-4">
+          <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-4">
             <h3 className="text-slate-900 mb-1 text-xs md:text-sm flex items-center gap-1 md:gap-1.5">
               <Camera className="w-3 h-3 md:w-4 md:h-4 text-blue-600" />
               Photo Quality
@@ -231,7 +231,7 @@ export function DashboardMockup() {
           </div>
 
           {/* Marketing Timeline */}
-          <div className="bg-white rounded-lg md:rounded-xl shadow-lg border border-slate-200/50 p-2 md:p-4">
+          <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-4">
             <h3 className="text-slate-900 mb-1 text-xs md:text-sm flex items-center gap-1 md:gap-1.5">
               <Clock className="w-3 h-3 md:w-4 md:h-4 text-blue-600" />
               Timeline
