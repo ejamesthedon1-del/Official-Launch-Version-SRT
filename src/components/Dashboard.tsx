@@ -217,13 +217,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
-                    size={240} 
-                    strokeWidth={24}
+                    size={80} 
+                    strokeWidth={8}
                     showAnimation={true}
                   />
-                  <div className="mt-4">
-                    <div className="text-sm text-slate-600 mb-1">AI Smart Listing Score</div>
-                    <div className="text-xs text-slate-500">{getScoreLabel(overallScore)}</div>
+                  <div className="mt-2">
+                    <div className="text-xs text-slate-600 mb-1">AI Smart Listing Score</div>
+                    <div className="text-[10px] text-slate-500">{getScoreLabel(overallScore)}</div>
                   </div>
                 </div>
               </div>
