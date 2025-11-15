@@ -212,13 +212,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             )}
             
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
-              {/* Circular Progress Score */}
-              <div className="flex items-center justify-center">
+              {/* Circular Progress Score - Pushed to far right */}
+              <div className="flex items-center justify-end lg:justify-center">
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
-                    size={80} 
-                    strokeWidth={8}
+                    size={120} 
+                    strokeWidth={12}
                     showAnimation={true}
                   />
                   <div className="mt-2">
