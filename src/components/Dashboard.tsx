@@ -235,9 +235,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
             )}
             
-            <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6 pt-2">
+            <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6 pt-4">
               {/* Address and Score Bar - Side by side */}
-              <div className="flex items-center justify-between lg:justify-center lg:flex-col" style={{ marginTop: '-0.75cm' }}>
+              <div className="flex items-center justify-between lg:justify-center lg:flex-col">
                 {/* Address - Left side */}
                 <div className="flex-1 lg:flex-none">
                   <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
@@ -253,17 +253,18 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
                 
                 {/* Circular Progress Score - Right side */}
-                <div className="flex items-center justify-end lg:justify-center lg:mt-4">
-                  <div className="text-center">
+                <div className="flex items-center justify-end lg:justify-center lg:mt-4 mt-4">
+                  <div className="relative" style={{ width: '120px', height: '120px' }}>
                     <CircularProgress 
                       percentage={overallScore} 
                       size={120} 
                       strokeWidth={12}
                       showAnimation={true}
                     />
-                    <div className="mt-2">
-                      <div className="text-xs text-slate-600 mb-1">AI Smart Listing Score</div>
-                      <div className="text-[10px] text-slate-500">{getScoreLabel(overallScore)}</div>
+                    {/* Text at bottom opening of the circle */}
+                    <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center pointer-events-none" style={{ bottom: '-8px' }}>
+                      <div className="text-[9px] text-slate-600 mb-0.5 px-2 text-center leading-tight whitespace-nowrap">AI Smart Listing Score</div>
+                      <div className="text-[8px] text-slate-500 text-center">{getScoreLabel(overallScore)}</div>
                     </div>
                   </div>
                 </div>
