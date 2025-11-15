@@ -45,6 +45,8 @@ export interface AnalysisData {
       message: string;
     }>;
     topPriorities: string[];
+    pricingInsight?: string | null;
+    sellingSpeedPrediction?: string | null;
   };
 }
 

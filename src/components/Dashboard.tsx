@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, Heart, Share2, Camera, Users, CheckCircle2, AlertCircle, ChevronRight, Sparkles, Clock, Ruler, Bell, Settings } from "lucide-react";
+import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { SubscriptionDialog } from "./SubscriptionDialog";
@@ -66,6 +66,8 @@ interface AnalysisData {
       message: string;
     }>;
     topPriorities: string[];
+    pricingInsight?: string | null;
+    sellingSpeedPrediction?: string | null;
   };
 }
 
@@ -164,18 +166,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
     return "Needs Improvement";
   };
 
-  // Map ratings to photo scores format
-  const photoScores = ratings.slice(0, 5).map((rating) => ({
-    name: rating.title,
-    score: Math.round((rating.score / rating.maxScore) * 100),
-  }));
-
-  // Map topPriorities to timeline format
-  const timelineItems = insights.topPriorities.slice(0, 4).map((priority, index) => ({
-    title: priority,
-    date: index === 0 ? "Today" : index === 1 ? "2 days ago" : index === 2 ? "5 days ago" : "7 days ago",
-    icon: index === 0 ? CheckCircle2 : index === 1 ? Sparkles : index === 2 ? TrendingUp : Calendar,
-  }));
+  // Days on Market for alerts
+  const daysOnMarket = listing.daysOnMarket || 0;
 
   // Parse address to separate street address from city/state
   const parseAddress = (fullAddress: string, city: string) => {
@@ -266,20 +258,46 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </div>
           </div>
 
-          {/* Alert Banner - Between score card and Performance Analytics */}
-        {insights.alerts.length > 0 && (
-          <Card className="p-4 mb-6 bg-destructive/10 border-destructive/20">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-              <div>
-                <div className="mb-1">{insights.alerts[0].title}</div>
-                <p className="text-sm text-muted-foreground">
-                  {insights.alerts[0].message}
-                </p>
+          {/* Days on Market Alert - Prominent if DOM > 30 */}
+          {daysOnMarket > 30 && (
+            <Card className={`p-4 md:p-6 mb-6 ${daysOnMarket > 60 ? 'bg-destructive/10 border-destructive/20' : 'bg-amber-50 border-amber-200'}`}>
+              <div className="flex items-start gap-3 md:gap-4">
+                <AlertTriangle className={`w-5 h-5 md:w-6 md:h-6 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
+                <div className="flex-1">
+                  <div className={`font-semibold mb-2 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
+                    {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
+                  </div>
+                  <p className={`text-sm mb-4 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
+                    {daysOnMarket > 60 
+                      ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required to prevent further buyer disinterest.`
+                      : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
+                    }
+                  </p>
+                  {insights.pricingInsight && (
+                    <div className="bg-white/60 rounded-lg p-3 border border-amber-200">
+                      <div className="text-xs font-medium text-amber-900 mb-1">Recommended Action:</div>
+                      <div className="text-sm text-amber-800">{insights.pricingInsight}</div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </Card>
-        )}
+            </Card>
+          )}
+
+          {/* Other Alerts */}
+          {insights.alerts.length > 0 && insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
+            <Card key={idx} className="p-4 mb-6 bg-destructive/10 border-destructive/20">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                <div>
+                  <div className="mb-1">{alert.title}</div>
+                  <p className="text-sm text-muted-foreground">
+                    {alert.message}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
 
           {/* Paywall Modal - Right after the property header/score section */}
           {!isSubscribed && showPaywall && (
@@ -298,36 +316,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Blurred Content */}
               <div className="backdrop-blur-sm rounded-2xl overflow-hidden">
                 <div className="grid lg:grid-cols-3 gap-6 mb-6 opacity-30">
-                  {/* Key Metrics */}
+                  {/* Market & Listing Performance */}
                   <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
                     <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-blue-600" />
-                      Performance Analytics
+                      Market & Listing Performance
                     </h3>
-                    <p className="text-sm text-slate-600 mb-5">7-day engagement overview</p>
-                    
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                      <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                        <Eye className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                        <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                        <div className="text-xs text-slate-600">Total Views</div>
-                      </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                        <Heart className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                        <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                        <div className="text-xs text-slate-600">Favorites</div>
-              </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                        <Share2 className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                        <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                        <div className="text-xs text-slate-600">Shares</div>
-                  </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                        <Users className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                        <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                        <div className="text-xs text-slate-600">Inquiries</div>
-                </div>
-                    </div>
+                    <p className="text-sm text-slate-600 mb-5">Category performance breakdown</p>
 
                     <div className="h-52">
                       <ResponsiveContainer width="100%" height="100%">
@@ -362,124 +357,90 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2 mb-2">
                             <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                             <div className="text-xs text-slate-900">{priority}</div>
-                    </div>
-                  </div>
+                          </div>
+                        </div>
                       ))}
+                      {insights.pricingInsight && (
+                        <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 rounded-lg p-3 mt-3">
+                          <div className="flex items-start gap-2">
+                            <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                            <div className="text-xs text-slate-900">{insights.pricingInsight}</div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom Grid */}
+                {/* Pricing Strategy & Selling Speed */}
                 <div className="grid lg:grid-cols-2 gap-6 mb-6 opacity-30">
-                  {/* Photo Analysis */}
-                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
-                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
-                      <Camera className="w-5 h-5 text-blue-600" />
-                      Photo Quality Analysis
-                    </h3>
-                    <p className="text-sm text-slate-600 mb-5">AI-scored room photography</p>
-                    <div className="space-y-3">
-                      {photoScores.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-3 hover:bg-slate-50 p-2 rounded-lg transition-colors cursor-pointer">
-                          <div className="text-sm text-slate-700 w-24 flex-shrink-0">{item.name}</div>
-                          <div className="flex-1 bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                            <div 
-                              className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full transition-all"
-                              style={{ width: `${item.score}%` }}
-                            />
-                  </div>
-                          <div className="text-sm text-slate-900 w-8">{item.score}</div>
-                </div>
-                  ))}
-                </div>
-              </div>
-
-                  {/* Marketing Timeline */}
-                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
-                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-blue-600" />
-                      Marketing Timeline
-                    </h3>
-                    <p className="text-sm text-slate-600 mb-5">Recent activity and updates</p>
-                    <div className="space-y-3">
-                      {timelineItems.map((item, index) => {
-                        const Icon = item.icon;
-                        return (
-                          <div key={index} className="flex gap-3 group cursor-pointer hover:bg-slate-50 p-2 rounded-lg transition-colors">
-                            <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
-                              <Icon className="w-5 h-5 text-white" />
-              </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1">
-                                <div className="text-sm text-slate-900">{item.title}</div>
-                                <div className="text-xs text-slate-500">{item.date}</div>
-                  </div>
-                  </div>
-                </div>
-                        );
-                      })}
+                  {/* Pricing Strategy */}
+                  {insights.pricingInsight && (
+                    <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                      <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                        <DollarSign className="w-5 h-5 text-blue-600" />
+                        Pricing Strategy
+                      </h3>
+                      <p className="text-sm text-slate-600 mb-4">Actionable pricing guidance</p>
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-4">
+                        <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
+                      </div>
+                      <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
+                        Review Pricing Strategy
+                      </Button>
                     </div>
+                  )}
+
+                  {/* Selling Speed Prediction */}
+                  {insights.sellingSpeedPrediction && (
+                    <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                      <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                        <Zap className="w-5 h-5 text-blue-600" />
+                        Selling Speed Prediction
+                      </h3>
+                      <p className="text-sm text-slate-600 mb-4">Time-to-sale estimate</p>
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-lg p-4">
+                        <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
 
-            {/* Lock Overlay */}
+              {/* Lock Overlay */}
               <div className="absolute inset-0 bg-white/80 backdrop-blur-md rounded-2xl flex items-start justify-center pt-8">
-              <Card className="p-8 text-center max-w-md mx-4">
-                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Eye className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                  Unlock Detailed Insights
-                </h3>
-                <p className="text-slate-600 mb-6">
-                  Get access to detailed factor breakdowns, performance charts, buyer insights, and complete marketing strategies.
-                </p>
-                <Button
-                  size="lg"
-                  onClick={handleSubscribe}
-                  className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full"
-                >
-                  Upgrade to Premium <Eye className="w-4 h-4" />
-                </Button>
-              </Card>
+                <Card className="p-8 text-center max-w-md mx-4">
+                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <Eye className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                    Unlock Detailed Insights
+                  </h3>
+                  <p className="text-slate-600 mb-6">
+                    Get access to detailed factor breakdowns, performance charts, buyer insights, and complete marketing strategies.
+                  </p>
+                  <Button
+                    size="lg"
+                    onClick={handleSubscribe}
+                    className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full"
+                  >
+                    Upgrade to Premium <Eye className="w-4 h-4" />
+                  </Button>
+                </Card>
+              </div>
             </div>
-          </div>
-        ) : (
+          ) : (
           /* Premium Content (if subscribed) */
           <>
               {/* Analytics Grid */}
               <div className="grid lg:grid-cols-3 gap-6 mb-6">
-                {/* Key Metrics */}
+                {/* Market & Listing Performance */}
                 <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
                   <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-blue-600" />
-                    Performance Analytics
+                    Market & Listing Performance
                   </h3>
-                  <p className="text-sm text-slate-600 mb-5">7-day engagement overview</p>
-                  
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                    <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                      <Eye className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                      <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                      <div className="text-xs text-slate-600">Total Views</div>
-                    </div>
-                    <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                      <Heart className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                      <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                      <div className="text-xs text-slate-600">Favorites</div>
-                    </div>
-                    <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                      <Share2 className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                      <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                      <div className="text-xs text-slate-600">Shares</div>
-                    </div>
-                    <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg border border-blue-200/50 hover:shadow-md transition-shadow cursor-pointer">
-                      <Users className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                      <div className="text-slate-900" style={{ fontSize: '1.25rem' }}>0</div>
-                      <div className="text-xs text-slate-600">Inquiries</div>
-                    </div>
-                  </div>
+                  <p className="text-sm text-slate-600 mb-5">Category performance breakdown</p>
 
                   <div className="h-52">
                     <ResponsiveContainer width="100%" height="100%">
@@ -517,69 +478,50 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                       </div>
                     ))}
+                    {insights.pricingInsight && (
+                      <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 rounded-lg p-3 mt-3">
+                        <div className="flex items-start gap-2">
+                          <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                          <div className="text-xs text-slate-900">{insights.pricingInsight}</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Bottom Grid */}
+              {/* Pricing Strategy & Selling Speed */}
               <div className="grid lg:grid-cols-2 gap-6 mb-6">
-                {/* Photo Analysis */}
-                <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
-                  <h3 className="text-slate-900 mb-1 flex items-center gap-2">
-                    <Camera className="w-5 h-5 text-blue-600" />
-                    Photo Quality Analysis
-                  </h3>
-                  <p className="text-sm text-slate-600 mb-5">AI-scored room photography</p>
-                  <div className="space-y-3">
-                    {photoScores.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-3 hover:bg-slate-50 p-2 rounded-lg transition-colors cursor-pointer">
-                        <div className="text-sm text-slate-700 w-24 flex-shrink-0">{item.name}</div>
-                        <div className="flex-1 bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                          <div 
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full transition-all"
-                            style={{ width: `${item.score}%` }}
-                          />
-                        </div>
-                        <div className="text-sm text-slate-900 w-8">{item.score}</div>
-                      </div>
-                    ))}
+                {/* Pricing Strategy */}
+                {insights.pricingInsight && (
+                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                      <DollarSign className="w-5 h-5 text-blue-600" />
+                      Pricing Strategy
+                    </h3>
+                    <p className="text-sm text-slate-600 mb-4">Actionable pricing guidance</p>
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-4">
+                      <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
+                    </div>
+                    <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
+                      Review Pricing Strategy
+                    </Button>
                   </div>
-                  <div className="mt-5 pt-5 border-t border-slate-200">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-xs text-slate-600 mb-1">Overall Score</div>
-                        <div className="text-slate-900" style={{ fontSize: '1.5rem' }}>{Math.round(photoScores.reduce((acc, item) => acc + item.score, 0) / photoScores.length)}/100</div>
-                      </div>
+                )}
+
+                {/* Selling Speed Prediction */}
+                {insights.sellingSpeedPrediction && (
+                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                      <Zap className="w-5 h-5 text-blue-600" />
+                      Selling Speed Prediction
+                    </h3>
+                    <p className="text-sm text-slate-600 mb-4">Time-to-sale estimate</p>
+                    <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-lg p-4">
+                      <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
                     </div>
                   </div>
-                </div>
-
-                {/* Marketing Timeline */}
-                <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
-                  <h3 className="text-slate-900 mb-1 flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-blue-600" />
-                    Marketing Timeline
-                  </h3>
-                  <p className="text-sm text-slate-600 mb-5">Recent activity and updates</p>
-                  <div className="space-y-3">
-                    {timelineItems.map((item, index) => {
-                      const Icon = item.icon;
-                      return (
-                        <div key={index} className="flex gap-3 group cursor-pointer hover:bg-slate-50 p-2 rounded-lg transition-colors">
-                          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
-                            <Icon className="w-5 h-5 text-white" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <div className="text-sm text-slate-900">{item.title}</div>
-                              <div className="text-xs text-slate-500">{item.date}</div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+                )}
               </div>
 
             {/* Detailed Ratings */}
