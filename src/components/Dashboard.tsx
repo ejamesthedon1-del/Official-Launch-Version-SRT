@@ -255,12 +255,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 {/* Circular Progress Score - Right side */}
                 <div className="flex items-center justify-end lg:justify-center lg:mt-4 mt-4">
                   <div className="relative" style={{ width: '120px', height: '120px' }}>
-                    <CircularProgress 
-                      percentage={overallScore} 
-                      size={120} 
-                      strokeWidth={12}
-                      showAnimation={true}
-                    />
+                    <div style={{ marginTop: '-0.2in' }}>
+                      <CircularProgress 
+                        percentage={overallScore} 
+                        size={120} 
+                        strokeWidth={12}
+                        showAnimation={true}
+                      />
+                    </div>
                     {/* Text at bottom opening of the circle */}
                     <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center pointer-events-none" style={{ bottom: '-8px' }}>
                       <div className="text-[9px] text-slate-600 mb-0.5 px-2 text-center leading-tight whitespace-nowrap">AI Smart Listing Score</div>
