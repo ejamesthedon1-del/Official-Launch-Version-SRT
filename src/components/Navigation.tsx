@@ -45,7 +45,7 @@ export function Navigation({
           {/* Logo - clickable to go home */}
           <button
             onClick={() => onNavigate("home")}
-            className={`flex items-center gap-2 hover:opacity-90 transition-opacity ${
+            className={`flex items-center gap-1 hover:opacity-90 transition-opacity ${
               isHomePage ? "text-white" : "text-slate-900"
             }`}
             style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
@@ -53,7 +53,7 @@ export function Navigation({
             <div className="w-12 h-12 flex items-center justify-center">
               <Logo />
             </div>
-            <span className="tracking-tight font-medium">Smart Realtor Tool</span>
+            <span className="tracking-tight font-medium">Smart Realtor Tools</span>
           </button>
 
           {/* Desktop Navigation - hidden on mobile */}
