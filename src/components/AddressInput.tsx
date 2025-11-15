@@ -388,7 +388,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
               <div className="space-y-2">
                 <Label htmlFor="address">Property Address</Label>
                 <div className="relative">
