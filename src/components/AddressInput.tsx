@@ -388,7 +388,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto px-4 md:px-0">
               <div className="space-y-2">
                 <Label htmlFor="address">Property Address</Label>
                 <div className="relative">
@@ -410,7 +410,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
                     onFocus={() => {
                       if (predictions.length > 0) setShowSuggestions(true);
                     }}
-                    className="pl-10"
+                    className="pl-10 w-full max-w-sm mx-auto md:max-w-none"
                     disabled={analyzing}
                     required
                     autoComplete="off"
@@ -456,7 +456,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
               <Button
                 type="submit"
                 size="default"
-                className="w-full gap-2"
+                className="w-full max-w-sm mx-auto md:max-w-none gap-2"
                 disabled={!address.trim() || analyzing}
               >
                 {analyzing ? (
