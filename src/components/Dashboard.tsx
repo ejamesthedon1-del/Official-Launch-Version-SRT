@@ -196,43 +196,24 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
         <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-12 md:pt-24">
           {/* Property Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
-            {/* Property Image with Score Bar Space on Mobile */}
+            {/* Property Image */}
             {listing.imageUrl && (
-              <div className="flex md:block">
-                {/* Property Image - Takes most space, leaves room for score bar on mobile */}
-                <div className="flex-1 h-[60vh] md:h-80 lg:h-96 relative overflow-hidden">
-                  <img
-                    src={listing.imageUrl}
-                    alt={streetAddress}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Hide image if it fails to load
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                </div>
-                
-                {/* Score Bar - Right side on mobile */}
-                <div className="md:hidden flex items-center justify-center px-4 bg-slate-50 w-24">
-                  <div className="text-center">
-                    <CircularProgress 
-                      percentage={overallScore} 
-                      size={80} 
-                      strokeWidth={8}
-                      showAnimation={true}
-                    />
-                    <div className="mt-1">
-                      <div className="text-xs text-slate-700 font-semibold">{overallScore}</div>
-                      <div className="text-[10px] text-slate-500">{getScoreLabel(overallScore)}</div>
-                    </div>
-                  </div>
-                </div>
+              <div className="w-full h-64 md:h-80 lg:h-96 relative overflow-hidden">
+                <img
+                  src={listing.imageUrl}
+                  alt={streetAddress}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Hide image if it fails to load
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
             )}
             
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
-              {/* Circular Progress Score - Desktop Only */}
-              <div className="hidden md:flex items-center justify-center">
+              {/* Circular Progress Score */}
+              <div className="flex items-center justify-center">
                 <div className="text-center">
                   <CircularProgress 
                     percentage={overallScore} 
