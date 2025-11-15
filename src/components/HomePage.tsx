@@ -333,7 +333,7 @@ export function HomePage({
         <div className="relative z-10">
           <div className="container mx-auto max-w-6xl px-4 py-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1 text-white">
+              <div className="flex items-center text-white" style={{ gap: '2px' }}>
                 <div className="w-12 h-12 flex items-center justify-center">
                   <Logo />
                 </div>
@@ -668,7 +668,7 @@ export function HomePage({
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center gap-1 mb-4">
+              <div className="flex items-center mb-4" style={{ gap: '2px' }}>
                 <div className="w-12 h-12 flex items-center justify-center">
                   <Logo />
                 </div>

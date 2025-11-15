@@ -45,10 +45,10 @@ export function Navigation({
           {/* Logo - clickable to go home */}
           <button
             onClick={() => onNavigate("home")}
-            className={`flex items-center gap-0.5 hover:opacity-90 transition-opacity ${
+            className={`flex items-center gap-0 hover:opacity-90 transition-opacity ${
               isHomePage ? "text-white" : "text-slate-900"
             }`}
-            style={{ boxShadow: 'none', WebkitBoxShadow: 'none' }}
+            style={{ boxShadow: 'none', WebkitBoxShadow: 'none', gap: '2px' }}
           >
             <div className="w-12 h-12 flex items-center justify-center">
               <Logo />
