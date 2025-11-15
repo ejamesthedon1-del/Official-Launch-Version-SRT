@@ -7,6 +7,23 @@ interface CircularProgressProps {
   showAnimation?: boolean;
 }
 
+// Get color based on score percentage
+function getScoreColor(percentage: number): string {
+  if (percentage >= 80) {
+    // Green for high scores (80-100)
+    return "#22c55e";
+  } else if (percentage >= 60) {
+    // Yellow for medium-high scores (60-79)
+    return "#eab308";
+  } else if (percentage >= 40) {
+    // Orange for medium scores (40-59)
+    return "#f97316";
+  } else {
+    // Red for low scores (0-39)
+    return "#ef4444";
+  }
+}
+
 export function CircularProgress({ 
   percentage, 
   size = 200, 
@@ -71,21 +88,13 @@ export function CircularProgress({
             A ${radius} ${radius} 0 1 1 ${center + radius * Math.cos(endRad)} ${center + radius * Math.sin(endRad)}
           `}
           fill="none"
-          stroke="url(#progressGradient)"
+          stroke={getScoreColor(percentage)}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           className="transition-all duration-1000 ease-out"
         />
-        
-        {/* Gradient Definition */}
-        <defs>
-          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#6366f1" />
-          </linearGradient>
-        </defs>
       </svg>
       
       {/* Percentage Text */}
