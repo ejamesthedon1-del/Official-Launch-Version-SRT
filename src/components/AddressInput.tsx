@@ -388,7 +388,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto">
               <div className="space-y-2">
                 <Label htmlFor="address">Property Address</Label>
                 <div className="relative">
@@ -455,7 +455,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
 
               <Button
                 type="submit"
-                size="lg"
+                size="default"
                 className="w-full gap-2"
                 disabled={!address.trim() || analyzing}
               >
