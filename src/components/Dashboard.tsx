@@ -170,22 +170,46 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   // Days on Market for alerts
   const daysOnMarket = listing.daysOnMarket || 0;
 
-  // Parse address to separate street address from city/state
+  // Parse address to separate street address, city/state, and zip/USA
   const parseAddress = (fullAddress: string, city: string) => {
     // If address contains commas, split it
-    const addressParts = fullAddress.split(",");
+    const addressParts = fullAddress.split(",").map(p => p.trim());
     if (addressParts.length > 1) {
       // Street address is everything before the first comma
-      const streetAddress = addressParts[0].trim();
-      // City/State is everything after the first comma
-      const cityState = addressParts.slice(1).join(",").trim();
-      return { streetAddress, cityState: cityState || city };
+      const streetAddress = addressParts[0];
+      // Extract city, state, zip, and USA
+      let cityState = "";
+      let zipAndCountry = "";
+      
+      // Check if last part contains zip code or country
+      const lastPart = addressParts[addressParts.length - 1];
+      const zipMatch = lastPart.match(/(\d{5}(?:-\d{4})?)\s*(USA|United States)?/i);
+      
+      if (zipMatch) {
+        // Has zip code
+        zipAndCountry = lastPart;
+        // City/State is everything between street and zip
+        cityState = addressParts.slice(1, -1).join(", ");
+      } else if (lastPart.match(/^(USA|United States)$/i)) {
+        // Last part is just country
+        zipAndCountry = lastPart;
+        cityState = addressParts.slice(1, -1).join(", ");
+      } else {
+        // No zip/country, just city/state
+        cityState = addressParts.slice(1).join(", ");
+      }
+      
+      return { 
+        streetAddress, 
+        cityState: cityState || city,
+        zipAndCountry: zipAndCountry || ""
+      };
     }
     // If no commas, use the full address as street and city as city/state
-    return { streetAddress: fullAddress, cityState: city };
+    return { streetAddress: fullAddress, cityState: city, zipAndCountry: "" };
   };
 
-  const { streetAddress, cityState } = parseAddress(listing.address, listing.city);
+  const { streetAddress, cityState, zipAndCountry } = parseAddress(listing.address, listing.city);
 
   return (
     <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/30 w-full min-h-screen">
@@ -213,14 +237,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
               {/* Address and Score Bar - Side by side */}
-              <div className="flex items-center justify-between lg:justify-center lg:flex-col">
+              <div className="flex items-center justify-between lg:justify-center lg:flex-col" style={{ marginTop: '-2cm' }}>
                 {/* Address - Left side */}
                 <div className="flex-1 lg:flex-none">
-                  <h2 className="text-slate-900 mb-1 text-lg md:text-xl font-semibold">{streetAddress}</h2>
-                  <div className="flex items-center gap-2 text-slate-600">
+                  <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
+                  <div className="flex items-center gap-2 text-slate-600 mb-0.5">
                     <MapPin className="w-3.5 h-3.5" />
                     <span className="text-sm md:text-base">{cityState}</span>
                   </div>
+                  {zipAndCountry && (
+                    <div className="text-slate-600 text-sm md:text-base ml-5">
+                      {zipAndCountry}
+                    </div>
+                  )}
                 </div>
                 
                 {/* Circular Progress Score - Right side */}
