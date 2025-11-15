@@ -249,7 +249,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                   <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
-                    <p className="text-xs text-slate-700 leading-relaxed">
+                    <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
                       {insights.summary}
                     </p>
                   </div>

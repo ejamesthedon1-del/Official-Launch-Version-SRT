@@ -61,6 +61,21 @@ function transformAnalysisData(address: string, geminiData: any): any {
   
   const pricePerSqft = sqft > 0 && estimatedValue > 0 ? Math.round(estimatedValue / sqft) : 0;
   
+  // Calculate category scores
+  const daysOnMarketScore = daysOnMarket <= 14 ? 90 : daysOnMarket <= 30 ? 70 : daysOnMarket <= 60 ? 50 : 30;
+  const pricingStrategyScore = 80; // Base score, can be enhanced later
+  const marketTrendScore = 70; // Base score, can be enhanced later
+  const propertyAppealScore = 80; // Base score, can be enhanced later
+  
+  // Calculate weighted overall score
+  // Weights: Days on Market (40%), Pricing Strategy (30%), Market Trend (20%), Property Appeal (10%)
+  const overallScore = Math.round(
+    (daysOnMarketScore * 0.40) + 
+    (pricingStrategyScore * 0.30) + 
+    (marketTrendScore * 0.20) + 
+    (propertyAppealScore * 0.10)
+  );
+  
   return {
     listing: {
       address: address,
@@ -74,7 +89,7 @@ function transformAnalysisData(address: string, geminiData: any): any {
       daysOnMarket: daysOnMarket,
       imageUrl: geminiData.propertyImageUrl || null
     },
-    overallScore: 75,
+    overallScore: overallScore,
     ratings: [
       {
         title: "Days on Market",
@@ -106,10 +121,10 @@ function transformAnalysisData(address: string, geminiData: any): any {
       }
     ],
     categoryScores: [
-      { category: "Days on Market", score: daysOnMarket <= 14 ? 90 : daysOnMarket <= 30 ? 70 : daysOnMarket <= 60 ? 50 : 30 },
-      { category: "Pricing Strategy", score: 80 },
-      { category: "Market Trend", score: 70 },
-      { category: "Property Appeal", score: 80 }
+      { category: "Days on Market", score: daysOnMarketScore },
+      { category: "Pricing Strategy", score: pricingStrategyScore },
+      { category: "Market Trend", score: marketTrendScore },
+      { category: "Property Appeal", score: propertyAppealScore }
     ],
     radarData: [
       { subject: "Pricing", A: 8, fullMark: 10 },
@@ -118,7 +133,34 @@ function transformAnalysisData(address: string, geminiData: any): any {
       { subject: "Speed of Sale", A: daysOnMarket <= 14 ? 9 : daysOnMarket <= 30 ? 7 : daysOnMarket <= 60 ? 5 : 3, fullMark: 10 }
     ],
     insights: {
-      summary: `Analysis for ${address}. ${geminiData.marketTrend || "Market conditions are stable"}. ${daysOnMarket > 30 ? `Property has been on market ${daysOnMarket} days - action recommended.` : ''} ${geminiData.keyFeatures?.join(", ") || "Standard property features"}.`,
+      summary: (() => {
+        // Short critique (1-3 lines) hinting at what we'll help with
+        const critiques: string[] = [];
+        
+        if (daysOnMarket > 60) {
+          critiques.push(`Stale listing (${daysOnMarket} days) - pricing strategy needs immediate attention.`);
+        } else if (daysOnMarket > 30) {
+          critiques.push(`Above-average days on market (${daysOnMarket} days) - pricing optimization recommended.`);
+        } else if (daysOnMarket > 14) {
+          critiques.push(`Listing performance is solid but can be accelerated with strategic adjustments.`);
+        } else {
+          critiques.push(`Fresh listing with strong positioning - optimize to maximize speed and value.`);
+        }
+        
+        if (geminiData.pricingInsight && geminiData.pricingInsight.toLowerCase().includes("reduce")) {
+          critiques.push(`Price positioning may be limiting buyer interest.`);
+        }
+        
+        if (geminiData.riskFactors && geminiData.riskFactors.length > 0) {
+          const firstRisk = geminiData.riskFactors[0];
+          if (firstRisk.length < 80) { // Only add if it's short enough
+            critiques.push(firstRisk);
+          }
+        }
+        
+        // Return 1-3 lines max
+        return critiques.slice(0, 3).join(' ');
+      })(),
       alerts: [
         ...(daysOnMarket > 60 ? [{
           type: "error",
