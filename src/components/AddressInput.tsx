@@ -31,10 +31,14 @@ interface Prediction {
 function transformAnalysisData(address: string, geminiData: any): any {
   // If it already has the correct structure, return it
   if (geminiData.listing && geminiData.overallScore) {
-    // Preserve propertyImageUrl if it exists
-    if (geminiData.propertyImageUrl) {
-      geminiData.listing.imageUrl = geminiData.propertyImageUrl;
+    // Get image URL - prioritize Apify photos, fallback to Google Places image
+    let imageUrl = null;
+    if (geminiData.propertyPhotos && Array.isArray(geminiData.propertyPhotos) && geminiData.propertyPhotos.length > 0) {
+      imageUrl = geminiData.propertyPhotos[0]; // Use first photo from Apify
+    } else if (geminiData.propertyImageUrl) {
+      imageUrl = geminiData.propertyImageUrl; // Fallback to Google Places image
     }
+    geminiData.listing.imageUrl = imageUrl;
     return geminiData;
   }
 
@@ -76,6 +80,14 @@ function transformAnalysisData(address: string, geminiData: any): any {
     (propertyAppealScore * 0.10)
   );
   
+  // Get image URL - prioritize Apify photos, fallback to Google Places image
+  let imageUrl = null;
+  if (geminiData.propertyPhotos && Array.isArray(geminiData.propertyPhotos) && geminiData.propertyPhotos.length > 0) {
+    imageUrl = geminiData.propertyPhotos[0]; // Use first photo from Apify
+  } else if (geminiData.propertyImageUrl) {
+    imageUrl = geminiData.propertyImageUrl; // Fallback to Google Places image
+  }
+
   return {
     listing: {
       address: address,
@@ -87,7 +99,7 @@ function transformAnalysisData(address: string, geminiData: any): any {
       baths: baths,
       sqft: sqft > 0 ? sqft.toLocaleString() : "N/A",
       daysOnMarket: daysOnMarket,
-      imageUrl: geminiData.propertyImageUrl || null
+      imageUrl: imageUrl
     },
     overallScore: overallScore,
     ratings: [

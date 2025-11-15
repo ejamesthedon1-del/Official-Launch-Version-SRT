@@ -40,6 +40,7 @@ interface AnalysisData {
     baths: number;
     sqft: string;
     daysOnMarket: number;
+    imageUrl?: string | null;
   };
   overallScore: number;
   ratings: Array<{
@@ -195,6 +196,21 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
         <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-12 md:pt-24">
           {/* Property Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
+            {/* Property Image */}
+            {listing.imageUrl && (
+              <div className="w-full h-64 md:h-80 lg:h-96 relative overflow-hidden">
+                <img
+                  src={listing.imageUrl}
+                  alt={streetAddress}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Hide image if it fails to load
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+            )}
+            
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
               {/* Circular Progress Score */}
               <div className="flex items-center justify-center">

@@ -19,6 +19,7 @@ export interface AnalysisData {
     baths: number;
     sqft: string;
     daysOnMarket: number;
+    imageUrl?: string | null;
   };
   overallScore: number;
   ratings: Array<{
