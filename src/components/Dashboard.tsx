@@ -231,12 +231,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Property Details */}
               <div className="flex flex-col justify-between">
                 <div>
-                  <div className="mb-3 mt-2">
+                  <div className="mb-3 mt-0 flex items-center h-full">
                     <div>
-                      <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
+                      <h2 className="text-slate-900 mb-1 text-sm md:text-base font-semibold">{streetAddress}</h2>
                       <div className="flex items-center gap-2 text-slate-600">
-                        <MapPin className="w-4 h-4" />
-                        <span>{cityState}</span>
+                        <MapPin className="w-3 h-3" />
+                        <span className="text-xs md:text-sm">{cityState}</span>
                       </div>
                     </div>
                   </div>
