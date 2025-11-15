@@ -212,18 +212,30 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             )}
             
             <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
-              {/* Circular Progress Score - Pushed to far right */}
-              <div className="flex items-center justify-end lg:justify-center">
-                <div className="text-center">
-                  <CircularProgress 
-                    percentage={overallScore} 
-                    size={120} 
-                    strokeWidth={12}
-                    showAnimation={true}
-                  />
-                  <div className="mt-2">
-                    <div className="text-xs text-slate-600 mb-1">AI Smart Listing Score</div>
-                    <div className="text-[10px] text-slate-500">{getScoreLabel(overallScore)}</div>
+              {/* Address and Score Bar - Side by side */}
+              <div className="flex items-center justify-between lg:justify-center lg:flex-col">
+                {/* Address - Left side */}
+                <div className="flex-1 lg:flex-none">
+                  <h2 className="text-slate-900 mb-1 text-lg md:text-xl font-semibold">{streetAddress}</h2>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span className="text-sm md:text-base">{cityState}</span>
+                  </div>
+                </div>
+                
+                {/* Circular Progress Score - Right side */}
+                <div className="flex items-center justify-end lg:justify-center lg:mt-4">
+                  <div className="text-center">
+                    <CircularProgress 
+                      percentage={overallScore} 
+                      size={120} 
+                      strokeWidth={12}
+                      showAnimation={true}
+                    />
+                    <div className="mt-2">
+                      <div className="text-xs text-slate-600 mb-1">AI Smart Listing Score</div>
+                      <div className="text-[10px] text-slate-500">{getScoreLabel(overallScore)}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -231,15 +243,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Property Details */}
               <div className="flex flex-col justify-between">
                 <div>
-                  <div className="mb-3 mt-0 flex items-center h-full">
-                    <div>
-                      <h2 className="text-slate-900 mb-1 text-sm md:text-base font-semibold">{streetAddress}</h2>
-                      <div className="flex items-center gap-2 text-slate-600">
-                        <MapPin className="w-3 h-3" />
-                        <span className="text-xs md:text-sm">{cityState}</span>
-                      </div>
-                    </div>
-                  </div>
                   <div className="grid grid-cols-2 gap-3 mb-4">
                     <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-3 border border-slate-200">
                       <div className="text-xs text-slate-600 mb-1">List Price</div>
