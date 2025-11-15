@@ -390,7 +390,6 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
 
           <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto px-4 md:px-0">
               <div className="space-y-2">
-                <Label htmlFor="address">Property Address</Label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-3 w-5 h-5 text-muted-foreground z-10" />
                   <Input
