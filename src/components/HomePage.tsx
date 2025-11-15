@@ -333,11 +333,11 @@ export function HomePage({
         <div className="relative z-10">
           <div className="container mx-auto max-w-6xl px-4 py-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-white">
+              <div className="flex items-center gap-1 text-white">
                 <div className="w-12 h-12 flex items-center justify-center">
                   <Logo />
                 </div>
-                <span className="tracking-tight">Smart Realtor Tool</span>
+                <span className="tracking-tight">Smart Realtor Tools</span>
               </div>
               <div className="hidden md:flex items-center gap-8 text-white/90 text-sm">
                 <button 
@@ -668,11 +668,11 @@ export function HomePage({
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-1 mb-4">
                 <div className="w-12 h-12 flex items-center justify-center">
                   <Logo />
                 </div>
-                <span className="tracking-tight text-slate-900">Smart Realtor Tool</span>
+                <span className="tracking-tight text-slate-900">Smart Realtor Tools</span>
               </div>
               <p className="text-sm text-slate-600">
                 AI-powered analytics for real estate professionals
@@ -703,7 +703,7 @@ export function HomePage({
             </div>
           </div>
           <div className="border-t border-slate-200 mt-8 pt-8 text-center text-sm text-slate-500">
-            © 2024 Smart Realtor Tool. All rights reserved.
+            © 2024 Smart Realtor Tools. All rights reserved.
           </div>
         </div>
       </footer>
