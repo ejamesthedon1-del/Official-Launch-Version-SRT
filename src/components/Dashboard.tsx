@@ -170,7 +170,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   // Days on Market for alerts
   const daysOnMarket = listing.daysOnMarket || 0;
 
-  // Parse address to separate street address, neighborhood, city/state, and zip/USA
+  // Parse address to separate street address, city/state, and zip/USA
   const parseAddress = (fullAddress: string, city: string) => {
     // If address contains commas, split it
     const addressParts = fullAddress.split(",").map(p => p.trim());
@@ -180,47 +180,36 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       // Extract city, state, zip, and USA
       let cityState = "";
       let zipAndCountry = "";
-      let neighborhood = "";
       
       // Check if last part contains zip code or country
       const lastPart = addressParts[addressParts.length - 1];
       const zipMatch = lastPart.match(/(\d{5}(?:-\d{4})?)\s*(USA|United States)?/i);
       
-      // Determine which parts are zip/country, city/state, and neighborhood
-      let cityStateStartIndex = 1;
-      
       if (zipMatch) {
         // Has zip code
         zipAndCountry = lastPart;
-        cityStateStartIndex = addressParts.length - 2; // City/State is second to last
+        // City/State is everything between street and zip
+        cityState = addressParts.slice(1, -1).join(", ");
       } else if (lastPart.match(/^(USA|United States)$/i)) {
         // Last part is just country
         zipAndCountry = lastPart;
-        cityStateStartIndex = addressParts.length - 2; // City/State is second to last
-      }
-      
-      // If we have more than 2 parts (street + city/state + zip), the middle part might be neighborhood
-      if (addressParts.length > 2 && cityStateStartIndex > 1) {
-        // Extract neighborhood (parts between street and city/state)
-        neighborhood = addressParts.slice(1, cityStateStartIndex).join(", ");
-        cityState = addressParts[cityStateStartIndex] || "";
+        cityState = addressParts.slice(1, -1).join(", ");
       } else {
-        // No neighborhood, city/state is everything between street and zip
-        cityState = addressParts.slice(1, cityStateStartIndex + 1).join(", ");
+        // No zip/country, just city/state
+        cityState = addressParts.slice(1).join(", ");
       }
       
       return { 
         streetAddress, 
-        neighborhood: neighborhood || "",
         cityState: cityState || city,
         zipAndCountry: zipAndCountry || ""
       };
     }
     // If no commas, use the full address as street and city as city/state
-    return { streetAddress: fullAddress, neighborhood: "", cityState: city, zipAndCountry: "" };
+    return { streetAddress: fullAddress, cityState: city, zipAndCountry: "" };
   };
 
-  const { streetAddress, neighborhood, cityState, zipAndCountry } = parseAddress(listing.address, listing.city);
+  const { streetAddress, cityState, zipAndCountry } = parseAddress(listing.address, listing.city);
 
   return (
     <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/30 w-full min-h-screen">
@@ -251,12 +240,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="flex items-center justify-between lg:justify-center lg:flex-col">
                 {/* Address - Left side */}
                 <div className="flex-1 lg:flex-none">
-                  {/* Neighborhood - Small text above address */}
-                  {neighborhood && (
-                    <div className="text-[10px] md:text-xs text-slate-500 mb-0.5 font-normal">
-                      {neighborhood}
-                    </div>
-                  )}
                   <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
                   <div className="flex items-center gap-2 text-slate-600 mb-0.5">
                     <MapPin className="w-3.5 h-3.5" />
