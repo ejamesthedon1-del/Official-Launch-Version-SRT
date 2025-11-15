@@ -29,6 +29,7 @@ import { SlidingInfoSection } from "./SlidingInfoSection";
 import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import CursorIcon from "./CursorIcon";
+import FactsSection from "./FactsSection";
 
 // Animated Address Input Component for Step 1
 function AnimatedAddressInput() {
@@ -662,6 +663,17 @@ export function HomePage({
         </div>
       </section>
 
+      {/* Real-time smart data */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-6 pt-12 pb-4">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
+              Real-time smart data
+            </h2>
+          </div>
+        </div>
+        <FactsSection />
+      </section>
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-12 px-4">
