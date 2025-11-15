@@ -382,8 +382,9 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
             <Badge className="mb-4">Step 1 of 2</Badge>
             <h1 className="text-2xl md:text-3xl mb-4">Enter Your Property Address</h1>
             <p className="text-sm md:text-base text-muted-foreground">
-              Our AI will analyze your listing and provide detailed insights in
-              seconds
+              Our AI will analyze your listing and provide
+              <br />
+              detailed insights in seconds
             </p>
           </div>
 
