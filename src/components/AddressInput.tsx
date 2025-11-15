@@ -388,8 +388,7 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
             </p>
           </div>
 
-          <Card className="p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="address">Property Address</Label>
                 <div className="relative">
@@ -472,7 +471,6 @@ export function AddressInput({ onAnalyze, onNavigate, onMenuClick }: AddressInpu
                 )}
               </Button>
             </form>
-          </Card>
         </div>
       </main>
 
