@@ -235,9 +235,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
             )}
             
-            <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6">
+            <div className="grid lg:grid-cols-2 gap-6 p-4 md:p-6 pt-2">
               {/* Address and Score Bar - Side by side */}
-              <div className="flex items-center justify-between lg:justify-center lg:flex-col" style={{ marginTop: '-2cm' }}>
+              <div className="flex items-center justify-between lg:justify-center lg:flex-col" style={{ marginTop: '-0.75cm' }}>
                 {/* Address - Left side */}
                 <div className="flex-1 lg:flex-none">
                   <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
