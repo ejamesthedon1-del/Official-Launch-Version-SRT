@@ -277,7 +277,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <CircularProgress 
                         percentage={overallScore} 
                         size={120} 
-                        strokeWidth={12}
+                        strokeWidth={9}
                         showAnimation={true}
                       />
                     </div>

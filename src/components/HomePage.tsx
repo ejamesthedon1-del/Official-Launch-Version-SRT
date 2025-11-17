@@ -498,8 +498,8 @@ export function HomePage({
                           <CircularProgress 
                             percentage={85} 
                             size={180} 
-                            strokeWidth={18}
-                            showAnimation={true}
+                            strokeWidth={14}
+                            showAnimation={false}
                           />
                           <div className="mt-3">
                             <div className="text-xs text-slate-600 mb-1">AI Listing Score</div>

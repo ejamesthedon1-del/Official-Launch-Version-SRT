@@ -77,7 +77,7 @@ export function DashboardMockup() {
                   <CircularProgress 
                     percentage={overallScore} 
                     size={80} 
-                    strokeWidth={12}
+                    strokeWidth={9}
                     showAnimation={false}
                   />
                   <div className="mt-1 md:mt-2">
@@ -146,8 +146,8 @@ export function DashboardMockup() {
                 <CircularProgress 
                   percentage={overallScore} 
                   size={80} 
-                  strokeWidth={12}
-                  showAnimation={true}
+                  strokeWidth={9}
+                  showAnimation={false}
                 />
                 <div className="mt-1 md:mt-2">
                   <div className="text-[10px] md:text-xs text-slate-600 mb-0.5">Smart AI Listing Score</div>
