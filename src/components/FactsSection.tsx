@@ -44,7 +44,7 @@ export default function FactsSection() {
               className="max-w-4xl mx-auto"
             >
               {/* Percentage & Subtext & Headline - Left Aligned, Vertical Stack */}
-              <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-col items-start gap-2" style={{ maxWidth: "600px" }}>
                 <span
                   className="text-slate-900"
                   style={{
@@ -64,6 +64,7 @@ export default function FactsSection() {
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
+                    maxWidth: "100%",
                   }}
                 >
                   {(() => {
@@ -120,6 +121,7 @@ export default function FactsSection() {
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
+                    maxWidth: "100%",
                   }}
                 >
                   {(() => {
@@ -161,6 +163,7 @@ export default function FactsSection() {
                     fontSize: "14px",
                     fontWeight: 500,
                     fontFamily: "system-ui, -apple-system, sans-serif",
+                    maxWidth: "100%",
                   }}
                 >
                   – {fact.source}
