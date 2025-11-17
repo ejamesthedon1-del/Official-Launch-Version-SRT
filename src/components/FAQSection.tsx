@@ -52,7 +52,7 @@ export default function FAQSection() {
                 <AccordionTrigger className="hover:no-underline py-8 text-left">
                   <span 
                     className="text-slate-900 font-semibold"
-                    style={{ fontSize: "13px" }}
+                    style={{ fontSize: "14.5px" }}
                   >
                     {faq.question}
                   </span>
