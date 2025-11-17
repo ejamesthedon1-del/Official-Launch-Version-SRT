@@ -7,24 +7,21 @@ import { motion } from "framer-motion";
 const FACTS_DATA = [
   {
     percentage: "320M <br /> Buyer <br /> signals",
-    subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br />pinpoint what will drive attention and offers faster.",
+    subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br /> pinpoint what will drive attention and offers faster.",
     source: "New York Times",
   },
   {
     percentage: "1.8m ",
-    headline: "of Buyers Search Online First",
     subtext: "Agents without a strong digital presence instantly fall behind.",
     source: "Zillow Research",
   },
   {
     percentage: "48%",
-    headline: "of Listings Sit 60+ Days",
     subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
     source: "Redfin Data",
   },
   {
     percentage: "8.4%",
-    headline: "of Agents Use Email Marketing",
     subtext: "One of the highest-ROI channels is still massively underused.",
     source: "HubSpot",
   },
@@ -108,37 +105,17 @@ function renderPercentage(percentage: string) {
 }
 
 // Helper function to render subtext with breaks
-function renderSubtext(subtext: string, percentage: string) {
-  if (percentage === "8.4%") {
-    // Break after "ROI"
-    const parts = subtext.split(/(ROI)/i);
-    return parts.map((part, index) => (
+function renderSubtext(subtext: string) {
+  // Check if subtext contains <br /> tags
+  if (subtext.includes('<br />')) {
+    return subtext.split('<br />').map((part, index, parts) => (
       <React.Fragment key={index}>
-        {part}
-        {part.toUpperCase().includes("ROI") && index < parts.length - 1 && <br />}
+        {part.trim()}
+        {index < parts.length - 1 && <br />}
       </React.Fragment>
     ));
-  } else if (percentage === "48%") {
-    // Break after "nearly"
-    const parts = subtext.split(/(nearly\s+)/i);
-    return parts.map((part, index) => (
-      <React.Fragment key={index}>
-        {part}
-        {part.toLowerCase().includes("nearly") && index < parts.length - 1 && <br />}
-      </React.Fragment>
-    ));
-  } else if (percentage === "97%") {
-    // Break at "strong" (before "strong")
-    const parts = subtext.split(/(\s+strong\s+)/i);
-    return parts.map((part, index) => (
-      <React.Fragment key={index}>
-        {part.toLowerCase().includes("strong") && index > 0 && <br />}
-        {part}
-      </React.Fragment>
-    ));
-  } else {
-    return subtext;
   }
+  return subtext;
 }
 
 export default function FactsSection() {
@@ -173,18 +150,6 @@ export default function FactsSection() {
                   {renderPercentage(fact.percentage)}
                 </span>
                 <p
-                  className="text-slate-700"
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 400,
-                    lineHeight: "1.3",
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                    maxWidth: "100%",
-                  }}
-                >
-                  {renderHeadline(fact.headline, fact.percentage)}
-                </p>
-                <p
                   className="text-slate-600"
                   style={{
                     fontSize: "16px",
@@ -194,7 +159,7 @@ export default function FactsSection() {
                     maxWidth: "100%",
                   }}
                 >
-                  {renderSubtext(fact.subtext, fact.percentage)}
+                  {renderSubtext(fact.subtext)}
                 </p>
                 <p
                   className="text-slate-400"
