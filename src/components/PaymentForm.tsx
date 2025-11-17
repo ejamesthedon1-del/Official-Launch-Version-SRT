@@ -223,7 +223,7 @@ function PaymentFormInner({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" style={{ pointerEvents: 'auto' }}>
       {/* Apple Pay / Payment Request Button */}
       {canUseApplePay && paymentRequest && (
         <div className="space-y-2">
@@ -251,8 +251,22 @@ function PaymentFormInner({
 
       <div className="space-y-2">
         <Label>Card Details</Label>
-        <div className="p-3 border rounded-md bg-background">
-          <CardElement options={cardElementOptions} />
+        <div 
+          className="p-3 border rounded-md bg-background" 
+          style={{ 
+            pointerEvents: 'auto', 
+            position: 'relative', 
+            zIndex: 1,
+            minHeight: '40px'
+          }}
+        >
+          {stripe && elements ? (
+            <div style={{ pointerEvents: 'auto' }}>
+              <CardElement options={cardElementOptions} />
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground">Loading payment form...</div>
+          )}
         </div>
       </div>
 

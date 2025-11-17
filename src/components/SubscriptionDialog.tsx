@@ -101,8 +101,9 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
               </p>
             </div>
           ) : (
-            <div className="pt-2">
+            <div className="pt-2" style={{ pointerEvents: 'auto' }}>
               <PaymentForm
+                key="payment-form"
                 amount={1}
                 address={address}
                 onSuccess={() => {
