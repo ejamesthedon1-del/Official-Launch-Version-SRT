@@ -551,92 +551,64 @@ export function HomePage({
                   </div>
                   
                   {/* PDF Content */}
-                  <div className="p-2.5 h-full overflow-y-auto bg-white">
-                    {/* Success Metrics */}
-                    <div className="grid grid-cols-3 gap-1.5 mb-2.5 pb-2 border-b border-slate-200">
-                      <div className="text-center">
-                        <div className="text-sm font-bold text-slate-900 mb-0.5">85%</div>
-                        <div className="text-[8px] text-slate-600">Success</div>
+                  <div className="p-3 h-full overflow-y-auto bg-white">
+                    {/* Headlines Only with Placeholder Boxes */}
+                    <div className="space-y-4">
+                      {/* Week 1 Headline */}
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 1: Immediate Market Repositioning</div>
+                        <div className="space-y-1.5">
+                          <div className="h-2 bg-slate-200 rounded w-full" />
+                          <div className="h-2 bg-slate-200 rounded w-4/5" />
+                          <div className="h-2 bg-slate-200 rounded w-3/4" />
+                        </div>
                       </div>
-                      <div className="text-center">
-                        <div className="text-sm font-bold text-slate-900 mb-0.5">21-28</div>
-                        <div className="text-[8px] text-slate-600">Days</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-sm font-bold text-slate-900 mb-0.5">$379K</div>
-                        <div className="text-[8px] text-slate-600">Price</div>
-                      </div>
-                    </div>
 
-                    {/* Week 1 Section */}
-                    <div className="mb-2">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <div className="w-5 h-5 rounded-full bg-slate-400 text-white flex items-center justify-center text-[9px] font-bold">
-                          1
-                        </div>
-                        <div className="text-[10px] font-semibold text-slate-900">Week 1: Immediate Market Repositioning</div>
-                      </div>
-                      <div className="space-y-1 ml-7">
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Price adjustment to create market attention</div>
-                        </div>
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Enhanced photography & video production</div>
-                        </div>
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Marketing blitz launch with targeted ads</div>
+                      {/* Week 2 Headline */}
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 2: Expanded Reach & Targeting</div>
+                        <div className="space-y-1.5">
+                          <div className="h-2 bg-slate-200 rounded w-full" />
+                          <div className="h-2 bg-slate-200 rounded w-4/5" />
+                          <div className="h-2 bg-slate-200 rounded w-3/4" />
                         </div>
                       </div>
-                    </div>
 
-                    {/* Week 2 Section */}
-                    <div className="mb-2">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <div className="w-5 h-5 rounded-full bg-slate-400 text-white flex items-center justify-center text-[9px] font-bold">
-                          2
-                        </div>
-                        <div className="text-[10px] font-semibold text-slate-900">Week 2: Expanded Reach & Targeting</div>
-                      </div>
-                      <div className="space-y-1 ml-7">
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Investor outreach & ROI projections</div>
-                        </div>
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Luxury marketing campaign launch</div>
+                      {/* Week 3 Headline */}
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 3: Strategic Incentives</div>
+                        <div className="space-y-1.5">
+                          <div className="h-2 bg-slate-200 rounded w-full" />
+                          <div className="h-2 bg-slate-200 rounded w-4/5" />
+                          <div className="h-2 bg-slate-200 rounded w-3/4" />
                         </div>
                       </div>
-                    </div>
 
-                    {/* Week 3 Section */}
-                    <div className="mb-2">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <div className="w-5 h-5 rounded-full bg-slate-400 text-white flex items-center justify-center text-[9px] font-bold">
-                          3
-                        </div>
-                        <div className="text-[10px] font-semibold text-slate-900">Week 3: Strategic Incentives</div>
-                      </div>
-                      <div className="space-y-1 ml-7">
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Closing cost credits & incentives</div>
-                        </div>
-                        <div className="flex items-start gap-1.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-slate-400 mt-0.5 flex-shrink-0" />
-                          <div className="text-[8px] text-slate-700 leading-tight">Intense open house schedule</div>
+                      {/* Week 4 Headline */}
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 4: Closing & Follow-up</div>
+                        <div className="space-y-1.5">
+                          <div className="h-2 bg-slate-200 rounded w-full" />
+                          <div className="h-2 bg-slate-200 rounded w-4/5" />
+                          <div className="h-2 bg-slate-200 rounded w-3/4" />
                         </div>
                       </div>
-                    </div>
 
-                    {/* Footer Badge */}
-                    <div className="mt-2 pt-2 border-t border-slate-200">
-                      <div className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-2 py-1 rounded-full text-[8px]">
-                        <BarChart3 className="w-2.5 h-2.5" />
-                        <span>Track Progress</span>
+                      {/* Additional Sections */}
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Marketing Channels</div>
+                        <div className="space-y-1.5">
+                          <div className="h-2 bg-slate-200 rounded w-full" />
+                          <div className="h-2 bg-slate-200 rounded w-4/5" />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Budget Allocation</div>
+                        <div className="space-y-1.5">
+                          <div className="h-2 bg-slate-200 rounded w-full" />
+                          <div className="h-2 bg-slate-200 rounded w-3/4" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -669,7 +641,9 @@ export function HomePage({
         <div className="max-w-7xl mx-auto px-6 pt-12 pb-4">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
-              Real-time smart data
+              Real-time
+              <br />
+              smart data
             </h2>
           </div>
         </div>

@@ -42,50 +42,53 @@ export default function FactsSection() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className="max-w-4xl mx-auto"
             >
-              {/* Percentage & Headline & Subtext */}
-              <div className="flex items-start gap-6">
-                <span
-                  className="text-slate-900"
-                  style={{
-                    fontSize: "72px",
-                    fontWeight: 700,
-                    lineHeight: "1",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  {fact.percentage}
-                </span>
-                <div className="flex-1 pt-1">
+              {/* Percentage & Headline & Subtext - Left Aligned */}
+              <div className="flex flex-col items-start gap-2">
+                <div className="flex items-start gap-4">
+                  <div className="flex flex-col gap-1">
+                    <span
+                      className="text-slate-900"
+                      style={{
+                        fontSize: "32px",
+                        fontWeight: 400,
+                        lineHeight: "1",
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      {fact.percentage}
+                    </span>
+                    <p
+                      className="text-slate-600"
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: 400,
+                        lineHeight: "1.3",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {fact.subtext}
+                    </p>
+                  </div>
                   <p
-                    className="text-slate-700 mb-2"
+                    className="text-slate-700 pt-1"
                     style={{
-                      fontSize: "24px",
-                      fontWeight: 600,
+                      fontSize: "18px",
+                      fontWeight: 400,
                       lineHeight: "1.3",
                     }}
                   >
                     {fact.headline}
                   </p>
-                  <p
-                    className="text-slate-600 mb-2"
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: "1.6",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    {fact.subtext}
-                  </p>
-                  <p
-                    className="text-slate-400"
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 500,
-                    }}
-                  >
-                    – {fact.source}
-                  </p>
                 </div>
+                <p
+                  className="text-slate-400"
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: 500,
+                  }}
+                >
+                  – {fact.source}
+                </p>
               </div>
             </motion.div>
           ))}

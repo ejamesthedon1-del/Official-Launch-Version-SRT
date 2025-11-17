@@ -206,34 +206,24 @@ function BlueCardBottomText({ title }: { title: string }) {
 
 // Analyzing Listing Animation Component
 function AnalyzingListingAnimation() {
-  const [progress, setProgress] = useState(0);
-  const [activeIcon, setActiveIcon] = useState(0);
-  const analysisIcons = [
-    { icon: Brain, label: "AI Processing", delay: 0.8 },
-    { icon: Home, label: "Property Value", delay: 1.6 },
-    { icon: BarChart3, label: "Market Data", delay: 2.4 },
-    { icon: TrendingUp, label: "Local Trends", delay: 3.2 },
+  const [visibleItems, setVisibleItems] = useState(0);
+  
+  const loadingItems = [
+    { text: "analyzing with smart ai", delay: 0 },
+    { text: "comparing market data in your area", delay: 0.8 },
+    { text: "search MLS & Zillow database", delay: 1.6 },
+    { text: "generating insights", delay: 2.4 },
   ];
 
   useEffect(() => {
-    // Progress bar animation
-    const progressTimer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 100;
-        return prev + 2;
-      });
-    }, 60);
-
-    // Icon activation sequence
-    const iconTimers = analysisIcons.map((_, index) => {
+    const timers = loadingItems.map((item, index) => {
       return setTimeout(() => {
-        setActiveIcon(index + 1);
-      }, analysisIcons[index].delay * 1000);
+        setVisibleItems(index + 1);
+      }, item.delay * 1000);
     });
 
     return () => {
-      clearInterval(progressTimer);
-      iconTimers.forEach(clearTimeout);
+      timers.forEach(clearTimeout);
     };
   }, []);
 
@@ -284,201 +274,74 @@ function AnalyzingListingAnimation() {
         />
 
         {/* Content - Adjusted for left-side placement */}
-        <div className="p-5 space-y-3.5" style={{ paddingLeft: "100px" }}>
-          {/* Status Text with Circular Indicator */}
-          <div className="flex items-center gap-3">
-            {/* Circular AI Indicator */}
-            <motion.div
-              className="relative flex items-center justify-center"
-              style={{
-                width: "32px",
-                height: "32px",
-              }}
-            >
-              {/* Outer rotating ring */}
+        <div className="p-5 space-y-4" style={{ paddingLeft: "100px" }}>
+          {/* Loading Items */}
+          {loadingItems.map((item, index) => {
+            const isVisible = visibleItems > index;
+            return (
               <motion.div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  border: "2px solid transparent",
-                  borderTopColor: "#2D7FFF",
-                  borderRightColor: "#609BFF",
-                }}
-                animate={{
-                  rotate: 360,
+                key={index}
+                className="flex items-center gap-3"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ 
+                  opacity: isVisible ? 1 : 0,
+                  x: isVisible ? 0 : -10
                 }}
                 transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-              {/* Inner pulsing core */}
-              <motion.div
-                className="w-3 h-3 rounded-full"
-                style={{
-                  background: "linear-gradient(135deg, #2D7FFF, #609BFF)",
-                  boxShadow: "0 0 12px rgba(45, 127, 255, 0.4)",
-                }}
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.8, 1, 0.8],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
-            {/* Status Text */}
-            <div>
-              <div
-                style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: "#1B1F23",
-                }}
-              >
-                Analyzing listing
-                <motion.span
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  ...
-                </motion.span>
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
-                  fontSize: "9px",
-                  fontWeight: 500,
-                  color: "#6B7280",
-                  marginTop: "2px",
-                }}
-              >
-                Market insights
-              </div>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="space-y-2">
-            <div
-              className="w-full h-1 rounded-full overflow-hidden"
-              style={{ background: "rgba(45, 127, 255, 0.1)" }}
-            >
-              <motion.div
-                className="h-full rounded-full"
-                style={{
-                  background: "linear-gradient(90deg, #2D7FFF, #609BFF)",
-                  boxShadow: "0 0 8px rgba(45, 127, 255, 0.3)",
-                }}
-                animate={{
-                  width: `${progress}%`,
-                }}
-                transition={{
-                  duration: 0.3,
+                  delay: item.delay,
+                  duration: 0.5,
                   ease: "easeOut",
                 }}
-              />
-            </div>
-          </div>
-
-          {/* Analysis Icons Grid */}
-          <div className="grid grid-cols-2 gap-3 pt-1">
-            {analysisIcons.map((item, index) => {
-              const IconComponent = item.icon;
-              const isActive = activeIcon > index;
-              
-              return (
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-center gap-1.5"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{
-                    opacity: isActive ? 1 : 0.3,
-                    y: 0,
-                  }}
-                  transition={{
-                    delay: item.delay,
-                    duration: 0.5,
-                    ease: "easeOut",
-                  }}
-                >
-                  {/* Icon Container */}
+              >
+                {/* Animated Loading Circle */}
+                {isVisible && (
                   <motion.div
-                    className="relative flex items-center justify-center rounded-xl p-2"
+                    className="relative flex items-center justify-center"
                     style={{
-                      background: isActive
-                        ? "linear-gradient(135deg, #2D7FFF, #609BFF)"
-                        : "rgba(200, 200, 200, 0.15)",
-                      border: isActive
-                        ? "1px solid rgba(45, 127, 255, 0.3)"
-                        : "1px solid rgba(200, 200, 200, 0.2)",
-                      boxShadow: isActive
-                        ? "0 4px 12px rgba(45, 127, 255, 0.2)"
-                        : "none",
-                    }}
-                    animate={
-                      isActive
-                        ? {
-                            scale: [1, 1.05, 1],
-                          }
-                        : {}
-                    }
-                    transition={{
-                      delay: item.delay,
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
+                      width: "20px",
+                      height: "20px",
                     }}
                   >
-                    <IconComponent
-                      className="w-3.5 h-3.5"
+                    {/* Rotating ring */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
                       style={{
-                        color: isActive ? "#FFFFFF" : "#9CA3AF",
-                        strokeWidth: 2,
+                        border: "2px solid transparent",
+                        borderTopColor: "#9CA3AF",
+                        borderRightColor: "#D1D5DB",
+                      }}
+                      animate={{
+                        rotate: 360,
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
                       }}
                     />
-                    {/* Soft glow when active */}
-                    {isActive && (
-                      <motion.div
-                        className="absolute inset-0 rounded-xl"
-                        style={{
-                          background:
-                            "radial-gradient(circle, rgba(45, 127, 255, 0.3), transparent 70%)",
-                        }}
-                        animate={{
-                          opacity: [0.3, 0.6, 0.3],
-                          scale: [1, 1.15, 1],
-                        }}
-                        transition={{
-                          delay: item.delay,
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      />
-                    )}
+                    {/* Inner circle */}
+                    <div
+                      className="w-2 h-2 rounded-full"
+                      style={{
+                        background: "#D1D5DB",
+                      }}
+                    />
                   </motion.div>
-                  {/* Icon Label */}
-                  <div
-                    style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
-                      fontSize: "8px",
-                      fontWeight: isActive ? 600 : 500,
-                      color: isActive ? "#2D7FFF" : "#9CA3AF",
-                      textAlign: "center",
-                      lineHeight: "1.2",
-                    }}
-                  >
-                    {item.label}
-                    </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                )}
+                {/* Loading Text */}
+                <div
+                  style={{
+                    fontFamily: "Inter, system-ui, sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 500,
+                    color: "#6B7280",
+                  }}
+                >
+                  {item.text}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Ambient glow effect */}
