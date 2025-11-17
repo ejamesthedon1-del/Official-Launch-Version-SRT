@@ -15,7 +15,7 @@ const FACTS_DATA = [
   },
   {
     percentage: "99.9% <br /> Data <br /> accuracy",
-    subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
+    subtext: "Poor marketing leaves nearly half <br /> of homes stagnating on <br /> the market.",
   },
 ];
 // ============================================================================
