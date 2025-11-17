@@ -114,8 +114,8 @@ export default function FactsSection() {
   const facts = FACTS_DATA;
 
   return (
-    <div className="w-full py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-6">
+    <div className="w-full py-20 bg-white flex justify-center">
+      <div className="max-w-3xl w-full px-6">
         {/* Facts */}
         <div className="space-y-16">
           {facts.map((fact, index) => (
@@ -125,12 +125,11 @@ export default function FactsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="text-left"
             >
-              {/* Percentage & Subtext & Headline - Left Aligned, Vertical Stack */}
-              <div className="flex flex-col items-start gap-2 text-left">
+              {/* Percentage & Subtext - Left Aligned within centered container */}
+              <div className="flex flex-col items-start gap-2" style={{ textAlign: "left" }}>
                 <span
-                  className="text-slate-900 text-left"
+                  className="text-slate-900"
                   style={{
                     fontSize: "32px",
                     fontWeight: 500,
@@ -143,13 +142,12 @@ export default function FactsSection() {
                   {renderPercentage(fact.percentage)}
                 </span>
                 <p
-                  className="text-slate-600 text-left"
+                  className="text-slate-600"
                   style={{
                     fontSize: "16px",
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
-                    maxWidth: "100%",
                     textAlign: "left",
                   }}
                 >

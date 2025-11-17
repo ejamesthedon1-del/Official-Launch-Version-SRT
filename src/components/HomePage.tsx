@@ -662,13 +662,15 @@ export function HomePage({
 
       {/* Real-time Listing Intelligence */}
       <section className="bg-white">
-        <div className="max-w-5xl mx-auto px-6 pt-12 pb-4">
-          <div className="text-left mb-8">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
-              Real-time
-              <br />
-              smart data
-            </h2>
+        <div className="w-full flex justify-center pt-12 pb-4">
+          <div className="max-w-3xl w-full px-6">
+            <div className="mb-8" style={{ textAlign: "left" }}>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6" style={{ textAlign: "left" }}>
+                Real-time
+                <br />
+                smart data
+              </h2>
+            </div>
           </div>
         </div>
         <FactsSection />
