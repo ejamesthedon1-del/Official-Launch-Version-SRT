@@ -57,9 +57,8 @@ export default function FactsSection() {
                 </span>
                 <div className="flex-1 pt-1">
                   <p
-                    className="text-slate-700 mb-2"
+                    className="text-slate-700 mb-2 text-5xl md:text-6xl lg:text-7xl"
                     style={{
-                      fontSize: "24px",
                       fontWeight: 600,
                       lineHeight: "1.3",
                     }}
@@ -67,9 +66,8 @@ export default function FactsSection() {
                     {fact.headline}
                   </p>
                   <p
-                    className="text-slate-600 mb-2"
+                    className="text-slate-600 mb-2 text-lg md:text-xl"
                     style={{
-                      fontSize: "16px",
                       lineHeight: "1.6",
                       fontStyle: "italic",
                     }}

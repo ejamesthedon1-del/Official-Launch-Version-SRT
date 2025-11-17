@@ -50,26 +50,17 @@ export default function FAQSection() {
                 className="border-b border-slate-200 last:border-b-0"
               >
                 <AccordionTrigger className="hover:no-underline py-8 text-left">
-                  <span
-                    className="text-slate-900"
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 600,
-                      lineHeight: "1.4",
-                      letterSpacing: "-0.01em"
-                    }}
+                  <span 
+                    className="text-slate-900 font-semibold"
+                    style={{ fontSize: "13px" }}
                   >
                     {faq.question}
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-8">
-                  <p
+                  <p 
                     className="text-slate-600 max-w-2xl"
-                    style={{
-                      fontSize: "17px",
-                      lineHeight: "1.6",
-                      letterSpacing: "-0.005em"
-                    }}
+                    style={{ fontSize: "8px" }}
                   >
                     {faq.answer}
                   </p>
