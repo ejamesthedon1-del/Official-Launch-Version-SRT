@@ -11,8 +11,8 @@ const FACTS_DATA = [
     source: "New York Times",
   },
   {
-    percentage: "1.8m ",
-    subtext: "Agents without a strong digital presence instantly fall behind.",
+    percentage: "150K+ <br /> Hours <br /> trained",
+    subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise <br /> to every recommendation <br /> for your property",
     source: "Zillow Research",
   },
   {
