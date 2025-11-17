@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { HomePage } from "./components/HomePage";
 import { AddressInput } from "./components/AddressInput";
 import { Dashboard } from "./components/Dashboard";
@@ -157,6 +158,7 @@ export default function App() {
       />
       
       <Toaster />
+      <Analytics />
     </>
   );
 }
