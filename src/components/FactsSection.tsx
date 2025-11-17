@@ -128,7 +128,7 @@ export default function FactsSection() {
               className="flex justify-center"
             >
               {/* Percentage & Subtext - Centered container, left-aligned text */}
-              <div className="flex flex-col items-start gap-2 text-left">
+              <div className="flex flex-col items-start gap-2 text-left" style={{ maxWidth: "500px" }}>
                 <span
                   className="text-slate-900"
                   style={{
