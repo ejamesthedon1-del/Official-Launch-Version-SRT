@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -6,10 +7,23 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 
+// Helper function to render question with breaks
+function renderQuestion(question: string) {
+  if (question.includes("<br />")) {
+    return question.split("<br />").map((part: string, index: number, parts: string[]) => (
+      <React.Fragment key={index}>
+        {part.trim()}
+        {index < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  }
+  return question;
+}
+
 export default function FAQSection() {
   const faqs = [
     {
-      question: "What does Smart Realtor Tools actually do?",
+      question: "What does Smart Realtor Tools <br /> actually do?",
       answer: "Smart Realtor Tools uses AI and real-time market data to instantly analyze any property and generate a tailored marketing plan—giving agents and sellers accurate insights in seconds."
     },
     {
@@ -52,9 +66,9 @@ export default function FAQSection() {
                 <AccordionTrigger className="hover:no-underline py-8 text-left">
                   <span 
                     className="text-slate-900 font-semibold"
-                    style={{ fontSize: "18px" }}
+                    style={{ fontSize: "18px", whiteSpace: "pre-line" }}
                   >
-                    {faq.question}
+                    {renderQuestion(faq.question)}
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-8">
