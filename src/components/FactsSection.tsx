@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 
 export default function FactsSection() {
@@ -57,6 +58,23 @@ export default function FactsSection() {
                   {fact.percentage}
                 </span>
                 <p
+                  className="text-slate-700"
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 400,
+                    lineHeight: "1.3",
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                  }}
+                >
+                  {fact.headline.split(' ').map((word, index, words) => (
+                    <React.Fragment key={index}>
+                      {word}
+                      {(index + 1) % 4 === 0 && index < words.length - 1 && <br />}
+                      {index < words.length - 1 && (index + 1) % 4 !== 0 && ' '}
+                    </React.Fragment>
+                  ))}
+                </p>
+                <p
                   className="text-slate-600"
                   style={{
                     fontSize: "18px",
@@ -66,17 +84,6 @@ export default function FactsSection() {
                   }}
                 >
                   {fact.subtext}
-                </p>
-                <p
-                  className="text-slate-700"
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 400,
-                    lineHeight: "1.3",
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                  }}
-                >
-                  {fact.headline}
                 </p>
                 <p
                   className="text-slate-400"
