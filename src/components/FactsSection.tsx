@@ -60,24 +60,37 @@ export default function FactsSection() {
                 <p
                   className="text-slate-700"
                   style={{
-                    fontSize: "18px",
+                    fontSize: "24px",
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
-                  {fact.headline.split(' ').map((word, index, words) => (
-                    <React.Fragment key={index}>
-                      {word}
-                      {(index + 1) % 4 === 0 && index < words.length - 1 && <br />}
-                      {index < words.length - 1 && (index + 1) % 4 !== 0 && ' '}
-                    </React.Fragment>
-                  ))}
+                  {fact.headline.split(' ').map((word, index, words) => {
+                    let shouldBreak = false;
+                    if (fact.percentage === "97%") {
+                      // Break after 3 words, then 3 more words (at positions 3 and 6)
+                      shouldBreak = (index + 1) === 3 || (index + 1) === 6;
+                    } else if (fact.percentage === "8.4%") {
+                      // Break after 3 words
+                      shouldBreak = (index + 1) === 3;
+                    } else {
+                      // Default: break after every 4 words
+                      shouldBreak = (index + 1) % 4 === 0;
+                    }
+                    return (
+                      <React.Fragment key={index}>
+                        {word}
+                        {shouldBreak && index < words.length - 1 && <br />}
+                        {index < words.length - 1 && !shouldBreak && ' '}
+                      </React.Fragment>
+                    );
+                  })}
                 </p>
                 <p
                   className="text-slate-600"
                   style={{
-                    fontSize: "18px",
+                    fontSize: "16px",
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
