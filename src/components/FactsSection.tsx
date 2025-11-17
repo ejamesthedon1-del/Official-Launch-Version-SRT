@@ -126,8 +126,8 @@ export default function FactsSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
-              {/* Percentage & Subtext - Centered */}
-              <div className="flex flex-col items-center gap-2 text-center">
+              {/* Percentage & Subtext - Left Aligned with Headline */}
+              <div className="flex flex-col items-start gap-2 text-left">
                 <span
                   className="text-slate-900"
                   style={{
@@ -136,7 +136,7 @@ export default function FactsSection() {
                     lineHeight: "1",
                     letterSpacing: "-0.02em",
                     fontFamily: "system-ui, -apple-system, sans-serif",
-                    textAlign: "center",
+                    textAlign: "left",
                   }}
                 >
                   {renderPercentage(fact.percentage)}
@@ -148,7 +148,7 @@ export default function FactsSection() {
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
-                    textAlign: "center",
+                    textAlign: "left",
                   }}
                 >
                   {renderSubtext(fact.subtext)}
