@@ -675,13 +675,29 @@ export function HomePage({
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-white">
+      <section className="bg-white relative">
         <FAQSection />
+        {/* Gradient overlay from footer to FAQ section */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: "400px",
+            background: "linear-gradient(to top, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.04) 30%, rgba(59, 130, 246, 0.02) 60%, transparent 100%)",
+            transform: "translateY(100%)",
+          }}
+        />
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-12 px-4">
-        <div className="container mx-auto max-w-6xl">
+      <footer className="border-t border-slate-200 bg-white py-12 px-4 relative overflow-hidden">
+        {/* Gradient background that fades seamlessly into the page */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.08) 20%, rgba(59, 130, 246, 0.04) 50%, transparent 100%)",
+          }}
+        />
+        <div className="container mx-auto max-w-6xl relative z-10">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-4" style={{ gap: '2px' }}>

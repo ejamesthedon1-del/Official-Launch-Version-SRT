@@ -17,10 +17,6 @@ const FACTS_DATA = [
     percentage: "99.9% <br /> Data <br /> accuracy",
     subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
   },
-  {
-    percentage: "8.4%",
-    subtext: "One of the highest-ROI channels is still massively underused.",
-  },
 ];
 // ============================================================================
 
