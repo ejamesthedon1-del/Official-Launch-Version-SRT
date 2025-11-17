@@ -109,7 +109,7 @@ export function CircularProgress({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          className="transition-all duration-2000 ease-out"
+          className={showAnimation ? "transition-all duration-2000 ease-out" : ""}
         />
       </svg>
       
