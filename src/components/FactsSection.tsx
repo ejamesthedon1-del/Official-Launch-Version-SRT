@@ -51,6 +51,7 @@ export default function FactsSection() {
                     fontWeight: 400,
                     lineHeight: "1",
                     letterSpacing: "-0.02em",
+                    fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
                   {fact.percentage}
@@ -61,7 +62,18 @@ export default function FactsSection() {
                     fontSize: "18px",
                     fontWeight: 400,
                     lineHeight: "1.3",
-                    fontStyle: "italic",
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                  }}
+                >
+                  {fact.subtext}
+                </p>
+                <p
+                  className="text-slate-700"
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 400,
+                    lineHeight: "1.3",
+                    fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
                   {fact.headline}
@@ -71,18 +83,8 @@ export default function FactsSection() {
                   style={{
                     fontSize: "14px",
                     fontWeight: 500,
+                    fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
-                >
-                    {fact.subtext}
-                </p>
-                <p
-                  className="text-slate-700"
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 400,
-                    lineHeight: "1.3",
-                  }}
-        
                 >
                   – {fact.source}
                 </p>
