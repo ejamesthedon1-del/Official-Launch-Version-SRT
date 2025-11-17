@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const FACTS_DATA = [
   {
     percentage: "320M <br /> Buyer <br /> signals",
-    subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br /> pinpoint what will drive attention and offers faster.",
+    subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br /> pinpoint what will drive attention <br /> and offers faster.",
     source: "New York Times",
   },
   {
