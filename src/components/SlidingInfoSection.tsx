@@ -161,11 +161,12 @@ function BlueCardBottomText({ title }: { title: string }) {
 
       {/* Overlay that fades browser into card background */}
       <div
-        className="absolute inset-x-0 top-0 pointer-events-none z-10"
+        className="absolute inset-x-0 pointer-events-none z-10"
         style={{
-          height: "280px",
+          top: "40px",
+          height: "200px",
           background:
-            "linear-gradient(to bottom, rgba(61, 133, 255, 0), rgba(61, 133, 255, 0.05) 30%, rgba(61, 133, 255, 0.15) 55%, rgba(61, 133, 255, 0.35) 75%, rgba(61, 133, 255, 0.65) 90%, #3D85FF 100%)",
+            "linear-gradient(to bottom, rgba(61, 133, 255, 0), rgba(61, 133, 255, 0.03) 25%, rgba(61, 133, 255, 0.1) 50%, rgba(61, 133, 255, 0.25) 70%, rgba(61, 133, 255, 0.5) 85%, rgba(61, 133, 255, 0.75) 95%, #3D85FF 100%)",
         }}
       />
 
