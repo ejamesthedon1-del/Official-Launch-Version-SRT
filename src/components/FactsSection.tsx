@@ -49,7 +49,7 @@ export default function FactsSection() {
                   className="text-slate-900"
                   style={{
                     fontSize: "32px",
-                    fontWeight: 400,
+                    fontWeight: 500,
                     lineHeight: "1",
                     letterSpacing: "-0.02em",
                     fontFamily: "system-ui, -apple-system, sans-serif",
@@ -66,26 +66,49 @@ export default function FactsSection() {
                     fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
-                  {fact.headline.split(' ').map((word, index, words) => {
-                    let shouldBreak = false;
-                    if (fact.percentage === "97%") {
-                      // Break after 3 words, then 3 more words (at positions 3 and 6)
-                      shouldBreak = (index + 1) === 3 || (index + 1) === 6;
-                    } else if (fact.percentage === "8.4%") {
-                      // Break after 3 words
-                      shouldBreak = (index + 1) === 3;
+                  {(() => {
+                    if (fact.percentage === "82%") {
+                      // Break after "Social"
+                      const parts = fact.headline.split(/(Social\s+)/i);
+                      return parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {part}
+                          {part.toLowerCase().includes("social") && index < parts.length - 1 && <br />}
+                        </React.Fragment>
+                      ));
+                    } else if (fact.percentage === "48%") {
+                      // Break after "Sit"
+                      const parts = fact.headline.split(/(Sit\s+)/i);
+                      return parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {part}
+                          {part.toLowerCase().includes("sit") && index < parts.length - 1 && <br />}
+                        </React.Fragment>
+                      ));
                     } else {
-                      // Default: break after every 4 words
-                      shouldBreak = (index + 1) % 4 === 0;
+                      // For other facts, use word-based breaks
+                      return fact.headline.split(' ').map((word, index, words) => {
+                        let shouldBreak = false;
+                        if (fact.percentage === "97%") {
+                          // Break after 3 words, then 3 more words (at positions 3 and 6)
+                          shouldBreak = (index + 1) === 3 || (index + 1) === 6;
+                        } else if (fact.percentage === "8.4%") {
+                          // Break after 3 words
+                          shouldBreak = (index + 1) === 3;
+                        } else {
+                          // Default: break after every 4 words
+                          shouldBreak = (index + 1) % 4 === 0;
+                        }
+                        return (
+                          <React.Fragment key={index}>
+                            {word}
+                            {shouldBreak && index < words.length - 1 && <br />}
+                            {index < words.length - 1 && !shouldBreak && ' '}
+                          </React.Fragment>
+                        );
+                      });
                     }
-                    return (
-                      <React.Fragment key={index}>
-                        {word}
-                        {shouldBreak && index < words.length - 1 && <br />}
-                        {index < words.length - 1 && !shouldBreak && ' '}
-                      </React.Fragment>
-                    );
-                  })}
+                  })()}
                 </p>
                 <p
                   className="text-slate-600"
@@ -96,7 +119,38 @@ export default function FactsSection() {
                     fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
-                  {fact.subtext}
+                  {(() => {
+                    if (fact.percentage === "8.4%") {
+                      // Break after "ROI"
+                      const parts = fact.subtext.split(/(ROI)/i);
+                      return parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {part}
+                          {part.toUpperCase().includes("ROI") && index < parts.length - 1 && <br />}
+                        </React.Fragment>
+                      ));
+                    } else if (fact.percentage === "48%") {
+                      // Break after "nearly"
+                      const parts = fact.subtext.split(/(nearly\s+)/i);
+                      return parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {part}
+                          {part.toLowerCase().includes("nearly") && index < parts.length - 1 && <br />}
+                        </React.Fragment>
+                      ));
+                    } else if (fact.percentage === "97%") {
+                      // Break at "strong" (before "strong")
+                      const parts = fact.subtext.split(/(\s+strong\s+)/i);
+                      return parts.map((part, index) => (
+                        <React.Fragment key={index}>
+                          {part.toLowerCase().includes("strong") && index > 0 && <br />}
+                          {part}
+                        </React.Fragment>
+                      ));
+                    } else {
+                      return fact.subtext;
+                    }
+                  })()}
                 </p>
                 <p
                   className="text-slate-400"
