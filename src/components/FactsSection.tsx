@@ -14,7 +14,7 @@ const FACTS_DATA = [
     subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise <br /> to every recommendation <br /> for your property",
   },
   {
-    percentage: "48%",
+    percentage: "99.9% <br /> Data <br /> accuracy",
     subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
   },
   {
