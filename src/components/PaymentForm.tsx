@@ -71,8 +71,12 @@ function PaymentFormInner({
 
   // Initialize Apple Pay / Payment Request
   useEffect(() => {
-    if (!stripe || !clientSecret) return;
+    if (!stripe || !clientSecret) {
+      console.log("Apple Pay: Waiting for stripe or clientSecret", { stripe: !!stripe, clientSecret: !!clientSecret });
+      return;
+    }
 
+    console.log("Apple Pay: Initializing payment request");
     const pr = stripe.paymentRequest({
       country: 'US',
       currency: 'usd',
@@ -85,10 +89,18 @@ function PaymentFormInner({
     });
 
     pr.canMakePayment().then((result) => {
+      console.log("Apple Pay: canMakePayment result", result);
       if (result) {
+        console.log("Apple Pay: Available, setting up payment request");
         setPaymentRequest(pr);
         setCanUseApplePay(true);
+      } else {
+        console.log("Apple Pay: Not available on this device/browser");
+        setCanUseApplePay(false);
       }
+    }).catch((error) => {
+      console.error("Apple Pay: Error checking canMakePayment", error);
+      setCanUseApplePay(false);
     });
 
     pr.on('paymentmethod', async (ev) => {
@@ -141,9 +153,11 @@ function PaymentFormInner({
     });
 
     return () => {
-      // Cleanup if needed
+      // Cleanup
+      setPaymentRequest(null);
+      setCanUseApplePay(false);
     };
-  }, [stripe, clientSecret, amount, onSuccess]);
+  }, [stripe, clientSecret, amount]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -221,6 +235,11 @@ function PaymentFormInner({
       },
     },
   };
+
+  // Debug: Log Apple Pay availability
+  useEffect(() => {
+    console.log("Apple Pay render state:", { canUseApplePay, hasPaymentRequest: !!paymentRequest, stripe: !!stripe, clientSecret: !!clientSecret });
+  }, [canUseApplePay, paymentRequest, stripe, clientSecret]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4" style={{ pointerEvents: 'auto' }}>
