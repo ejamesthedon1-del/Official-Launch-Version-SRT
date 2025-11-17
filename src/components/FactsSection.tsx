@@ -114,8 +114,8 @@ export default function FactsSection() {
   const facts = FACTS_DATA;
 
   return (
-    <div className="w-full py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-6">
+    <div className="w-full py-20 bg-white flex justify-center">
+      <div className="max-w-5xl w-full px-6">
         {/* Facts */}
         <div className="space-y-16">
           {facts.map((fact, index) => (
