@@ -558,7 +558,7 @@ export function HomePage({
                   </div>
                   
                   {/* PDF Content */}
-                  <div className="p-3 h-full overflow-y-auto bg-white">
+                  <div className="p-3 overflow-hidden bg-white" style={{ height: 'calc(100% - 60px)' }}>
                     {/* Headlines Only with Placeholder Boxes */}
                     <div className="space-y-4">
                       {/* Week 1 Headline */}
