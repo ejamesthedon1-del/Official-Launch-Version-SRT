@@ -68,14 +68,17 @@ export default function FactsSection() {
                 >
                   {(() => {
                     if (fact.percentage === "82%") {
-                      // Break after "Social"
-                      const parts = fact.headline.split(/(Social\s+)/i);
-                      return parts.map((part, index) => (
-                        <React.Fragment key={index}>
-                          {part}
-                          {part.toLowerCase().includes("social") && index < parts.length - 1 && <br />}
-                        </React.Fragment>
-                      ));
+                      // Break after 3 words, then 2 words (3-2-3 pattern)
+                      return fact.headline.split(' ').map((word, index, words) => {
+                        const shouldBreak = (index + 1) === 3 || (index + 1) === 5;
+                        return (
+                          <React.Fragment key={index}>
+                            {word}
+                            {shouldBreak && index < words.length - 1 && <br />}
+                            {index < words.length - 1 && !shouldBreak && ' '}
+                          </React.Fragment>
+                        );
+                      });
                     } else if (fact.percentage === "48%") {
                       // Break after "Sit"
                       const parts = fact.headline.split(/(Sit\s+)/i);
