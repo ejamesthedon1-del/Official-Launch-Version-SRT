@@ -11,7 +11,7 @@ const FACTS_DATA = [
   },
   {
     percentage: "150K+ <br /> Hours <br /> trained",
-    subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise <br /> to every recommendation <br /> for your property",
+    subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise <br /> to every recommendation for your property",
   },
   {
     percentage: "99.9% <br /> Data <br /> accuracy",
