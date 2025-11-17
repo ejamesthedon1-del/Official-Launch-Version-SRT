@@ -8,22 +8,18 @@ const FACTS_DATA = [
   {
     percentage: "320M <br /> Buyer <br /> signals",
     subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br /> pinpoint what will drive attention <br /> and offers faster.",
-    source: "New York Times",
   },
   {
     percentage: "150K+ <br /> Hours <br /> trained",
     subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise <br /> to every recommendation <br /> for your property",
-    source: "Zillow Research",
   },
   {
     percentage: "48%",
     subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
-    source: "Redfin Data",
   },
   {
     percentage: "8.4%",
     subtext: "One of the highest-ROI channels is still massively underused.",
-    source: "HubSpot",
   },
 ];
 // ============================================================================
@@ -160,17 +156,6 @@ export default function FactsSection() {
                   }}
                 >
                   {renderSubtext(fact.subtext)}
-                </p>
-                <p
-                  className="text-slate-400"
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                    maxWidth: "100%",
-                  }}
-                >
-                  – {fact.source}
                 </p>
               </div>
             </motion.div>
