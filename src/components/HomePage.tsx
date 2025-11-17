@@ -667,7 +667,7 @@ export function HomePage({
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
               Real-time
               <br />
-              listing intelligence
+              smart data
             </h2>
           </div>
         </div>
