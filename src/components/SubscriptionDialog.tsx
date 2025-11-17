@@ -61,7 +61,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
           <Card className="p-4 md:p-5 bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200 text-center">
             <div className="flex items-baseline justify-center gap-2 mb-1">
               <span className="text-xl md:text-2xl font-bold text-slate-400 line-through">$200</span>
-              <span className="text-3xl md:text-4xl font-bold text-blue-600">$99</span>
+              <span className="text-3xl md:text-4xl font-bold text-blue-600">$1</span>
               <span className="text-base md:text-lg text-slate-600">one-time</span>
             </div>
             <p className="text-xs md:text-sm text-slate-600 mb-3">
