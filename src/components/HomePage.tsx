@@ -665,9 +665,9 @@ export function HomePage({
         <div className="max-w-7xl mx-auto px-6 pt-12 pb-4">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
-              Real-time
+              No generic templates.
               <br />
-              Listing Intelligence
+              Tailored for every listing.
             </h2>
           </div>
         </div>
