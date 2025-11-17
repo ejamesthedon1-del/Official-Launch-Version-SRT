@@ -115,7 +115,7 @@ export default function FactsSection() {
 
   return (
     <div className="w-full py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 text-left">
         {/* Facts */}
         <div className="space-y-16">
           {facts.map((fact, index) => (
@@ -125,30 +125,32 @@ export default function FactsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="max-w-4xl mx-auto"
+              className="max-w-4xl mx-auto text-left"
             >
               {/* Percentage & Subtext & Headline - Left Aligned, Vertical Stack */}
-              <div className="flex flex-col items-start gap-2" style={{ maxWidth: "600px" }}>
+              <div className="flex flex-col items-start gap-2 text-left" style={{ maxWidth: "600px" }}>
                 <span
-                  className="text-slate-900"
+                  className="text-slate-900 text-left"
                   style={{
                     fontSize: "32px",
                     fontWeight: 500,
                     lineHeight: "1",
                     letterSpacing: "-0.02em",
                     fontFamily: "system-ui, -apple-system, sans-serif",
+                    textAlign: "left",
                   }}
                 >
                   {renderPercentage(fact.percentage)}
                 </span>
                 <p
-                  className="text-slate-600"
+                  className="text-slate-600 text-left"
                   style={{
                     fontSize: "16px",
                     fontWeight: 400,
                     lineHeight: "1.3",
                     fontFamily: "system-ui, -apple-system, sans-serif",
                     maxWidth: "100%",
+                    textAlign: "left",
                   }}
                 >
                   {renderSubtext(fact.subtext)}
