@@ -64,16 +64,6 @@ export default function FactsSection() {
                     fontStyle: "italic",
                   }}
                 >
-                  {fact.subtext}
-                </p>
-                <p
-                  className="text-slate-700"
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 400,
-                    lineHeight: "1.3",
-                  }}
-                >
                   {fact.headline}
                 </p>
                 <p
@@ -82,6 +72,17 @@ export default function FactsSection() {
                     fontSize: "14px",
                     fontWeight: 500,
                   }}
+                >
+                    {fact.subtext}
+                </p>
+                <p
+                  className="text-slate-700"
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 400,
+                    lineHeight: "1.3",
+                  }}
+        
                 >
                   – {fact.source}
                 </p>
