@@ -103,7 +103,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
           ) : (
             <div className="pt-2">
               <PaymentForm
-                amount={99}
+                amount={1}
                 address={address}
                 onSuccess={() => {
                   if (onSubscribe) {

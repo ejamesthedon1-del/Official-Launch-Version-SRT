@@ -87,6 +87,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [checkingSubscription, setCheckingSubscription] = useState(true);
 
+  // Debug: Log received data
+  useEffect(() => {
+    console.log("📊 Dashboard received analysisData:", analysisData);
+    console.log("📊 Dashboard listing.imageUrl:", analysisData?.listing?.imageUrl);
+    console.log("📊 Dashboard full listing object:", analysisData?.listing);
+  }, [analysisData]);
+
   // Check subscription status
   useEffect(() => {
     const checkSubscription = async () => {
@@ -227,11 +234,22 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   src={listing.imageUrl}
                   alt={streetAddress}
                   className="w-full h-full object-cover"
+                  onLoad={() => {
+                    console.log("✅ Image loaded successfully:", listing.imageUrl);
+                  }}
                   onError={(e) => {
+                    console.error("❌ Image failed to load:", listing.imageUrl);
+                    console.error("Error event:", e);
                     // Hide image if it fails to load
                     e.currentTarget.style.display = 'none';
                   }}
                 />
+              </div>
+            )}
+            {!listing.imageUrl && (
+              <div className="p-4">
+                <p className="text-sm text-slate-500">No image available for this listing</p>
+                <p className="text-xs text-slate-400 mt-1">listing.imageUrl: {listing.imageUrl || 'null/undefined'}</p>
               </div>
             )}
             

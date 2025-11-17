@@ -1,4 +1,4 @@
-# Complete Supabase Index.ts with Apify Integration
+# Complete Supabase Index.ts
 
 ## Full Code to Paste into Supabase Edge Function
 
@@ -254,165 +254,10 @@ Deno.serve(async (req) => {
         console.warn("RENTCAST_API_KEY not set, skipping RentCast API call");
       }
 
-      // ========== START APIFY INTEGRATION ==========
-      // Apify Realtor.com Scraper (Non-Critical Enhancement)
-      let apifyData = {
-        photos: [],
-        description: null,
-        yearBuilt: null,
-        lotSize: null,
-        additionalFeatures: []
-      };
-
-      const apifyApiKey = Deno.env.get("APIFY_API_KEY") || "";
-      const apifyActorId = Deno.env.get("APIFY_ACTOR_ID") || "";
-
-      if (apifyApiKey && apifyActorId && address) {
-        try {
-          console.log("Starting Apify scraper for address:", address);
-          
-          // Start Apify run
-          const apifyRunUrl = `https://api.apify.com/v2/acts/${apifyActorId}/runs`;
-          const apifyRunRes = await fetch(apifyRunUrl, {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${apifyApiKey}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              startUrls: [{ 
-                url: `https://www.realtor.com/realestateandhomes-search/${encodeURIComponent(address)}` 
-              }],
-              maxConcurrency: 1
-            })
-          });
-
-          if (apifyRunRes.ok) {
-            const runData = await apifyRunRes.json();
-            const runId = runData.data?.id;
-            
-            if (runId) {
-              console.log("Apify run started, ID:", runId);
-              
-              // Wait for run to complete (with timeout)
-              let attempts = 0;
-              const maxAttempts = 30; // 30 seconds max wait
-              let runStatus = "RUNNING";
-              
-              while (runStatus === "RUNNING" && attempts < maxAttempts) {
-                await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
-                
-                const statusUrl = `https://api.apify.com/v2/actor-runs/${runId}`;
-                const statusRes = await fetch(statusUrl, {
-                  headers: { 
-                    "Authorization": `Bearer ${apifyApiKey}`,
-                    "Content-Type": "application/json"
-                  }
-                });
-                
-                if (statusRes.ok) {
-                  const statusData = await statusRes.json();
-                  runStatus = statusData.data?.status || "RUNNING";
-                  console.log(`Apify run status: ${runStatus} (attempt ${attempts + 1}/${maxAttempts})`);
-                }
-                
-                attempts++;
-              }
-              
-              // Get results if completed
-              if (runStatus === "SUCCEEDED") {
-                const datasetId = runData.data?.defaultDatasetId;
-                if (datasetId) {
-                  const resultsUrl = `https://api.apify.com/v2/datasets/${datasetId}/items`;
-                  const resultsRes = await fetch(resultsUrl, {
-                    headers: { 
-                      "Authorization": `Bearer ${apifyApiKey}`,
-                      "Content-Type": "application/json"
-                    }
-                  });
-                  
-                  if (resultsRes.ok) {
-                    const results = await resultsRes.json();
-                    console.log("Apify results received:", results?.length || 0, "items");
-                    
-                    if (results && Array.isArray(results) && results.length > 0) {
-                      const listing = results[0];
-                      
-                      // Extract photos
-                      if (listing.photos && Array.isArray(listing.photos)) {
-                        apifyData.photos = listing.photos
-                          .filter(photo => photo && typeof photo === 'string')
-                          .slice(0, 10); // Limit to 10 photos
-                        console.log(`Extracted ${apifyData.photos.length} photos from Apify`);
-                      }
-                      
-                      // Extract description
-                      if (listing.description && typeof listing.description === 'string') {
-                        apifyData.description = listing.description.trim();
-                        console.log("Extracted description from Apify");
-                      }
-                      
-                      // Extract additional data
-                      if (listing.yearBuilt) {
-                        apifyData.yearBuilt = parseInt(listing.yearBuilt) || null;
-                      }
-                      if (listing.lotSize) {
-                        apifyData.lotSize = listing.lotSize;
-                      }
-                      
-                      // Extract features
-                      if (listing.features && Array.isArray(listing.features)) {
-                        apifyData.additionalFeatures = listing.features
-                          .filter(f => f && typeof f === 'string')
-                          .slice(0, 20); // Limit to 20 features
-                      }
-                      
-                      // Enhance listingData with Apify data (only if RentCast didn't provide it)
-                      if (listingData.price === 0 && listing.price) {
-                        listingData.price = parseFloat(listing.price) || 0;
-                      }
-                      if (listingData.beds === 0 && listing.bedrooms) {
-                        listingData.beds = parseInt(listing.bedrooms) || 0;
-                      }
-                      if (listingData.baths === 0 && listing.bathrooms) {
-                        listingData.baths = parseFloat(listing.bathrooms) || 0;
-                      }
-                      if (listingData.sqft === 0 && listing.squareFeet) {
-                        listingData.sqft = parseInt(listing.squareFeet) || 0;
-                      }
-                      if (listingData.daysOnMarket === 0 && listing.daysOnMarket) {
-                        listingData.daysOnMarket = parseInt(listing.daysOnMarket) || 0;
-                      }
-                      
-                      console.log("Apify data extracted successfully");
-                    }
-                  } else {
-                    console.warn("Failed to fetch Apify results:", resultsRes.status);
-                  }
-                }
-              } else if (runStatus === "FAILED") {
-                console.warn("Apify run failed");
-              } else {
-                console.warn(`Apify run timed out or incomplete. Status: ${runStatus}`);
-              }
-            }
-          } else {
-            const errorText = await apifyRunRes.text();
-            console.warn("Apify run creation failed:", apifyRunRes.status, errorText);
-          }
-        } catch (apifyError) {
-          // Non-critical: Log but don't fail
-          console.warn("Apify scraper failed (non-critical):", apifyError.message);
-        }
-      } else {
-        if (!apifyApiKey) {
-          console.warn("APIFY_API_KEY not set, skipping Apify scraper");
-        }
-        if (!apifyActorId) {
-          console.warn("APIFY_ACTOR_ID not set, skipping Apify scraper");
-        }
-      }
-      // ========== END APIFY INTEGRATION ==========
+      // ========== START RAPIDAPI ZILLOW API INTEGRATION ==========
+      // RapidAPI Zillow API - Get property details by address, extract ZPID, then get images
+      // Note: This will be called AFTER Gemini response, using the address
+      // ========== END RAPIDAPI ZILLOW API INTEGRATION ==========
 
       const hasRealData = listingData.price > 0 || listingData.beds > 0 || listingData.sqft > 0;
       const daysOnMarket = listingData.daysOnMarket || 0;
@@ -476,14 +321,6 @@ ${listingData.price > 0 && listingData.sqft > 0 ? `- Price per sqft: $${Math.rou
 
 ${pricingContext}` : 'No listing data available - provide analysis based on address and typical market conditions. Use your expertise to provide realistic estimates and market insights.'}
 
-${apifyData.description ? `ADDITIONAL LISTING DATA (from Realtor.com):
-${apifyData.description}
-
-${apifyData.photos.length > 0 ? `- ${apifyData.photos.length} property photos available` : ''}
-${apifyData.yearBuilt ? `- Year Built: ${apifyData.yearBuilt}` : ''}
-${apifyData.lotSize ? `- Lot Size: ${apifyData.lotSize}` : ''}
-${apifyData.additionalFeatures.length > 0 ? `- Additional Features: ${apifyData.additionalFeatures.slice(0, 10).join(', ')}` : ''}` : ''}
-
 Address: ${address}
 
 ---
@@ -522,6 +359,10 @@ ANALYSIS REQUIREMENTS:
 7. SELLING SPEED PREDICTION:
    Based on the current data (DOM, pricing, market conditions, property features), provide a realistic estimate of days to sell. Format: "Likely to sell in X-Y days with current strategy, or A-B days with recommended [specific action]." Be specific and realistic.
 
+8. REALTOR.COM URL:
+   Find and return the Realtor.com property URL for this address. Search Realtor.com for the property and return the full URL (e.g., "https://www.realtor.com/realestateandhomes-detail/123-Main-St-City-ST-12345_M12345-12345"). If you cannot find the exact property, return null.
+
+
 ---
 
 Return ONLY valid JSON (no explanations, no markdown, no code blocks). Start with { and end with }:
@@ -547,7 +388,8 @@ Return ONLY valid JSON (no explanations, no markdown, no code blocks). Start wit
     "Specific risk factor 2 with data references"
   ],
   "pricingInsight": "${daysOnMarket > 30 ? 'string with specific pricing recommendation (e.g., \"Reduce price by 5% ($25,000) to $475,000 to accelerate sale\")' : 'string with pricing strategy guidance or null'}",
-  "sellingSpeedPrediction": "string estimating days to sell (e.g., 'Likely to sell in 30-45 days with current strategy, or 15-20 days with recommended price reduction')"
+  "sellingSpeedPrediction": "string estimating days to sell (e.g., 'Likely to sell in 30-45 days with current strategy, or 15-20 days with recommended price reduction')",
+  "realtorUrl": "https://www.realtor.com/realestateandhomes-detail/... or null if not found"
 }
 
 CRITICAL REQUIREMENTS:
@@ -695,12 +537,9 @@ CRITICAL REQUIREMENTS:
             riskFactors: parsed.riskFactors || [],
             pricingInsight: parsed.pricingInsight || null,
             sellingSpeedPrediction: parsed.sellingSpeedPrediction || null,
-            // Apify enhancement data
-            propertyPhotos: apifyData.photos.length > 0 ? apifyData.photos : null,
-            propertyDescription: apifyData.description || null,
-            yearBuilt: apifyData.yearBuilt || null,
-            lotSize: apifyData.lotSize || null,
-            additionalFeatures: apifyData.additionalFeatures.length > 0 ? apifyData.additionalFeatures : null
+            realtorUrl: parsed.realtorUrl || null,
+            // Zillow photos - will be set by photo extraction logic below
+            propertyPhotos: null
           };
           
           if (result.estimatedPrice === 0 || result.estimatedValue === 0) {
@@ -733,11 +572,153 @@ CRITICAL REQUIREMENTS:
             console.warn("Warning: No sqft found, using estimate:", result.sqft);
           }
           
-          console.log("Final combined result:", JSON.stringify(result, null, 2));
+          // --- Fetch Zillow photos using RapidAPI ---
+          let photoUrls = [];
           
-          if (propertyImageUrl) {
-            result.propertyImageUrl = propertyImageUrl;
+          const rapidApiKey = Deno.env.get("RAPIDAPI_KEY") || "";
+          const rapidApiHost = "zillow-com1.p.rapidapi.com";
+          
+          if (rapidApiKey && address) {
+            try {
+              console.log("Fetching Zillow property details for:", address);
+              
+              // Step 1: Get property details by address to extract ZPID
+              const cleanedAddress = address.replace(/,?\s*USA\s*$/i, '').replace(/,?\s*United States\s*$/i, '').trim();
+              const propertyUrl = `https://${rapidApiHost}/property?address=${encodeURIComponent(cleanedAddress)}`;
+              
+              console.log("Calling Zillow property endpoint:", propertyUrl);
+              
+              const propertyRes = await fetch(propertyUrl, {
+                method: "GET",
+                headers: {
+                  "x-rapidapi-key": rapidApiKey,
+                  "x-rapidapi-host": rapidApiHost
+                }
+              });
+              
+              let zpid = null;
+              
+              if (propertyRes.ok) {
+                const propertyData = await propertyRes.json();
+                console.log("Zillow property response keys:", Object.keys(propertyData));
+                console.log("Zillow property response sample:", JSON.stringify(propertyData).substring(0, 500));
+                
+                // Extract ZPID from response
+                if (propertyData?.zpid) {
+                  zpid = propertyData.zpid;
+                } else if (propertyData?.data?.zpid) {
+                  zpid = propertyData.data.zpid;
+                } else if (propertyData?.property?.zpid) {
+                  zpid = propertyData.property.zpid;
+                } else if (propertyData?.results && Array.isArray(propertyData.results) && propertyData.results.length > 0) {
+                  zpid = propertyData.results[0]?.zpid || propertyData.results[0]?.property?.zpid || null;
+                }
+                
+                console.log("Extracted ZPID:", zpid);
+              } else {
+                const errorText = await propertyRes.text();
+                console.warn("Zillow property fetch failed (non-critical):", propertyRes.status);
+                console.warn("Error response:", errorText.substring(0, 200));
+              }
+              
+              // Step 2: Get images using ZPID
+              if (zpid) {
+                const imagesUrl = `https://${rapidApiHost}/images?zpid=${encodeURIComponent(zpid)}`;
+                
+                console.log("Calling Zillow images endpoint:", imagesUrl);
+                
+                const imagesRes = await fetch(imagesUrl, {
+                  method: "GET",
+                  headers: {
+                    "x-rapidapi-key": rapidApiKey,
+                    "x-rapidapi-host": rapidApiHost
+                  }
+                });
+                
+                if (imagesRes.ok) {
+                  const imagesData = await imagesRes.json();
+                  console.log("Zillow images response keys:", Object.keys(imagesData));
+                  console.log("Zillow images response sample:", JSON.stringify(imagesData).substring(0, 500));
+                  
+                  // Extract photos from response - check multiple possible structures
+                  let photosArray = null;
+                  
+                  // Structure 1: Direct array
+                  if (Array.isArray(imagesData)) {
+                    photosArray = imagesData;
+                  }
+                  // Structure 2: data.images or data.photos
+                  else if (imagesData?.data?.images && Array.isArray(imagesData.data.images)) {
+                    photosArray = imagesData.data.images;
+                  }
+                  else if (imagesData?.data?.photos && Array.isArray(imagesData.data.photos)) {
+                    photosArray = imagesData.data.photos;
+                  }
+                  // Structure 3: images or photos (top level)
+                  else if (imagesData?.images && Array.isArray(imagesData.images)) {
+                    photosArray = imagesData.images;
+                  }
+                  else if (imagesData?.photos && Array.isArray(imagesData.photos)) {
+                    photosArray = imagesData.photos;
+                  }
+                  
+                  if (photosArray && photosArray.length > 0) {
+                    // Extract URLs from photo objects
+                    photoUrls = photosArray
+                      .map(p => {
+                        // Handle string URLs
+                        if (typeof p === 'string') return p;
+                        // Handle photo objects - Zillow may use different field names
+                        return p?.url || p?.href || p?.src || p?.imageUrl || p?.full || p?.medium || p?.small || null;
+                      })
+                      .filter(Boolean)
+                      .slice(0, 10); // Limit to 10 photos
+                    
+                    console.log(`✅✅✅ Extracted ${photoUrls.length} photo URL(s) from Zillow API`);
+                  } else {
+                    console.warn("⚠️ Could not find photos array in Zillow response");
+                    console.warn("Response structure:", JSON.stringify(imagesData, null, 2).substring(0, 1000));
+                  }
+                } else {
+                  const errorText = await imagesRes.text();
+                  console.warn("Zillow images API failed (non-critical):", imagesRes.status);
+                  console.warn("Error response:", errorText.substring(0, 200));
+                }
+              } else {
+                console.warn("Could not extract ZPID from property response, skipping images");
+              }
+            } catch (zillowError) {
+              console.warn("Zillow API fetch failed (non-critical):", zillowError.message);
+            }
+          } else {
+            if (!rapidApiKey) {
+              console.warn("RAPIDAPI_KEY not set, skipping Zillow photos");
+            }
+            if (!address) {
+              console.warn("No address provided, skipping Zillow photos");
+            }
           }
+          
+          console.log("Extracted photo URLs:", photoUrls);
+          
+          // Prioritize Zillow photos over Google Places image
+          if (photoUrls.length > 0) {
+            result.propertyPhotos = photoUrls;
+            result.propertyImageUrl = photoUrls[0]; // first valid Zillow image
+            console.log("Using Zillow photo:", result.propertyImageUrl);
+            console.log("✅ Total Zillow photos available:", photoUrls.length);
+          } else if (propertyImageUrl) {
+            result.propertyImageUrl = propertyImageUrl; // Google Places fallback
+            console.log("Using Google Places fallback photo");
+          } else {
+            result.propertyImageUrl = null;
+          }
+          
+          // Log photo data in result
+          console.log("Result propertyPhotos:", result.propertyPhotos ? `${result.propertyPhotos.length} photos` : "null");
+          console.log("Result propertyImageUrl:", result.propertyImageUrl || "null");
+          
+          console.log("Final combined result:", JSON.stringify(result, null, 2));
           
           parsed = result;
           
@@ -805,32 +786,26 @@ CRITICAL REQUIREMENTS:
 
 ## Summary of Changes
 
-### ✅ Added Apify Integration
+### ✅ Added RapidAPI Realtor API Integration
 - **Location**: After RentCast API call, before `hasRealData` check
 - **Features**:
-  - Scrapes Realtor.com for photos, descriptions, year built, lot size, and features
+  - Calls ONLY `/property/photos` endpoint
+  - Constructs Realtor.com detail URL from address
+  - Fetches property photos (up to 10 photos)
   - Non-critical enhancement (won't break if it fails)
-  - 30-second timeout to prevent hanging
   - Falls back gracefully if API keys are missing
 
-### ✅ Updated Gemini Prompt
-- Added Apify data section to prompt when available
-- Includes description, photos count, year built, lot size, and features
-
 ### ✅ Updated Result Object
-- Added new fields:
+- Added new field:
   - `propertyPhotos`: Array of photo URLs (or null)
-  - `propertyDescription`: Full listing description (or null)
-  - `yearBuilt`: Year property was built (or null)
-  - `lotSize`: Lot size information (or null)
-  - `additionalFeatures`: Array of additional features (or null)
+- Photo prioritization: RapidAPI photos > Google Places image
 
 ### ✅ All Existing Endpoints Preserved
 - `/places-autocomplete` - Google Places API
 - `/create-payment-intent` - Stripe payment creation
 - `/verify-payment` - Stripe payment verification
 - `/check-subscription` - Subscription status check
-- `/analyze-listing` - Enhanced with Apify integration
+- `/analyze-listing` - Enhanced with RapidAPI Realtor API integration
 
 ---
 
@@ -843,27 +818,28 @@ GEMINI_API_KEY=your_gemini_key
 RENTCAST_API_KEY=your_rentcast_key
 GOOGLE_PLACES_API_KEY=your_places_key
 STRIPE_SECRET_KEY=your_stripe_key
-APIFY_API_KEY=your_apify_key
-APIFY_ACTOR_ID=epctex/realtor-scraper
+RAPIDAPI_KEY=your_rapidapi_key
+RAPIDAPI_REALTOR_HOST=realtor16.p.rapidapi.com (optional, defaults to this)
 ```
+
+**Note**: `RAPIDAPI_REALTOR_HOST` is optional and defaults to `realtor16.p.rapidapi.com` if not set.
 
 ---
 
 ## Testing Checklist
 
 1. ✅ Test with all API keys set - should work with full data
-2. ✅ Test without Apify keys - should work with RentCast only
-3. ✅ Test with invalid Apify Actor ID - should log warning and continue
-4. ✅ Test with Apify timeout - should continue after 30 seconds
-5. ✅ Test all other endpoints still work correctly
+2. ✅ Test without RapidAPI key - should work with RentCast and Gemini only
+3. ✅ Test without RentCast key - should work with Gemini analysis only
+4. ✅ Test all endpoints work correctly
 
 ---
 
 ## Notes
 
-- Apify integration is **non-critical** - failures won't break the analysis
-- RentCast data takes priority over Apify data for core fields (price, beds, baths, sqft, DOM)
-- Apify enhances with additional data (photos, description, features)
-- All Apify calls are wrapped in try-catch with `console.warn` (not `console.error`)
-- 30-second timeout prevents the function from hanging
+- RapidAPI integration is **non-critical** - failures won't break the analysis
+- Only calls `/property/photos` endpoint - no search or details endpoints
+- Constructs Realtor.com URL from address to get photos
+- All RapidAPI calls are wrapped in try-catch with `console.warn` (not `console.error`)
+- Photo priority: RapidAPI photos > Google Places image
 

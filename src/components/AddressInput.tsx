@@ -31,14 +31,29 @@ interface Prediction {
 function transformAnalysisData(address: string, geminiData: any): any {
   // If it already has the correct structure, return it
   if (geminiData.listing && geminiData.overallScore) {
-    // Get image URL - prioritize Apify photos, fallback to Google Places image
+    // Get image URL - prioritize RapidAPI photos, fallback to Google Places image
     let imageUrl = null;
+    console.log("🔍 [Early return] Checking for photos in geminiData:", {
+      hasPropertyPhotos: !!geminiData.propertyPhotos,
+      propertyPhotosType: typeof geminiData.propertyPhotos,
+      propertyPhotosIsArray: Array.isArray(geminiData.propertyPhotos),
+      propertyPhotosLength: Array.isArray(geminiData.propertyPhotos) ? geminiData.propertyPhotos.length : 0,
+      hasPropertyImageUrl: !!geminiData.propertyImageUrl,
+      propertyImageUrl: geminiData.propertyImageUrl
+    });
+    
     if (geminiData.propertyPhotos && Array.isArray(geminiData.propertyPhotos) && geminiData.propertyPhotos.length > 0) {
-      imageUrl = geminiData.propertyPhotos[0]; // Use first photo from Apify
+      imageUrl = geminiData.propertyPhotos[0]; // Use first photo from RapidAPI
+      console.log("✅ [Early return] Using propertyPhotos[0]:", imageUrl);
     } else if (geminiData.propertyImageUrl) {
       imageUrl = geminiData.propertyImageUrl; // Fallback to Google Places image
+      console.log("✅ [Early return] Using propertyImageUrl:", imageUrl);
+    } else {
+      console.warn("⚠️ [Early return] No image URL found in geminiData");
     }
+    
     geminiData.listing.imageUrl = imageUrl;
+    console.log("📸 [Early return] Final imageUrl for listing:", imageUrl);
     return geminiData;
   }
 
@@ -80,13 +95,28 @@ function transformAnalysisData(address: string, geminiData: any): any {
     (propertyAppealScore * 0.10)
   );
   
-  // Get image URL - prioritize Apify photos, fallback to Google Places image
+  // Get image URL - prioritize RapidAPI photos, fallback to Google Places image
   let imageUrl = null;
+  console.log("🔍 Checking for photos in geminiData:", {
+    hasPropertyPhotos: !!geminiData.propertyPhotos,
+    propertyPhotosType: typeof geminiData.propertyPhotos,
+    propertyPhotosIsArray: Array.isArray(geminiData.propertyPhotos),
+    propertyPhotosLength: Array.isArray(geminiData.propertyPhotos) ? geminiData.propertyPhotos.length : 0,
+    hasPropertyImageUrl: !!geminiData.propertyImageUrl,
+    propertyImageUrl: geminiData.propertyImageUrl
+  });
+  
   if (geminiData.propertyPhotos && Array.isArray(geminiData.propertyPhotos) && geminiData.propertyPhotos.length > 0) {
-    imageUrl = geminiData.propertyPhotos[0]; // Use first photo from Apify
+    imageUrl = geminiData.propertyPhotos[0]; // Use first photo from RapidAPI
+    console.log("✅ Using propertyPhotos[0]:", imageUrl);
   } else if (geminiData.propertyImageUrl) {
     imageUrl = geminiData.propertyImageUrl; // Fallback to Google Places image
+    console.log("✅ Using propertyImageUrl:", imageUrl);
+  } else {
+    console.warn("⚠️ No image URL found in geminiData");
   }
+  
+  console.log("📸 Final imageUrl for listing:", imageUrl);
 
   return {
     listing: {
