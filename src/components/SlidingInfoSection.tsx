@@ -163,7 +163,7 @@ function BlueCardBottomText({ title }: { title: string }) {
       <div
         className="absolute inset-x-0 pointer-events-none z-10"
         style={{
-          top: "40px",
+          top: "100px",
           height: "200px",
           background:
             "linear-gradient(to bottom, rgba(61, 133, 255, 0), rgba(61, 133, 255, 0.03) 25%, rgba(61, 133, 255, 0.1) 50%, rgba(61, 133, 255, 0.25) 70%, rgba(61, 133, 255, 0.5) 85%, rgba(61, 133, 255, 0.75) 95%, #3D85FF 100%)",
