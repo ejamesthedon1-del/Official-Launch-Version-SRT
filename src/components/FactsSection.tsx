@@ -1,33 +1,149 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+// ============================================================================
+// EDIT TEXT CONTENT HERE - All facts section text is below
+// ============================================================================
+const FACTS_DATA = [
+  {
+    percentage: "320M <br /> buyer <br /> signals",
+    headline: "of Agents Still Aren't Leveraging Social for Leads",
+    subtext: "Most agents post — but few turn those posts into real inquiries.",
+    source: "New York Times",
+  },
+  {
+    percentage: "1.8m ",
+    headline: "of Buyers Search Online First",
+    subtext: "Agents without a strong digital presence instantly fall behind.",
+    source: "Zillow Research",
+  },
+  {
+    percentage: "48%",
+    headline: "of Listings Sit 60+ Days",
+    subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
+    source: "Redfin Data",
+  },
+  {
+    percentage: "8.4%",
+    headline: "of Agents Use Email Marketing",
+    subtext: "One of the highest-ROI channels is still massively underused.",
+    source: "HubSpot",
+  },
+];
+// ============================================================================
+
+// Helper function to render headline with breaks
+function renderHeadline(headline: string, percentage: string) {
+  if (percentage === "82%") {
+    // Break after 3 words, then 2 words (3-2-3 pattern)
+    return headline.split(' ').map((word, index, words) => {
+      const shouldBreak = (index + 1) === 3 || (index + 1) === 5;
+      return (
+        <React.Fragment key={index}>
+          {word}
+          {shouldBreak && index < words.length - 1 && <br />}
+          {index < words.length - 1 && !shouldBreak && ' '}
+        </React.Fragment>
+      );
+    });
+  } else if (percentage === "48%") {
+    // Break after "Sit"
+    const parts = headline.split(/(Sit\s+)/i);
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {part.toLowerCase().includes("sit") && index < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  } else if (percentage === "97%") {
+    // Break after 3 words, then 3 more words (at positions 3 and 6)
+    return headline.split(' ').map((word, index, words) => {
+      const shouldBreak = (index + 1) === 3 || (index + 1) === 6;
+      return (
+        <React.Fragment key={index}>
+          {word}
+          {shouldBreak && index < words.length - 1 && <br />}
+          {index < words.length - 1 && !shouldBreak && ' '}
+        </React.Fragment>
+      );
+    });
+  } else if (percentage === "8.4%") {
+    // Break after 3 words
+    return headline.split(' ').map((word, index, words) => {
+      const shouldBreak = (index + 1) === 3;
+      return (
+        <React.Fragment key={index}>
+          {word}
+          {shouldBreak && index < words.length - 1 && <br />}
+          {index < words.length - 1 && !shouldBreak && ' '}
+        </React.Fragment>
+      );
+    });
+  } else {
+    // Default: break after every 4 words
+    return headline.split(' ').map((word, index, words) => {
+      const shouldBreak = (index + 1) % 4 === 0;
+      return (
+        <React.Fragment key={index}>
+          {word}
+          {shouldBreak && index < words.length - 1 && <br />}
+          {index < words.length - 1 && !shouldBreak && ' '}
+        </React.Fragment>
+      );
+    });
+  }
+}
+
+// Helper function to render percentage with breaks
+function renderPercentage(percentage: string) {
+  // Check if percentage contains <br /> tags
+  if (percentage.includes('<br />')) {
+    return percentage.split('<br />').map((part, index, parts) => (
+      <React.Fragment key={index}>
+        {part.trim()}
+        {index < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  }
+  return percentage;
+}
+
+// Helper function to render subtext with breaks
+function renderSubtext(subtext: string, percentage: string) {
+  if (percentage === "8.4%") {
+    // Break after "ROI"
+    const parts = subtext.split(/(ROI)/i);
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {part.toUpperCase().includes("ROI") && index < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  } else if (percentage === "48%") {
+    // Break after "nearly"
+    const parts = subtext.split(/(nearly\s+)/i);
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {part.toLowerCase().includes("nearly") && index < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  } else if (percentage === "97%") {
+    // Break at "strong" (before "strong")
+    const parts = subtext.split(/(\s+strong\s+)/i);
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part.toLowerCase().includes("strong") && index > 0 && <br />}
+        {part}
+      </React.Fragment>
+    ));
+  } else {
+    return subtext;
+  }
+}
+
 export default function FactsSection() {
-  const facts = [
-    {
-      percentage: "82%",
-      headline: "of Agents Still Aren't Leveraging Social for Leads",
-      subtext: "Most agents post — but few turn those posts into real inquiries.",
-      source: "New York Times",
-    },
-    {
-      percentage: "97%",
-      headline: "of Buyers Search Online First",
-      subtext: "Agents without a strong digital presence instantly fall behind.",
-      source: "Zillow Research",
-    },
-    {
-      percentage: "48%",
-      headline: "of Listings Sit 60+ Days",
-      subtext: "Poor marketing leaves nearly half of homes stagnating on the market.",
-      source: "Redfin Data",
-    },
-    {
-      percentage: "8.4%",
-      headline: "of Agents Use Email Marketing",
-      subtext: "One of the highest-ROI channels is still massively underused.",
-      source: "HubSpot",
-    },
-  ];
+  const facts = FACTS_DATA;
 
   return (
     <div className="w-full py-20 bg-white">
@@ -55,7 +171,7 @@ export default function FactsSection() {
                     fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
-                  {fact.percentage}
+                  {renderPercentage(fact.percentage)}
                 </span>
                 <p
                   className="text-slate-700"
@@ -67,52 +183,7 @@ export default function FactsSection() {
                     maxWidth: "100%",
                   }}
                 >
-                  {(() => {
-                    if (fact.percentage === "82%") {
-                      // Break after 3 words, then 2 words (3-2-3 pattern)
-                      return fact.headline.split(' ').map((word, index, words) => {
-                        const shouldBreak = (index + 1) === 3 || (index + 1) === 5;
-                        return (
-                          <React.Fragment key={index}>
-                            {word}
-                            {shouldBreak && index < words.length - 1 && <br />}
-                            {index < words.length - 1 && !shouldBreak && ' '}
-                          </React.Fragment>
-                        );
-                      });
-                    } else if (fact.percentage === "48%") {
-                      // Break after "Sit"
-                      const parts = fact.headline.split(/(Sit\s+)/i);
-                      return parts.map((part, index) => (
-                        <React.Fragment key={index}>
-                          {part}
-                          {part.toLowerCase().includes("sit") && index < parts.length - 1 && <br />}
-                        </React.Fragment>
-                      ));
-                    } else {
-                      // For other facts, use word-based breaks
-                      return fact.headline.split(' ').map((word, index, words) => {
-                        let shouldBreak = false;
-                        if (fact.percentage === "97%") {
-                          // Break after 3 words, then 3 more words (at positions 3 and 6)
-                          shouldBreak = (index + 1) === 3 || (index + 1) === 6;
-                        } else if (fact.percentage === "8.4%") {
-                          // Break after 3 words
-                          shouldBreak = (index + 1) === 3;
-                        } else {
-                          // Default: break after every 4 words
-                          shouldBreak = (index + 1) % 4 === 0;
-                        }
-                        return (
-                          <React.Fragment key={index}>
-                            {word}
-                            {shouldBreak && index < words.length - 1 && <br />}
-                            {index < words.length - 1 && !shouldBreak && ' '}
-                          </React.Fragment>
-                        );
-                      });
-                    }
-                  })()}
+                  {renderHeadline(fact.headline, fact.percentage)}
                 </p>
                 <p
                   className="text-slate-600"
@@ -124,38 +195,7 @@ export default function FactsSection() {
                     maxWidth: "100%",
                   }}
                 >
-                  {(() => {
-                    if (fact.percentage === "8.4%") {
-                      // Break after "ROI"
-                      const parts = fact.subtext.split(/(ROI)/i);
-                      return parts.map((part, index) => (
-                        <React.Fragment key={index}>
-                          {part}
-                          {part.toUpperCase().includes("ROI") && index < parts.length - 1 && <br />}
-                        </React.Fragment>
-                      ));
-                    } else if (fact.percentage === "48%") {
-                      // Break after "nearly"
-                      const parts = fact.subtext.split(/(nearly\s+)/i);
-                      return parts.map((part, index) => (
-                        <React.Fragment key={index}>
-                          {part}
-                          {part.toLowerCase().includes("nearly") && index < parts.length - 1 && <br />}
-                        </React.Fragment>
-                      ));
-                    } else if (fact.percentage === "97%") {
-                      // Break at "strong" (before "strong")
-                      const parts = fact.subtext.split(/(\s+strong\s+)/i);
-                      return parts.map((part, index) => (
-                        <React.Fragment key={index}>
-                          {part.toLowerCase().includes("strong") && index > 0 && <br />}
-                          {part}
-                        </React.Fragment>
-                      ));
-                    } else {
-                      return fact.subtext;
-                    }
-                  })()}
+                  {renderSubtext(fact.subtext, fact.percentage)}
                 </p>
                 <p
                   className="text-slate-400"
