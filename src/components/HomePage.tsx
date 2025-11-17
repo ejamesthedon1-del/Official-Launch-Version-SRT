@@ -664,8 +664,8 @@ export function HomePage({
       <section className="bg-white">
         <div className="w-full flex justify-center pt-12 pb-4">
           <div className="max-w-3xl w-full px-6">
-            <div className="mb-8" style={{ textAlign: "left" }}>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6" style={{ textAlign: "left" }}>
+            <div className="mb-8 text-center">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
                 Real-time
                 <br />
                 smart data
