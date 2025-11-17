@@ -6,9 +6,8 @@ import { motion } from "framer-motion";
 // ============================================================================
 const FACTS_DATA = [
   {
-    percentage: "320M <br /> buyer <br /> signals",
-    headline: "of Agents Still Aren't Leveraging Social for Leads",
-    subtext: "Most agents post — but few turn those posts into real inquiries.",
+    percentage: "320M <br /> Buyer <br /> signals",
+    subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br />pinpoint what will drive attention and offers faster.",
     source: "New York Times",
   },
   {
