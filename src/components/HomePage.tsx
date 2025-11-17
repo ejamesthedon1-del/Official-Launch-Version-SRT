@@ -30,6 +30,7 @@ import { CircularProgress } from "./CircularProgress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import CursorIcon from "./CursorIcon";
 import FactsSection from "./FactsSection";
+import FAQSection from "./FAQSection";
 
 // Animated Address Input Component for Step 1
 function AnimatedAddressInput() {
@@ -673,6 +674,11 @@ export function HomePage({
           </div>
         </div>
         <FactsSection />
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-white">
+        <FAQSection />
       </section>
 
       {/* Footer */}
