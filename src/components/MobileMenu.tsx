@@ -73,9 +73,7 @@ export function MobileMenu({
         </div>
 
         {/* Menu Content */}
-        <nav className="px-6 py-6 pb-8 space-y-2">
-          <h2 className="text-lg font-semibold mb-6 text-slate-900">Menu</h2>
-
+        <nav className="px-6 py-6 pb-8">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentView === item.id;
@@ -84,25 +82,18 @@ export function MobileMenu({
               <button
                 key={item.id}
                 onClick={() => handleNavigate(item.id as any)}
-                className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all ${
+                className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
                   isActive
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "hover:bg-slate-100 text-slate-700"
+                    ? "text-blue-600"
+                    : "text-slate-700 hover:text-slate-900"
                 }`}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-base font-medium">{item.label}</span>
+                <Icon className="w-4 h-4" />
+                <span className="text-[13px] font-normal">{item.label}</span>
               </button>
             );
           })}
         </nav>
-
-        {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-200 bg-slate-50">
-          <p className="text-sm text-slate-600 text-center">
-            Smart Realtor Tool • AI-Powered Analytics
-          </p>
-        </div>
       </div>
     </>
   );
