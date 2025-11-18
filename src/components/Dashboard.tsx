@@ -320,6 +320,57 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </div>
           </div>
 
+          {/* Score Factors - Slider Bar Stats Section */}
+          {ratings && ratings.length > 0 && (
+            <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+              <div className="flex items-center gap-2 mb-5">
+                <TrendingUp className="w-5 h-5 text-blue-600" />
+                <h3 className="text-slate-900 font-semibold text-lg">Score Factors</h3>
+              </div>
+              <div className="space-y-4">
+                {ratings.map((rating, idx) => {
+                  const percentage = (rating.score / rating.maxScore) * 100;
+                  const getScoreColor = (score: number, maxScore: number) => {
+                    const percent = (score / maxScore) * 100;
+                    if (percent >= 80) return 'bg-green-500';
+                    if (percent >= 60) return 'bg-blue-500';
+                    if (percent >= 40) return 'bg-amber-500';
+                    return 'bg-red-500';
+                  };
+                  
+                  return (
+                    <div key={idx} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="text-sm font-semibold text-slate-900 mb-0.5">
+                            {rating.title}
+                          </div>
+                          <div className="text-xs text-slate-600">
+                            {rating.description}
+                          </div>
+                        </div>
+                        <div className="ml-4 text-right">
+                          <div className="text-sm font-bold text-slate-900">
+                            {rating.score}/{rating.maxScore}
+                          </div>
+                          <div className="text-xs text-slate-500">
+                            {Math.round(percentage)}%
+                          </div>
+                        </div>
+                      </div>
+                      <div className="relative h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all duration-500 ease-out ${getScoreColor(rating.score, rating.maxScore)}`}
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+          )}
+
           {/* Buyer Concerns Section */}
           {(insights.topPriorities && insights.topPriorities.length > 0) && (
             <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
