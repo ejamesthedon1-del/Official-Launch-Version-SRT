@@ -86,6 +86,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [checkingSubscription, setCheckingSubscription] = useState(true);
   const [riskFactorsExpanded, setRiskFactorsExpanded] = useState(false);
   const [buyerConcernsExpanded, setBuyerConcernsExpanded] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<number>>(new Set());
 
   // Debug: Log received data
   useEffect(() => {
@@ -330,6 +331,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="space-y-4">
                 {ratings.map((rating, idx) => {
                   const percentage = (rating.score / rating.maxScore) * 100;
+                  const isExpanded = expandedDescriptions.has(idx);
+                  const descriptionLength = rating.description?.length || 0;
+                  const shouldTruncate = descriptionLength > 100;
+                  const truncatedDescription = shouldTruncate && !isExpanded 
+                    ? rating.description.substring(0, 100) + '...' 
+                    : rating.description;
+                  
                   const getScoreColor = (score: number, maxScore: number) => {
                     const percent = (score / maxScore) * 100;
                     if (percent >= 80) return 'bg-green-500';
@@ -337,19 +345,37 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     if (percent >= 40) return 'bg-amber-500';
                     return 'bg-red-500';
                   };
+
+                  const toggleDescription = () => {
+                    const newExpanded = new Set(expandedDescriptions);
+                    if (isExpanded) {
+                      newExpanded.delete(idx);
+                    } else {
+                      newExpanded.add(idx);
+                    }
+                    setExpandedDescriptions(newExpanded);
+                  };
                   
                   return (
                     <div key={idx} className="space-y-2">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-slate-900 mb-0.5">
                             {rating.title}
                           </div>
                           <div className="text-xs text-slate-600">
-                            {rating.description}
+                            {truncatedDescription}
+                            {shouldTruncate && (
+                              <button
+                                onClick={toggleDescription}
+                                className="ml-1 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                              >
+                                {isExpanded ? 'Read less' : 'Read more'}
+                              </button>
+                            )}
                           </div>
                         </div>
-                        <div className="ml-4 text-right">
+                        <div className="ml-4 text-right flex-shrink-0">
                           <div className="text-sm font-bold text-slate-900">
                             {rating.score}/{rating.maxScore}
                           </div>
