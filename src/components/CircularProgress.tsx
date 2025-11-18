@@ -7,36 +7,10 @@ interface CircularProgressProps {
   showAnimation?: boolean;
 }
 
-// Get color based on current percentage - transitions through all colors gradually
+// Get color based on current percentage - always blue to match theme
 function getScoreColor(currentPercentage: number): string {
-  // Red (0-33%) → Orange (33-66%) → Yellow (66-100%)
-  // Red: #ef4444 = rgb(239, 68, 68)
-  // Orange: #f97316 = rgb(249, 115, 22)
-  // Yellow: #eab308 = rgb(234, 179, 8)
-  // Green: #22c55e = rgb(34, 197, 94)
-  
-  if (currentPercentage <= 33) {
-    // Red to Orange transition
-    const ratio = currentPercentage / 33;
-    const r = 239 + Math.round(10 * ratio);  // 239 → 249
-    const g = 68 + Math.round(47 * ratio);   // 68 → 115
-    const b = 68 - Math.round(46 * ratio);    // 68 → 22
-    return `rgb(${r}, ${g}, ${b})`;
-  } else if (currentPercentage <= 66) {
-    // Orange to Yellow transition
-    const ratio = (currentPercentage - 33) / 33;
-    const r = 249 - Math.round(15 * ratio);    // 249 → 234
-    const g = 115 + Math.round(64 * ratio);   // 115 → 179
-    const b = 22 - Math.round(14 * ratio);    // 22 → 8
-    return `rgb(${r}, ${g}, ${b})`;
-  } else {
-    // Yellow to Green transition
-    const ratio = (currentPercentage - 66) / 34;
-    const r = 234 - Math.round(200 * ratio);    // 234 → 34
-    const g = 179 + Math.round(18 * ratio);    // 179 → 197
-    const b = 8 + Math.round(86 * ratio);      // 8 → 94
-    return `rgb(${r}, ${g}, ${b})`;
-  }
+  // Blue theme color: #2563eb = rgb(37, 99, 235)
+  return `rgb(37, 99, 235)`;
 }
 
 export function CircularProgress({ 

@@ -352,11 +352,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     : rating.description;
                   
                   const getScoreColor = (score: number, maxScore: number) => {
-                    const percent = (score / maxScore) * 100;
-                    if (percent >= 80) return 'bg-green-500';
-                    if (percent >= 60) return 'bg-blue-500';
-                    if (percent >= 40) return 'bg-amber-500';
-                    return 'bg-red-500';
+                    // Always blue to match theme
+                    return 'bg-blue-600';
                   };
 
                   const toggleDescription = () => {
@@ -426,9 +423,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <Users className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                      <div className="flex flex-col items-start">
-                        <h4 className="text-slate-900 font-medium text-base">Buyer Concerns</h4>
-                        <p className="text-xs text-slate-600 mt-0.5 text-left">Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
+                      <div className="flex flex-col items-start flex-1 min-w-0">
+                        <h4 className="text-slate-900 font-medium text-lg">Buyer Concerns</h4>
+                        <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
                       </div>
                     </div>
                     {!isSubscribed ? (
@@ -481,9 +478,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                      <div className="flex flex-col items-start">
-                        <h4 className="text-slate-900 font-medium text-base">Risk Factors</h4>
-                        <p className="text-xs text-slate-600 mt-0.5 text-left">Shows hidden red flags that could reduce offers or slow down your sale.</p>
+                      <div className="flex flex-col items-start flex-1 min-w-0">
+                        <h4 className="text-slate-900 font-medium text-lg">Risk Factors</h4>
+                        <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Shows hidden red flags that could reduce offers or slow down your sale.</p>
                       </div>
                     </div>
                     {!isSubscribed ? (
@@ -562,9 +559,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <TrendingDown className="w-4 h-4 text-purple-600 flex-shrink-0" />
-                    <div className="flex flex-col items-start">
-                      <h4 className="text-slate-900 font-medium text-base">Missed Value Points</h4>
-                      <p className="text-xs text-slate-600 mt-0.5 text-left">Highlights things you're not showcasing that could increase your perceived property value.</p>
+                    <div className="flex flex-col items-start flex-1 min-w-0">
+                      <h4 className="text-slate-900 font-medium text-lg">Missed Value Points</h4>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Highlights things you're not showcasing that could increase your perceived property value.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -638,9 +635,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
-                    <div className="flex flex-col items-start">
-                      <h4 className="text-slate-900 font-medium text-base">Negotiation Risk</h4>
-                      <p className="text-xs text-slate-600 mt-0.5 text-left">Identifies weaknesses buyers may use to negotiate your price down.</p>
+                    <div className="flex flex-col items-start flex-1 min-w-0">
+                      <h4 className="text-slate-900 font-medium text-lg">Negotiation Risk</h4>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Identifies weaknesses buyers may use to negotiate your price down.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -719,9 +716,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <Target className="w-4 h-4 text-indigo-600 flex-shrink-0" />
-                    <div className="flex flex-col items-start">
-                      <h4 className="text-slate-900 font-medium text-base">Buyer Match Score</h4>
-                      <p className="text-xs text-slate-600 mt-0.5 text-left">Measures how well your listing aligns with current buyer preferences in your market.</p>
+                    <div className="flex flex-col items-start flex-1 min-w-0">
+                      <h4 className="text-slate-900 font-medium text-lg">Buyer Match Score</h4>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Measures how well your listing aligns with current buyer preferences in your market.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -799,9 +796,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <Zap className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                    <div className="flex flex-col items-start">
-                      <h4 className="text-slate-900 font-medium text-base">Upgrade Impact</h4>
-                      <p className="text-xs text-slate-600 mt-0.5 text-left">Predicts how much improving your listing could boost views, tours, and offers.</p>
+                    <div className="flex flex-col items-start flex-1 min-w-0">
+                      <h4 className="text-slate-900 font-medium text-lg">Upgrade Impact</h4>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Predicts how much improving your listing could boost views, tours, and offers.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
