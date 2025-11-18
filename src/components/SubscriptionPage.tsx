@@ -35,9 +35,9 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
 
   const pricing = {
     starter: {
-      "1": { price: "$1", period: "one-time", total: "$1" },
-      "6": { price: "$1", period: "one-time", total: "$1" },
-      "12": { price: "$1", period: "one-time", total: "$1" },
+      "1": { price: "$9.99", period: "one-time", total: "$9.99", originalPrice: "$49.99" },
+      "6": { price: "$9.99", period: "one-time", total: "$9.99", originalPrice: "$49.99" },
+      "12": { price: "$9.99", period: "one-time", total: "$9.99", originalPrice: "$49.99" },
     },
     premium: {
       "1": { price: "$1", period: "one-time", total: "$1" },
@@ -47,7 +47,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
   };
 
   const currentPrice = pricing[selectedPlan][selectedDuration];
-  const amount = 1; // One-time payment for starter
+  const amount = 9.99; // One-time payment for starter
 
   const handlePaymentSuccess = () => {
     if (onSubscribe) {
@@ -193,8 +193,15 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
         {/* Pricing Cards */}
         {selectedPlan === "starter" && (
           <div className="px-4 pb-6">
-            <div className="w-full text-left rounded-2xl p-4 bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10">
-              <div className="flex items-center justify-between">
+            <div className="w-full text-left rounded-2xl p-4 bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10 relative">
+              {/* New User Sale Badge */}
+              <div className="absolute -top-2 left-4">
+                <div className="bg-red-500 text-white px-3 py-0.5 rounded-full" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                  NEW USER SALE
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between mt-2">
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-blue-500 bg-blue-500">
                     <div className="w-2 h-2 rounded-full bg-white"></div>
@@ -209,11 +216,19 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-black" style={{ fontSize: "17px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                    $1
+                  <div className="flex items-baseline gap-2 justify-end">
+                    <span className="text-gray-400 line-through" style={{ fontSize: "14px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                      {pricing.starter["1"].originalPrice}
+                    </span>
+                    <div className="text-black" style={{ fontSize: "17px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                      {pricing.starter["1"].price}
+                    </div>
                   </div>
                   <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
                     one-time
+                  </div>
+                  <div className="text-green-600 mt-0.5" style={{ fontSize: "11px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                    Save 80%
                   </div>
                 </div>
               </div>
@@ -276,7 +291,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
             >
               <span style={{ fontSize: "17px", fontWeight: 600, letterSpacing: "-0.01em" }}>
-                Subscribe for $1
+                Subscribe for $9.99
               </span>
             </button>
             <div className="text-center mt-3 text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
