@@ -212,25 +212,37 @@ function BlueCardBottomText({ title }: { title: string }) {
 
 // Analyzing Listing Animation Component
 function AnalyzingListingAnimation() {
-  const [visibleItems, setVisibleItems] = useState(0);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   
-  const loadingItems = [
-    { text: "analyzing with smart ai", delay: 0 },
-    { text: "comparing market data in your area", delay: 0.8 },
-    { text: "search MLS & Zillow database", delay: 1.6 },
-    { text: "generating insights", delay: 2.4 },
+  const analyzingMessages = [
+    "AI is analyzing your listing…",
+    "Checking market conditions…",
+    "Evaluating competitive advantages…",
+    "Scanning buyer behavior signals…",
+    "Reviewing local demand trends…",
+    "Identifying improvement opportunities…",
   ];
 
+  // Cycle through messages
   useEffect(() => {
-    const timers = loadingItems.map((item, index) => {
-      return setTimeout(() => {
-        setVisibleItems(index + 1);
-      }, item.delay * 1000);
-    });
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prev) => (prev + 1) % analyzingMessages.length);
+    }, 2000);
 
-    return () => {
-      timers.forEach(clearTimeout);
-    };
+    return () => clearInterval(interval);
+  }, [analyzingMessages.length]);
+
+  // Progress bar animation
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) return 0;
+        return prev + 0.5;
+      });
+    }, 30);
+
+    return () => clearInterval(progressInterval);
   }, []);
 
   return (
@@ -279,75 +291,79 @@ function AnalyzingListingAnimation() {
           }}
         />
 
-        {/* Content - Adjusted for left-side placement */}
-        <div className="p-5 space-y-4" style={{ paddingLeft: "100px" }}>
-          {/* Loading Items */}
-          {loadingItems.map((item, index) => {
-            const isVisible = visibleItems > index;
-            return (
-              <motion.div
-                key={index}
-                className="flex items-center gap-3"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ 
-                  opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : -10
-                }}
-                transition={{
-                  delay: item.delay,
-                  duration: 0.5,
-                  ease: "easeOut",
-                }}
-              >
-                {/* Animated Loading Circle */}
-                {isVisible && (
-                  <motion.div
-                    className="relative flex items-center justify-center"
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  >
-                    {/* Rotating ring */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        border: "2px solid transparent",
-                        borderTopColor: "#9CA3AF",
-                        borderRightColor: "#D1D5DB",
-                      }}
-                      animate={{
-                        rotate: 360,
-                      }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                    {/* Inner circle */}
-                    <div
-                      className="w-2 h-2 rounded-full"
-                      style={{
-                        background: "#D1D5DB",
-                      }}
-                    />
-                  </motion.div>
-                )}
-                {/* Loading Text */}
-                <div
-                  style={{
-                    fontFamily: "Inter, system-ui, sans-serif",
-                    fontSize: "11px",
-                    fontWeight: 500,
-                    color: "#6B7280",
-                  }}
-                >
-                  {item.text}
-                </div>
-              </motion.div>
-            );
-          })}
+        {/* Content - Centered Apple-style animation */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ paddingLeft: "100px" }}>
+          {/* Apple-style Circular Spinner */}
+          <motion.div
+            className="relative flex items-center justify-center mb-6"
+            style={{
+              width: "32px",
+              height: "32px",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                border: "2px solid #E5E7EB",
+                borderTopColor: "#9CA3AF",
+              }}
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+          </motion.div>
+
+          {/* Apple-style Loading Bar */}
+          <div
+            className="relative mb-4"
+            style={{
+              width: "200px",
+              height: "3px",
+              background: "#F3F4F6",
+              borderRadius: "2px",
+              overflow: "hidden",
+            }}
+          >
+            <motion.div
+              style={{
+                height: "100%",
+                background: "#9CA3AF",
+                borderRadius: "2px",
+              }}
+              initial={{ width: "0%" }}
+              animate={{ width: `${progress}%` }}
+              transition={{
+                duration: 0.3,
+                ease: "easeOut",
+              }}
+            />
+          </div>
+
+          {/* Rotating Analyzing Messages */}
+          <motion.div
+            key={currentMessageIndex}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{
+              duration: 0.4,
+              ease: "easeInOut",
+            }}
+            style={{
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              fontSize: "12px",
+              fontWeight: 400,
+              color: "#6B7280",
+              textAlign: "center",
+            }}
+          >
+            {analyzingMessages[currentMessageIndex]}
+          </motion.div>
         </div>
 
         {/* Ambient glow effect */}
