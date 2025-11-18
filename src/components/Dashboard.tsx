@@ -424,14 +424,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     onClick={() => setBuyerConcernsExpanded(!buyerConcernsExpanded)}
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-blue-600" />
-                      <h4 className="text-slate-900 font-medium text-base">Buyer Concerns</h4>
+                    <div className="flex items-center gap-2 flex-1">
+                      <Users className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                      <div className="flex flex-col items-start">
+                        <h4 className="text-slate-900 font-medium text-base">Buyer Concerns</h4>
+                        <p className="text-xs text-slate-600 mt-0.5">Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
+                      </div>
                     </div>
                     {buyerConcernsExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
+                      <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
+                      <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     )}
                   </button>
                   {buyerConcernsExpanded && (
@@ -474,14 +477,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     onClick={() => setRiskFactorsExpanded(!riskFactorsExpanded)}
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
-                    <div className="flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4 text-amber-600" />
-                      <h4 className="text-slate-900 font-medium text-base">Risk Factors</h4>
+                    <div className="flex items-center gap-2 flex-1">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                      <div className="flex flex-col items-start">
+                        <h4 className="text-slate-900 font-medium text-base">Risk Factors</h4>
+                        <p className="text-xs text-slate-600 mt-0.5">Shows hidden red flags that could reduce offers or slow down your sale.</p>
+                      </div>
                     </div>
                     {riskFactorsExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
+                      <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
+                      <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     )}
                   </button>
                   {riskFactorsExpanded && (
@@ -550,14 +556,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   onClick={() => setMissedValueExpanded(!missedValueExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
-                  <div className="flex items-center gap-2">
-                    <TrendingDown className="w-4 h-4 text-purple-600" />
-                    <h4 className="text-slate-900 font-medium text-base">Missed Value Points</h4>
+                  <div className="flex items-center gap-2 flex-1">
+                    <TrendingDown className="w-4 h-4 text-purple-600 flex-shrink-0" />
+                    <div className="flex flex-col items-start">
+                      <h4 className="text-slate-900 font-medium text-base">Missed Value Points</h4>
+                      <p className="text-xs text-slate-600 mt-0.5">Highlights things you're not showcasing that could increase your perceived property value.</p>
+                    </div>
                   </div>
                   {missedValueExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600" />
+                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600" />
+                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   )}
                 </button>
                 {missedValueExpanded && (
@@ -621,14 +630,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   onClick={() => setNegotiationRiskExpanded(!negotiationRiskExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
-                  <div className="flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-orange-600" />
-                    <h4 className="text-slate-900 font-medium text-base">Negotiation Risk</h4>
+                  <div className="flex items-center gap-2 flex-1">
+                    <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
+                    <div className="flex flex-col items-start">
+                      <h4 className="text-slate-900 font-medium text-base">Negotiation Risk</h4>
+                      <p className="text-xs text-slate-600 mt-0.5">Identifies weaknesses buyers may use to negotiate your price down.</p>
+                    </div>
                   </div>
                   {negotiationRiskExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600" />
+                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600" />
+                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   )}
                 </button>
                 {negotiationRiskExpanded && (
@@ -697,14 +709,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   onClick={() => setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
-                  <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-indigo-600" />
-                    <h4 className="text-slate-900 font-medium text-base">Buyer Match Score</h4>
+                  <div className="flex items-center gap-2 flex-1">
+                    <Target className="w-4 h-4 text-indigo-600 flex-shrink-0" />
+                    <div className="flex flex-col items-start">
+                      <h4 className="text-slate-900 font-medium text-base">Buyer Match Score</h4>
+                      <p className="text-xs text-slate-600 mt-0.5">Measures how well your listing aligns with current buyer preferences in your market.</p>
+                    </div>
                   </div>
                   {buyerMatchScoreExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600" />
+                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600" />
+                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   )}
                 </button>
                 {buyerMatchScoreExpanded && (
@@ -772,14 +787,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   onClick={() => setUpgradeImpactExpanded(!upgradeImpactExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
-                  <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-emerald-600" />
-                    <h4 className="text-slate-900 font-medium text-base">Upgrade Impact</h4>
+                  <div className="flex items-center gap-2 flex-1">
+                    <Zap className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                    <div className="flex flex-col items-start">
+                      <h4 className="text-slate-900 font-medium text-base">Upgrade Impact</h4>
+                      <p className="text-xs text-slate-600 mt-0.5">Predicts how much improving your listing could boost views, tours, and offers.</p>
+                    </div>
                   </div>
                   {upgradeImpactExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600" />
+                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600" />
+                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   )}
                 </button>
                 {upgradeImpactExpanded && (
