@@ -645,7 +645,7 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">3</div>
-                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get your tailored marketing plan</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get your tailored<br />marketing plan</h3>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">3</div>
