@@ -101,13 +101,7 @@ export default function App() {
   const handleNavigate = (view: View) => {
     setCurrentView(view);
     setIsMobileMenuOpen(false);
-    // Clear saved data if navigating away from dashboard
-    if (view === "home") {
-      localStorage.removeItem("enteredAddress");
-      localStorage.removeItem("analysisData");
-      setEnteredAddress("");
-      setAnalysisData(null);
-    }
+    // Keep saved data in localStorage so users can return to their previous analysis
   };
 
   const handleMenuClick = () => {
