@@ -11,11 +11,11 @@ const FACTS_DATA = [
   },
   {
     percentage: "150K+ <br /> Hours <br /> trained",
-    subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise to <br /> every recommendation <br /> for your property",
+    subtext: "Powered by 150,000+ hours <br /> of listing training, our engine <br /> applies real-world expertise to <br /> every recommendation for your property",
   },
   {
     percentage: "99.9% <br /> Data <br /> accuracy",
-    subtext: "Poor marketing leaves nearly half <br /> of homes stagnating on <br /> the market.",
+    subtext: "Poor marketing leaves nearly half <br /> of homes stagnating on <br /> the market. Strategic improvements <br /> can significantly enhance results.",
   },
 ];
 // ============================================================================
