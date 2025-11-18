@@ -159,14 +159,14 @@ function BlueCardBottomText({ title }: { title: string }) {
       {/* Analyzing Listing Animation spanning card */}
       <AnalyzingListingAnimation />
 
-      {/* Overlay that fades browser into card background */}
+      {/* Overlay that fades browser into card background - stops at bottom of mock screen */}
       <div
         className="absolute inset-x-0 pointer-events-none z-10"
         style={{
-          top: "100px",
-          height: "200px",
+          top: "180px",
+          height: "120px",
           background:
-            "linear-gradient(to bottom, rgba(61, 133, 255, 0), rgba(61, 133, 255, 0.03) 25%, rgba(61, 133, 255, 0.1) 50%, rgba(61, 133, 255, 0.25) 70%, rgba(61, 133, 255, 0.5) 85%, rgba(61, 133, 255, 0.75) 95%, #3D85FF 100%)",
+            "linear-gradient(to bottom, rgba(61, 133, 255, 0.1), rgba(61, 133, 255, 0.2) 30%, rgba(61, 133, 255, 0.4) 60%, rgba(61, 133, 255, 0.6) 80%, rgba(61, 133, 255, 0.3) 90%, rgba(255, 255, 255, 0) 100%)",
         }}
       />
 
@@ -233,14 +233,14 @@ function AnalyzingListingAnimation() {
     return () => clearInterval(interval);
   }, [analyzingMessages.length]);
 
-  // Progress bar animation
+  // Progress bar animation - slower
   useEffect(() => {
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) return 0;
-        return prev + 0.5;
+        return prev + 0.3;
       });
-    }, 30);
+    }, 50);
 
     return () => clearInterval(progressInterval);
   }, []);
@@ -322,7 +322,7 @@ function AnalyzingListingAnimation() {
           <div
             className="relative mb-4"
             style={{
-              width: "200px",
+              width: "160px",
               height: "3px",
               background: "#F3F4F6",
               borderRadius: "2px",
