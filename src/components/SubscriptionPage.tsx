@@ -10,7 +10,7 @@ interface SubscriptionPageProps {
 }
 
 export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: SubscriptionPageProps) {
-  const [selectedPlan, setSelectedPlan] = useState<"starter" | "premium">("premium");
+  const [selectedPlan, setSelectedPlan] = useState<"starter" | "premium">("starter");
   const [selectedDuration, setSelectedDuration] = useState<"1" | "6" | "12">("6");
   const [showPayment, setShowPayment] = useState(false);
 
@@ -35,9 +35,9 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
 
   const pricing = {
     starter: {
-      "1": { price: "$9.99", period: "month", total: "$9.99" },
-      "6": { price: "$7.99", period: "month", total: "$47.94", save: "20%" },
-      "12": { price: "$6.99", period: "month", total: "$83.88", save: "30%" },
+      "1": { price: "$1", period: "one-time", total: "$1" },
+      "6": { price: "$1", period: "one-time", total: "$1" },
+      "12": { price: "$1", period: "one-time", total: "$1" },
     },
     premium: {
       "1": { price: "$1", period: "one-time", total: "$1" },
@@ -47,7 +47,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
   };
 
   const currentPrice = pricing[selectedPlan][selectedDuration];
-  const amount = selectedPlan === "premium" ? 1 : parseFloat(pricing.starter[selectedDuration].price.replace("$", ""));
+  const amount = 1; // One-time payment for starter
 
   const handlePaymentSuccess = () => {
     if (onSubscribe) {
@@ -113,7 +113,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           </h2>
 
           {/* Segmented Control */}
-          <div className="bg-gray-100 rounded-xl p-1 flex gap-1">
+          <div className="bg-gray-100 rounded-xl p-1 flex gap-1 relative">
             <button
               onClick={() => setSelectedPlan("starter")}
               className={`flex-1 rounded-lg py-2 transition-all ${
@@ -126,15 +126,23 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               Starter
             </button>
             <button
-              onClick={() => setSelectedPlan("premium")}
-              className={`flex-1 rounded-lg py-2 transition-all ${
-                selectedPlan === "premium"
-                  ? "bg-white text-black shadow-sm"
-                  : "bg-transparent text-gray-600"
-              }`}
+              disabled
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              className="flex-1 rounded-lg py-2 transition-all bg-transparent text-gray-400 relative cursor-not-allowed opacity-60"
               style={{ fontSize: "15px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}
             >
               Premium
+              {/* Coming Soon Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-2 py-0.5 border border-gray-200 shadow-sm">
+                  <span className="text-[10px] font-semibold text-gray-600 tracking-wide" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                    COMING SOON
+                  </span>
+                </div>
+              </div>
             </button>
           </div>
         </div>
@@ -183,7 +191,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
         </div>
 
         {/* Pricing Cards */}
-        {selectedPlan === "premium" ? (
+        {selectedPlan === "starter" && (
           <div className="px-4 pb-6">
             <div className="w-full text-left rounded-2xl p-4 bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10">
               <div className="flex items-center justify-between">
@@ -211,139 +219,45 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               </div>
             </div>
           </div>
-        ) : (
+        )}
+        {selectedPlan === "premium" && (
           <div className="px-4 pb-6">
-            <div className="space-y-3">
-              {/* 1 Month */}
-              <button
-                onClick={() => setSelectedDuration("1")}
-                className={`w-full text-left rounded-2xl p-4 transition-all ${
-                  selectedDuration === "1"
-                    ? "bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10"
-                    : "bg-white border-2 border-gray-200"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        selectedDuration === "1" ? "border-blue-500 bg-blue-500" : "border-gray-300"
-                      }`}
-                    >
-                      {selectedDuration === "1" && <div className="w-2 h-2 rounded-full bg-white"></div>}
+            <div className="w-full text-left rounded-2xl p-4 bg-gray-50 border-2 border-gray-200 relative overflow-hidden">
+              {/* Coming Soon Overlay */}
+              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10">
+                <div className="bg-white rounded-xl px-4 py-2 border border-gray-200 shadow-lg">
+                  <div className="text-center">
+                    <div className="text-gray-900 font-semibold mb-1" style={{ fontSize: "15px", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                      Coming Soon
                     </div>
-                    <div>
-                      <div className="text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        1 Month
-                      </div>
-                      <div className="text-gray-600" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        {pricing.starter["1"].total}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-black" style={{ fontSize: "17px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                      {pricing.starter["1"].price}
-                    </div>
-                    <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                      per month
+                    <div className="text-gray-500" style={{ fontSize: "13px", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                      Premium features launching soon
                     </div>
                   </div>
                 </div>
-              </button>
-
-              {/* 6 Months - Popular */}
-              <button
-                onClick={() => setSelectedDuration("6")}
-                className={`w-full text-left rounded-2xl p-4 transition-all relative ${
-                  selectedDuration === "6"
-                    ? "bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10"
-                    : "bg-white border-2 border-gray-200"
-                }`}
-              >
-                {/* Popular Badge */}
-                <div className="absolute -top-2 left-4">
-                  <div className="bg-blue-500 text-white px-3 py-0.5 rounded-full" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                    POPULAR
+              </div>
+              <div className="flex items-center justify-between opacity-40">
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-gray-300 bg-gray-200">
                   </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        selectedDuration === "6" ? "border-blue-500 bg-blue-500" : "border-gray-300"
-                      }`}
-                    >
-                      {selectedDuration === "6" && <div className="w-2 h-2 rounded-full bg-white"></div>}
+                  <div>
+                    <div className="text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                      Premium Plan
                     </div>
-                    <div>
-                      <div className="text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        6 Months
-                      </div>
-                      <div className="text-gray-600" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        {pricing.starter["6"].total} total
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="flex items-center gap-2 justify-end">
-                      <div className="text-black" style={{ fontSize: "17px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        {pricing.starter["6"].price}
-                      </div>
-                      <div className="bg-green-100 text-green-700 px-2 py-0.5 rounded-md" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        Save {pricing.starter["6"].save}
-                      </div>
-                    </div>
-                    <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                      per month
+                    <div className="text-gray-600" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                      Advanced features
                     </div>
                   </div>
                 </div>
-              </button>
-
-              {/* 12 Months */}
-              <button
-                onClick={() => setSelectedDuration("12")}
-                className={`w-full text-left rounded-2xl p-4 transition-all ${
-                  selectedDuration === "12"
-                    ? "bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10"
-                    : "bg-white border-2 border-gray-200"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        selectedDuration === "12" ? "border-blue-500 bg-blue-500" : "border-gray-300"
-                      }`}
-                    >
-                      {selectedDuration === "12" && <div className="w-2 h-2 rounded-full bg-white"></div>}
-                    </div>
-                    <div>
-                      <div className="text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        12 Months
-                      </div>
-                      <div className="text-gray-600" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        {pricing.starter["12"].total} total
-                      </div>
-                    </div>
+                <div className="text-right">
+                  <div className="text-black" style={{ fontSize: "17px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                    —
                   </div>
-                  <div className="text-right">
-                    <div className="flex items-center gap-2 justify-end">
-                      <div className="text-black" style={{ fontSize: "17px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        {pricing.starter["12"].price}
-                      </div>
-                      <div className="bg-green-100 text-green-700 px-2 py-0.5 rounded-md" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                        Save {pricing.starter["12"].save}
-                      </div>
-                    </div>
-                    <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                      per month
-                    </div>
+                  <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                    —
                   </div>
                 </div>
-              </button>
+              </div>
             </div>
           </div>
         )}
@@ -353,13 +267,16 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           <div className="px-4 pb-8 pt-4">
             <button
               onClick={() => setShowPayment(true)}
-              className="w-full bg-blue-600 text-white py-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+              disabled={selectedPlan === "premium"}
+              className={`w-full py-4 rounded-full shadow-lg transition-colors ${
+                selectedPlan === "premium"
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
+              }`}
               style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
             >
               <span style={{ fontSize: "17px", fontWeight: 600, letterSpacing: "-0.01em" }}>
-                {selectedPlan === "premium"
-                  ? "Subscribe for $1"
-                  : `Subscribe for ${selectedDuration === "1" ? "1 Month" : selectedDuration === "6" ? "6 Months" : "12 Months"}`}
+                Subscribe for $1
               </span>
             </button>
             <div className="text-center mt-3 text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
