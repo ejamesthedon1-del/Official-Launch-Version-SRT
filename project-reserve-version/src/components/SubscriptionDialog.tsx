@@ -61,7 +61,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
           <Card className="p-4 md:p-5 bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200 text-center">
             <div className="flex items-baseline justify-center gap-2 mb-1">
               <span className="text-xl md:text-2xl font-bold text-slate-400 line-through">$200</span>
-              <span className="text-3xl md:text-4xl font-bold text-blue-600">$1</span>
+              <span className="text-3xl md:text-4xl font-bold text-blue-600">$99</span>
               <span className="text-base md:text-lg text-slate-600">one-time</span>
             </div>
             <p className="text-xs md:text-sm text-slate-600 mb-3">
@@ -78,10 +78,10 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
             <div className="space-y-2 max-h-[200px] overflow-y-auto">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-start gap-2">
-                  <div className="w-3 h-3 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-2 h-2 text-white" />
+                  <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-2.5 h-2.5 text-white" />
                   </div>
-                  <span className="text-[10px] md:text-xs text-slate-700 leading-tight">{feature}</span>
+                  <span className="text-xs md:text-sm text-slate-700 leading-tight">{feature}</span>
                 </div>
               ))}
             </div>
@@ -101,10 +101,9 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
               </p>
             </div>
           ) : (
-            <div className="pt-2" style={{ pointerEvents: 'auto' }}>
+            <div className="pt-2">
               <PaymentForm
-                key="payment-form"
-                amount={1}
+                amount={99}
                 address={address}
                 onSuccess={() => {
                   if (onSubscribe) {
