@@ -418,9 +418,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
           {/* Premium Insights Menu - All Collapsibles Combined */}
           <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-blue-600" />
-              <h3 className="text-slate-900 font-semibold text-lg">Premium insights</h3>
+            <div className="mb-4">
+              <h3 className="text-slate-900 font-semibold text-lg mb-1">Premium insights</h3>
+              <p className="text-xs text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
             <div className="space-y-2">
               {/* Buyer Concerns Section */}
@@ -431,7 +431,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2 flex-1">
-                      <Users className="w-4 h-4 text-blue-600 flex-shrink-0" />
                       <div className="flex flex-col items-start flex-1 min-w-0">
                         <h4 className="text-slate-900 font-medium text-lg">Buyer concerns</h4>
                         <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
@@ -518,7 +517,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           {daysOnMarket > 30 && (
                             <div className={`p-3 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
                               <div className="flex items-start gap-2">
-                                <AlertTriangle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
                                 <div className="flex-1">
                                   <div className={`text-xs font-semibold mb-1 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
                                     {daysOnMarket > 60 ? 'Urgent: listing is stale' : 'Warning: above average days on market'}
@@ -542,7 +540,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
                             <div key={idx} className="p-3 rounded-lg bg-destructive/10 border border-destructive/20">
                               <div className="flex items-start gap-2">
-                                <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
                                 <div className="flex-1">
                                   <div className="text-xs font-semibold mb-0.5 text-destructive">{alert.title}</div>
                                   <p className="text-xs text-destructive/80">
@@ -566,7 +563,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
-                    <TrendingDown className="w-4 h-4 text-purple-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Missed value points</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Highlights things you're not showcasing that could increase your perceived property value.</p>
@@ -598,7 +594,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <div className="space-y-2">
                         <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
                           <div className="flex items-start gap-2">
-                            <DollarSign className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-purple-900 mb-0.5">Pricing optimization</div>
                               <p className="text-xs text-purple-800 leading-relaxed">
@@ -609,7 +604,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
                           <div className="flex items-start gap-2">
-                            <Eye className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-purple-900 mb-0.5">Marketing visibility</div>
                               <p className="text-xs text-purple-800 leading-relaxed">
@@ -620,7 +614,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
                           <div className="flex items-start gap-2">
-                            <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-purple-900 mb-0.5">Property presentation</div>
                               <p className="text-xs text-purple-800 leading-relaxed">
@@ -642,7 +635,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
-                    <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Negotiation risk</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Identifies weaknesses buyers may use to negotiate your price down.</p>
@@ -674,7 +666,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <div className="space-y-2">
                         <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
                           <div className="flex items-start gap-2">
-                            <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-orange-900 mb-0.5">Price negotiation risk</div>
                               <p className="text-xs text-orange-800 leading-relaxed">
@@ -688,7 +679,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
                           <div className="flex items-start gap-2">
-                            <Calendar className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-orange-900 mb-0.5">Timing risk</div>
                               <p className="text-xs text-orange-800 leading-relaxed">
@@ -700,7 +690,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         {insights.pricingInsight && (
                           <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
                             <div className="flex items-start gap-2">
-                              <TrendingUp className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                               <div className="flex-1">
                                 <div className="text-xs font-semibold text-orange-900 mb-0.5">Recommended strategy</div>
                                 <p className="text-xs text-orange-800 leading-relaxed">
@@ -723,7 +712,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
-                    <Target className="w-4 h-4 text-indigo-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Buyer match score</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Measures how well your listing aligns with current buyer preferences in your market.</p>
@@ -767,7 +755,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
                           <div className="flex items-start gap-2">
-                            <Users className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-indigo-900 mb-0.5">Target buyer alignment</div>
                               <p className="text-xs text-indigo-800 leading-relaxed">
@@ -778,7 +765,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
                           <div className="flex items-start gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-indigo-900 mb-0.5">Market appeal</div>
                               <p className="text-xs text-indigo-800 leading-relaxed">
@@ -803,7 +789,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
-                    <Zap className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Upgrade impact</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Predicts how much improving your listing could boost views, tours, and offers.</p>
@@ -835,7 +820,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <div className="space-y-2">
                         <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
                           <div className="flex items-start gap-2">
-                            <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-emerald-900 mb-0.5">Score improvement potential</div>
                               <p className="text-xs text-emerald-800 leading-relaxed">
@@ -846,7 +830,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
                           <div className="flex items-start gap-2">
-                            <DollarSign className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-emerald-900 mb-0.5">Value enhancement</div>
                               <p className="text-xs text-emerald-800 leading-relaxed">
@@ -857,7 +840,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                         <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
                           <div className="flex items-start gap-2">
-                            <Clock className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
                               <div className="text-xs font-semibold text-emerald-900 mb-0.5">Time to sale impact</div>
                               <p className="text-xs text-emerald-800 leading-relaxed">
