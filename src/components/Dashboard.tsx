@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap } from "lucide-react";
+import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap, Users } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { Navigation } from "./Navigation";
@@ -85,6 +85,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [checkingSubscription, setCheckingSubscription] = useState(true);
   const [riskFactorsExpanded, setRiskFactorsExpanded] = useState(false);
+  const [buyerConcernsExpanded, setBuyerConcernsExpanded] = useState(false);
 
   // Debug: Log received data
   useEffect(() => {
@@ -318,6 +319,40 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
             </div>
           </div>
+
+          {/* Buyer Concerns Section */}
+          {(insights.topPriorities && insights.topPriorities.length > 0) && (
+            <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+              <button
+                onClick={() => setBuyerConcernsExpanded(!buyerConcernsExpanded)}
+                className="w-full flex items-center justify-between gap-2 mb-0 hover:opacity-80 transition-opacity"
+              >
+                <div className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-slate-900 font-semibold text-lg">Buyer Concerns</h3>
+                </div>
+                {buyerConcernsExpanded ? (
+                  <ChevronUp className="w-5 h-5 text-slate-600" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-slate-600" />
+                )}
+              </button>
+              {buyerConcernsExpanded && (
+                <div className="space-y-3 mt-4">
+                  {insights.topPriorities.map((concern, idx) => (
+                    <div key={idx} className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-blue-600 flex-shrink-0 mt-2" />
+                        <p className="text-sm text-slate-700 leading-relaxed">
+                          {concern}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Card>
+          )}
 
           {/* Risk Factors - Combined Section */}
           {(daysOnMarket > 30 || insights.alerts.length > 0) && (
