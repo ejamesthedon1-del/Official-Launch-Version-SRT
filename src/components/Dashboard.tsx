@@ -325,12 +325,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                   <div className="mt-4">
-                    <h3 className="text-slate-900 font-semibold text-lg mb-3">Analysis Summary</h3>
-                    <div className="bg-white border border-slate-200 rounded-lg p-3">
-                      <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
-                        {insights.summary}
-                      </p>
-                    </div>
+                    <h3 className="text-slate-900 font-semibold text-lg mb-3">analysis summary</h3>
+                    <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                      {insights.summary}
+                    </p>
                   </div>
                 </div>
               </div>
