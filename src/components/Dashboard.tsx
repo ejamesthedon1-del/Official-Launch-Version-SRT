@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap, Users } from "lucide-react";
+import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap, Users, Target } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { Navigation } from "./Navigation";
@@ -87,6 +87,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [riskFactorsExpanded, setRiskFactorsExpanded] = useState(false);
   const [buyerConcernsExpanded, setBuyerConcernsExpanded] = useState(false);
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<number>>(new Set());
+  const [missedValueExpanded, setMissedValueExpanded] = useState(false);
+  const [negotiationRiskExpanded, setNegotiationRiskExpanded] = useState(false);
+  const [buyerMatchScoreExpanded, setBuyerMatchScoreExpanded] = useState(false);
+  const [upgradeImpactExpanded, setUpgradeImpactExpanded] = useState(false);
 
   // Debug: Log received data
   useEffect(() => {
@@ -494,6 +498,235 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               )}
             </Card>
           )}
+
+          {/* Missed Value Points Section */}
+          <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+            <button
+              onClick={() => setMissedValueExpanded(!missedValueExpanded)}
+              className="w-full flex items-center justify-between gap-2 mb-0 hover:opacity-80 transition-opacity"
+            >
+              <div className="flex items-center gap-2">
+                <TrendingDown className="w-5 h-5 text-purple-600" />
+                <h3 className="text-slate-900 font-semibold text-lg">Missed Value Points</h3>
+              </div>
+              {missedValueExpanded ? (
+                <ChevronUp className="w-5 h-5 text-slate-600" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-slate-600" />
+              )}
+            </button>
+            {missedValueExpanded && (
+              <div className="space-y-3 mt-4">
+                <div className="p-4 rounded-lg bg-purple-50 border border-purple-200">
+                  <div className="flex items-start gap-3">
+                    <DollarSign className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-purple-900 mb-1">Pricing Optimization</div>
+                      <p className="text-sm text-purple-800 leading-relaxed">
+                        Current pricing may be leaving potential value on the table. Market analysis suggests opportunities for strategic price positioning that could maximize buyer interest while maintaining competitive advantage.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-purple-50 border border-purple-200">
+                  <div className="flex items-start gap-3">
+                    <Eye className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-purple-900 mb-1">Marketing Visibility</div>
+                      <p className="text-sm text-purple-800 leading-relaxed">
+                        Enhanced marketing strategies could increase property visibility and attract more qualified buyers, potentially reducing time on market.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-purple-50 border border-purple-200">
+                  <div className="flex items-start gap-3">
+                    <Sparkles className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-purple-900 mb-1">Property Presentation</div>
+                      <p className="text-sm text-purple-800 leading-relaxed">
+                        Strategic improvements to property presentation and staging could significantly enhance perceived value and buyer appeal.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Card>
+
+          {/* Negotiation Risk Section */}
+          <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+            <button
+              onClick={() => setNegotiationRiskExpanded(!negotiationRiskExpanded)}
+              className="w-full flex items-center justify-between gap-2 mb-0 hover:opacity-80 transition-opacity"
+            >
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-orange-600" />
+                <h3 className="text-slate-900 font-semibold text-lg">Negotiation Risk</h3>
+              </div>
+              {negotiationRiskExpanded ? (
+                <ChevronUp className="w-5 h-5 text-slate-600" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-slate-600" />
+              )}
+            </button>
+            {negotiationRiskExpanded && (
+              <div className="space-y-3 mt-4">
+                <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-orange-900 mb-1">Price Negotiation Risk</div>
+                      <p className="text-sm text-orange-800 leading-relaxed">
+                        {daysOnMarket > 30 
+                          ? `With ${daysOnMarket} days on market, buyers may perceive opportunity for significant price negotiation. Current market position increases likelihood of below-asking offers.`
+                          : 'Current market positioning suggests moderate negotiation risk. Strategic pricing and presentation can help minimize buyer leverage during negotiations.'
+                        }
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+                  <div className="flex items-start gap-3">
+                    <Calendar className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-orange-900 mb-1">Timing Risk</div>
+                      <p className="text-sm text-orange-800 leading-relaxed">
+                        Extended time on market may increase buyer expectations for concessions. Proactive marketing and pricing adjustments can help mitigate this risk.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {insights.pricingInsight && (
+                  <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+                    <div className="flex items-start gap-3">
+                      <TrendingUp className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <div className="text-sm font-semibold text-orange-900 mb-1">Recommended Strategy</div>
+                        <p className="text-sm text-orange-800 leading-relaxed">
+                          {insights.pricingInsight}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </Card>
+
+          {/* Buyer Match Score Section */}
+          <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+            <button
+              onClick={() => setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)}
+              className="w-full flex items-center justify-between gap-2 mb-0 hover:opacity-80 transition-opacity"
+            >
+              <div className="flex items-center gap-2">
+                <Target className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-slate-900 font-semibold text-lg">Buyer Match Score</h3>
+              </div>
+              {buyerMatchScoreExpanded ? (
+                <ChevronUp className="w-5 h-5 text-slate-600" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-slate-600" />
+              )}
+            </button>
+            {buyerMatchScoreExpanded && (
+              <div className="space-y-3 mt-4">
+                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-sm font-semibold text-indigo-900">Overall Buyer Match</div>
+                    <div className="text-lg font-bold text-indigo-600">{overallScore}%</div>
+                  </div>
+                  <div className="relative h-3 bg-indigo-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-indigo-500 rounded-full transition-all duration-500 ease-out"
+                      style={{ width: `${overallScore}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
+                  <div className="flex items-start gap-3">
+                    <Users className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-indigo-900 mb-1">Target Buyer Alignment</div>
+                      <p className="text-sm text-indigo-800 leading-relaxed">
+                        Property characteristics align with {overallScore >= 70 ? 'strong' : overallScore >= 50 ? 'moderate' : 'limited'} buyer interest in this market segment. Strategic positioning can improve match with ideal buyer profiles.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-indigo-900 mb-1">Market Appeal</div>
+                      <p className="text-sm text-indigo-800 leading-relaxed">
+                        {overallScore >= 70 
+                          ? 'Property demonstrates strong market appeal with characteristics that resonate well with current buyer preferences.'
+                          : 'Opportunities exist to enhance market appeal through strategic improvements and positioning adjustments.'
+                        }
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Card>
+
+          {/* Upgrade Impact Section */}
+          <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+            <button
+              onClick={() => setUpgradeImpactExpanded(!upgradeImpactExpanded)}
+              className="w-full flex items-center justify-between gap-2 mb-0 hover:opacity-80 transition-opacity"
+            >
+              <div className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-emerald-600" />
+                <h3 className="text-slate-900 font-semibold text-lg">Upgrade Impact</h3>
+              </div>
+              {upgradeImpactExpanded ? (
+                <ChevronUp className="w-5 h-5 text-slate-600" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-slate-600" />
+              )}
+            </button>
+            {upgradeImpactExpanded && (
+              <div className="space-y-3 mt-4">
+                <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <div className="flex items-start gap-3">
+                    <TrendingUp className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-emerald-900 mb-1">Score Improvement Potential</div>
+                      <p className="text-sm text-emerald-800 leading-relaxed">
+                        Strategic upgrades and marketing enhancements could potentially increase your listing score by 15-25 points, significantly improving market position and buyer interest.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <div className="flex items-start gap-3">
+                    <DollarSign className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-emerald-900 mb-1">Value Enhancement</div>
+                      <p className="text-sm text-emerald-800 leading-relaxed">
+                        Implementing recommended improvements from your marketing plan could enhance perceived property value and reduce negotiation leverage, potentially protecting your asking price.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-emerald-900 mb-1">Time to Sale Impact</div>
+                      <p className="text-sm text-emerald-800 leading-relaxed">
+                        {insights.sellingSpeedPrediction || 'Proactive upgrades and strategic positioning could reduce time on market by 30-40%, accelerating sale timeline and reducing carrying costs.'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Card>
 
           {/* Paywall Modal - Right after the property header/score section */}
           {!isSubscribed && showPaywall && (
