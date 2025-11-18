@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Sparkles, Video, Mic, Home, TrendingUp, User, Target, Brain, BarChart3 } from "lucide-react";
 import videoCallImage from "../assets/video-call-laptop.png";
 
@@ -91,7 +91,7 @@ export function SlidingInfoSection() {
               {/* Card 1: Blue Card Bottom Text */}
               <div className="flex-shrink-0 snap-center w-[calc(68vw+0.5in)] md:w-[368px]">
                 <BlueCardBottomText
-                  title="AI intelligence that reads every signal"
+                  title="AI intelligence that reads <br /> every signal"
                 />
               </div>
 
@@ -189,7 +189,12 @@ function BlueCardBottomText({ title }: { title: string }) {
             lineHeight: "140%",
           }}
         >
-          {title}
+          {title.split('<br />').map((part, index, parts) => (
+            <React.Fragment key={index}>
+              {part}
+              {index < parts.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </h3>
         <p
           className="text-white text-sm leading-relaxed opacity-90"
