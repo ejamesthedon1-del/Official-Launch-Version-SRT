@@ -64,7 +64,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           <button
             onClick={() => onNavigate("dashboard")}
             className="flex items-center gap-1 text-blue-600 -ml-1 hover:text-blue-700 transition-colors"
-            style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
           >
             <ChevronLeft className="w-5 h-5" />
             <span style={{ fontSize: "17px", fontWeight: 400 }}>Back</span>
@@ -76,7 +75,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               fontWeight: 700,
               letterSpacing: "-0.02em",
               lineHeight: "41px",
-              fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
             Manage Subscription
@@ -106,7 +104,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               fontSize: "22px",
               fontWeight: 700,
               letterSpacing: "-0.01em",
-              fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
             Choose Your Plan
@@ -168,7 +165,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                       fontSize: "17px",
                       fontWeight: 600,
                       lineHeight: "22px",
-                      fontFamily: "system-ui, -apple-system, sans-serif",
                     }}
                   >
                     {feature.name}
@@ -179,7 +175,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                       fontSize: "15px",
                       fontWeight: 400,
                       lineHeight: "20px",
-                      fontFamily: "system-ui, -apple-system, sans-serif",
                     }}
                   >
                     {feature.description}
@@ -288,7 +283,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
-              style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
             >
               <span style={{ fontSize: "17px", fontWeight: 600, letterSpacing: "-0.01em" }}>
                 Subscribe for $9.99

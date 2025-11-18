@@ -355,7 +355,6 @@ function AnalyzingListingAnimation() {
               ease: "easeInOut",
             }}
             style={{
-              fontFamily: "system-ui, -apple-system, sans-serif",
               fontSize: "12px",
               fontWeight: 400,
               color: "#6B7280",
@@ -480,7 +479,6 @@ function ProgressFlowAnimation() {
             <div>
               <div
                 style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
                   fontSize: "10px",
                   fontWeight: 500,
                   color: "#6B7280",
@@ -491,7 +489,6 @@ function ProgressFlowAnimation() {
               </div>
               <div
                 style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
                   fontSize: "20px",
                   fontWeight: 700,
                   color: "#1B1F23",
@@ -510,7 +507,6 @@ function ProgressFlowAnimation() {
             >
               <div
                 style={{
-                  fontFamily: "Inter, system-ui, sans-serif",
                   fontSize: "11px",
                   fontWeight: 600,
                   color: "#059669",
@@ -541,7 +537,6 @@ function ProgressFlowAnimation() {
                 <div>
                   <div
                     style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
                       fontSize: "11px",
                       fontWeight: 600,
                       color: "#1B1F23",
@@ -551,7 +546,6 @@ function ProgressFlowAnimation() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
                       fontSize: "9px",
                       fontWeight: 500,
                       color: "#6B7280",
@@ -593,7 +587,6 @@ function ProgressFlowAnimation() {
                 <div>
                   <div
                     style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
                       fontSize: "11px",
                       fontWeight: 600,
                       color: "#1B1F23",
@@ -603,7 +596,6 @@ function ProgressFlowAnimation() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
                       fontSize: "9px",
                       fontWeight: 500,
                       color: "#6B7280",
@@ -645,7 +637,6 @@ function ProgressFlowAnimation() {
                 <div>
                   <div
                     style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
                       fontSize: "11px",
                       fontWeight: 600,
                       color: "#1B1F23",
@@ -655,7 +646,6 @@ function ProgressFlowAnimation() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "Inter, system-ui, sans-serif",
                       fontSize: "9px",
                       fontWeight: 500,
                       color: "#6B7280",
@@ -1029,7 +1019,6 @@ function CleanSpotlightAlignment() {
               <div className="flex-1">
                 <div
                   style={{
-                    fontFamily: "Inter, system-ui, sans-serif",
                     fontSize: "11px",
                     fontWeight: 700,
                     color: "#1B1F23",
@@ -1040,7 +1029,6 @@ function CleanSpotlightAlignment() {
                 </div>
                 <div
                   style={{
-                    fontFamily: "Inter, system-ui, sans-serif",
                     fontSize: "9px",
                     fontWeight: 500,
                     color: "#6B7280",
@@ -1113,7 +1101,6 @@ function CleanSpotlightAlignment() {
               <div className="flex-1">
                 <div
                   style={{
-                    fontFamily: "Inter, system-ui, sans-serif",
                     fontSize: "11px",
                     fontWeight: 700,
                     color: "#1B1F23",
@@ -1124,7 +1111,6 @@ function CleanSpotlightAlignment() {
                 </div>
                 <div
                   style={{
-                    fontFamily: "Inter, system-ui, sans-serif",
                     fontSize: "9px",
                     fontWeight: 500,
                     color: "#6B7280",

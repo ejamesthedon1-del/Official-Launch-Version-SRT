@@ -136,7 +136,6 @@ export default function FactsSection() {
                     fontWeight: 500,
                     lineHeight: "1",
                     letterSpacing: "-0.02em",
-                    fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
                   {renderPercentage(fact.percentage)}
@@ -147,7 +146,6 @@ export default function FactsSection() {
                     fontSize: "16px",
                     fontWeight: 400,
                     lineHeight: "1.3",
-                    fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
                 >
                   {renderSubtext(fact.subtext)}
