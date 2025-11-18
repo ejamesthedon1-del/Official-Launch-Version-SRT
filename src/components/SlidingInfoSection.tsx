@@ -78,9 +78,9 @@ export function SlidingInfoSection() {
         {/* Header */}
         <div className="text-center mb-12 px-4">
           <h2 ref={headlineRef} className="text-4xl md:text-5xl lg:text-6xl text-slate-950 font-medium mb-4">
-          4 ways we help your
+          4 ways we help
             <br />
-          listings sell faster
+          improve your listings
           </h2>
         </div>
 
