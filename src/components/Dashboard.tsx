@@ -318,46 +318,57 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </div>
           </div>
 
-          {/* Days on Market Alert - Prominent if DOM > 30 */}
-          {daysOnMarket > 30 && (
-            <Card className={`p-4 md:p-6 mb-6 ${daysOnMarket > 60 ? 'bg-destructive/10 border-destructive/20' : 'bg-amber-50 border-amber-200'}`}>
-              <div className="flex items-start gap-3 md:gap-4">
-                <AlertTriangle className={`w-5 h-5 md:w-6 md:h-6 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
-                <div className="flex-1">
-                  <div className={`font-semibold mb-2 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
-                    {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
-                  </div>
-                  <p className={`text-sm mb-4 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
-                    {daysOnMarket > 60 
-                      ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required to prevent further buyer disinterest.`
-                      : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
-                    }
-                  </p>
-                  {insights.pricingInsight && (
-                    <div className="bg-white/60 rounded-lg p-3 border border-amber-200">
-                      <div className="text-xs font-medium text-amber-900 mb-1">Recommended Action:</div>
-                      <div className="text-sm text-amber-800">{insights.pricingInsight}</div>
+          {/* Risk Factors - Combined Section */}
+          {(daysOnMarket > 30 || insights.alerts.length > 0) && (
+            <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+              <div className="flex items-center gap-2 mb-4">
+                <AlertTriangle className="w-5 h-5 text-amber-600" />
+                <h3 className="text-slate-900 font-semibold text-lg">Risk Factors</h3>
+              </div>
+              <div className="space-y-4">
+                {/* Days on Market Alert */}
+                {daysOnMarket > 30 && (
+                  <div className={`p-4 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
+                    <div className="flex items-start gap-3">
+                      <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
+                      <div className="flex-1">
+                        <div className={`font-semibold mb-2 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
+                          {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
+                        </div>
+                        <p className={`text-sm mb-3 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
+                          {daysOnMarket > 60 
+                            ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required to prevent further buyer disinterest.`
+                            : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
+                          }
+                        </p>
+                        {insights.pricingInsight && (
+                          <div className="bg-white/60 rounded-lg p-3 border border-amber-200">
+                            <div className="text-xs font-medium text-amber-900 mb-1">Recommended Action:</div>
+                            <div className="text-sm text-amber-800">{insights.pricingInsight}</div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
+
+                {/* Other Alerts */}
+                {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
+                  <div key={idx} className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
+                    <div className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <div className="font-semibold mb-1 text-destructive">{alert.title}</div>
+                        <p className="text-sm text-destructive/80">
+                          {alert.message}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </Card>
           )}
-
-          {/* Other Alerts */}
-          {insights.alerts.length > 0 && insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
-            <Card key={idx} className="p-4 mb-6 bg-destructive/10 border-destructive/20">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="mb-1">{alert.title}</div>
-                  <p className="text-sm text-muted-foreground">
-                    {alert.message}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
 
           {/* Paywall Modal - Right after the property header/score section */}
           {!isSubscribed && showPaywall && (
