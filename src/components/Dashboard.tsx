@@ -270,9 +270,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <MapPin className="w-3.5 h-3.5" />
                     <span className="text-sm md:text-base">{cityState}</span>
                   </div>
-                  <div className="text-slate-600 text-sm md:text-base ml-5">
-                    {zipCode ? zipCode : ''}{zipCode && !hasUSA ? ' ' : ''}{!hasUSA ? 'USA' : ''}
-                  </div>
+                  {(zipCode || hasUSA) && (
+                    <div className="text-slate-600 text-sm md:text-base ml-5">
+                      {zipCode ? zipCode : ''}{zipCode && hasUSA ? ' ' : ''}{hasUSA ? 'USA' : ''}
+                    </div>
+                  )}
                 </div>
                 
                 {/* Circular Progress Score - Right side */}
