@@ -175,49 +175,49 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   // Days on Market for alerts
   const daysOnMarket = listing.daysOnMarket || 0;
 
-  // Parse address to separate street address, city/state, and zip/USA
+  // Parse address to separate street address, city/state, and zip code
   const parseAddress = (fullAddress: string, city: string) => {
     // If address contains commas, split it
     const addressParts = fullAddress.split(",").map(p => p.trim());
     if (addressParts.length > 1) {
       // Street address is everything before the first comma
       const streetAddress = addressParts[0];
-      // Extract city, state, zip, and USA
+      // Extract city, state, and zip code
       let cityState = "";
-      let zipAndCountry = "";
+      let zipCode = "";
       
-      // Check if last part contains zip code or country
+      // Check if last part contains zip code
       const lastPart = addressParts[addressParts.length - 1];
-      const zipMatch = lastPart.match(/(\d{5}(?:-\d{4})?)\s*(USA|United States)?/i);
+      const zipMatch = lastPart.match(/(\d{5}(?:-\d{4})?)/);
       
       if (zipMatch) {
-        // Has zip code
-        zipAndCountry = lastPart;
+        // Has zip code - extract just the zip
+        zipCode = zipMatch[1];
         // City/State is everything between street and zip
         cityState = addressParts.slice(1, -1).join(", ");
-      } else if (lastPart.match(/^(USA|United States)$/i)) {
-        // Last part is just country
-        zipAndCountry = lastPart;
-        cityState = addressParts.slice(1, -1).join(", ");
       } else {
-        // No zip/country, just city/state
+        // No zip code, just city/state
         cityState = addressParts.slice(1).join(", ");
       }
       
       return { 
         streetAddress, 
         cityState: cityState || city,
-        zipAndCountry: zipAndCountry || ""
+        zipCode: zipCode || ""
       };
     }
-    // If no commas, use the full address as street and city as city/state
-    return { streetAddress: fullAddress, cityState: city, zipAndCountry: "" };
+    // If no commas, try to extract zip from the end of the address string
+    const zipMatch = fullAddress.match(/\b(\d{5}(?:-\d{4})?)\b/);
+    const zipCode = zipMatch ? zipMatch[1] : "";
+    const streetAddress = zipCode ? fullAddress.replace(/\b\d{5}(?:-\d{4})?\b.*$/, "").trim() : fullAddress;
+    
+    return { streetAddress, cityState: city, zipCode };
   };
 
-  const { streetAddress, cityState, zipAndCountry } = parseAddress(listing.address, listing.city);
+  const { streetAddress, cityState, zipCode } = parseAddress(listing.address, listing.city);
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/30 w-full min-h-screen">
+    <div className="bg-white w-full min-h-screen">
       <Navigation currentView="dashboard" onNavigate={onNavigate} onMenuClick={onMenuClick} />
 
       <div className="flex">
@@ -261,9 +261,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <MapPin className="w-3.5 h-3.5" />
                     <span className="text-sm md:text-base">{cityState}</span>
                   </div>
-                  {zipAndCountry && (
+                  {zipCode && (
                     <div className="text-slate-600 text-sm md:text-base ml-5">
-                      {zipAndCountry}
+                      {zipCode} USA
+                    </div>
+                  )}
+                  {!zipCode && (
+                    <div className="text-slate-600 text-sm md:text-base ml-5">
+                      USA
                     </div>
                   )}
                 </div>
