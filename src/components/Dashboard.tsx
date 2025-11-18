@@ -433,7 +433,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
                         <h4 className="text-slate-900 font-medium text-lg">Buyer concerns</h4>
-                        <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
+                        <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers<br />so you can fix issues before they kill interest.</p>
                       </div>
                     </div>
                     {!isSubscribed ? (
