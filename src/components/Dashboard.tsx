@@ -324,10 +324,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
                     </div>
                   </div>
-                  <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
-                    <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
-                      {insights.summary}
-                    </p>
+                  <div className="mt-4">
+                    <h3 className="text-slate-900 font-semibold text-lg mb-3">Analysis Summary</h3>
+                    <div className="bg-white border border-slate-200 rounded-lg p-3">
+                      <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
+                        {insights.summary}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
