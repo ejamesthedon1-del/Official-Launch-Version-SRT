@@ -80,7 +80,7 @@ export function Navigation({
                     : ""
                 }`}
               >
-                Analyze Listing
+                Analyze listing
               </button>
             )}
 
@@ -103,7 +103,7 @@ export function Navigation({
                   : ""
               }`}
             >
-              Marketing Plan
+                  Marketing plan
             </button>
           </nav>
 

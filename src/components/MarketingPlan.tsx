@@ -178,7 +178,7 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
       <main className="container mx-auto px-4 pt-4 md:pt-24 pb-12 max-w-6xl">
         {/* Header Section */}
         <div className="mb-8">
-          <Badge className="mb-4">Premium Plan Unlocked</Badge>
+          <Badge className="mb-4">Premium plan unlocked</Badge>
           <h2 className="mb-2">
             30-Day Action Plan for 3404 American Dr APT 1105
           </h2>
@@ -192,15 +192,15 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-4xl mb-2">85%</div>
-              <div className="text-sm text-muted-foreground">Success Probability</div>
+              <div className="text-sm text-muted-foreground">Success probability</div>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">21-28</div>
-              <div className="text-sm text-muted-foreground">Days to Offer</div>
+              <div className="text-sm text-muted-foreground">Days to offer</div>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">$379K</div>
-              <div className="text-sm text-muted-foreground">Recommended Price</div>
+              <div className="text-sm text-muted-foreground">Recommended price</div>
             </div>
           </div>
         </Card>
@@ -406,7 +406,7 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
 
         {/* Critical Success Factors */}
         <Card className="p-6">
-          <h3 className="mb-6">Critical Success Factors</h3>
+          <h3 className="mb-6">Critical success factors</h3>
           
           <div className="space-y-6">
             <div>

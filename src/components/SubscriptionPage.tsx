@@ -77,7 +77,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               lineHeight: "41px",
             }}
           >
-            Manage Subscription
+            Manage subscription
           </h1>
         </div>
 
@@ -85,7 +85,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
         <div className="px-4 mb-6">
           <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
             <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-              SMART REALTOR TOOLS
+              Smart realtor tools
             </div>
             <div className="mt-1 text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
               Get your complete marketing plan
@@ -106,7 +106,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               letterSpacing: "-0.01em",
             }}
           >
-            Choose Your Plan
+            Choose your plan
           </h2>
 
           {/* Segmented Control */}
@@ -136,7 +136,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="bg-white/95 backdrop-blur-sm rounded-lg px-2 py-0.5 border border-gray-200 shadow-sm">
                   <span className="text-[10px] font-semibold text-gray-600 tracking-wide" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                    COMING SOON
+                    Coming soon
                   </span>
                 </div>
               </div>
@@ -192,7 +192,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
               {/* New User Sale Badge */}
               <div className="absolute -top-2 left-4">
                 <div className="bg-black text-white px-3 py-0.5 rounded-full" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                  NEW USER SALE
+                  New user sale
                 </div>
               </div>
               
@@ -203,7 +203,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                   </div>
                   <div>
                     <div className="text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                      One-Time Payment
+                      One-time payment
                     </div>
                     <div className="text-gray-600" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
                       Full access • No subscription
@@ -252,7 +252,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                   </div>
                   <div>
                     <div className="text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                      Premium Plan
+                      Premium plan
                     </div>
                     <div className="text-gray-600" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
                       Advanced features

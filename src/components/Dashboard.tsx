@@ -339,7 +339,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {ratings && ratings.length > 0 && (
             <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
               <div className="flex items-center gap-2 mb-5">
-                <h3 className="text-slate-900 font-semibold text-lg">Score Factors</h3>
+                <h3 className="text-slate-900 font-semibold text-lg">Score factors</h3>
               </div>
               <div className="space-y-4">
                 {ratings.map((rating, idx) => {
@@ -420,7 +420,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-blue-600" />
-              <h3 className="text-slate-900 font-semibold text-lg">Premium Insights</h3>
+              <h3 className="text-slate-900 font-semibold text-lg">Premium insights</h3>
             </div>
             <div className="space-y-2">
               {/* Buyer Concerns Section */}
@@ -433,7 +433,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <div className="flex items-center gap-2 flex-1">
                       <Users className="w-4 h-4 text-blue-600 flex-shrink-0" />
                       <div className="flex flex-col items-start flex-1 min-w-0">
-                        <h4 className="text-slate-900 font-medium text-lg">Buyer Concerns</h4>
+                        <h4 className="text-slate-900 font-medium text-lg">Buyer concerns</h4>
                         <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
                       </div>
                     </div>
@@ -456,7 +456,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                             onClick={handleSubscribe}
                             className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
                           >
-                            Upgrade Now
+                            Upgrade now
                           </button>
                         </div>
                       ) : (
@@ -487,7 +487,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
-                        <h4 className="text-slate-900 font-medium text-lg">Risk Factors</h4>
+                        <h4 className="text-slate-900 font-medium text-lg">Risk factors</h4>
                         <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Shows hidden red flags that could reduce offers or slow down your sale.</p>
                       </div>
                     </div>
@@ -510,7 +510,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                             onClick={handleSubscribe}
                             className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
                           >
-                            Upgrade Now
+                            Upgrade now
                           </button>
                         </div>
                       ) : (
@@ -521,7 +521,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                                 <AlertTriangle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
                                 <div className="flex-1">
                                   <div className={`text-xs font-semibold mb-1 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
-                                    {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
+                                    {daysOnMarket > 60 ? 'Urgent: listing is stale' : 'Warning: above average days on market'}
                                   </div>
                                   <p className={`text-xs mb-2 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
                                     {daysOnMarket > 60 
@@ -531,7 +531,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                                   </p>
                                   {insights.pricingInsight && (
                                     <div className="bg-white/60 rounded p-2 border border-amber-200">
-                                      <div className="text-[10px] font-medium text-amber-900 mb-0.5">Recommended Action:</div>
+                                      <div className="text-[10px] font-medium text-amber-900 mb-0.5">Recommended action:</div>
                                       <div className="text-xs text-amber-800">{insights.pricingInsight}</div>
                                     </div>
                                   )}
@@ -568,7 +568,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <TrendingDown className="w-4 h-4 text-purple-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-lg">Missed Value Points</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Missed value points</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Highlights things you're not showcasing that could increase your perceived property value.</p>
                     </div>
                   </div>
@@ -600,7 +600,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <DollarSign className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Pricing Optimization</div>
+                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Pricing optimization</div>
                               <p className="text-xs text-purple-800 leading-relaxed">
                                 Current pricing may be leaving potential value on the table. Market analysis suggests opportunities for strategic price positioning.
                               </p>
@@ -611,7 +611,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <Eye className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Marketing Visibility</div>
+                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Marketing visibility</div>
                               <p className="text-xs text-purple-800 leading-relaxed">
                                 Enhanced marketing strategies could increase property visibility and attract more qualified buyers.
                               </p>
@@ -622,7 +622,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Property Presentation</div>
+                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Property presentation</div>
                               <p className="text-xs text-purple-800 leading-relaxed">
                                 Strategic improvements to property presentation could significantly enhance perceived value.
                               </p>
@@ -644,7 +644,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-lg">Negotiation Risk</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Negotiation risk</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Identifies weaknesses buyers may use to negotiate your price down.</p>
                     </div>
                   </div>
@@ -676,7 +676,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-orange-900 mb-0.5">Price Negotiation Risk</div>
+                              <div className="text-xs font-semibold text-orange-900 mb-0.5">Price negotiation risk</div>
                               <p className="text-xs text-orange-800 leading-relaxed">
                                 {daysOnMarket > 30 
                                   ? `With ${daysOnMarket} days on market, buyers may perceive opportunity for significant price negotiation.`
@@ -690,7 +690,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <Calendar className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-orange-900 mb-0.5">Timing Risk</div>
+                              <div className="text-xs font-semibold text-orange-900 mb-0.5">Timing risk</div>
                               <p className="text-xs text-orange-800 leading-relaxed">
                                 Extended time on market may increase buyer expectations for concessions.
                               </p>
@@ -702,7 +702,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                             <div className="flex items-start gap-2">
                               <TrendingUp className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                               <div className="flex-1">
-                                <div className="text-xs font-semibold text-orange-900 mb-0.5">Recommended Strategy</div>
+                                <div className="text-xs font-semibold text-orange-900 mb-0.5">Recommended strategy</div>
                                 <p className="text-xs text-orange-800 leading-relaxed">
                                   {insights.pricingInsight}
                                 </p>
@@ -725,7 +725,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <Target className="w-4 h-4 text-indigo-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-lg">Buyer Match Score</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Buyer match score</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Measures how well your listing aligns with current buyer preferences in your market.</p>
                     </div>
                   </div>
@@ -755,7 +755,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <div className="space-y-2">
                         <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
                           <div className="flex items-center justify-between mb-2">
-                            <div className="text-xs font-semibold text-indigo-900">Overall Buyer Match</div>
+                            <div className="text-xs font-semibold text-indigo-900">Overall buyer match</div>
                             <div className="text-sm font-bold text-indigo-600">{overallScore}%</div>
                           </div>
                           <div className="relative h-2 bg-indigo-100 rounded-full overflow-hidden">
@@ -769,7 +769,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <Users className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-indigo-900 mb-0.5">Target Buyer Alignment</div>
+                              <div className="text-xs font-semibold text-indigo-900 mb-0.5">Target buyer alignment</div>
                               <p className="text-xs text-indigo-800 leading-relaxed">
                                 Property characteristics align with {overallScore >= 70 ? 'strong' : overallScore >= 50 ? 'moderate' : 'limited'} buyer interest.
                               </p>
@@ -780,7 +780,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <CheckCircle2 className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-indigo-900 mb-0.5">Market Appeal</div>
+                              <div className="text-xs font-semibold text-indigo-900 mb-0.5">Market appeal</div>
                               <p className="text-xs text-indigo-800 leading-relaxed">
                                 {overallScore >= 70 
                                   ? 'Property demonstrates strong market appeal.'
@@ -805,7 +805,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <Zap className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-lg">Upgrade Impact</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Upgrade impact</h4>
                       <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Predicts how much improving your listing could boost views, tours, and offers.</p>
                     </div>
                   </div>
@@ -837,7 +837,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Score Improvement Potential</div>
+                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Score improvement potential</div>
                               <p className="text-xs text-emerald-800 leading-relaxed">
                                 Strategic upgrades could increase your listing score by 15-25 points.
                               </p>
@@ -848,7 +848,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <DollarSign className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Value Enhancement</div>
+                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Value enhancement</div>
                               <p className="text-xs text-emerald-800 leading-relaxed">
                                 Implementing improvements could enhance perceived property value.
                               </p>
@@ -859,7 +859,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex items-start gap-2">
                             <Clock className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <div className="flex-1">
-                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Time to Sale Impact</div>
+                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Time to sale impact</div>
                               <p className="text-xs text-emerald-800 leading-relaxed">
                                 {insights.sellingSpeedPrediction || 'Could reduce time on market by 30-40%.'}
                               </p>
@@ -971,7 +971,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
                       <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                         <Zap className="w-5 h-5 text-blue-600" />
-                        Selling Speed Prediction
+                        Selling speed prediction
                       </h3>
                       <p className="text-sm text-slate-600 mb-4">Time-to-sale estimate</p>
                       <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-lg p-4">
@@ -1186,7 +1186,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             {/* Locked Premium Section */}
             <div className="mb-8">
               <div className="mb-6">
-                <h2 className="mb-2">Complete Marketing Plan</h2>
+                <h2 className="mb-2">Complete marketing plan</h2>
                 <p className="text-slate-600">
                   Get your full AI-generated marketing strategy to maximize your listing's potential
                 </p>

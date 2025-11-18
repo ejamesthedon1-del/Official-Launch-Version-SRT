@@ -19,10 +19,10 @@ export function LockedSection({ onSubscribe }: LockedSectionProps) {
         
         <Badge className="mb-4" variant="secondary">
           <Sparkles className="w-3 h-3 mr-1" />
-          Premium Feature
+          Premium feature
         </Badge>
         
-        <h2 className="mb-3">Complete 30-Day Action Plan</h2>
+        <h2 className="mb-3">Complete 30-day action plan</h2>
         <p className="text-muted-foreground mb-6">
           Unlock your week-by-week marketing strategy with specific pricing recommendations, 
           target buyer profiles, investment documentation templates, and proven tactics 

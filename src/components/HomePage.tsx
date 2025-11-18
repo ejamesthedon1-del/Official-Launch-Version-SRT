@@ -404,7 +404,7 @@ export function HomePage({
             onClick={onGetStarted}
             className="bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2"
           >
-            Get Free Listing Analysis<ArrowRight className="w-4 h-4" />
+            Get free listing analysis<ArrowRight className="w-4 h-4" />
           </Button>
         </div>
 
@@ -438,7 +438,7 @@ export function HomePage({
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
-              Sell Faster in 3 Steps
+              Sell faster in 3 steps
             </h2>
             <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
               Optimize every listing and
@@ -460,7 +460,7 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">1</div>
-                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Analyze Listing</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Analyze listing</h3>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">1</div>
@@ -520,7 +520,7 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">2</div>
-                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get Your Listing Score</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get your listing score</h3>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">2</div>
@@ -552,7 +552,7 @@ export function HomePage({
                   <div className="bg-white px-3 py-2 border-b border-slate-200">
                     <div className="flex items-center gap-2 mb-1">
                       <FileText className="w-3 h-3 text-slate-700" />
-                      <div className="text-[10px] text-slate-900 font-medium">30-Day Marketing Plan</div>
+                      <div className="text-[10px] text-slate-900 font-medium">30-day marketing plan</div>
                     </div>
                     <div className="text-[9px] text-slate-600">123 Oak Street, Springfield, IL</div>
                   </div>
@@ -563,7 +563,7 @@ export function HomePage({
                     <div className="space-y-4">
                       {/* Week 1 Headline */}
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 1: Immediate Market Repositioning</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 1: immediate market repositioning</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
@@ -573,7 +573,7 @@ export function HomePage({
 
                       {/* Week 2 Headline */}
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 2: Expanded Reach & Targeting</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 2: expanded reach & targeting</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
@@ -583,7 +583,7 @@ export function HomePage({
 
                       {/* Week 3 Headline */}
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 3: Strategic Incentives</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 3: strategic incentives</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
@@ -593,7 +593,7 @@ export function HomePage({
 
                       {/* Week 4 Headline */}
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 4: Closing & Follow-up</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Week 4: closing & follow-up</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
@@ -603,7 +603,7 @@ export function HomePage({
 
                       {/* Additional Sections */}
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Marketing Channels</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Marketing channels</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
@@ -611,7 +611,7 @@ export function HomePage({
                       </div>
 
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Budget Allocation</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Budget allocation</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-3/4" />
@@ -620,7 +620,7 @@ export function HomePage({
 
                       {/* Additional content to show bottom cut off */}
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Success Metrics</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Success metrics</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
@@ -628,7 +628,7 @@ export function HomePage({
                       </div>
 
                       <div>
-                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Timeline Overview</div>
+                        <div className="text-[11px] font-semibold text-slate-900 mb-2">Timeline overview</div>
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-3/4" />
@@ -645,7 +645,7 @@ export function HomePage({
               <div className="text-left mt-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-xl md:text-2xl text-slate-900">3</div>
-                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get Your Tailored Marketing Plan</h3>
+                  <h3 className="text-2xl md:text-3xl font-medium text-slate-900">Get your tailored marketing plan</h3>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-xl md:text-2xl text-slate-900 opacity-0">3</div>

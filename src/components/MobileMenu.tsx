@@ -26,9 +26,9 @@ export function MobileMenu({
 
   const menuItems = [
     { id: "home", label: "Home", icon: Home },
-    { id: "address-input", label: "Analyze Listing", icon: MapPin },
+    { id: "address-input", label: "Analyze listing", icon: MapPin },
     { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-    { id: "marketing-plan", label: "Marketing Plan", icon: FileText },
+    { id: "marketing-plan", label: "Marketing plan", icon: FileText },
   ];
 
   const handleNavigate = (

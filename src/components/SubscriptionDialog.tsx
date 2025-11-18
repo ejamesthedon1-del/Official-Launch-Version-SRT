@@ -50,7 +50,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
       <DialogContent className="max-w-[90%] sm:max-w-sm md:max-w-md max-h-[85vh] overflow-y-auto p-4 md:p-6">
         <DialogHeader className="text-center mb-4">
           <DialogTitle className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-            Upgrade to Premium
+            Upgrade to premium
           </DialogTitle>
           <DialogDescription className="text-sm md:text-base text-slate-600">
             Get your complete strategy to increase sale probability from 40% to 85% in 30 days
@@ -69,7 +69,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
             </p>
             <Badge className="bg-blue-600 text-white border-blue-700">
               <Sparkles className="w-3 h-3 mr-1" />
-              Most Popular
+              Most popular
             </Badge>
           </Card>
 
@@ -94,7 +94,7 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
                 size="lg"
                 onClick={() => setShowPayment(true)}
               >
-                Continue to Payment
+                Continue to payment
               </Button>
               <p className="text-xs text-center text-slate-500">
                 Secure payment • 30-day money-back guarantee
