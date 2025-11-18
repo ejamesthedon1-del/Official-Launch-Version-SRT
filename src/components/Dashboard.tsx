@@ -339,7 +339,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {ratings && ratings.length > 0 && (
             <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
               <div className="flex items-center gap-2 mb-5">
-                <TrendingUp className="w-5 h-5 text-blue-600" />
                 <h3 className="text-slate-900 font-semibold text-lg">Score Factors</h3>
               </div>
               <div className="space-y-4">
