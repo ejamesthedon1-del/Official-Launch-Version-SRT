@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap } from "lucide-react";
+import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { Navigation } from "./Navigation";
@@ -84,6 +84,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [hasAnalyzedBefore, setHasAnalyzedBefore] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [checkingSubscription, setCheckingSubscription] = useState(true);
+  const [riskFactorsExpanded, setRiskFactorsExpanded] = useState(false);
 
   // Debug: Log received data
   useEffect(() => {
@@ -321,52 +322,64 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Risk Factors - Combined Section */}
           {(daysOnMarket > 30 || insights.alerts.length > 0) && (
             <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
-              <div className="flex items-center gap-2 mb-4">
-                <AlertTriangle className="w-5 h-5 text-amber-600" />
-                <h3 className="text-slate-900 font-semibold text-lg">Risk Factors</h3>
-              </div>
-              <div className="space-y-4">
-                {/* Days on Market Alert */}
-                {daysOnMarket > 30 && (
-                  <div className={`p-4 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
-                    <div className="flex items-start gap-3">
-                      <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
-                      <div className="flex-1">
-                        <div className={`font-semibold mb-2 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
-                          {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
-                        </div>
-                        <p className={`text-sm mb-3 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
-                          {daysOnMarket > 60 
-                            ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required to prevent further buyer disinterest.`
-                            : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
-                          }
-                        </p>
-                        {insights.pricingInsight && (
-                          <div className="bg-white/60 rounded-lg p-3 border border-amber-200">
-                            <div className="text-xs font-medium text-amber-900 mb-1">Recommended Action:</div>
-                            <div className="text-sm text-amber-800">{insights.pricingInsight}</div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+              <button
+                onClick={() => setRiskFactorsExpanded(!riskFactorsExpanded)}
+                className="w-full flex items-center justify-between gap-2 mb-0 hover:opacity-80 transition-opacity"
+              >
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-amber-600" />
+                  <h3 className="text-slate-900 font-semibold text-lg">Risk Factors</h3>
+                </div>
+                {riskFactorsExpanded ? (
+                  <ChevronUp className="w-5 h-5 text-slate-600" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-slate-600" />
                 )}
-
-                {/* Other Alerts */}
-                {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
-                  <div key={idx} className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-                    <div className="flex items-start gap-3">
-                      <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                      <div className="flex-1">
-                        <div className="font-semibold mb-1 text-destructive">{alert.title}</div>
-                        <p className="text-sm text-destructive/80">
-                          {alert.message}
-                        </p>
+              </button>
+              {riskFactorsExpanded && (
+                <div className="space-y-4 mt-4">
+                  {/* Days on Market Alert */}
+                  {daysOnMarket > 30 && (
+                    <div className={`p-4 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
+                        <div className="flex-1">
+                          <div className={`font-semibold mb-2 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
+                            {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
+                          </div>
+                          <p className={`text-sm mb-3 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
+                            {daysOnMarket > 60 
+                              ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required to prevent further buyer disinterest.`
+                              : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
+                            }
+                          </p>
+                          {insights.pricingInsight && (
+                            <div className="bg-white/60 rounded-lg p-3 border border-amber-200">
+                              <div className="text-xs font-medium text-amber-900 mb-1">Recommended Action:</div>
+                              <div className="text-sm text-amber-800">{insights.pricingInsight}</div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  )}
+
+                  {/* Other Alerts */}
+                  {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
+                    <div key={idx} className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <div className="font-semibold mb-1 text-destructive">{alert.title}</div>
+                          <p className="text-sm text-destructive/80">
+                            {alert.message}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </Card>
           )}
 
