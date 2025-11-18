@@ -412,46 +412,47 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {(insights.topPriorities && insights.topPriorities.length > 0) && (
                 <div className="border border-slate-200 rounded-lg overflow-hidden">
                   <button
-                    onClick={() => {
-                      if (!isSubscribed) {
-                        handleSubscribe();
-                        return;
-                      }
-                      setBuyerConcernsExpanded(!buyerConcernsExpanded);
-                    }}
-                    className={`w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors ${
-                      !isSubscribed ? 'cursor-pointer' : ''
-                    }`}
+                    onClick={() => setBuyerConcernsExpanded(!buyerConcernsExpanded)}
+                    className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-blue-600" />
                       <h4 className="text-slate-900 font-medium text-sm">Buyer Concerns</h4>
-                      {!isSubscribed && (
-                        <span className="text-xs text-blue-600 font-medium ml-2">Unlock</span>
-                      )}
                     </div>
-                    {isSubscribed ? (
-                      buyerConcernsExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-slate-600" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-slate-600" />
-                      )
+                    {buyerConcernsExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-slate-600" />
                     ) : (
-                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                      <ChevronDown className="w-4 h-4 text-slate-600" />
                     )}
                   </button>
-                  {isSubscribed && buyerConcernsExpanded && (
-                    <div className="px-3 pb-3 space-y-2">
-                      {insights.topPriorities.map((concern, idx) => (
-                        <div key={idx} className="p-3 rounded-lg bg-blue-50 border border-blue-200">
-                          <div className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0 mt-1.5" />
-                            <p className="text-xs text-slate-700 leading-relaxed">
-                              {concern}
-                            </p>
-                          </div>
+                  {buyerConcernsExpanded && (
+                    <div className="px-3 pb-3">
+                      {!isSubscribed ? (
+                        <div className="p-4 rounded-lg bg-blue-50 border border-blue-200 text-center">
+                          <p className="text-sm text-slate-700 mb-3">
+                            Upgrade to get your buyer concerns insights
+                          </p>
+                          <button
+                            onClick={handleSubscribe}
+                            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                          >
+                            Upgrade Now
+                          </button>
                         </div>
-                      ))}
+                      ) : (
+                        <div className="space-y-2">
+                          {insights.topPriorities.map((concern, idx) => (
+                            <div key={idx} className="p-3 rounded-lg bg-blue-50 border border-blue-200">
+                              <div className="flex items-start gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0 mt-1.5" />
+                                <p className="text-xs text-slate-700 leading-relaxed">
+                                  {concern}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -461,73 +462,74 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {(daysOnMarket > 30 || insights.alerts.length > 0) && (
                 <div className="border border-slate-200 rounded-lg overflow-hidden">
                   <button
-                    onClick={() => {
-                      if (!isSubscribed) {
-                        handleSubscribe();
-                        return;
-                      }
-                      setRiskFactorsExpanded(!riskFactorsExpanded);
-                    }}
-                    className={`w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors ${
-                      !isSubscribed ? 'cursor-pointer' : ''
-                    }`}
+                    onClick={() => setRiskFactorsExpanded(!riskFactorsExpanded)}
+                    className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2">
                       <AlertTriangle className="w-4 h-4 text-amber-600" />
                       <h4 className="text-slate-900 font-medium text-sm">Risk Factors</h4>
-                      {!isSubscribed && (
-                        <span className="text-xs text-blue-600 font-medium ml-2">Unlock</span>
-                      )}
                     </div>
-                    {isSubscribed ? (
-                      riskFactorsExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-slate-600" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-slate-600" />
-                      )
+                    {riskFactorsExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-slate-600" />
                     ) : (
-                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                      <ChevronDown className="w-4 h-4 text-slate-600" />
                     )}
                   </button>
-                  {isSubscribed && riskFactorsExpanded && (
-                    <div className="px-3 pb-3 space-y-2">
-                      {daysOnMarket > 30 && (
-                        <div className={`p-3 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
-                          <div className="flex items-start gap-2">
-                            <AlertTriangle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
-                            <div className="flex-1">
-                              <div className={`text-xs font-semibold mb-1 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
-                                {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
-                              </div>
-                              <p className={`text-xs mb-2 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
-                                {daysOnMarket > 60 
-                                  ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required.`
-                                  : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
-                                }
-                              </p>
-                              {insights.pricingInsight && (
-                                <div className="bg-white/60 rounded p-2 border border-amber-200">
-                                  <div className="text-[10px] font-medium text-amber-900 mb-0.5">Recommended Action:</div>
-                                  <div className="text-xs text-amber-800">{insights.pricingInsight}</div>
+                  {riskFactorsExpanded && (
+                    <div className="px-3 pb-3">
+                      {!isSubscribed ? (
+                        <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 text-center">
+                          <p className="text-sm text-slate-700 mb-3">
+                            Upgrade to get your risk factors insights
+                          </p>
+                          <button
+                            onClick={handleSubscribe}
+                            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                          >
+                            Upgrade Now
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          {daysOnMarket > 30 && (
+                            <div className={`p-3 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
+                              <div className="flex items-start gap-2">
+                                <AlertTriangle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-600'}`} />
+                                <div className="flex-1">
+                                  <div className={`text-xs font-semibold mb-1 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
+                                    {daysOnMarket > 60 ? 'URGENT: Listing is Stale' : 'Warning: Above Average Days on Market'}
+                                  </div>
+                                  <p className={`text-xs mb-2 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
+                                    {daysOnMarket > 60 
+                                      ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required.`
+                                      : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
+                                    }
+                                  </p>
+                                  {insights.pricingInsight && (
+                                    <div className="bg-white/60 rounded p-2 border border-amber-200">
+                                      <div className="text-[10px] font-medium text-amber-900 mb-0.5">Recommended Action:</div>
+                                      <div className="text-xs text-amber-800">{insights.pricingInsight}</div>
+                                    </div>
+                                  )}
                                 </div>
-                              )}
+                              </div>
                             </div>
-                          </div>
+                          )}
+                          {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
+                            <div key={idx} className="p-3 rounded-lg bg-destructive/10 border border-destructive/20">
+                              <div className="flex items-start gap-2">
+                                <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
+                                <div className="flex-1">
+                                  <div className="text-xs font-semibold mb-0.5 text-destructive">{alert.title}</div>
+                                  <p className="text-xs text-destructive/80">
+                                    {alert.message}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       )}
-                      {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
-                        <div key={idx} className="p-3 rounded-lg bg-destructive/10 border border-destructive/20">
-                          <div className="flex items-start gap-2">
-                            <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                            <div className="flex-1">
-                              <div className="text-xs font-semibold mb-0.5 text-destructive">{alert.title}</div>
-                              <p className="text-xs text-destructive/80">
-                                {alert.message}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
                     </div>
                   )}
                 </div>
@@ -536,69 +538,70 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Missed Value Points Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => {
-                    if (!isSubscribed) {
-                      handleSubscribe();
-                      return;
-                    }
-                    setMissedValueExpanded(!missedValueExpanded);
-                  }}
-                  className={`w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors ${
-                    !isSubscribed ? 'cursor-pointer' : ''
-                  }`}
+                  onClick={() => setMissedValueExpanded(!missedValueExpanded)}
+                  className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <TrendingDown className="w-4 h-4 text-purple-600" />
                     <h4 className="text-slate-900 font-medium text-sm">Missed Value Points</h4>
-                    {!isSubscribed && (
-                      <span className="text-xs text-blue-600 font-medium ml-2">Unlock</span>
-                    )}
                   </div>
-                  {isSubscribed ? (
-                    missedValueExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )
+                  {missedValueExpanded ? (
+                    <ChevronUp className="w-4 h-4 text-slate-600" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronDown className="w-4 h-4 text-slate-600" />
                   )}
                 </button>
-                {isSubscribed && missedValueExpanded && (
-                  <div className="px-3 pb-3 space-y-2">
-                    <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
-                      <div className="flex items-start gap-2">
-                        <DollarSign className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-purple-900 mb-0.5">Pricing Optimization</div>
-                          <p className="text-xs text-purple-800 leading-relaxed">
-                            Current pricing may be leaving potential value on the table. Market analysis suggests opportunities for strategic price positioning.
-                          </p>
+                {missedValueExpanded && (
+                  <div className="px-3 pb-3">
+                    {!isSubscribed ? (
+                      <div className="p-4 rounded-lg bg-purple-50 border border-purple-200 text-center">
+                        <p className="text-sm text-slate-700 mb-3">
+                          Upgrade to get your missed value points insights
+                        </p>
+                        <button
+                          onClick={handleSubscribe}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                        >
+                          Upgrade Now
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
+                          <div className="flex items-start gap-2">
+                            <DollarSign className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Pricing Optimization</div>
+                              <p className="text-xs text-purple-800 leading-relaxed">
+                                Current pricing may be leaving potential value on the table. Market analysis suggests opportunities for strategic price positioning.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
+                          <div className="flex items-start gap-2">
+                            <Eye className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Marketing Visibility</div>
+                              <p className="text-xs text-purple-800 leading-relaxed">
+                                Enhanced marketing strategies could increase property visibility and attract more qualified buyers.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
+                          <div className="flex items-start gap-2">
+                            <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-purple-900 mb-0.5">Property Presentation</div>
+                              <p className="text-xs text-purple-800 leading-relaxed">
+                                Strategic improvements to property presentation could significantly enhance perceived value.
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
-                      <div className="flex items-start gap-2">
-                        <Eye className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-purple-900 mb-0.5">Marketing Visibility</div>
-                          <p className="text-xs text-purple-800 leading-relaxed">
-                            Enhanced marketing strategies could increase property visibility and attract more qualified buyers.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-purple-50 border border-purple-200">
-                      <div className="flex items-start gap-2">
-                        <Sparkles className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-purple-900 mb-0.5">Property Presentation</div>
-                          <p className="text-xs text-purple-800 leading-relaxed">
-                            Strategic improvements to property presentation could significantly enhance perceived value.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -606,72 +609,73 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Negotiation Risk Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => {
-                    if (!isSubscribed) {
-                      handleSubscribe();
-                      return;
-                    }
-                    setNegotiationRiskExpanded(!negotiationRiskExpanded);
-                  }}
-                  className={`w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors ${
-                    !isSubscribed ? 'cursor-pointer' : ''
-                  }`}
+                  onClick={() => setNegotiationRiskExpanded(!negotiationRiskExpanded)}
+                  className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-orange-600" />
                     <h4 className="text-slate-900 font-medium text-sm">Negotiation Risk</h4>
-                    {!isSubscribed && (
-                      <span className="text-xs text-blue-600 font-medium ml-2">Unlock</span>
-                    )}
                   </div>
-                  {isSubscribed ? (
-                    negotiationRiskExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )
+                  {negotiationRiskExpanded ? (
+                    <ChevronUp className="w-4 h-4 text-slate-600" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronDown className="w-4 h-4 text-slate-600" />
                   )}
                 </button>
-                {isSubscribed && negotiationRiskExpanded && (
-                  <div className="px-3 pb-3 space-y-2">
-                    <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
-                      <div className="flex items-start gap-2">
-                        <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-orange-900 mb-0.5">Price Negotiation Risk</div>
-                          <p className="text-xs text-orange-800 leading-relaxed">
-                            {daysOnMarket > 30 
-                              ? `With ${daysOnMarket} days on market, buyers may perceive opportunity for significant price negotiation.`
-                              : 'Current market positioning suggests moderate negotiation risk.'
-                            }
-                          </p>
-                        </div>
+                {negotiationRiskExpanded && (
+                  <div className="px-3 pb-3">
+                    {!isSubscribed ? (
+                      <div className="p-4 rounded-lg bg-orange-50 border border-orange-200 text-center">
+                        <p className="text-sm text-slate-700 mb-3">
+                          Upgrade to get your negotiation risk insights
+                        </p>
+                        <button
+                          onClick={handleSubscribe}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                        >
+                          Upgrade Now
+                        </button>
                       </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
-                      <div className="flex items-start gap-2">
-                        <Calendar className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-orange-900 mb-0.5">Timing Risk</div>
-                          <p className="text-xs text-orange-800 leading-relaxed">
-                            Extended time on market may increase buyer expectations for concessions.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    {insights.pricingInsight && (
-                      <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
-                        <div className="flex items-start gap-2">
-                          <TrendingUp className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                          <div className="flex-1">
-                            <div className="text-xs font-semibold text-orange-900 mb-0.5">Recommended Strategy</div>
-                            <p className="text-xs text-orange-800 leading-relaxed">
-                              {insights.pricingInsight}
-                            </p>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
+                          <div className="flex items-start gap-2">
+                            <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-orange-900 mb-0.5">Price Negotiation Risk</div>
+                              <p className="text-xs text-orange-800 leading-relaxed">
+                                {daysOnMarket > 30 
+                                  ? `With ${daysOnMarket} days on market, buyers may perceive opportunity for significant price negotiation.`
+                                  : 'Current market positioning suggests moderate negotiation risk.'
+                                }
+                              </p>
+                            </div>
                           </div>
                         </div>
+                        <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
+                          <div className="flex items-start gap-2">
+                            <Calendar className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-orange-900 mb-0.5">Timing Risk</div>
+                              <p className="text-xs text-orange-800 leading-relaxed">
+                                Extended time on market may increase buyer expectations for concessions.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        {insights.pricingInsight && (
+                          <div className="p-3 rounded-lg bg-orange-50 border border-orange-200">
+                            <div className="flex items-start gap-2">
+                              <TrendingUp className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                              <div className="flex-1">
+                                <div className="text-xs font-semibold text-orange-900 mb-0.5">Recommended Strategy</div>
+                                <p className="text-xs text-orange-800 leading-relaxed">
+                                  {insights.pricingInsight}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -681,73 +685,74 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Buyer Match Score Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => {
-                    if (!isSubscribed) {
-                      handleSubscribe();
-                      return;
-                    }
-                    setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded);
-                  }}
-                  className={`w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors ${
-                    !isSubscribed ? 'cursor-pointer' : ''
-                  }`}
+                  onClick={() => setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)}
+                  className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <Target className="w-4 h-4 text-indigo-600" />
                     <h4 className="text-slate-900 font-medium text-sm">Buyer Match Score</h4>
-                    {!isSubscribed && (
-                      <span className="text-xs text-blue-600 font-medium ml-2">Unlock</span>
-                    )}
                   </div>
-                  {isSubscribed ? (
-                    buyerMatchScoreExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )
+                  {buyerMatchScoreExpanded ? (
+                    <ChevronUp className="w-4 h-4 text-slate-600" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronDown className="w-4 h-4 text-slate-600" />
                   )}
                 </button>
-                {isSubscribed && buyerMatchScoreExpanded && (
-                  <div className="px-3 pb-3 space-y-2">
-                    <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-xs font-semibold text-indigo-900">Overall Buyer Match</div>
-                        <div className="text-sm font-bold text-indigo-600">{overallScore}%</div>
+                {buyerMatchScoreExpanded && (
+                  <div className="px-3 pb-3">
+                    {!isSubscribed ? (
+                      <div className="p-4 rounded-lg bg-indigo-50 border border-indigo-200 text-center">
+                        <p className="text-sm text-slate-700 mb-3">
+                          Upgrade to get your buyer match score insights
+                        </p>
+                        <button
+                          onClick={handleSubscribe}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                        >
+                          Upgrade Now
+                        </button>
                       </div>
-                      <div className="relative h-2 bg-indigo-100 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-indigo-500 rounded-full transition-all duration-500 ease-out"
-                          style={{ width: `${overallScore}%` }}
-                        />
-                      </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
-                      <div className="flex items-start gap-2">
-                        <Users className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-indigo-900 mb-0.5">Target Buyer Alignment</div>
-                          <p className="text-xs text-indigo-800 leading-relaxed">
-                            Property characteristics align with {overallScore >= 70 ? 'strong' : overallScore >= 50 ? 'moderate' : 'limited'} buyer interest.
-                          </p>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="text-xs font-semibold text-indigo-900">Overall Buyer Match</div>
+                            <div className="text-sm font-bold text-indigo-600">{overallScore}%</div>
+                          </div>
+                          <div className="relative h-2 bg-indigo-100 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-indigo-500 rounded-full transition-all duration-500 ease-out"
+                              style={{ width: `${overallScore}%` }}
+                            />
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
+                          <div className="flex items-start gap-2">
+                            <Users className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-indigo-900 mb-0.5">Target Buyer Alignment</div>
+                              <p className="text-xs text-indigo-800 leading-relaxed">
+                                Property characteristics align with {overallScore >= 70 ? 'strong' : overallScore >= 50 ? 'moderate' : 'limited'} buyer interest.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
+                          <div className="flex items-start gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-indigo-900 mb-0.5">Market Appeal</div>
+                              <p className="text-xs text-indigo-800 leading-relaxed">
+                                {overallScore >= 70 
+                                  ? 'Property demonstrates strong market appeal.'
+                                  : 'Opportunities exist to enhance market appeal.'
+                                }
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200">
-                      <div className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-indigo-900 mb-0.5">Market Appeal</div>
-                          <p className="text-xs text-indigo-800 leading-relaxed">
-                            {overallScore >= 70 
-                              ? 'Property demonstrates strong market appeal.'
-                              : 'Opportunities exist to enhance market appeal.'
-                            }
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -755,69 +760,70 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Upgrade Impact Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => {
-                    if (!isSubscribed) {
-                      handleSubscribe();
-                      return;
-                    }
-                    setUpgradeImpactExpanded(!upgradeImpactExpanded);
-                  }}
-                  className={`w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors ${
-                    !isSubscribed ? 'cursor-pointer' : ''
-                  }`}
+                  onClick={() => setUpgradeImpactExpanded(!upgradeImpactExpanded)}
+                  className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <Zap className="w-4 h-4 text-emerald-600" />
                     <h4 className="text-slate-900 font-medium text-sm">Upgrade Impact</h4>
-                    {!isSubscribed && (
-                      <span className="text-xs text-blue-600 font-medium ml-2">Unlock</span>
-                    )}
                   </div>
-                  {isSubscribed ? (
-                    upgradeImpactExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )
+                  {upgradeImpactExpanded ? (
+                    <ChevronUp className="w-4 h-4 text-slate-600" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronDown className="w-4 h-4 text-slate-600" />
                   )}
                 </button>
-                {isSubscribed && upgradeImpactExpanded && (
-                  <div className="px-3 pb-3 space-y-2">
-                    <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
-                      <div className="flex items-start gap-2">
-                        <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-emerald-900 mb-0.5">Score Improvement Potential</div>
-                          <p className="text-xs text-emerald-800 leading-relaxed">
-                            Strategic upgrades could increase your listing score by 15-25 points.
-                          </p>
+                {upgradeImpactExpanded && (
+                  <div className="px-3 pb-3">
+                    {!isSubscribed ? (
+                      <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-center">
+                        <p className="text-sm text-slate-700 mb-3">
+                          Upgrade to get your upgrade impact insights
+                        </p>
+                        <button
+                          onClick={handleSubscribe}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                        >
+                          Upgrade Now
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                          <div className="flex items-start gap-2">
+                            <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Score Improvement Potential</div>
+                              <p className="text-xs text-emerald-800 leading-relaxed">
+                                Strategic upgrades could increase your listing score by 15-25 points.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                          <div className="flex items-start gap-2">
+                            <DollarSign className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Value Enhancement</div>
+                              <p className="text-xs text-emerald-800 leading-relaxed">
+                                Implementing improvements could enhance perceived property value.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                          <div className="flex items-start gap-2">
+                            <Clock className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-emerald-900 mb-0.5">Time to Sale Impact</div>
+                              <p className="text-xs text-emerald-800 leading-relaxed">
+                                {insights.sellingSpeedPrediction || 'Could reduce time on market by 30-40%.'}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
-                      <div className="flex items-start gap-2">
-                        <DollarSign className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-emerald-900 mb-0.5">Value Enhancement</div>
-                          <p className="text-xs text-emerald-800 leading-relaxed">
-                            Implementing improvements could enhance perceived property value.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200">
-                      <div className="flex items-start gap-2">
-                        <Clock className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-xs font-semibold text-emerald-900 mb-0.5">Time to Sale Impact</div>
-                          <p className="text-xs text-emerald-800 leading-relaxed">
-                            {insights.sellingSpeedPrediction || 'Could reduce time on market by 30-40%.'}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 )}
               </div>
