@@ -426,7 +426,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-blue-600" />
-                      <h4 className="text-slate-900 font-medium text-sm">Buyer Concerns</h4>
+                      <h4 className="text-slate-900 font-medium text-base">Buyer Concerns</h4>
                     </div>
                     {buyerConcernsExpanded ? (
                       <ChevronUp className="w-4 h-4 text-slate-600" />
@@ -476,7 +476,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2">
                       <AlertTriangle className="w-4 h-4 text-amber-600" />
-                      <h4 className="text-slate-900 font-medium text-sm">Risk Factors</h4>
+                      <h4 className="text-slate-900 font-medium text-base">Risk Factors</h4>
                     </div>
                     {riskFactorsExpanded ? (
                       <ChevronUp className="w-4 h-4 text-slate-600" />
@@ -552,7 +552,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2">
                     <TrendingDown className="w-4 h-4 text-purple-600" />
-                    <h4 className="text-slate-900 font-medium text-sm">Missed Value Points</h4>
+                    <h4 className="text-slate-900 font-medium text-base">Missed Value Points</h4>
                   </div>
                   {missedValueExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600" />
@@ -623,7 +623,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-orange-600" />
-                    <h4 className="text-slate-900 font-medium text-sm">Negotiation Risk</h4>
+                    <h4 className="text-slate-900 font-medium text-base">Negotiation Risk</h4>
                   </div>
                   {negotiationRiskExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600" />
@@ -699,7 +699,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2">
                     <Target className="w-4 h-4 text-indigo-600" />
-                    <h4 className="text-slate-900 font-medium text-sm">Buyer Match Score</h4>
+                    <h4 className="text-slate-900 font-medium text-base">Buyer Match Score</h4>
                   </div>
                   {buyerMatchScoreExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600" />
@@ -774,7 +774,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2">
                     <Zap className="w-4 h-4 text-emerald-600" />
-                    <h4 className="text-slate-900 font-medium text-sm">Upgrade Impact</h4>
+                    <h4 className="text-slate-900 font-medium text-base">Upgrade Impact</h4>
                   </div>
                   {upgradeImpactExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600" />
