@@ -78,10 +78,10 @@ export function SubscriptionDialog({ open, onOpenChange, onSubscribe, address = 
             <div className="space-y-2 max-h-[200px] overflow-y-auto">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-start gap-2">
-                  <div className="w-3 h-3 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-2 h-2 text-white" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-1.5 h-1.5 text-white" />
                   </div>
-                  <span className="text-[10px] md:text-xs text-slate-700 leading-tight">{feature}</span>
+                  <span className="text-[9px] md:text-[10px] text-slate-700 leading-tight">{feature}</span>
                 </div>
               ))}
             </div>

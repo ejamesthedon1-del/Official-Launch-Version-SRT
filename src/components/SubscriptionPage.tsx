@@ -196,7 +196,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
             <div className="w-full text-left rounded-2xl p-4 bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10 relative">
               {/* New User Sale Badge */}
               <div className="absolute -top-2 left-4">
-                <div className="bg-red-500 text-white px-3 py-0.5 rounded-full" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                <div className="bg-black text-white px-3 py-0.5 rounded-full" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
                   NEW USER SALE
                 </div>
               </div>
