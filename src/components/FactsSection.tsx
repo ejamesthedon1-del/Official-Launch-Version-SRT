@@ -115,9 +115,9 @@ export default function FactsSection() {
 
   return (
     <div className="w-full py-20 bg-white flex justify-center">
-      <div className="max-w-3xl w-full px-6">
+      <div className="max-w-7xl w-full px-6">
         {/* Facts */}
-        <div className="space-y-16">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-center gap-16 md:gap-8">
           {facts.map((fact, index) => (
             <motion.div
               key={index}
@@ -125,7 +125,7 @@ export default function FactsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="flex justify-center"
+              className="flex justify-center md:flex-1"
             >
               {/* Percentage & Subtext - Centered container, left-aligned text */}
               <div className="flex flex-col items-start gap-2 text-left" style={{ maxWidth: "500px" }}>
