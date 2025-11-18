@@ -487,7 +487,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2 flex-1">
-                      <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
                       <div className="flex flex-col items-start flex-1 min-w-0">
                         <h4 className="text-slate-900 font-medium text-lg">Risk Factors</h4>
                         <p className="text-xs text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Shows hidden red flags that could reduce offers or slow down your sale.</p>
