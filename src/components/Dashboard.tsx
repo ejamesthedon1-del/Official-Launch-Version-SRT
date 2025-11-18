@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap, Users, Target } from "lucide-react";
+import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap, Users, Target, Lock } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { Navigation } from "./Navigation";
@@ -421,17 +421,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {(insights.topPriorities && insights.topPriorities.length > 0) && (
                 <div className="border border-slate-200 rounded-lg overflow-hidden">
                   <button
-                    onClick={() => setBuyerConcernsExpanded(!buyerConcernsExpanded)}
+                    onClick={() => !isSubscribed ? handleSubscribe() : setBuyerConcernsExpanded(!buyerConcernsExpanded)}
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <Users className="w-4 h-4 text-blue-600 flex-shrink-0" />
                       <div className="flex flex-col items-start">
                         <h4 className="text-slate-900 font-medium text-base">Buyer Concerns</h4>
-                        <p className="text-xs text-slate-600 mt-0.5">Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
+                        <p className="text-xs text-slate-600 mt-0.5 text-left">Reveals what might worry potential buyers so you can fix issues before they kill interest.</p>
                       </div>
                     </div>
-                    {buyerConcernsExpanded ? (
+                    {!isSubscribed ? (
+                      <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    ) : buyerConcernsExpanded ? (
                       <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     ) : (
                       <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
@@ -474,17 +476,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {(daysOnMarket > 30 || insights.alerts.length > 0) && (
                 <div className="border border-slate-200 rounded-lg overflow-hidden">
                   <button
-                    onClick={() => setRiskFactorsExpanded(!riskFactorsExpanded)}
+                    onClick={() => !isSubscribed ? handleSubscribe() : setRiskFactorsExpanded(!riskFactorsExpanded)}
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
                       <div className="flex flex-col items-start">
                         <h4 className="text-slate-900 font-medium text-base">Risk Factors</h4>
-                        <p className="text-xs text-slate-600 mt-0.5">Shows hidden red flags that could reduce offers or slow down your sale.</p>
+                        <p className="text-xs text-slate-600 mt-0.5 text-left">Shows hidden red flags that could reduce offers or slow down your sale.</p>
                       </div>
                     </div>
-                    {riskFactorsExpanded ? (
+                    {!isSubscribed ? (
+                      <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    ) : riskFactorsExpanded ? (
                       <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                     ) : (
                       <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
@@ -553,17 +557,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Missed Value Points Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => setMissedValueExpanded(!missedValueExpanded)}
+                  onClick={() => !isSubscribed ? handleSubscribe() : setMissedValueExpanded(!missedValueExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <TrendingDown className="w-4 h-4 text-purple-600 flex-shrink-0" />
                     <div className="flex flex-col items-start">
                       <h4 className="text-slate-900 font-medium text-base">Missed Value Points</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Highlights things you're not showcasing that could increase your perceived property value.</p>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left">Highlights things you're not showcasing that could increase your perceived property value.</p>
                     </div>
                   </div>
-                  {missedValueExpanded ? (
+                  {!isSubscribed ? (
+                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                  ) : missedValueExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
                     <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
@@ -627,17 +633,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Negotiation Risk Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => setNegotiationRiskExpanded(!negotiationRiskExpanded)}
+                  onClick={() => !isSubscribed ? handleSubscribe() : setNegotiationRiskExpanded(!negotiationRiskExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <AlertCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
                     <div className="flex flex-col items-start">
                       <h4 className="text-slate-900 font-medium text-base">Negotiation Risk</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Identifies weaknesses buyers may use to negotiate your price down.</p>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left">Identifies weaknesses buyers may use to negotiate your price down.</p>
                     </div>
                   </div>
-                  {negotiationRiskExpanded ? (
+                  {!isSubscribed ? (
+                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                  ) : negotiationRiskExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
                     <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
@@ -706,17 +714,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Buyer Match Score Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)}
+                  onClick={() => !isSubscribed ? handleSubscribe() : setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <Target className="w-4 h-4 text-indigo-600 flex-shrink-0" />
                     <div className="flex flex-col items-start">
                       <h4 className="text-slate-900 font-medium text-base">Buyer Match Score</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Measures how well your listing aligns with current buyer preferences in your market.</p>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left">Measures how well your listing aligns with current buyer preferences in your market.</p>
                     </div>
                   </div>
-                  {buyerMatchScoreExpanded ? (
+                  {!isSubscribed ? (
+                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                  ) : buyerMatchScoreExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
                     <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
@@ -784,17 +794,19 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Upgrade Impact Section */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => setUpgradeImpactExpanded(!upgradeImpactExpanded)}
+                  onClick={() => !isSubscribed ? handleSubscribe() : setUpgradeImpactExpanded(!upgradeImpactExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <Zap className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                     <div className="flex flex-col items-start">
                       <h4 className="text-slate-900 font-medium text-base">Upgrade Impact</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Predicts how much improving your listing could boost views, tours, and offers.</p>
+                      <p className="text-xs text-slate-600 mt-0.5 text-left">Predicts how much improving your listing could boost views, tours, and offers.</p>
                     </div>
                   </div>
-                  {upgradeImpactExpanded ? (
+                  {!isSubscribed ? (
+                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                  ) : upgradeImpactExpanded ? (
                     <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   ) : (
                     <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
