@@ -449,22 +449,17 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           </button>
                         </div>
                       ) : (
-                        <div className="space-y-3">
-                          <p className="text-xs text-slate-500 leading-relaxed">
-                            Key factors that matter most to potential buyers in your market.
-                          </p>
-                          <div className="space-y-2">
-                            {insights.topPriorities.map((concern, idx) => (
-                              <div key={idx} className="p-3 rounded-lg bg-blue-50 border border-blue-200">
-                                <div className="flex items-start gap-2">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0 mt-1.5" />
-                                  <p className="text-xs text-slate-700 leading-relaxed">
-                                    {concern}
-                                  </p>
-                                </div>
+                        <div className="space-y-2">
+                          {insights.topPriorities.map((concern, idx) => (
+                            <div key={idx} className="p-3 rounded-lg bg-blue-50 border border-blue-200">
+                              <div className="flex items-start gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0 mt-1.5" />
+                                <p className="text-xs text-slate-700 leading-relaxed">
+                                  {concern}
+                                </p>
                               </div>
-                            ))}
-                          </div>
+                            </div>
+                          ))}
                         </div>
                       )}
                     </div>
