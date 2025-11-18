@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap } from "lucide-react";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
-import { SubscriptionDialog } from "./SubscriptionDialog";
 import { Navigation } from "./Navigation";
 import { LockedDashboard } from "./LockedDashboard";
 import { Paywall } from "./Paywall";
@@ -74,14 +73,13 @@ interface AnalysisData {
 
 interface DashboardProps {
   onSubscribe: () => void;
-  onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan") => void;
+  onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription") => void;
   address: string;
   analysisData: AnalysisData | null;
   onMenuClick?: () => void;
 }
 
 export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMenuClick }: DashboardProps) {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const [hasAnalyzedBefore, setHasAnalyzedBefore] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -151,14 +149,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
   const handleSubscribe = () => {
     setShowPaywall(false);
-    setDialogOpen(true);
-  };
-
-  const handleSubscriptionComplete = () => {
-    setDialogOpen(false);
-    setIsSubscribed(true);
-    setShowPaywall(false);
-    onSubscribe();
+    onNavigate("subscription");
   };
 
   const handleNavigateToAnalysis = () => {
@@ -693,8 +684,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       </div>
 
 
-      <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubscribe={handleSubscriptionComplete} address={address} />
-      
       <Footer />
     </div>
   );
