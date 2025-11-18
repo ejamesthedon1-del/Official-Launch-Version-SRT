@@ -80,7 +80,7 @@ export function SlidingInfoSection() {
           <h2 ref={headlineRef} className="text-4xl md:text-5xl lg:text-6xl text-slate-950 font-medium mb-4">
           4 ways we help
             <br />
-          improve your listings
+          drive buyer interest
           </h2>
         </div>
 
