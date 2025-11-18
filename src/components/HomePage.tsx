@@ -391,7 +391,7 @@ export function HomePage({
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">
           #1 AI assistant
             <br />
-          for home marketing
+          for realtors
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
     
