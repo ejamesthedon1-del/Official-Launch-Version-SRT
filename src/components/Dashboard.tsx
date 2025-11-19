@@ -558,7 +558,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {ratings && ratings.length > 0 && (
             <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
               <div className="flex items-center gap-2 mb-5">
-                <h3 className="text-slate-900 font-semibold text-lg">Score FACTORS</h3>
+                <h3 className="text-slate-900 font-semibold text-lg">Score Factors</h3>
               </div>
               <div className="space-y-4">
                 {ratings.map((rating, idx) => {
@@ -655,7 +655,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Premium Insights Menu - All Collapsibles Combined */}
           <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
             <div className="mb-4">
-              <h3 className="text-slate-900 font-semibold text-lg mb-1">Premium INSIGHTS</h3>
+              <h3 className="text-slate-900 font-semibold text-lg mb-1">Premium Insights</h3>
               <p className="text-sm text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
             <div className="space-y-2">
