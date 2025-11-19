@@ -82,89 +82,78 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
             </h1>
           </div>
 
-          {/* Minimalist Subscription Card */}
+          {/* Minimalist Subscription Card - Matching Reference Design */}
           <div className="px-4 pb-8">
             <div className="max-w-sm mx-auto bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
-              {/* Pricing Section - Top */}
-              <div className="text-center mb-6">
-                <div className="flex items-baseline justify-center gap-2 mb-2">
-                  <span className="text-2xl md:text-3xl font-bold text-slate-400 line-through">
-                    {pricing.starter["1"].originalPrice}
-                  </span>
-                  <span className="text-4xl md:text-5xl font-bold text-blue-600">
-                    {pricing.starter["1"].price}
-                  </span>
-                </div>
-                <div className="text-sm text-slate-600 mb-1">one-time</div>
-                <div className="text-xs text-slate-500">Full access • No subscription</div>
-              </div>
-
-              {/* Billing Tabs - Monthly/Quarterly */}
-              <div className="mb-6">
-                <div className="bg-slate-100 rounded-xl p-1 flex gap-1">
+              {/* Billing Tabs - At the Very Top */}
+              <div className="mb-8">
+                <div className="bg-slate-100 rounded-lg p-1 flex gap-1">
                   <button
                     onClick={() => setSelectedDuration("1")}
-                    className={`flex-1 rounded-lg py-2 transition-all ${
+                    className={`flex-1 rounded-md py-2.5 transition-all ${
                       selectedDuration === "1"
-                        ? "bg-white text-black shadow-sm"
-                        : "bg-transparent text-slate-600"
+                        ? "bg-slate-200 text-slate-700"
+                        : "bg-transparent text-slate-400"
                     }`}
-                    style={{ fontSize: "14px", fontWeight: 600 }}
+                    style={{ fontSize: "14px", fontWeight: 500 }}
                   >
                     Monthly
                   </button>
                   <button
                     onClick={() => setSelectedDuration("6")}
-                    className={`flex-1 rounded-lg py-2 transition-all ${
+                    className={`flex-1 rounded-md py-2.5 transition-all ${
                       selectedDuration === "6"
-                        ? "bg-white text-black shadow-sm"
-                        : "bg-transparent text-slate-600"
+                        ? "bg-slate-200 text-slate-700"
+                        : "bg-transparent text-slate-400"
                     }`}
-                    style={{ fontSize: "14px", fontWeight: 600 }}
+                    style={{ fontSize: "14px", fontWeight: 500 }}
                   >
-                    Quarterly
+                    Quarterly (Save 10%)
                   </button>
                 </div>
               </div>
 
+              {/* Pricing Display - Large, Bold */}
+              <div className="mb-8">
+                <div className="text-5xl md:text-6xl font-bold text-black mb-1" style={{ letterSpacing: "-0.02em" }}>
+                  {pricing.starter[selectedDuration].price}
+                </div>
+                <div className="text-sm text-slate-500">one-time</div>
+              </div>
+
               {/* Benefits List - Minimalist Greyed Out Style */}
-              <div className="mb-6">
-                <div className="space-y-3">
+              <div className="mb-8">
+                <div className="space-y-3.5">
                   {features[selectedPlan].map((feature, index) => (
-                    <div key={feature.name} className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center mt-0.5 opacity-60">
-                        <Check className="w-2.5 h-2.5 text-slate-500" strokeWidth={2.5} />
+                    <div key={feature.name} className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
+                        <Check className="w-3 h-3 text-slate-300" strokeWidth={2.5} />
                       </div>
-                      <div className="flex-1">
-                        <div className="text-sm text-slate-700 opacity-70" style={{ fontWeight: 500 }}>
-                          {feature.name}
-                        </div>
-                        <div className="text-xs text-slate-500 opacity-60 mt-0.5">
-                          {feature.description}
-                        </div>
+                      <div className="text-sm text-slate-400" style={{ fontWeight: 400 }}>
+                        {feature.name}
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Subscribe Button - Bottom */}
+              {/* Subscribe Button - Large, Rounded */}
               {!showPayment ? (
                 <div className="space-y-2">
                   <button
                     onClick={() => setShowPayment(true)}
                     disabled={selectedPlan === "premium"}
-                    className={`w-full py-4 rounded-xl shadow-sm transition-colors ${
+                    className={`w-full py-4 rounded-xl transition-colors ${
                       selectedPlan === "premium"
                         ? "bg-slate-300 text-slate-500 cursor-not-allowed"
                         : "bg-blue-600 text-white hover:bg-blue-700"
                     }`}
                     style={{ fontSize: "16px", fontWeight: 600 }}
                   >
-                    Subscribe for {pricing.starter[selectedDuration].price}
+                    Subscribe
                   </button>
-                  <div className="text-center text-xs text-slate-500">
-                    Cancel anytime. No questions asked.
+                  <div className="text-center text-xs text-slate-300" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                    Secure checkout powered by Stripe
                   </div>
                 </div>
               ) : (
