@@ -233,7 +233,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
         {/* Main Content */}
         <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-6 md:pt-24 lg:max-w-none lg:mx-0 lg:pt-0 lg:pb-0">
           {/* Dashboard Headline */}
-          <div className="mb-6 lg:mb-4 lg:px-6">
+          <div className="hidden lg:block mb-4 lg:px-6">
             <h1 className="text-slate-900 font-semibold text-xl md:text-2xl">
               Hi there.
               <br />
@@ -456,7 +456,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="mb-6">
               {/* Property Image */}
               {listing.imageUrl && (
-                <div className="w-full h-64 md:h-80 relative overflow-hidden">
+                <div className="w-screen -mx-4 md:-mx-8 h-64 md:h-80 relative overflow-hidden">
                   <img
                     src={listing.imageUrl}
                     alt={streetAddress}
