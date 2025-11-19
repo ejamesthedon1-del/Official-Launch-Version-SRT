@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { Check, X } from "lucide-react";
+import { Check, ChevronLeft } from "lucide-react";
 import { PaymentForm } from "./PaymentForm";
 
 interface SubscriptionPageProps {
-  isOpen: boolean;
-  onClose: () => void;
   onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription") => void;
   onSubscribe?: () => void;
   address?: string;
 }
 
-export function SubscriptionPage({ isOpen, onClose, onNavigate, onSubscribe, address = "" }: SubscriptionPageProps) {
+export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: SubscriptionPageProps) {
   const [selectedPlan, setSelectedPlan] = useState<"starter" | "premium">("starter");
   const [selectedDuration, setSelectedDuration] = useState<"1" | "6" | "12">("6");
   const [showPayment, setShowPayment] = useState(false);
@@ -54,50 +52,25 @@ export function SubscriptionPage({ isOpen, onClose, onNavigate, onSubscribe, add
     if (onSubscribe) {
       onSubscribe();
     }
-    onClose();
     onNavigate("marketing-plan");
   };
 
-  if (!isOpen) return null;
-
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/50 z-[9998]"
-        onClick={onClose}
-      />
-
-      {/* Bottom Sheet Modal */}
-      <div
-        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-[9999] max-h-[90vh] flex flex-col"
-        style={{
-          transform: isOpen ? "translateY(0)" : "translateY(100%)",
-          transition: "transform 0.3s ease-out",
-        }}
-      >
-        {/* Handle bar at top */}
-        <div className="flex justify-center pt-4 pb-2">
-          <div className="w-12 h-1.5 bg-slate-300 rounded-full" />
-        </div>
-
-        {/* Close button */}
-        <div className="absolute top-4 right-4">
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-slate-100 rounded-full transition-colors"
-            aria-label="Close subscription"
-          >
-            <X className="w-5 h-5 text-slate-600" />
-          </button>
-        </div>
-
+    <div className="h-screen bg-white flex flex-col overflow-hidden">
+      <div className="max-w-md mx-auto w-full h-full flex flex-col overflow-hidden">
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto px-4 pb-6">
+        <div className="flex-1 overflow-y-auto">
           {/* Header */}
-          <div className="pt-2 pb-4">
+          <div className="px-4 pt-3 pb-3 md:pt-4 md:pb-6">
+            <button
+              onClick={() => onNavigate("dashboard")}
+              className="flex items-center gap-1 text-blue-600 -ml-1 hover:text-blue-700 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span style={{ fontSize: "17px", fontWeight: 400 }}>Back</span>
+            </button>
             <h1
-              className="text-black"
+              className="mt-2 md:mt-4 text-black"
               style={{
                 fontSize: "28px",
                 fontWeight: 700,
@@ -110,7 +83,7 @@ export function SubscriptionPage({ isOpen, onClose, onNavigate, onSubscribe, add
           </div>
 
           {/* Minimalist Subscription Card - Matching Reference Design */}
-          <div className="pb-6">
+          <div className="px-4 pb-8">
             <div className="max-w-sm mx-auto bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
               {/* Billing Tabs - At the Very Top */}
               <div className="mb-8">
@@ -197,7 +170,7 @@ export function SubscriptionPage({ isOpen, onClose, onNavigate, onSubscribe, add
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

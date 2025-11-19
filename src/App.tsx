@@ -67,7 +67,6 @@ export default function App() {
     return saved ? JSON.parse(saved) : null;
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(false);
 
   // Save state to localStorage whenever it changes
   useEffect(() => {
@@ -97,11 +96,7 @@ export default function App() {
   };
 
   const handleSubscribe = () => {
-    setIsSubscriptionOpen(true);
-  };
-
-  const handleSubscriptionClose = () => {
-    setIsSubscriptionOpen(false);
+    setCurrentView("subscription");
   };
 
   const handleNavigate = (view: View) => {
@@ -148,18 +143,13 @@ export default function App() {
       {currentView === "marketing-plan" && (
         <MarketingPlan onNavigate={handleNavigate} onMenuClick={handleMenuClick} />
       )}
-      
-      {/* Subscription Modal */}
-      <SubscriptionPage
-        isOpen={isSubscriptionOpen}
-        onClose={handleSubscriptionClose}
-        onNavigate={handleNavigate}
-        onSubscribe={() => {
-          setIsSubscriptionOpen(false);
-          setCurrentView("marketing-plan");
-        }}
-        address={enteredAddress}
-      />
+      {currentView === "subscription" && (
+        <SubscriptionPage
+          onNavigate={handleNavigate}
+          onSubscribe={() => setCurrentView("marketing-plan")}
+          address={enteredAddress}
+        />
+      )}
       
       {/* Mobile Menu */}
       <MobileMenu
