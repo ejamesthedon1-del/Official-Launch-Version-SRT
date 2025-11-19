@@ -345,11 +345,24 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 {ratings.map((rating, idx) => {
                   const percentage = (rating.score / rating.maxScore) * 100;
                   const isExpanded = expandedDescriptions.has(idx);
-                  const descriptionLength = rating.description?.length || 0;
-                  const shouldTruncate = descriptionLength > 100;
-                  const truncatedDescription = shouldTruncate && !isExpanded 
-                    ? rating.description.substring(0, 100) + '...' 
-                    : rating.description;
+                  
+                  // Parse description to find sentences
+                  const sentences = rating.description?.split(/[.!?]+/).filter(s => s.trim().length > 0) || [];
+                  const hasMultipleSentences = sentences.length > 1;
+                  
+                  // Show first sentence + partial second sentence (first 4 words)
+                  let truncatedDescription = rating.description || '';
+                  let shouldTruncate = false;
+                  
+                  if (hasMultipleSentences && !isExpanded) {
+                    const firstSentence = sentences[0].trim() + '.';
+                    const secondSentenceWords = sentences[1].trim().split(/\s+/);
+                    const partialSecondSentence = secondSentenceWords.slice(0, 4).join(' ');
+                    truncatedDescription = `${firstSentence} ${partialSecondSentence}...`;
+                    shouldTruncate = true;
+                  } else if (isExpanded) {
+                    truncatedDescription = rating.description || '';
+                  }
                   
                   const getScoreColor = (score: number, maxScore: number) => {
                     // Always blue to match theme
@@ -378,10 +391,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                             {shouldTruncate && !isSubscribed && (
                               <button
                                 onClick={handleSubscribe}
-                                className="ml-1 inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                                className="ml-1 text-blue-600 hover:text-blue-700 transition-colors underline"
                               >
-                                <Lock className="w-3 h-3" />
-                                <span>upgrade to unlock</span>
+                                read more
                               </button>
                             )}
                             {shouldTruncate && isSubscribed && (
