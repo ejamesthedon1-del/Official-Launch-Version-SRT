@@ -480,7 +480,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="grid gap-6 p-4 md:p-6 pt-4">
                 {/* Address and Score Bar */}
                 <div className="flex items-center justify-between">
-                  <div className="flex-1 text-left">
+                  <div className="flex-1 text-left -ml-4 pl-4 md:ml-0 md:pl-0">
                     <h2 className="text-slate-900 mb-1 text-[30px] md:text-2xl font-semibold text-left">{streetAddress}</h2>
                     <div className="flex items-center gap-2 text-slate-600 mb-0.5 text-left">
                       <MapPin className="w-3.5 h-3.5" />
