@@ -1,4 +1,5 @@
-import { Download, Calendar, Users, TrendingUp, DollarSign, Target, Zap, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import { Download, Calendar, Users, TrendingUp, DollarSign, Target, Zap, CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -13,6 +14,18 @@ interface MarketingPlanProps {
 }
 
 export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
+  const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set([1])); // Week 1 expanded by default
+
+  const toggleWeek = (week: number) => {
+    const newExpanded = new Set(expandedWeeks);
+    if (newExpanded.has(week)) {
+      newExpanded.delete(week);
+    } else {
+      newExpanded.add(week);
+    }
+    setExpandedWeeks(newExpanded);
+  };
+
   const weeklyPlan = [
     {
       week: 1,
@@ -223,38 +236,53 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
           </TabsList>
 
           <TabsContent value="action-plan" className="space-y-6 mt-6">
-            {weeklyPlan.map((week) => (
-              <Card key={week.week} className="p-6">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                    <span className="text-lg text-primary-foreground">W{week.week}</span>
-                  </div>
-                  <div>
-                    <h3 className="mb-1">{week.title}</h3>
-                    <p className="text-sm text-muted-foreground">Week {week.week} of 4</p>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  {week.actions.map((action, idx) => (
-                    <div key={idx}>
-                      <div className="flex items-center gap-3 mb-3">
-                        <Badge variant="secondary">{action.days}</Badge>
-                        <span className="font-medium">{action.title}</span>
+            {weeklyPlan.map((week) => {
+              const isExpanded = expandedWeeks.has(week.week);
+              return (
+                <Card key={week.week} className="overflow-hidden">
+                  <button
+                    onClick={() => toggleWeek(week.week)}
+                    className="w-full flex items-center justify-between gap-4 p-6 hover:bg-slate-50 transition-colors text-left"
+                  >
+                    <div className="flex items-start gap-4 flex-1">
+                      <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                        <span className="text-lg text-primary-foreground">W{week.week}</span>
                       </div>
-                      <div className="space-y-2 ml-4">
-                        {action.tasks.map((task, taskIdx) => (
-                          <div key={taskIdx} className="flex items-start gap-3">
-                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-sm text-muted-foreground">{task}</span>
-                          </div>
-                        ))}
+                      <div className="flex-1">
+                        <h3 className="mb-1">{week.title}</h3>
+                        <p className="text-sm text-muted-foreground">Week {week.week} of 4</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </Card>
-            ))}
+                    {isExpanded ? (
+                      <ChevronUp className="w-5 h-5 text-slate-600 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-slate-600 flex-shrink-0" />
+                    )}
+                  </button>
+
+                  {isExpanded && (
+                    <div className="px-6 pb-6 space-y-6">
+                      {week.actions.map((action, idx) => (
+                        <div key={idx}>
+                          <div className="flex items-center gap-3 mb-3">
+                            <Badge variant="secondary">{action.days}</Badge>
+                            <span className="font-medium">{action.title}</span>
+                          </div>
+                          <div className="space-y-2 ml-4">
+                            {action.tasks.map((task, taskIdx) => (
+                              <div key={taskIdx} className="flex items-start gap-3">
+                                <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                                <span className="text-sm text-muted-foreground">{task}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
           </TabsContent>
 
           <TabsContent value="buyers" className="space-y-6 mt-6">
