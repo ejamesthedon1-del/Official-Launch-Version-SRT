@@ -83,21 +83,8 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           </div>
 
           {/* Minimalist Subscription Card - Matching Reference Design */}
-          <div className="px-4 pb-8 flex justify-center">
-            <div 
-              className="bg-white overflow-visible flex flex-row justify-center items-center flex-nowrap"
-              style={{
-                boxSizing: "border-box",
-                width: "342px",
-                height: "min-content",
-                padding: "3px",
-                gap: "0px",
-                position: "relative",
-                borderRadius: "165px",
-                border: "1px solid rgba(26, 26, 26, 0.09)",
-              }}
-            >
-              <div className="w-full p-6 md:p-8">
+          <div className="px-4 pb-8">
+            <div className="max-w-sm mx-auto bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
               {/* Billing Tabs - At the Very Top */}
               <div className="mb-8">
                 <div className="bg-slate-100 rounded-lg p-1 flex gap-1">
@@ -179,7 +166,6 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                   />
                 </div>
               )}
-              </div>
             </div>
           </div>
         </div>

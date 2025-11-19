@@ -1,12 +1,3 @@
-# Complete Supabase Index.ts
-
-## Full Code to Paste into Supabase Edge Function
-
-**File**: `supabase/functions/make-server-52cdd920/index.ts`
-
----
-
-```typescript
 import Stripe from "npm:stripe@12.12.0";
 import * as kv from "./kv_store.ts";
 
@@ -254,11 +245,6 @@ Deno.serve(async (req) => {
         console.warn("RENTCAST_API_KEY not set, skipping RentCast API call");
       }
 
-      // ========== START RAPIDAPI ZILLOW API INTEGRATION ==========
-      // RapidAPI Zillow API - Get property details by address, extract ZPID, then get images
-      // Note: This will be called AFTER Gemini response, using the address
-      // ========== END RAPIDAPI ZILLOW API INTEGRATION ==========
-
       const hasRealData = listingData.price > 0 || listingData.beds > 0 || listingData.sqft > 0;
       const daysOnMarket = listingData.daysOnMarket || 0;
 
@@ -359,10 +345,6 @@ ANALYSIS REQUIREMENTS:
 7. SELLING SPEED PREDICTION:
    Based on the current data (DOM, pricing, market conditions, property features), provide a realistic estimate of days to sell. Format: "Likely to sell in X-Y days with current strategy, or A-B days with recommended [specific action]." Be specific and realistic.
 
-8. REALTOR.COM URL:
-   Find and return the Realtor.com property URL for this address. Search Realtor.com for the property and return the full URL (e.g., "https://www.realtor.com/realestateandhomes-detail/123-Main-St-City-ST-12345_M12345-12345"). If you cannot find the exact property, return null.
-
-
 ---
 
 Return ONLY valid JSON (no explanations, no markdown, no code blocks). Start with { and end with }:
@@ -388,8 +370,7 @@ Return ONLY valid JSON (no explanations, no markdown, no code blocks). Start wit
     "Specific risk factor 2 with data references"
   ],
   "pricingInsight": "${daysOnMarket > 30 ? 'string with specific pricing recommendation (e.g., \"Reduce price by 5% ($25,000) to $475,000 to accelerate sale\")' : 'string with pricing strategy guidance or null'}",
-  "sellingSpeedPrediction": "string estimating days to sell (e.g., 'Likely to sell in 30-45 days with current strategy, or 15-20 days with recommended price reduction')",
-  "realtorUrl": "https://www.realtor.com/realestateandhomes-detail/... or null if not found"
+  "sellingSpeedPrediction": "string estimating days to sell (e.g., 'Likely to sell in 30-45 days with current strategy, or 15-20 days with recommended price reduction')"
 }
 
 CRITICAL REQUIREMENTS:
@@ -438,65 +419,48 @@ CRITICAL REQUIREMENTS:
             errorData = { error: errorText || "Unknown error" };
           }
           console.error("Gemini API HTTP error:", geminiRes.status, errorData);
-          return json(
-            {
-              error: `Gemini API error (${geminiRes.status})`,
-              details: errorData
-            },
-            500
-          );
+          return json({
+            error: `Gemini API error (${geminiRes.status})`,
+            details: errorData
+          }, 500);
         }
 
         const geminiData = await geminiRes.json();
 
         if (geminiData.error) {
           console.error("Gemini API error in response:", geminiData.error);
-          return json(
-            {
-              error: `Gemini API error: ${geminiData.error.message || JSON.stringify(geminiData.error)}`
-            },
-            500
-          );
+          return json({
+            error: `Gemini API error: ${geminiData.error.message || JSON.stringify(geminiData.error)}`
+          }, 500);
         }
 
         const aiText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!aiText) {
           console.error("No text in Gemini response:", JSON.stringify(geminiData, null, 2));
-          return json(
-            {
-              error: "No response from AI. Please check the API key and try again.",
-              debug: geminiData
-            },
-            500
-          );
+          return json({
+            error: "No response from AI. Please check the API key and try again.",
+            debug: geminiData
+          }, 500);
         }
 
-        // Robust JSON parsing - handle multiple formats
         let parsed;
         try {
           let jsonText = aiText.trim();
           
-          // First, try parsing directly (in case responseMimeType worked correctly)
           try {
             parsed = JSON.parse(jsonText);
             if (parsed && typeof parsed === 'object') {
-              // Success! Use this parsed result
             } else {
               throw new Error("Parsed data is not an object");
             }
           } catch (directParseError) {
-            // Direct parse failed, try cleaning the response
-            
-            // Remove markdown code blocks if present
             jsonText = jsonText.replace(/```json\n?/gi, "").replace(/```\n?/g, "").trim();
             
-            // Remove any text before the first {
             const firstBrace = jsonText.indexOf('{');
             if (firstBrace > 0) {
               jsonText = jsonText.substring(firstBrace);
             }
             
-            // Find the matching closing brace for the first {
             let braceCount = 0;
             let endIndex = -1;
             for (let i = 0; i < jsonText.length; i++) {
@@ -512,10 +476,8 @@ CRITICAL REQUIREMENTS:
               jsonText = jsonText.substring(0, endIndex);
             }
             
-            // Try parsing the cleaned JSON
             parsed = JSON.parse(jsonText);
             
-            // Validate that we have the required fields
             if (!parsed || typeof parsed !== 'object') {
               throw new Error("Parsed data is not an object");
             }
@@ -536,10 +498,7 @@ CRITICAL REQUIREMENTS:
             recommendations: parsed.recommendations || ["Review property details", "Check market conditions"],
             riskFactors: parsed.riskFactors || [],
             pricingInsight: parsed.pricingInsight || null,
-            sellingSpeedPrediction: parsed.sellingSpeedPrediction || null,
-            realtorUrl: parsed.realtorUrl || null,
-            // Zillow photos - will be set by photo extraction logic below
-            propertyPhotos: null
+            sellingSpeedPrediction: parsed.sellingSpeedPrediction || null
           };
           
           if (result.estimatedPrice === 0 || result.estimatedValue === 0) {
@@ -572,153 +531,11 @@ CRITICAL REQUIREMENTS:
             console.warn("Warning: No sqft found, using estimate:", result.sqft);
           }
           
-          // --- Fetch Zillow photos using RapidAPI ---
-          let photoUrls = [];
-          
-          const rapidApiKey = Deno.env.get("RAPIDAPI_KEY") || "";
-          const rapidApiHost = "zillow-com1.p.rapidapi.com";
-          
-          if (rapidApiKey && address) {
-            try {
-              console.log("Fetching Zillow property details for:", address);
-              
-              // Step 1: Get property details by address to extract ZPID
-              const cleanedAddress = address.replace(/,?\s*USA\s*$/i, '').replace(/,?\s*United States\s*$/i, '').trim();
-              const propertyUrl = `https://${rapidApiHost}/property?address=${encodeURIComponent(cleanedAddress)}`;
-              
-              console.log("Calling Zillow property endpoint:", propertyUrl);
-              
-              const propertyRes = await fetch(propertyUrl, {
-                method: "GET",
-                headers: {
-                  "x-rapidapi-key": rapidApiKey,
-                  "x-rapidapi-host": rapidApiHost
-                }
-              });
-              
-              let zpid = null;
-              
-              if (propertyRes.ok) {
-                const propertyData = await propertyRes.json();
-                console.log("Zillow property response keys:", Object.keys(propertyData));
-                console.log("Zillow property response sample:", JSON.stringify(propertyData).substring(0, 500));
-                
-                // Extract ZPID from response
-                if (propertyData?.zpid) {
-                  zpid = propertyData.zpid;
-                } else if (propertyData?.data?.zpid) {
-                  zpid = propertyData.data.zpid;
-                } else if (propertyData?.property?.zpid) {
-                  zpid = propertyData.property.zpid;
-                } else if (propertyData?.results && Array.isArray(propertyData.results) && propertyData.results.length > 0) {
-                  zpid = propertyData.results[0]?.zpid || propertyData.results[0]?.property?.zpid || null;
-                }
-                
-                console.log("Extracted ZPID:", zpid);
-              } else {
-                const errorText = await propertyRes.text();
-                console.warn("Zillow property fetch failed (non-critical):", propertyRes.status);
-                console.warn("Error response:", errorText.substring(0, 200));
-              }
-              
-              // Step 2: Get images using ZPID
-              if (zpid) {
-                const imagesUrl = `https://${rapidApiHost}/images?zpid=${encodeURIComponent(zpid)}`;
-                
-                console.log("Calling Zillow images endpoint:", imagesUrl);
-                
-                const imagesRes = await fetch(imagesUrl, {
-                  method: "GET",
-                  headers: {
-                    "x-rapidapi-key": rapidApiKey,
-                    "x-rapidapi-host": rapidApiHost
-                  }
-                });
-                
-                if (imagesRes.ok) {
-                  const imagesData = await imagesRes.json();
-                  console.log("Zillow images response keys:", Object.keys(imagesData));
-                  console.log("Zillow images response sample:", JSON.stringify(imagesData).substring(0, 500));
-                  
-                  // Extract photos from response - check multiple possible structures
-                  let photosArray = null;
-                  
-                  // Structure 1: Direct array
-                  if (Array.isArray(imagesData)) {
-                    photosArray = imagesData;
-                  }
-                  // Structure 2: data.images or data.photos
-                  else if (imagesData?.data?.images && Array.isArray(imagesData.data.images)) {
-                    photosArray = imagesData.data.images;
-                  }
-                  else if (imagesData?.data?.photos && Array.isArray(imagesData.data.photos)) {
-                    photosArray = imagesData.data.photos;
-                  }
-                  // Structure 3: images or photos (top level)
-                  else if (imagesData?.images && Array.isArray(imagesData.images)) {
-                    photosArray = imagesData.images;
-                  }
-                  else if (imagesData?.photos && Array.isArray(imagesData.photos)) {
-                    photosArray = imagesData.photos;
-                  }
-                  
-                  if (photosArray && photosArray.length > 0) {
-                    // Extract URLs from photo objects
-                    photoUrls = photosArray
-                      .map(p => {
-                        // Handle string URLs
-                        if (typeof p === 'string') return p;
-                        // Handle photo objects - Zillow may use different field names
-                        return p?.url || p?.href || p?.src || p?.imageUrl || p?.full || p?.medium || p?.small || null;
-                      })
-                      .filter(Boolean)
-                      .slice(0, 10); // Limit to 10 photos
-                    
-                    console.log(`✅✅✅ Extracted ${photoUrls.length} photo URL(s) from Zillow API`);
-                  } else {
-                    console.warn("⚠️ Could not find photos array in Zillow response");
-                    console.warn("Response structure:", JSON.stringify(imagesData, null, 2).substring(0, 1000));
-                  }
-                } else {
-                  const errorText = await imagesRes.text();
-                  console.warn("Zillow images API failed (non-critical):", imagesRes.status);
-                  console.warn("Error response:", errorText.substring(0, 200));
-                }
-              } else {
-                console.warn("Could not extract ZPID from property response, skipping images");
-              }
-            } catch (zillowError) {
-              console.warn("Zillow API fetch failed (non-critical):", zillowError.message);
-            }
-          } else {
-            if (!rapidApiKey) {
-              console.warn("RAPIDAPI_KEY not set, skipping Zillow photos");
-            }
-            if (!address) {
-              console.warn("No address provided, skipping Zillow photos");
-            }
-          }
-          
-          console.log("Extracted photo URLs:", photoUrls);
-          
-          // Prioritize Zillow photos over Google Places image
-          if (photoUrls.length > 0) {
-            result.propertyPhotos = photoUrls;
-            result.propertyImageUrl = photoUrls[0]; // first valid Zillow image
-            console.log("Using Zillow photo:", result.propertyImageUrl);
-            console.log("✅ Total Zillow photos available:", photoUrls.length);
-          } else if (propertyImageUrl) {
-            result.propertyImageUrl = propertyImageUrl; // Google Places fallback
-            console.log("Using Google Places fallback photo");
-          } else {
-            result.propertyImageUrl = null;
-          }
-          
-          // Log photo data in result
-          console.log("Result propertyPhotos:", result.propertyPhotos ? `${result.propertyPhotos.length} photos` : "null");
-          console.log("Result propertyImageUrl:", result.propertyImageUrl || "null");
-          
           console.log("Final combined result:", JSON.stringify(result, null, 2));
+          
+          if (propertyImageUrl) {
+            result.propertyImageUrl = propertyImageUrl;
+          }
           
           parsed = result;
           
@@ -730,26 +547,21 @@ CRITICAL REQUIREMENTS:
           console.error("Parse error:", parseError.message);
           console.error("Parse error stack:", parseError.stack);
           
-          return json(
-            {
-              error: "AI response was not valid JSON",
-              details: parseError.message,
-              rawResponse: aiText.substring(0, 1000),
-              rawResponseLength: aiText.length,
-              suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
-            },
-            500
-          );
+          return json({
+            error: "AI response was not valid JSON",
+            details: parseError.message,
+            rawResponse: aiText.substring(0, 1000),
+            rawResponseLength: aiText.length,
+            suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
+          }, 500);
         }
 
-        kv
-          .set(`ai-analysis:${address}`, {
-            result: parsed,
-            createdAt: new Date().toISOString()
-          })
-          .catch((err) => {
-            console.warn("KV set failed (non-critical):", err.message);
-          });
+        kv.set(`ai-analysis:${address}`, {
+          result: parsed,
+          createdAt: new Date().toISOString()
+        }).catch((err) => {
+          console.warn("KV set failed (non-critical):", err.message);
+        });
 
         return json({
           result: parsed
@@ -757,13 +569,10 @@ CRITICAL REQUIREMENTS:
       } catch (err) {
         console.error("Analyze Listing failed:", err);
         console.error("Error stack:", err.stack);
-        return json(
-          {
-            error: "AI analysis failed",
-            details: err.message || "Unknown error"
-          },
-          500
-        );
+        return json({
+          error: "AI analysis failed",
+          details: err.message || "Unknown error"
+        }, 500);
       }
     }
 
@@ -771,75 +580,10 @@ CRITICAL REQUIREMENTS:
   } catch (err) {
     console.error("Unhandled error:", err);
     console.error("Error stack:", err.stack);
-    return json(
-      {
-        error: "Internal server error",
-        details: err.message || "Unknown error"
-      },
-      500
-    );
+    return json({
+      error: "Internal server error",
+      details: err.message || "Unknown error"
+    }, 500);
   }
 });
-```
-
----
-
-## Summary of Changes
-
-### ✅ Added RapidAPI Realtor API Integration
-- **Location**: After RentCast API call, before `hasRealData` check
-- **Features**:
-  - Calls ONLY `/property/photos` endpoint
-  - Constructs Realtor.com detail URL from address
-  - Fetches property photos (up to 10 photos)
-  - Non-critical enhancement (won't break if it fails)
-  - Falls back gracefully if API keys are missing
-
-### ✅ Updated Result Object
-- Added new field:
-  - `propertyPhotos`: Array of photo URLs (or null)
-- Photo prioritization: RapidAPI photos > Google Places image
-
-### ✅ All Existing Endpoints Preserved
-- `/places-autocomplete` - Google Places API
-- `/create-payment-intent` - Stripe payment creation
-- `/verify-payment` - Stripe payment verification
-- `/check-subscription` - Subscription status check
-- `/analyze-listing` - Enhanced with RapidAPI Realtor API integration
-
----
-
-## Environment Variables Required
-
-Make sure these are set in Supabase Edge Function secrets:
-
-```
-GEMINI_API_KEY=your_gemini_key
-RENTCAST_API_KEY=your_rentcast_key
-GOOGLE_PLACES_API_KEY=your_places_key
-STRIPE_SECRET_KEY=your_stripe_key
-RAPIDAPI_KEY=your_rapidapi_key
-RAPIDAPI_REALTOR_HOST=realtor16.p.rapidapi.com (optional, defaults to this)
-```
-
-**Note**: `RAPIDAPI_REALTOR_HOST` is optional and defaults to `realtor16.p.rapidapi.com` if not set.
-
----
-
-## Testing Checklist
-
-1. ✅ Test with all API keys set - should work with full data
-2. ✅ Test without RapidAPI key - should work with RentCast and Gemini only
-3. ✅ Test without RentCast key - should work with Gemini analysis only
-4. ✅ Test all endpoints work correctly
-
----
-
-## Notes
-
-- RapidAPI integration is **non-critical** - failures won't break the analysis
-- Only calls `/property/photos` endpoint - no search or details endpoints
-- Constructs Realtor.com URL from address to get photos
-- All RapidAPI calls are wrapped in try-catch with `console.warn` (not `console.error`)
-- Photo priority: RapidAPI photos > Google Places image
 
