@@ -537,10 +537,16 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
                     <div className="mt-4" style={{ marginTop: '0.5in' }}>
-                      <h3 className="text-slate-900 font-semibold text-lg mb-3">Analysis Summary</h3>
-                      <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
-                        {insights.summary}
-                      </p>
+                      <h3 className="text-slate-900 font-semibold text-lg md:text-lg text-[19px] mb-3">Analysis Summary</h3>
+                      <div className="text-sm md:text-sm text-[15px] text-slate-700 leading-relaxed space-y-4">
+                        {insights.summary?.split('\n\n').map((paragraph, idx) => (
+                          paragraph.trim() && (
+                            <p key={idx} className="mb-0">
+                              {paragraph.trim()}
+                            </p>
+                          )
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
