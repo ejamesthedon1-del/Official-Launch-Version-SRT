@@ -1178,7 +1178,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </Card>
 
             {/* Locked Premium Section */}
-            <div className="mb-8">
+            <div className="mb-0">
               <div className="mb-6">
                 <h2 className="mb-2">Complete marketing plan</h2>
                 <p className="text-slate-600">
@@ -1192,8 +1192,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       </main>
       </div>
 
-
-      <Footer />
+      <div style={{ marginTop: '-96px' }}>
+        <Footer />
+      </div>
     </div>
   );
 }
