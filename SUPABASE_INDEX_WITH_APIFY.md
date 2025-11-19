@@ -359,7 +359,23 @@ ANALYSIS REQUIREMENTS:
 7. SELLING SPEED PREDICTION:
    Based on the current data (DOM, pricing, market conditions, property features), provide a realistic estimate of days to sell. Format: "Likely to sell in X-Y days with current strategy, or A-B days with recommended [specific action]." Be specific and realistic.
 
-8. REALTOR.COM URL:
+8. ANALYSIS SUMMARY:
+   Provide a concise analysis summary in exactly two tight paragraphs. The tone should be confident, advisory, and strategic—like a top-tier real estate strategist who understands the user's situation without sounding salesy. 
+   
+   First paragraph (3-4 sentences maximum): Highlight what the user may be overlooking and why certain actions or improvements are essential for giving their listing a fair, competitive shot. Spark curiosity by subtly revealing gaps and opportunities they might not have noticed. Speak with clarity and authority, showing you understand their pain points.
+   
+   Second paragraph (3-4 sentences maximum): Guide them immediately toward the next best steps with practical, digestible direction. Keep it actionable and focused on what matters most right now. The goal is to deliver a brief but compelling summary that helps the user feel understood, informed, and motivated to act.
+   
+   CRITICAL REQUIREMENTS:
+   - The summary must be EXACTLY two paragraphs—no more, no less
+   - Each paragraph must be 3-4 sentences maximum (not 5, not 6, not 10)
+   - Total word count should be approximately 100-150 words (50-75 words per paragraph)
+   - Use paragraph breaks (double line break) to separate the two paragraphs
+   - Keep the essence of the insights but make every word count
+   - Never use sales language or promotional phrasing
+   - Be concise and tight—if it feels long, it's too long
+
+9. REALTOR.COM URL:
    Find and return the Realtor.com property URL for this address. Search Realtor.com for the property and return the full URL (e.g., "https://www.realtor.com/realestateandhomes-detail/123-Main-St-City-ST-12345_M12345-12345"). If you cannot find the exact property, return null.
 
 
@@ -389,6 +405,7 @@ Return ONLY valid JSON (no explanations, no markdown, no code blocks). Start wit
   ],
   "pricingInsight": "${daysOnMarket > 30 ? 'string with specific pricing recommendation (e.g., \"Reduce price by 5% ($25,000) to $475,000 to accelerate sale\")' : 'string with pricing strategy guidance or null'}",
   "sellingSpeedPrediction": "string estimating days to sell (e.g., 'Likely to sell in 30-45 days with current strategy, or 15-20 days with recommended price reduction')",
+  "summary": "Two tight paragraphs: First paragraph highlights overlooked gaps and opportunities with authority and clarity. Second paragraph provides practical next steps that make the user feel understood and motivated. Concise, confident, advisory tone—never salesy.",
   "realtorUrl": "https://www.realtor.com/realestateandhomes-detail/... or null if not found"
 }
 

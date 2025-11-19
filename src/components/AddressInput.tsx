@@ -175,8 +175,8 @@ function transformAnalysisData(address: string, geminiData: any): any {
       { subject: "Speed of Sale", A: daysOnMarket <= 14 ? 9 : daysOnMarket <= 30 ? 7 : daysOnMarket <= 60 ? 5 : 3, fullMark: 10 }
     ],
     insights: {
-      summary: (() => {
-        // Generate 5-sentence summary
+      summary: geminiData.summary || (() => {
+        // Fallback: Generate summary if AI didn't provide one
         const sentences: string[] = [];
         
         // Sentence 1: Days on Market assessment
