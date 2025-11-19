@@ -584,7 +584,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="text-sm font-semibold text-slate-900 mb-0.5">
                             {rating.title}
                           </div>
-                          <div className="text-sm text-slate-600">
+                          <div className="text-[13.5px] text-slate-600">
                             {!isExpanded && shouldTruncate ? (
                               <div className="relative">
                                 <div className="line-clamp-2 pr-20">
