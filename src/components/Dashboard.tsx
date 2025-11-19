@@ -235,9 +235,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Dashboard Headline */}
           <div className="mb-6 lg:mb-4 lg:px-6">
             <h1 className="text-slate-900 font-semibold text-xl md:text-2xl">
-              Your insights are ready to explore
+              Hi there.
               <br />
-              ready to explore
+              Your insights are ready to explore.
             </h1>
           </div>
 
