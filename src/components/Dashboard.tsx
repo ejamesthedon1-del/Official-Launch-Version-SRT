@@ -526,39 +526,39 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                       ) : (
                         <div className="space-y-2">
-                          {daysOnMarket > 30 && (
+          {daysOnMarket > 30 && (
                             <div className={`p-3 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
                               <div className="flex items-start gap-2">
-                                <div className="flex-1">
+                <div className="flex-1">
                                   <div className={`text-xs font-semibold mb-1 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
                                     {daysOnMarket > 60 ? 'Urgent: listing is stale' : 'Warning: above average days on market'}
-                                  </div>
+                  </div>
                                   <p className={`text-xs mb-2 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
-                                    {daysOnMarket > 60 
+                    {daysOnMarket > 60 
                                       ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required.`
-                                      : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
-                                    }
-                                  </p>
-                                  {insights.pricingInsight && (
+                      : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
+                    }
+                  </p>
+                  {insights.pricingInsight && (
                                     <div className="bg-white/60 rounded p-2 border border-amber-200">
                                       <div className="text-[10px] font-medium text-amber-900 mb-0.5">Recommended action:</div>
                                       <div className="text-xs text-amber-800">{insights.pricingInsight}</div>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
+                    </div>
+                  )}
+                </div>
+              </div>
                             </div>
-                          )}
+          )}
                           {insights.alerts.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
                             <div key={idx} className="p-3 rounded-lg bg-destructive/10 border border-destructive/20">
                               <div className="flex items-start gap-2">
                                 <div className="flex-1">
                                   <div className="text-xs font-semibold mb-0.5 text-destructive">{alert.title}</div>
                                   <p className="text-xs text-destructive/80">
-                                    {alert.message}
-                                  </p>
-                                </div>
-                              </div>
+                    {alert.message}
+                  </p>
+                </div>
+              </div>
                             </div>
                           ))}
                         </div>
@@ -1178,7 +1178,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </Card>
 
             {/* Locked Premium Section */}
-            <div className="mb-0">
+            <div className="mb-8">
               <div className="mb-6">
                 <h2 className="mb-2">Complete marketing plan</h2>
                 <p className="text-slate-600">
@@ -1192,9 +1192,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       </main>
       </div>
 
-      <div style={{ marginTop: '-96px' }}>
-        <Footer />
-      </div>
+      
+      <Footer />
     </div>
   );
 }
