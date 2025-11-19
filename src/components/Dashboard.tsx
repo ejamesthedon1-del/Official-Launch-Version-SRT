@@ -537,7 +537,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
                     <div className="mt-4" style={{ marginTop: '0.5in' }}>
-                      <h3 className="text-slate-900 font-semibold text-lg md:text-lg text-[19px] mb-3">Analysis Summary</h3>
+                      <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
                       <div className="text-sm md:text-sm text-[15px] text-slate-700 leading-relaxed">
                         {(() => {
                           if (!insights.summary) return null;
@@ -583,8 +583,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Score Factors - Slider Bar Stats Section */}
           {ratings && ratings.length > 0 && (
             <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
-              <div className="flex items-center gap-2 mb-5">
-                <h3 className="text-slate-900 font-semibold text-lg">Critical Factors</h3>
+              <div className="mb-5">
+                <h3 className="text-slate-900 font-semibold text-[20px] mb-1">Critical Factors</h3>
+                <p className="text-sm text-slate-600 text-left">These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to unlock insights that could speed up results</p>
               </div>
               <div className="space-y-4">
                 {ratings.map((rating, idx) => {
@@ -681,7 +682,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Premium Insights Menu - All Collapsibles Combined */}
           <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm lg:!mt-0" style={{ marginTop: '0.2in' }}>
             <div className="mb-4">
-              <h3 className="text-slate-900 font-semibold text-lg mb-1">Premium Insights</h3>
+              <h3 className="text-slate-900 font-semibold text-[20px] mb-1">Premium Insights</h3>
               <p className="text-sm text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
             <div className="space-y-2">
