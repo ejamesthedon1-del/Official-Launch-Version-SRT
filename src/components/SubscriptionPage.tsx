@@ -57,57 +57,59 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-md mx-auto">
-        {/* Header */}
-        <div className="px-4 pt-4 pb-6">
-          <button
-            onClick={() => onNavigate("dashboard")}
-            className="flex items-center gap-1 text-blue-600 -ml-1 hover:text-blue-700 transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            <span style={{ fontSize: "17px", fontWeight: 400 }}>Back</span>
-          </button>
-          <h1
-            className="mt-4 text-black"
-            style={{
-              fontSize: "34px",
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              lineHeight: "41px",
-            }}
-          >
-            Manage subscription
-          </h1>
-        </div>
+    <div className="h-screen bg-white flex flex-col overflow-hidden">
+      <div className="max-w-md mx-auto w-full h-full flex flex-col overflow-hidden">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Header */}
+          <div className="px-4 pt-3 pb-3 md:pt-4 md:pb-6">
+            <button
+              onClick={() => onNavigate("dashboard")}
+              className="flex items-center gap-1 text-blue-600 -ml-1 hover:text-blue-700 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span style={{ fontSize: "17px", fontWeight: 400 }}>Back</span>
+            </button>
+            <h1
+              className="mt-2 md:mt-4 text-black"
+              style={{
+                fontSize: "28px",
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                lineHeight: "34px",
+              }}
+            >
+              Manage subscription
+            </h1>
+          </div>
 
-        {/* Current Plan Info */}
-        <div className="px-4 mb-6">
-          <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-            <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-              Smart realtor tools
-            </div>
-            <div className="mt-1 text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-              Get your complete marketing plan
-            </div>
-            <div className="mt-1 text-gray-600" style={{ fontSize: "15px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-              Increase sale probability from 40% to 85% in 30 days
+          {/* Current Plan Info */}
+          <div className="px-4 mb-3 md:mb-6">
+            <div className="bg-gray-50 rounded-2xl p-3 md:p-4 border border-gray-100">
+              <div className="text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                Smart realtor tools
+              </div>
+              <div className="mt-1 text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                Get your complete marketing plan
+              </div>
+              <div className="mt-1 text-gray-600" style={{ fontSize: "15px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                Increase sale probability from 40% to 85% in 30 days
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Change Plan Section */}
-        <div className="px-4 mb-2">
-          <h2
-            className="text-black mb-3"
-            style={{
-              fontSize: "22px",
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            Choose your plan
-          </h2>
+          {/* Change Plan Section */}
+          <div className="px-4 mb-2">
+            <h2
+              className="text-black mb-2 md:mb-3"
+              style={{
+                fontSize: "20px",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Choose your plan
+            </h2>
 
           {/* Segmented Control */}
           <div className="bg-gray-100 rounded-xl p-1 flex gap-1 relative">
@@ -145,26 +147,26 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
         </div>
 
         {/* Features List */}
-        <div className="px-4 py-6">
-          <div className="space-y-4">
+        <div className="px-4 py-3 md:py-6">
+          <div className="space-y-3 md:space-y-4">
             {features[selectedPlan].map((feature, index) => (
               <motion.div
                 key={feature.name}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="flex items-start gap-3"
+                className="flex items-start gap-2 md:gap-3"
               >
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center mt-0.5">
-                  <Check className="w-4 h-4 text-white" strokeWidth={3} />
+                <div className="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-600 flex items-center justify-center mt-0.5">
+                  <Check className="w-3 h-3 md:w-4 md:h-4 text-white" strokeWidth={3} />
                 </div>
                 <div>
                   <div
                     className="text-black"
                     style={{
-                      fontSize: "17px",
+                      fontSize: "15px",
                       fontWeight: 600,
-                      lineHeight: "22px",
+                      lineHeight: "20px",
                     }}
                   >
                     {feature.name}
@@ -172,9 +174,9 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                   <div
                     className="text-gray-600 mt-0.5"
                     style={{
-                      fontSize: "15px",
+                      fontSize: "13px",
                       fontWeight: 400,
-                      lineHeight: "20px",
+                      lineHeight: "18px",
                     }}
                   >
                     {feature.description}
@@ -187,8 +189,8 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
 
         {/* Pricing Cards */}
         {selectedPlan === "starter" && (
-          <div className="px-4 pb-6">
-            <div className="w-full text-left rounded-2xl p-4 bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10 relative">
+          <div className="px-4 pb-3 md:pb-6">
+            <div className="w-full text-left rounded-2xl p-3 md:p-4 bg-blue-50 border-2 border-blue-500 shadow-lg shadow-blue-500/10 relative">
               {/* New User Sale Badge */}
               <div className="absolute -top-2 left-4">
                 <div className="bg-black text-white px-3 py-0.5 rounded-full" style={{ fontSize: "11px", fontWeight: 700, fontFamily: "system-ui, -apple-system, sans-serif" }}>
@@ -231,7 +233,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           </div>
         )}
         {selectedPlan === "premium" && (
-          <div className="px-4 pb-6">
+          <div className="px-4 pb-3 md:pb-6">
             <div className="w-full text-left rounded-2xl p-4 bg-gray-50 border-2 border-gray-200 relative overflow-hidden">
               {/* Coming Soon Overlay */}
               <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10">
@@ -274,11 +276,11 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
 
         {/* Payment Section */}
         {!showPayment ? (
-          <div className="px-4 pb-8 pt-4">
+          <div className="px-4 pb-4 md:pb-8 pt-3 md:pt-4">
             <button
               onClick={() => setShowPayment(true)}
               disabled={selectedPlan === "premium"}
-              className={`w-full py-4 rounded-full shadow-lg transition-colors ${
+              className={`w-full py-3 md:py-4 rounded-full shadow-lg transition-colors ${
                 selectedPlan === "premium"
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-blue-600 text-white hover:bg-blue-700"
@@ -288,12 +290,12 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                 Subscribe for $9.99
               </span>
             </button>
-            <div className="text-center mt-3 text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            <div className="text-center mt-2 md:mt-3 text-gray-500" style={{ fontSize: "13px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
               Cancel anytime. No questions asked.
             </div>
           </div>
         ) : (
-          <div className="px-4 pb-8 pt-4">
+          <div className="px-4 pb-4 md:pb-8 pt-3 md:pt-4">
             <PaymentForm
               amount={amount}
               address={address}
@@ -302,6 +304,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
             />
           </div>
         )}
+        </div>
       </div>
     </div>
   );
