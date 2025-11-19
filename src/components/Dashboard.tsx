@@ -585,9 +585,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
               <div className="mb-5">
                 <h3 className="text-slate-900 font-semibold text-[20px] mb-1">Critical Factors</h3>
-                <p className="text-sm text-slate-600 text-left">These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to unlock insights that could speed up results</p>
+                <p className="text-sm text-slate-600 text-left mb-4">These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to unlock insights that could speed up results</p>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-4 mt-2">
                 {ratings.map((rating, idx) => {
                   const percentage = (rating.score / rating.maxScore) * 100;
                   const isExpanded = expandedDescriptions.has(idx);
