@@ -54,8 +54,9 @@ export function MobileMenu({
         style={{
           transform: isOpen ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-out",
-          height: "80vh",
-          maxHeight: "80vh",
+          height: "100vh",
+          maxHeight: "100vh",
+          paddingBottom: "env(safe-area-inset-bottom)",
         }}
       >
         {/* Handle bar at top */}
