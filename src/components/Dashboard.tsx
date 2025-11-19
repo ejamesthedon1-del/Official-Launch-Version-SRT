@@ -232,27 +232,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
       <div className="flex">
         {/* Main Content */}
         <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-12 md:pt-24">
-          {/* Desktop: Browser Header (matching mock dashboard) */}
-          <div className="hidden lg:block mb-4">
-            <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-              <div className="p-4 border-b border-slate-200 bg-slate-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                  </div>
-                  <div className="flex-1 mx-4">
-                    <div className="bg-white rounded-lg px-3 py-1.5 text-xs text-slate-500 border border-slate-200 truncate">
-                      smartrealtortool.com/dashboard
-                    </div>
-                  </div>
-                  <div className="text-xs text-slate-400">Dashboard</div>
-                </div>
-              </div>
-
-              {/* Dashboard Content - Desktop Layout */}
-              <div className="p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+          {/* Desktop Layout - Direct dashboard content (no mock browser) */}
+          <div className="hidden lg:block mb-6">
+            <div className="p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 rounded-2xl">
                 {/* Property Header - 3 Column Grid on Desktop */}
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-4">
                   <div className="grid lg:grid-cols-3 gap-4 p-4">
@@ -456,7 +438,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
 
