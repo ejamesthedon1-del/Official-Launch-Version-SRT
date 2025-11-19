@@ -537,7 +537,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
                     <div className="mt-4" style={{ marginTop: '0.5in' }}>
-                      <h3 className="text-slate-900 font-semibold text-[19px] mb-3">Analysis Summary</h3>
+                      <h3 className="text-slate-900 font-semibold text-lg md:text-lg text-[19px] mb-3">Analysis Summary</h3>
                       <div className="text-sm md:text-sm text-[15px] text-slate-700 leading-relaxed space-y-4">
                         {insights.summary?.split('\n\n').map((paragraph, idx) => (
                           paragraph.trim() && (
@@ -558,7 +558,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {ratings && ratings.length > 0 && (
             <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
               <div className="flex items-center gap-2 mb-5">
-                <h3 className="text-slate-900 font-semibold text-[19px]">SCORE FACTORS</h3>
+                <h3 className="text-slate-900 font-semibold text-lg">Score FACTORS</h3>
               </div>
               <div className="space-y-4">
                 {ratings.map((rating, idx) => {
@@ -655,7 +655,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Premium Insights Menu - All Collapsibles Combined */}
           <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
             <div className="mb-4">
-              <h3 className="text-slate-900 font-semibold text-[19px] mb-1">PREMIUM INSIGHTS</h3>
+              <h3 className="text-slate-900 font-semibold text-lg mb-1">Premium INSIGHTS</h3>
               <p className="text-sm text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
             <div className="space-y-2">
@@ -668,7 +668,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
-                        <h4 className="text-slate-900 font-medium text-[19px]">Buyer concerns</h4>
+                        <h4 className="text-slate-900 font-medium text-lg">Buyer concerns</h4>
                         <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers<br />so you can fix issues before they kill interest.</p>
                       </div>
                     </div>
@@ -722,7 +722,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
-                        <h4 className="text-slate-900 font-medium text-[19px]">Risk factors</h4>
+                        <h4 className="text-slate-900 font-medium text-lg">Risk factors</h4>
                         <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Shows hidden red flags that could reduce<br />offers or slow down your sale.</p>
                       </div>
                     </div>
@@ -800,7 +800,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-[19px]">Missed value points</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Missed value points</h4>
                       <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Highlights things you're not showcasing that<br />could increase your perceived property value.</p>
                     </div>
                   </div>
@@ -872,7 +872,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-[19px]">Negotiation risk</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Negotiation risk</h4>
                       <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Identifies weaknesses buyers may use<br />to negotiate your price down.</p>
                     </div>
                   </div>
@@ -949,7 +949,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-[19px]">Buyer match score</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Buyer match score</h4>
                       <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Measures how well your listing aligns with<br />current buyer preferences in your market.</p>
                     </div>
                   </div>
@@ -1026,7 +1026,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 >
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
-                      <h4 className="text-slate-900 font-medium text-[19px]">Upgrade impact</h4>
+                      <h4 className="text-slate-900 font-medium text-lg">Upgrade impact</h4>
                       <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Predicts how much improving your listing<br />could boost views, tours, and offers.</p>
                     </div>
                   </div>
