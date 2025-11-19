@@ -3,12 +3,11 @@ import { Analytics } from "@vercel/analytics/react";
 import { HomePage } from "./components/HomePage";
 import { AddressInput } from "./components/AddressInput";
 import { Dashboard } from "./components/Dashboard";
-import { MarketingPlan } from "./components/MarketingPlan";
 import { SubscriptionPage } from "./components/SubscriptionPage";
 import { MobileMenu } from "./components/MobileMenu";
 import { Toaster } from "./components/ui/sonner";
 
-type View = "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription";
+type View = "home" | "address-input" | "dashboard" | "subscription";
 
 export interface AnalysisData {
   listing: {
@@ -140,13 +139,10 @@ export default function App() {
           onMenuClick={handleMenuClick}
         />
       )}
-      {currentView === "marketing-plan" && (
-        <MarketingPlan onNavigate={handleNavigate} onMenuClick={handleMenuClick} />
-      )}
       {currentView === "subscription" && (
         <SubscriptionPage
           onNavigate={handleNavigate}
-          onSubscribe={() => setCurrentView("marketing-plan")}
+          onSubscribe={() => setCurrentView("dashboard")}
           address={enteredAddress}
         />
       )}

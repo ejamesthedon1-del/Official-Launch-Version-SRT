@@ -293,7 +293,7 @@ function AnimatedAddressInput() {
 interface HomePageProps {
   onGetStarted: () => void;
   onNavigate: (
-    view: "home" | "address-input" | "dashboard" | "marketing-plan"
+    view: "home" | "address-input" | "dashboard"
   ) => void;
   onMenuClick?: () => void;
 }
@@ -359,12 +359,6 @@ export function HomePage({
                   className="hover:text-white transition-colors"
                 >
                   Dashboard
-                </button>
-                <button 
-                  onClick={() => onNavigate("marketing-plan")}
-                  className="hover:text-white transition-colors"
-                >
-                  Marketing Plan
                 </button>
               </div>
 

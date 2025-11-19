@@ -13,7 +13,7 @@ import { supabase } from "../lib/supabaseClient";
 interface AddressInputProps {
   onAnalyze: (address: string, analysisData: any) => void;
   onNavigate: (
-    view: "home" | "address-input" | "dashboard" | "marketing-plan"
+    view: "home" | "address-input" | "dashboard"
   ) => void;
   onMenuClick?: () => void;
 }

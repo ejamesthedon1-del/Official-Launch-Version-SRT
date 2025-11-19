@@ -4,9 +4,9 @@ import { X } from "lucide-react";
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  currentView: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription";
+  currentView: "home" | "address-input" | "dashboard" | "subscription";
   onNavigate: (
-    view: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription"
+    view: "home" | "address-input" | "dashboard" | "subscription"
   ) => void;
 }
 
@@ -28,12 +28,11 @@ export function MobileMenu({
     { id: "home", label: "Home" },
     { id: "address-input", label: "Analyze listing" },
     { id: "dashboard", label: "Dashboard" },
-    { id: "marketing-plan", label: "Marketing plan" },
     { id: "subscription", label: "Pricing" },
   ];
 
   const handleNavigate = (
-    view: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription"
+    view: "home" | "address-input" | "dashboard" | "subscription"
   ) => {
     onNavigate(view);
     onClose();

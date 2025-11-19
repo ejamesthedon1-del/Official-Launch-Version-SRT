@@ -3,7 +3,7 @@ import { Check, ChevronLeft } from "lucide-react";
 import { PaymentForm } from "./PaymentForm";
 
 interface SubscriptionPageProps {
-  onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription") => void;
+  onNavigate: (view: "home" | "address-input" | "dashboard" | "subscription") => void;
   onSubscribe?: () => void;
   address?: string;
 }
@@ -52,7 +52,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
     if (onSubscribe) {
       onSubscribe();
     }
-    onNavigate("marketing-plan");
+    onNavigate("dashboard");
   };
 
   return (
@@ -108,7 +108,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                     }`}
                     style={{ fontSize: "14px", fontWeight: 500 }}
                   >
-                    Quarterly (Save 10%)
+                    One-time
                   </button>
                 </div>
               </div>

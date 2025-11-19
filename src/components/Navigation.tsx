@@ -1,9 +1,9 @@
 import { Logo } from "./figma/Logo";
 
 interface NavigationProps {
-  currentView: "home" | "address-input" | "dashboard" | "marketing-plan";
+  currentView: "home" | "address-input" | "dashboard";
   onNavigate: (
-    view: "home" | "address-input" | "dashboard" | "marketing-plan"
+    view: "home" | "address-input" | "dashboard"
   ) => void;
   showAnalyze?: boolean;
   onMenuClick?: () => void;
@@ -95,16 +95,6 @@ export function Navigation({
               Dashboard
             </button>
 
-            <button
-              onClick={() => onNavigate("marketing-plan")}
-              className={`hover:opacity-80 transition-colors ${
-                currentView === "marketing-plan" 
-                  ? (isHomePage ? "text-white font-medium" : "text-blue-600 font-medium")
-                  : ""
-              }`}
-            >
-                  Marketing plan
-            </button>
           </nav>
 
           {/* Mobile Hamburger Menu Button - 2 bars */}

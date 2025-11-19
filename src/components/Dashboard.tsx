@@ -73,7 +73,7 @@ interface AnalysisData {
 
 interface DashboardProps {
   onSubscribe: () => void;
-  onNavigate: (view: "home" | "address-input" | "dashboard" | "marketing-plan" | "subscription") => void;
+  onNavigate: (view: "home" | "address-input" | "dashboard" | "subscription") => void;
   address: string;
   analysisData: AnalysisData | null;
   onMenuClick?: () => void;
@@ -430,11 +430,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
                   {/* Smart Recommendations */}
                   <div className="bg-white rounded-xl shadow-lg p-4">
-                    <h3 className="text-slate-900 mb-1 text-sm flex items-center gap-1.5">
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-blue-600" />
                       Smart Recommendations
                     </h3>
-                    <p className="text-[10px] text-slate-600 mb-3">Smart recommendations</p>
+                    <p className="text-sm text-slate-600 mb-3">Smart recommendations</p>
                     <div className="space-y-2">
                       {insights.topPriorities?.slice(0, 2).map((priority, index) => (
                         <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg p-2">
@@ -538,7 +538,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                     <div className="mt-4" style={{ marginTop: '0.5in' }}>
                       <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
-                      <div className="text-sm md:text-sm text-[15px] text-slate-700 leading-relaxed">
+                      <div className="text-sm md:text-sm text-[16px] text-slate-700 leading-relaxed">
                         {(() => {
                           if (!insights.summary) return null;
                           
@@ -588,8 +588,16 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   Critical Factors
                   <Lock className="w-4 h-4" />
                 </h3>
-                <p className="text-sm text-slate-600 text-left mb-4">These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to unlock insights that could speed up results</p>
-                <p className="text-sm text-slate-600 text-left mb-4">Upgrade your plan to unlock full analysis</p>
+                <p className="text-[16px] text-slate-600 text-left mb-4">
+                  These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to{' '}
+                  <button
+                    onClick={handleSubscribe}
+                    className="underline text-blue-600 hover:text-blue-700 cursor-pointer"
+                  >
+                    unlock insights
+                  </button>
+                  {' '}that could speed up results
+                </p>
               </div>
               <div className="space-y-4 mt-4">
                 {ratings.map((rating, idx) => {
@@ -619,7 +627,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <div key={idx} className="space-y-2">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <div className="text-sm font-semibold text-slate-900 mb-0.5">
+                          <div className="text-[15px] font-semibold text-slate-900 mb-0.5">
                             {rating.title}
                           </div>
                           <div className="text-[13.5px] text-slate-600">
@@ -632,14 +640,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                                   {!isSubscribed ? (
                                     <button
                                       onClick={handleSubscribe}
-                                      className="text-blue-600 hover:text-blue-700 transition-colors underline"
+                                      className="text-blue-600 hover:text-blue-700 transition-colors underline text-[11px]"
                                     >
                                       read more
                                     </button>
                                   ) : (
                                     <button
                                       onClick={toggleDescription}
-                                      className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                                      className="text-blue-600 hover:text-blue-700 font-medium transition-colors text-[11px]"
                                     >
                                       read more
                                     </button>
@@ -652,7 +660,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                                 {isExpanded && (
                                   <button
                                     onClick={toggleDescription}
-                                    className="ml-1 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                                    className="ml-1 text-blue-600 hover:text-blue-700 font-medium transition-colors text-[11px]"
                                   >
                                     Read less
                                   </button>
@@ -690,12 +698,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 Premium Insights
                 <Lock className="w-4 h-4" />
               </h3>
-              <p className="text-sm text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
+              <p className="text-[16px] text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
             <div className="space-y-2">
               {/* Buyer Concerns Section */}
               {(insights.topPriorities && insights.topPriorities.length > 0) && (
-                <div className="lg:border lg:border-slate-200 lg:rounded-lg lg:overflow-hidden">
+                <div>
                   <button
                     onClick={() => !isSubscribed ? handleSubscribe() : setBuyerConcernsExpanded(!buyerConcernsExpanded)}
                     className="w-full flex items-center justify-between gap-2 p-3 lg:hover:bg-slate-50 transition-colors"
@@ -703,7 +711,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
                         <h4 className="text-slate-900 font-medium text-lg">Buyer concerns</h4>
-                        <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers<br />so you can fix issues before they kill interest.</p>
+                        <p className="text-[16px] text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Reveals what might worry potential buyers<br />so you can fix issues before they kill interest.</p>
                       </div>
                     </div>
                     {!isSubscribed ? (
@@ -749,7 +757,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
               {/* Risk Factors Section */}
               {(daysOnMarket > 30 || insights.alerts.length > 0) && (
-                <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <div>
                   <button
                     onClick={() => !isSubscribed ? handleSubscribe() : setRiskFactorsExpanded(!riskFactorsExpanded)}
                     className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
@@ -757,7 +765,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
                         <h4 className="text-slate-900 font-medium text-lg">Risk factors</h4>
-                        <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Shows hidden red flags that could reduce<br />offers or slow down your sale.</p>
+                        <p className="text-[16px] text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Shows hidden red flags that could reduce<br />offers or slow down your sale.</p>
                       </div>
                     </div>
                     {!isSubscribed ? (
@@ -827,7 +835,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               )}
 
               {/* Missed Value Points Section */}
-              <div className="border border-slate-200 rounded-lg overflow-hidden">
+              <div>
                 <button
                   onClick={() => !isSubscribed ? handleSubscribe() : setMissedValueExpanded(!missedValueExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
@@ -835,7 +843,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Missed value points</h4>
-                      <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Highlights things you're not showcasing that<br />could increase your perceived property value.</p>
+                      <p className="text-[16px] text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Highlights things you're not showcasing that<br />could increase your perceived property value.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -899,7 +907,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
 
               {/* Negotiation Risk Section */}
-              <div className="border border-slate-200 rounded-lg overflow-hidden">
+              <div>
                 <button
                   onClick={() => !isSubscribed ? handleSubscribe() : setNegotiationRiskExpanded(!negotiationRiskExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
@@ -907,7 +915,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Negotiation risk</h4>
-                      <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Identifies weaknesses buyers may use<br />to negotiate your price down.</p>
+                      <p className="text-[16px] text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Identifies weaknesses buyers may use<br />to negotiate your price down.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -976,7 +984,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
 
               {/* Buyer Match Score Section */}
-              <div className="border border-slate-200 rounded-lg overflow-hidden">
+              <div>
                 <button
                   onClick={() => !isSubscribed ? handleSubscribe() : setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
@@ -984,7 +992,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Buyer match score</h4>
-                      <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Measures how well your listing aligns with<br />current buyer preferences in your market.</p>
+                      <p className="text-[16px] text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Measures how well your listing aligns with<br />current buyer preferences in your market.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -1053,7 +1061,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
 
               {/* Upgrade Impact Section */}
-              <div className="border border-slate-200 rounded-lg overflow-hidden">
+              <div>
                 <button
                   onClick={() => !isSubscribed ? handleSubscribe() : setUpgradeImpactExpanded(!upgradeImpactExpanded)}
                   className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
@@ -1061,7 +1069,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex items-center gap-2 flex-1">
                     <div className="flex flex-col items-start flex-1 min-w-0">
                       <h4 className="text-slate-900 font-medium text-lg">Upgrade impact</h4>
-                      <p className="text-sm text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Predicts how much improving your listing<br />could boost views, tours, and offers.</p>
+                      <p className="text-[16px] text-slate-600 mt-0.5 text-left break-words" style={{ maxWidth: 'calc(100% - 1rem)' }}>Predicts how much improving your listing<br />could boost views, tours, and offers.</p>
                     </div>
                   </div>
                   {!isSubscribed ? (
@@ -1140,7 +1148,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <TrendingUp className="w-5 h-5 text-blue-600" />
                       Market & Listing Performance
                     </h3>
-                    <p className="text-sm text-slate-600 mb-5">Category performance breakdown</p>
+                    <p className="text-[16px] text-slate-600 mb-5">Category performance breakdown</p>
 
                     <div className="h-52">
                       <ResponsiveContainer width="100%" height="100%">
@@ -1163,12 +1171,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </div>
 
                   {/* Smart Recommendations */}
-                  <div>
-                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                  <div style={{ marginTop: '0.5in' }}>
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-blue-600" />
                       Smart Recommendations
                     </h3>
-                    <p className="text-sm text-slate-600 mb-5">Smart recommendations</p>
+                    <p className="text-[16px] text-slate-600 mb-5">Smart recommendations</p>
                     <div className="space-y-3">
                       {insights.topPriorities.slice(0, 4).map((priority, index) => (
                         <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer">
@@ -1191,15 +1199,15 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
 
                 {/* Pricing Strategy & Selling Speed */}
-                <div className="grid lg:grid-cols-2 gap-6 mb-6">
+                <div className="grid lg:grid-cols-2 gap-6 mb-6" style={{ marginTop: '0.5in' }}>
                   {/* Pricing Strategy */}
                   {insights.pricingInsight && (
                     <div>
-                      <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                      <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                         <DollarSign className="w-5 h-5 text-blue-600" />
                         Pricing Strategy
                       </h3>
-                      <p className="text-sm text-slate-600 mb-4">Actionable pricing guidance</p>
+                      <p className="text-[16px] text-slate-600 mb-4">Actionable pricing guidance</p>
                       <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-4">
                         <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
                       </div>
@@ -1212,11 +1220,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   {/* Selling Speed Prediction */}
                   {insights.sellingSpeedPrediction && (
                     <div>
-                      <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                      <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                         <Zap className="w-5 h-5 text-blue-600" />
                         Selling speed prediction
                       </h3>
-                      <p className="text-sm text-slate-600 mb-4">Time-to-sale estimate</p>
+                      <p className="text-[16px] text-slate-600 mb-4">Time-to-sale estimate</p>
                       <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-lg p-4">
                         <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
                       </div>
@@ -1261,8 +1269,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
 
                 {/* Smart Recommendations */}
-                <div>
-                  <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                <div style={{ marginTop: '0.5in' }}>
+                  <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-blue-600" />
                     Smart Recommendations
                   </h3>
@@ -1289,11 +1297,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               </div>
 
               {/* Pricing Strategy & Selling Speed */}
-              <div className="grid lg:grid-cols-2 gap-6 mb-6">
+              <div className="grid lg:grid-cols-2 gap-6 mb-6" style={{ marginTop: '0.5in' }}>
                 {/* Pricing Strategy */}
                 {insights.pricingInsight && (
                   <div>
-                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                       <DollarSign className="w-5 h-5 text-blue-600" />
                       Pricing Strategy
                     </h3>
@@ -1310,7 +1318,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 {/* Selling Speed Prediction */}
                 {insights.sellingSpeedPrediction && (
                   <div>
-                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                       <Zap className="w-5 h-5 text-blue-600" />
                       Selling Speed Prediction
                     </h3>
