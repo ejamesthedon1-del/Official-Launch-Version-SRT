@@ -558,23 +558,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   const percentage = (rating.score / rating.maxScore) * 100;
                   const isExpanded = expandedDescriptions.has(idx);
                   
-                  // Parse description to find sentences
-                  const sentences = rating.description?.split(/[.!?]+/).filter(s => s.trim().length > 0) || [];
-                  const hasMultipleSentences = sentences.length > 1;
-                  
-                  // Show first sentence + partial second sentence (first 4 words)
-                  let truncatedDescription = rating.description || '';
-                  let shouldTruncate = false;
-                  
-                  if (hasMultipleSentences && !isExpanded) {
-                    const firstSentence = sentences[0].trim() + '.';
-                    const secondSentenceWords = sentences[1].trim().split(/\s+/);
-                    const partialSecondSentence = secondSentenceWords.slice(0, 4).join(' ');
-                    truncatedDescription = `${firstSentence} ${partialSecondSentence}...`;
-                    shouldTruncate = true;
-                  } else if (isExpanded) {
-                    truncatedDescription = rating.description || '';
-                  }
+                  // Check if description is long enough to need truncation (approximately 2 lines)
+                  const description = rating.description || '';
+                  const shouldTruncate = !isExpanded && description.length > 120; // Approximate 2 lines of text
                   
                   const getScoreColor = (score: number, maxScore: number) => {
                     // Always blue to match theme
@@ -599,22 +585,41 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                             {rating.title}
                           </div>
                           <div className="text-sm text-slate-600">
-                            {truncatedDescription}
-                            {shouldTruncate && !isSubscribed && (
-                              <button
-                                onClick={handleSubscribe}
-                                className="ml-1 text-blue-600 hover:text-blue-700 transition-colors underline"
-                              >
-                                read more
-                              </button>
-                            )}
-                            {shouldTruncate && isSubscribed && (
-                              <button
-                                onClick={toggleDescription}
-                                className="ml-1 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-                              >
-                                {isExpanded ? 'Read less' : 'Read more'}
-                              </button>
+                            {!isExpanded && shouldTruncate ? (
+                              <div className="relative">
+                                <div className="line-clamp-2 pr-20">
+                                  {description}
+                                </div>
+                                <span className="absolute bottom-0 right-0">
+                                  {!isSubscribed ? (
+                                    <button
+                                      onClick={handleSubscribe}
+                                      className="text-blue-600 hover:text-blue-700 transition-colors underline"
+                                    >
+                                      read more
+                                    </button>
+                                  ) : (
+                                    <button
+                                      onClick={toggleDescription}
+                                      className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                                    >
+                                      read more
+                                    </button>
+                                  )}
+                                </span>
+                              </div>
+                            ) : (
+                              <>
+                                {description}
+                                {isExpanded && (
+                                  <button
+                                    onClick={toggleDescription}
+                                    className="ml-1 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                                  >
+                                    Read less
+                                  </button>
+                                )}
+                              </>
                             )}
                           </div>
                         </div>
