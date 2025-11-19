@@ -1,11 +1,3 @@
-# Complete Supabase Index.ts
-
-## Full Code to Paste into Supabase Edge Function
-
-**File**: `supabase/functions/make-server-52cdd920/index.ts`
-
----
-
 ```typescript
 import Stripe from "npm:stripe@12.12.0";
 import * as kv from "./kv_store.ts";
@@ -34,7 +26,9 @@ const json = (data, status = 200, extraHeaders = {}) =>
 Deno.serve(async (req) => {
   try {
     if (req.method === "OPTIONS") {
-      return new Response("ok", { headers: corsHeaders });
+      return new Response("ok", {
+        headers: corsHeaders
+      });
     }
 
     const url = new URL(req.url);
@@ -50,13 +44,17 @@ Deno.serve(async (req) => {
     if (path.endsWith("/places-autocomplete") && req.method === "POST") {
       const input = body.input;
       if (!input) {
-        return json({ error: "Input required" }, 400);
+        return json({
+          error: "Input required"
+        }, 400);
       }
 
       const apiKey = Deno.env.get("GOOGLE_PLACES_API_KEY") || "";
       if (!apiKey) {
         console.error("GOOGLE_PLACES_API_KEY is missing");
-        return json({ error: "Places API key missing" }, 500);
+        return json({
+          error: "Places API key missing"
+        }, 500);
       }
 
       try {
@@ -69,7 +67,10 @@ Deno.serve(async (req) => {
 
         if (data.status && data.status !== "OK" && data.status !== "ZERO_RESULTS") {
           console.error("Places API error:", data);
-          return json({ error: "Places API error", details: data }, 500);
+          return json({
+            error: "Places API error",
+            details: data
+          }, 500);
         }
 
         return json({
@@ -78,7 +79,10 @@ Deno.serve(async (req) => {
         });
       } catch (err) {
         console.error("Places fetch failed:", err);
-        return json({ error: "Failed to fetch Places API", details: err.message }, 500);
+        return json({
+          error: "Failed to fetch Places API",
+          details: err.message
+        }, 500);
       }
     }
 
@@ -87,12 +91,16 @@ Deno.serve(async (req) => {
       const address = body.address || "";
       
       if (!amount) {
-        return json({ error: "Amount is required" }, 400);
+        return json({
+          error: "Amount is required"
+        }, 400);
       }
 
       if (!stripeSecret) {
         console.error("STRIPE_SECRET_KEY is missing");
-        return json({ error: "Stripe secret key missing" }, 500);
+        return json({
+          error: "Stripe secret key missing"
+        }, 500);
       }
 
       try {
@@ -101,18 +109,23 @@ Deno.serve(async (req) => {
           currency: "usd",
           metadata: {
             address: address,
-            service: "listing-analytics-premium",
+            service: "listing-analytics-premium"
           },
-          automatic_payment_methods: { enabled: true },
+          automatic_payment_methods: {
+            enabled: true
+          }
         });
 
         return json({
           clientSecret: paymentIntent.client_secret,
-          paymentIntentId: paymentIntent.id,
+          paymentIntentId: paymentIntent.id
         });
       } catch (err) {
         console.error("Error creating payment intent:", err);
-        return json({ error: "Failed to create payment intent", details: err.message }, 500);
+        return json({
+          error: "Failed to create payment intent",
+          details: err.message
+        }, 500);
       }
     }
 
@@ -120,12 +133,16 @@ Deno.serve(async (req) => {
       const paymentIntentId = body.paymentIntentId;
       
       if (!paymentIntentId) {
-        return json({ error: "Payment intent ID is required" }, 400);
+        return json({
+          error: "Payment intent ID is required"
+        }, 400);
       }
 
       if (!stripeSecret) {
         console.error("STRIPE_SECRET_KEY is missing");
-        return json({ error: "Stripe secret key missing" }, 500);
+        return json({
+          error: "Stripe secret key missing"
+        }, 500);
       }
 
       try {
@@ -137,15 +154,24 @@ Deno.serve(async (req) => {
             status: "active",
             paymentIntentId,
             createdAt: new Date().toISOString(),
-            address: paymentIntent.metadata.address,
+            address: paymentIntent.metadata.address
           });
-          return json({ success: true, status: paymentIntent.status });
+          return json({
+            success: true,
+            status: paymentIntent.status
+          });
         }
 
-        return json({ success: false, status: paymentIntent.status });
+        return json({
+          success: false,
+          status: paymentIntent.status
+        });
       } catch (err) {
         console.error("Error verifying payment:", err);
-        return json({ error: "Failed to verify payment", details: err.message }, 500);
+        return json({
+          error: "Failed to verify payment",
+          details: err.message
+        }, 500);
       }
     }
 
@@ -153,15 +179,23 @@ Deno.serve(async (req) => {
       const address = body.address;
       
       if (!address) {
-        return json({ error: "Address is required" }, 400);
+        return json({
+          error: "Address is required"
+        }, 400);
       }
 
       try {
         const subscription = await kv.get(`subscription:${address}`);
-        return json({ hasSubscription: !!subscription, subscription });
+        return json({
+          hasSubscription: !!subscription,
+          subscription
+        });
       } catch (err) {
         console.error("Error checking subscription:", err);
-        return json({ error: "Failed to check subscription", details: err.message }, 500);
+        return json({
+          error: "Failed to check subscription",
+          details: err.message
+        }, 500);
       }
     }
 
@@ -169,7 +203,9 @@ Deno.serve(async (req) => {
       const address = body.address;
       const placeId = body.placeId;
       if (!address) {
-        return json({ error: "Address required" }, 400);
+        return json({
+          error: "Address required"
+        }, 400);
       }
 
       const geminiApiKey = Deno.env.get("GEMINI_API_KEY") || "";
@@ -178,7 +214,9 @@ Deno.serve(async (req) => {
       
       if (!geminiApiKey) {
         console.error("GEMINI_API_KEY is missing");
-        return json({ error: "Gemini API key missing" }, 500);
+        return json({
+          error: "Gemini API key missing"
+        }, 500);
       }
 
       let propertyImageUrl = null;
@@ -206,7 +244,7 @@ Deno.serve(async (req) => {
         baths: 0,
         sqft: 0,
         daysOnMarket: 0,
-        propertyType: "Residential",
+        propertyType: "Residential"
       };
 
       if (rentCastApiKey) {
@@ -237,7 +275,7 @@ Deno.serve(async (req) => {
                 baths: rentCastData.bathrooms || rentCastData.baths || rentCastData.bath || 0,
                 sqft: rentCastData.squareFootage || rentCastData.sqft || rentCastData.livingArea || 0,
                 daysOnMarket: rentCastData.daysOnMarket || rentCastData.dom || rentCastData.daysOld || 0,
-                propertyType: rentCastData.propertyType || rentCastData.type || rentCastData.propertySubType || "Residential",
+                propertyType: rentCastData.propertyType || rentCastData.type || rentCastData.propertySubType || "Residential"
               };
               console.log("Extracted listing data:", JSON.stringify(listingData, null, 2));
             } else {
@@ -253,11 +291,6 @@ Deno.serve(async (req) => {
       } else {
         console.warn("RENTCAST_API_KEY not set, skipping RentCast API call");
       }
-
-      // ========== START RAPIDAPI ZILLOW API INTEGRATION ==========
-      // RapidAPI Zillow API - Get property details by address, extract ZPID, then get images
-      // Note: This will be called AFTER Gemini response, using the address
-      // ========== END RAPIDAPI ZILLOW API INTEGRATION ==========
 
       const hasRealData = listingData.price > 0 || listingData.beds > 0 || listingData.sqft > 0;
       const daysOnMarket = listingData.daysOnMarket || 0;
@@ -360,32 +393,37 @@ ANALYSIS REQUIREMENTS:
    Based on the current data (DOM, pricing, market conditions, property features), provide a realistic estimate of days to sell. Format: "Likely to sell in X-Y days with current strategy, or A-B days with recommended [specific action]." Be specific and realistic.
 
 8. ANALYSIS SUMMARY:
-   Provide a concise analysis summary in EXACTLY two tight paragraphs. The tone should be confident, advisory, and strategic—like a top-tier real estate strategist who understands the user's situation without sounding salesy. 
+   Provide a concise analysis summary in EXACTLY one tight paragraph. The tone should be confident, advisory, and strategic—like a top-tier real estate strategist who understands the user's situation without sounding salesy. 
    
    STRUCTURE REQUIREMENTS:
-   - You MUST write EXACTLY 2 paragraphs—no more, no less
-   - Use a double line break (\n\n) to separate the two paragraphs
-   - Each paragraph must be 3-4 sentences ONLY (not 5, not 6, not 10, not 15)
-   - Total word count MUST be 100-150 words (50-75 words per paragraph)
-   - If your summary exceeds 150 words, it is TOO LONG—cut it down
-   - If your summary is less than 100 words, expand it slightly
+   - You MUST write EXACTLY 1 paragraph—no more, no less
+   - Total word count MUST be 75-100 words
+   - The paragraph must be 4-6 sentences ONLY (not 7, not 10, not 15)
+   - If your summary exceeds 100 words, it is TOO LONG—cut it down
+   - If your summary is less than 75 words, expand it slightly
    
    CONTENT REQUIREMENTS:
-   First paragraph (3-4 sentences, 50-75 words): Highlight what the user may be overlooking and why certain actions or improvements are essential for giving their listing a fair, competitive shot. Spark curiosity by subtly revealing gaps and opportunities they might not have noticed. Speak with clarity and authority, showing you understand their pain points. Focus on overlooked issues, hidden opportunities, or critical gaps in their current approach.
+   The summary must ONLY identify problems and issues—do NOT provide recommendations, strategies, or solutions. Focus on:
+   - What the user may be overlooking
+   - Critical gaps in their current approach
+   - Hidden obstacles preventing faster sales
+   - Overlooked issues that could impact their listing
+   - Problems that need attention
    
-   Second paragraph (3-4 sentences, 50-75 words): Guide them immediately toward the next best steps with practical, digestible direction. Keep it actionable and focused on what matters most right now. The goal is to deliver a brief but compelling summary that helps the user feel understood, informed, and motivated to act. Provide clear, immediate next steps without being vague.
+   At the END of the summary, include this exact upgrade prompt: "Upgrade your plan to access deeper insights and actionable recommendations."
    
    CRITICAL ENFORCEMENT:
-   - Count your words before finalizing—if over 150 words, you MUST reduce it
-   - Count your sentences per paragraph—if over 4 sentences, you MUST reduce it
-   - The summary must be EXACTLY two paragraphs separated by \n\n
-   - Never use sales language like "subscribe", "upgrade", or promotional phrasing
+   - Count your words before finalizing—if over 100 words, you MUST reduce it
+   - Count your sentences—if over 6 sentences, you MUST reduce it
+   - The summary must be EXACTLY one paragraph (no line breaks)
+   - DO NOT include any recommendations, strategies, or actionable steps
+   - ONLY identify problems and issues
+   - MUST end with: "Upgrade your plan to access deeper insights and actionable recommendations."
    - Be concise and tight—every word must serve a purpose
    - If it feels long when you read it, it IS too long—make it shorter
 
 9. REALTOR.COM URL:
    Find and return the Realtor.com property URL for this address. Search Realtor.com for the property and return the full URL (e.g., "https://www.realtor.com/realestateandhomes-detail/123-Main-St-City-ST-12345_M12345-12345"). If you cannot find the exact property, return null.
-
 
 ---
 
@@ -413,7 +451,7 @@ Return ONLY valid JSON (no explanations, no markdown, no code blocks). Start wit
   ],
   "pricingInsight": "${daysOnMarket > 30 ? 'string with specific pricing recommendation (e.g., \"Reduce price by 5% ($25,000) to $475,000 to accelerate sale\")' : 'string with pricing strategy guidance or null'}",
   "sellingSpeedPrediction": "string estimating days to sell (e.g., 'Likely to sell in 30-45 days with current strategy, or 15-20 days with recommended price reduction')",
-  "summary": "EXACTLY two paragraphs (100-150 words total, 50-75 words each, 3-4 sentences per paragraph) separated by \\n\\n. First paragraph highlights overlooked gaps and opportunities. Second paragraph provides practical next steps. Concise, confident, advisory tone—never salesy.",
+  "summary": "EXACTLY one paragraph (75-100 words, 4-6 sentences). ONLY identifies problems and issues—no recommendations or strategies. Ends with: 'Upgrade your plan to access deeper insights and actionable recommendations.' Concise, confident, advisory tone.",
   "realtorUrl": "https://www.realtor.com/realestateandhomes-detail/... or null if not found"
 }
 
@@ -445,7 +483,7 @@ CRITICAL REQUIREMENTS:
             responseMimeType: "application/json"
           }
         };
-        
+
         const geminiRes = await fetch(geminiUrl, {
           method: "POST",
           headers: {
@@ -460,40 +498,33 @@ CRITICAL REQUIREMENTS:
           try {
             errorData = JSON.parse(errorText);
           } catch {
-            errorData = { error: errorText || "Unknown error" };
+            errorData = {
+              error: errorText || "Unknown error"
+            };
           }
           console.error("Gemini API HTTP error:", geminiRes.status, errorData);
-          return json(
-            {
-              error: `Gemini API error (${geminiRes.status})`,
-              details: errorData
-            },
-            500
-          );
+          return json({
+            error: `Gemini API error (${geminiRes.status})`,
+            details: errorData
+          }, 500);
         }
 
         const geminiData = await geminiRes.json();
 
         if (geminiData.error) {
           console.error("Gemini API error in response:", geminiData.error);
-          return json(
-            {
-              error: `Gemini API error: ${geminiData.error.message || JSON.stringify(geminiData.error)}`
-            },
-            500
-          );
+          return json({
+            error: `Gemini API error: ${geminiData.error.message || JSON.stringify(geminiData.error)}`
+          }, 500);
         }
 
         const aiText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!aiText) {
           console.error("No text in Gemini response:", JSON.stringify(geminiData, null, 2));
-          return json(
-            {
-              error: "No response from AI. Please check the API key and try again.",
-              debug: geminiData
-            },
-            500
-          );
+          return json({
+            error: "No response from AI. Please check the API key and try again.",
+            debug: geminiData
+          }, 500);
         }
 
         // Robust JSON parsing - handle multiple formats
@@ -545,7 +576,7 @@ CRITICAL REQUIREMENTS:
               throw new Error("Parsed data is not an object");
             }
           }
-          
+
           console.log("Parsed Gemini response:", JSON.stringify(parsed, null, 2));
           
           const result = {
@@ -557,11 +588,18 @@ CRITICAL REQUIREMENTS:
             sqft: listingData.sqft || parsed.sqft || 0,
             daysOnMarket: listingData.daysOnMarket || parsed.daysOnMarket || 0,
             marketTrend: parsed.marketTrend || "Stable Market",
-            keyFeatures: parsed.keyFeatures || ["Standard property features", "Modern amenities"],
-            recommendations: parsed.recommendations || ["Review property details", "Check market conditions"],
+            keyFeatures: parsed.keyFeatures || [
+              "Standard property features",
+              "Modern amenities"
+            ],
+            recommendations: parsed.recommendations || [
+              "Review property details",
+              "Check market conditions"
+            ],
             riskFactors: parsed.riskFactors || [],
             pricingInsight: parsed.pricingInsight || null,
             sellingSpeedPrediction: parsed.sellingSpeedPrediction || null,
+            summary: parsed.summary || null,
             realtorUrl: parsed.realtorUrl || null,
             // Zillow photos - will be set by photo extraction logic below
             propertyPhotos: null
@@ -671,33 +709,24 @@ CRITICAL REQUIREMENTS:
                   // Structure 1: Direct array
                   if (Array.isArray(imagesData)) {
                     photosArray = imagesData;
-                  }
-                  // Structure 2: data.images or data.photos
-                  else if (imagesData?.data?.images && Array.isArray(imagesData.data.images)) {
+                  } else if (imagesData?.data?.images && Array.isArray(imagesData.data.images)) {
                     photosArray = imagesData.data.images;
-                  }
-                  else if (imagesData?.data?.photos && Array.isArray(imagesData.data.photos)) {
+                  } else if (imagesData?.data?.photos && Array.isArray(imagesData.data.photos)) {
                     photosArray = imagesData.data.photos;
-                  }
-                  // Structure 3: images or photos (top level)
-                  else if (imagesData?.images && Array.isArray(imagesData.images)) {
+                  } else if (imagesData?.images && Array.isArray(imagesData.images)) {
                     photosArray = imagesData.images;
-                  }
-                  else if (imagesData?.photos && Array.isArray(imagesData.photos)) {
+                  } else if (imagesData?.photos && Array.isArray(imagesData.photos)) {
                     photosArray = imagesData.photos;
                   }
                   
                   if (photosArray && photosArray.length > 0) {
                     // Extract URLs from photo objects
-                    photoUrls = photosArray
-                      .map(p => {
-                        // Handle string URLs
-                        if (typeof p === 'string') return p;
-                        // Handle photo objects - Zillow may use different field names
-                        return p?.url || p?.href || p?.src || p?.imageUrl || p?.full || p?.medium || p?.small || null;
-                      })
-                      .filter(Boolean)
-                      .slice(0, 10); // Limit to 10 photos
+                    photoUrls = photosArray.map((p) => {
+                      // Handle string URLs
+                      if (typeof p === 'string') return p;
+                      // Handle photo objects - Zillow may use different field names
+                      return p?.url || p?.href || p?.src || p?.imageUrl || p?.full || p?.medium || p?.small || null;
+                    }).filter(Boolean).slice(0, 10); // Limit to 10 photos
                     
                     console.log(`✅✅✅ Extracted ${photoUrls.length} photo URL(s) from Zillow API`);
                   } else {
@@ -742,11 +771,9 @@ CRITICAL REQUIREMENTS:
           // Log photo data in result
           console.log("Result propertyPhotos:", result.propertyPhotos ? `${result.propertyPhotos.length} photos` : "null");
           console.log("Result propertyImageUrl:", result.propertyImageUrl || "null");
-          
           console.log("Final combined result:", JSON.stringify(result, null, 2));
           
           parsed = result;
-          
         } catch (parseError) {
           console.error("Failed to parse Gemini response as JSON");
           console.error("Raw response length:", aiText.length);
@@ -755,26 +782,21 @@ CRITICAL REQUIREMENTS:
           console.error("Parse error:", parseError.message);
           console.error("Parse error stack:", parseError.stack);
           
-          return json(
-            {
-              error: "AI response was not valid JSON",
-              details: parseError.message,
-              rawResponse: aiText.substring(0, 1000),
-              rawResponseLength: aiText.length,
-              suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
-            },
-            500
-          );
+          return json({
+            error: "AI response was not valid JSON",
+            details: parseError.message,
+            rawResponse: aiText.substring(0, 1000),
+            rawResponseLength: aiText.length,
+            suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
+          }, 500);
         }
 
-        kv
-          .set(`ai-analysis:${address}`, {
-            result: parsed,
-            createdAt: new Date().toISOString()
-          })
-          .catch((err) => {
-            console.warn("KV set failed (non-critical):", err.message);
-          });
+        kv.set(`ai-analysis:${address}`, {
+          result: parsed,
+          createdAt: new Date().toISOString()
+        }).catch((err) => {
+          console.warn("KV set failed (non-critical):", err.message);
+        });
 
         return json({
           result: parsed
@@ -782,89 +804,24 @@ CRITICAL REQUIREMENTS:
       } catch (err) {
         console.error("Analyze Listing failed:", err);
         console.error("Error stack:", err.stack);
-        return json(
-          {
-            error: "AI analysis failed",
-            details: err.message || "Unknown error"
-          },
-          500
-        );
+        return json({
+          error: "AI analysis failed",
+          details: err.message || "Unknown error"
+        }, 500);
       }
     }
 
-    return json({ error: "Route not found" }, 404);
+    return json({
+      error: "Route not found"
+    }, 404);
   } catch (err) {
     console.error("Unhandled error:", err);
     console.error("Error stack:", err.stack);
-    return json(
-      {
-        error: "Internal server error",
-        details: err.message || "Unknown error"
-      },
-      500
-    );
+    return json({
+      error: "Internal server error",
+      details: err.message || "Unknown error"
+    }, 500);
   }
 });
 ```
-
----
-
-## Summary of Changes
-
-### ✅ Added RapidAPI Realtor API Integration
-- **Location**: After RentCast API call, before `hasRealData` check
-- **Features**:
-  - Calls ONLY `/property/photos` endpoint
-  - Constructs Realtor.com detail URL from address
-  - Fetches property photos (up to 10 photos)
-  - Non-critical enhancement (won't break if it fails)
-  - Falls back gracefully if API keys are missing
-
-### ✅ Updated Result Object
-- Added new field:
-  - `propertyPhotos`: Array of photo URLs (or null)
-- Photo prioritization: RapidAPI photos > Google Places image
-
-### ✅ All Existing Endpoints Preserved
-- `/places-autocomplete` - Google Places API
-- `/create-payment-intent` - Stripe payment creation
-- `/verify-payment` - Stripe payment verification
-- `/check-subscription` - Subscription status check
-- `/analyze-listing` - Enhanced with RapidAPI Realtor API integration
-
----
-
-## Environment Variables Required
-
-Make sure these are set in Supabase Edge Function secrets:
-
-```
-GEMINI_API_KEY=your_gemini_key
-RENTCAST_API_KEY=your_rentcast_key
-GOOGLE_PLACES_API_KEY=your_places_key
-STRIPE_SECRET_KEY=your_stripe_key
-RAPIDAPI_KEY=your_rapidapi_key
-RAPIDAPI_REALTOR_HOST=realtor16.p.rapidapi.com (optional, defaults to this)
-```
-
-**Note**: `RAPIDAPI_REALTOR_HOST` is optional and defaults to `realtor16.p.rapidapi.com` if not set.
-
----
-
-## Testing Checklist
-
-1. ✅ Test with all API keys set - should work with full data
-2. ✅ Test without RapidAPI key - should work with RentCast and Gemini only
-3. ✅ Test without RentCast key - should work with Gemini analysis only
-4. ✅ Test all endpoints work correctly
-
----
-
-## Notes
-
-- RapidAPI integration is **non-critical** - failures won't break the analysis
-- Only calls `/property/photos` endpoint - no search or details endpoints
-- Constructs Realtor.com URL from address to get photos
-- All RapidAPI calls are wrapped in try-catch with `console.warn` (not `console.error`)
-- Photo priority: RapidAPI photos > Google Places image
 

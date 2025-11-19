@@ -538,14 +538,40 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                     <div className="mt-4" style={{ marginTop: '0.5in' }}>
                       <h3 className="text-slate-900 font-semibold text-lg md:text-lg text-[19px] mb-3">Analysis Summary</h3>
-                      <div className="text-sm md:text-sm text-[15px] text-slate-700 leading-relaxed space-y-4">
-                        {insights.summary?.split('\n\n').map((paragraph, idx) => (
-                          paragraph.trim() && (
-                            <p key={idx} className="mb-0">
-                              {paragraph.trim()}
+                      <div className="text-sm md:text-sm text-[15px] text-slate-700 leading-relaxed">
+                        {(() => {
+                          if (!insights.summary) return null;
+                          
+                          // Check if summary contains "Upgrade your plan"
+                          const upgradeText = "Upgrade your plan";
+                          const upgradeIndex = insights.summary.indexOf(upgradeText);
+                          
+                          if (upgradeIndex !== -1) {
+                            // Split the summary into parts: before, upgrade text, after
+                            const beforeText = insights.summary.substring(0, upgradeIndex);
+                            const afterText = insights.summary.substring(upgradeIndex + upgradeText.length);
+                            
+                            return (
+                              <p className="mb-0">
+                                {beforeText}
+                                <button
+                                  onClick={handleSubscribe}
+                                  className="underline text-blue-600 hover:text-blue-700 cursor-pointer font-medium"
+                                >
+                                  {upgradeText}
+                                </button>
+                                {afterText}
+                              </p>
+                            );
+                          }
+                          
+                          // No upgrade text found, render normally
+                          return (
+                            <p className="mb-0">
+                              {insights.summary}
                             </p>
-                          )
-                        ))}
+                          );
+                        })()}
                       </div>
                     </div>
                   </div>
