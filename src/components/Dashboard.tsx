@@ -584,7 +584,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {ratings && ratings.length > 0 && (
             <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
               <div className="flex items-center gap-2 mb-5">
-                <h3 className="text-slate-900 font-semibold text-lg">Score Factors</h3>
+                <h3 className="text-slate-900 font-semibold text-lg">
+                  Core signals affecting
+                  <br />
+                  your score
+                </h3>
               </div>
               <div className="space-y-4">
                 {ratings.map((rating, idx) => {
