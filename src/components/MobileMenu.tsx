@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { X } from "lucide-react";
 
 interface MobileMenuProps {
@@ -38,19 +38,6 @@ export function MobileMenu({
     onClose();
   };
 
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
   return (
     <>
       {/* Backdrop */}
@@ -67,9 +54,8 @@ export function MobileMenu({
         style={{
           transform: isOpen ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-out",
-          height: "100vh",
-          maxHeight: "100vh",
-          paddingBottom: "env(safe-area-inset-bottom)",
+          height: "80vh",
+          maxHeight: "80vh",
         }}
       >
         {/* Handle bar at top */}
