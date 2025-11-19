@@ -453,7 +453,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           {/* Mobile Layout - Keep existing structure */}
           <div className="lg:hidden">
             {/* Property Header */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 overflow-hidden mb-6">
+            <div className="mb-6">
               {/* Property Image */}
               {listing.imageUrl && (
                 <div className="w-full h-64 md:h-80 relative overflow-hidden">
@@ -512,25 +512,25 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 <div className="flex flex-col justify-between">
                   <div>
                     <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-3 border border-slate-200">
+                      <div className="p-3">
                         <div className="text-xs text-slate-600 mb-1">List Price</div>
                         <div className="text-slate-900 text-lg">{listing.price}</div>
                       </div>
-                      <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-3 border border-slate-200">
+                      <div className="p-3">
                         <div className="text-xs text-slate-600 mb-1">Days on Market</div>
                         <div className="text-slate-900 text-lg">{listing.daysOnMarket} days</div>
                       </div>
                     </div>
                     <div className="grid grid-cols-3 gap-2 mb-4">
-                      <div className="bg-white rounded-lg p-2.5 border border-slate-200 text-center hover:border-blue-300 transition-colors cursor-pointer">
+                      <div className="p-2.5 text-center">
                         <Bed className="w-4 h-4 text-blue-600 mx-auto mb-1" />
                         <div className="text-xs text-slate-600">{listing.beds} Beds</div>
                       </div>
-                      <div className="bg-white rounded-lg p-2.5 border border-slate-200 text-center hover:border-blue-300 transition-colors cursor-pointer">
+                      <div className="p-2.5 text-center">
                         <Bath className="w-4 h-4 text-blue-600 mx-auto mb-1" />
                         <div className="text-xs text-slate-600">{listing.baths} Baths</div>
                       </div>
-                      <div className="bg-white rounded-lg p-2.5 border border-slate-200 text-center hover:border-blue-300 transition-colors cursor-pointer">
+                      <div className="p-2.5 text-center">
                         <Ruler className="w-4 h-4 text-blue-600 mx-auto mb-1" />
                         <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
                       </div>
@@ -549,7 +549,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
           {/* Score Factors - Slider Bar Stats Section */}
           {ratings && ratings.length > 0 && (
-            <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+            <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
               <div className="flex items-center gap-2 mb-5">
                 <h3 className="text-slate-900 font-semibold text-lg">Score factors</h3>
               </div>
@@ -642,11 +642,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   );
                 })}
               </div>
-            </Card>
+            </div>
           )}
 
           {/* Premium Insights Menu - All Collapsibles Combined */}
-          <Card className="p-4 md:p-6 mb-6 bg-white border border-slate-200/50">
+          <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
             <div className="mb-4">
               <h3 className="text-slate-900 font-semibold text-lg mb-1">Premium insights</h3>
               <p className="text-sm text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
@@ -654,10 +654,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="space-y-2">
               {/* Buyer Concerns Section */}
               {(insights.topPriorities && insights.topPriorities.length > 0) && (
-                <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <div className="lg:border lg:border-slate-200 lg:rounded-lg lg:overflow-hidden">
                   <button
                     onClick={() => !isSubscribed ? handleSubscribe() : setBuyerConcernsExpanded(!buyerConcernsExpanded)}
-                    className="w-full flex items-center justify-between gap-2 p-3 hover:bg-slate-50 transition-colors"
+                    className="w-full flex items-center justify-between gap-2 p-3 lg:hover:bg-slate-50 transition-colors"
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <div className="flex flex-col items-start flex-1 min-w-0">
@@ -1083,7 +1083,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 )}
               </div>
             </div>
-          </Card>
+          </div>
 
           {/* Paywall Modal - Removed to view dashboard content */}
 
