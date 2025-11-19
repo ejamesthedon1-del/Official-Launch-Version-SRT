@@ -868,23 +868,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </div>
           </Card>
 
-          {/* Paywall Modal - Right after the property header/score section */}
-          {!isSubscribed && showPaywall && (
-            <div className="mb-8">
-              <Paywall 
-                onSubscribe={handleSubscribe}
-                onClose={() => setShowPaywall(false)}
-                analysisData={analysisData}
-              />
-            </div>
-          )}
+          {/* Paywall Modal - Removed to view dashboard content */}
 
           {/* Analytics Grid */}
           {!isSubscribed ? (
             <div className="relative">
-              {/* Blurred Content */}
-              <div className="backdrop-blur-sm rounded-2xl overflow-hidden">
-                <div className="grid lg:grid-cols-3 gap-6 mb-6 opacity-30">
+              {/* Content - Blur removed to view dashboard */}
+              <div className="rounded-2xl overflow-hidden">
+                <div className="grid lg:grid-cols-3 gap-6 mb-6">
                   {/* Market & Listing Performance */}
                   <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
                     <h3 className="text-slate-900 mb-1 flex items-center gap-2">
@@ -942,7 +933,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
 
                 {/* Pricing Strategy & Selling Speed */}
-                <div className="grid lg:grid-cols-2 gap-6 mb-6 opacity-30">
+                <div className="grid lg:grid-cols-2 gap-6 mb-6">
                   {/* Pricing Strategy */}
                   {insights.pricingInsight && (
                     <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
@@ -976,27 +967,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
               </div>
 
-              {/* Lock Overlay */}
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-md rounded-2xl flex items-start justify-center pt-8">
-                <Card className="p-8 text-center max-w-md mx-4">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <Eye className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                    Unlock Detailed Insights
-                  </h3>
-                  <p className="text-slate-600 mb-6">
-                    Get access to detailed factor breakdowns, performance charts, buyer insights, and complete marketing strategies.
-                  </p>
-                  <Button
-                    size="lg"
-                    onClick={handleSubscribe}
-                    className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full"
-                  >
-                    Upgrade to Premium <Eye className="w-4 h-4" />
-                  </Button>
-                </Card>
-              </div>
+              {/* Lock Overlay - Removed to view dashboard content */}
             </div>
           ) : (
           /* Premium Content (if subscribed) */
