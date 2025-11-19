@@ -428,11 +428,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
 
-                  {/* AI Insights */}
+                  {/* Smart Recommendations */}
                   <div className="bg-white rounded-xl shadow-lg p-4">
                     <h3 className="text-slate-900 mb-1 text-sm flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-blue-600" />
-                      AI Insights
+                      Smart Recommendations
                     </h3>
                     <p className="text-[10px] text-slate-600 mb-3">Smart recommendations</p>
                     <div className="space-y-2">
@@ -589,8 +589,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <Lock className="w-4 h-4" />
                 </h3>
                 <p className="text-sm text-slate-600 text-left mb-4">These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to unlock insights that could speed up results</p>
+                <p className="text-sm text-slate-600 text-left mb-4">Upgrade your plan to unlock full analysis</p>
               </div>
-              <div className="space-y-4 mt-2">
+              <div className="space-y-4 mt-4">
                 {ratings.map((rating, idx) => {
                   const percentage = (rating.score / rating.maxScore) * 100;
                   const isExpanded = expandedDescriptions.has(idx);
@@ -683,7 +684,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           )}
 
           {/* Premium Insights Menu - All Collapsibles Combined */}
-          <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm lg:!mt-0" style={{ marginTop: '0.5in' }}>
+          <div className="p-4 md:p-6 mb-6 lg:!mt-0" style={{ marginTop: '0.5in' }}>
             <div className="mb-4">
               <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                 Premium Insights
@@ -1134,8 +1135,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="rounded-2xl overflow-hidden">
                 <div className="grid lg:grid-cols-3 gap-6 mb-6">
                   {/* Market & Listing Performance */}
-                  <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
-                    <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                  <div className="lg:col-span-2">
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-blue-600" />
                       Market & Listing Performance
                     </h3>
@@ -1161,11 +1162,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
 
-                  {/* AI Insights */}
-                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                  {/* Smart Recommendations */}
+                  <div>
                     <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-blue-600" />
-                      AI Insights
+                      Smart Recommendations
                     </h3>
                     <p className="text-sm text-slate-600 mb-5">Smart recommendations</p>
                     <div className="space-y-3">
@@ -1193,7 +1194,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 <div className="grid lg:grid-cols-2 gap-6 mb-6">
                   {/* Pricing Strategy */}
                   {insights.pricingInsight && (
-                    <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                    <div>
                       <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                         <DollarSign className="w-5 h-5 text-blue-600" />
                         Pricing Strategy
@@ -1210,7 +1211,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
                   {/* Selling Speed Prediction */}
                   {insights.sellingSpeedPrediction && (
-                    <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                    <div>
                       <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                         <Zap className="w-5 h-5 text-blue-600" />
                         Selling speed prediction
@@ -1232,8 +1233,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               {/* Analytics Grid */}
               <div className="grid lg:grid-cols-3 gap-6 mb-6">
                 {/* Market & Listing Performance */}
-                <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
-                  <h3 className="text-slate-900 mb-1 flex items-center gap-2">
+                <div className="lg:col-span-2">
+                  <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-blue-600" />
                     Market & Listing Performance
                   </h3>
@@ -1259,11 +1260,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </div>
                 </div>
 
-                {/* AI Insights */}
-                <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                {/* Smart Recommendations */}
+                <div>
                   <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-blue-600" />
-                    AI Insights
+                    Smart Recommendations
                   </h3>
                   <p className="text-sm text-slate-600 mb-5">Smart recommendations</p>
                   <div className="space-y-3">
@@ -1291,7 +1292,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="grid lg:grid-cols-2 gap-6 mb-6">
                 {/* Pricing Strategy */}
                 {insights.pricingInsight && (
-                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                  <div>
                     <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                       <DollarSign className="w-5 h-5 text-blue-600" />
                       Pricing Strategy
@@ -1308,7 +1309,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
                 {/* Selling Speed Prediction */}
                 {insights.sellingSpeedPrediction && (
-                  <div className="bg-white rounded-2xl shadow-lg border border-slate-200/50 p-4 md:p-6">
+                  <div>
                     <h3 className="text-slate-900 mb-1 flex items-center gap-2">
                       <Zap className="w-5 h-5 text-blue-600" />
                       Selling Speed Prediction
