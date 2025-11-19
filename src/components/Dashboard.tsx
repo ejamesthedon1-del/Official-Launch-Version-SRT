@@ -231,7 +231,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
       <div className="flex">
         {/* Main Content */}
-        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-6 md:pt-24 lg:max-w-none lg:mx-0 lg:pt-0 lg:pb-0 lg:!mt-0" style={{ marginTop: '-0.5in' }}>
+        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-6 md:pt-24 lg:max-w-none lg:mx-0 lg:pt-0 lg:pb-0 lg:!mt-0" style={{ marginTop: '-0.25in' }}>
           {/* Dashboard Headline */}
           <div className="hidden lg:block mb-4 lg:px-6">
             <h1 className="text-slate-900 font-semibold text-xl md:text-2xl">
