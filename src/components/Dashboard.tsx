@@ -481,12 +481,23 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 {/* Address and Score Bar */}
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
+                    <h2 className="text-slate-900 mb-1 text-[30px] md:text-2xl font-semibold">{streetAddress}</h2>
                     <div className="flex items-center gap-2 text-slate-600 mb-0.5">
                       <MapPin className="w-3.5 h-3.5" />
-                      <span className="text-[10px] md:text-base">
+                      <span className="text-[15px] md:text-base">
                         {cityState}{zipCode ? `, ${zipCode}` : ''}{hasUSA ? (zipCode ? ', USA' : ' USA') : ''}
                       </span>
+                    </div>
+                    {/* List Price and Days on Market - Moved under address */}
+                    <div className="grid grid-cols-2 gap-3 mt-6">
+                      <div>
+                        <div className="text-xs text-slate-600 mb-1">List Price</div>
+                        <div className="text-slate-900 text-lg">{listing.price}</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-slate-600 mb-1">Days on Market</div>
+                        <div className="text-slate-900 text-lg">{listing.daysOnMarket} days</div>
+                      </div>
                     </div>
                   </div>
                   
@@ -511,16 +522,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 {/* Property Details */}
                 <div className="flex flex-col justify-between">
                   <div>
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="p-3">
-                        <div className="text-xs text-slate-600 mb-1">List Price</div>
-                        <div className="text-slate-900 text-lg">{listing.price}</div>
-                      </div>
-                      <div className="p-3">
-                        <div className="text-xs text-slate-600 mb-1">Days on Market</div>
-                        <div className="text-slate-900 text-lg">{listing.daysOnMarket} days</div>
-                      </div>
-                    </div>
                     <div className="grid grid-cols-3 gap-2 mb-4">
                       <div className="p-2.5 text-center">
                         <Bed className="w-4 h-4 text-blue-600 mx-auto mb-1" />
