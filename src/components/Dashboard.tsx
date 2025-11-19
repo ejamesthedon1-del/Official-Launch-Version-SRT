@@ -536,7 +536,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
                       </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-4" style={{ marginTop: '0.5in' }}>
                       <h3 className="text-slate-900 font-semibold text-lg mb-3">Analysis Summary</h3>
                       <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
                         {insights.summary}
