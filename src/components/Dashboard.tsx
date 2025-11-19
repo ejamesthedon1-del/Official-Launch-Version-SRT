@@ -475,13 +475,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
                     <div className="flex items-center gap-2 text-slate-600 mb-0.5">
                       <MapPin className="w-3.5 h-3.5" />
-                      <span className="text-xs md:text-base">{cityState}</span>
+                      <span className="text-[10px] md:text-base">
+                        {cityState}{zipCode ? `, ${zipCode}` : ''}{hasUSA ? (zipCode ? ', USA' : ' USA') : ''}
+                      </span>
                     </div>
-                    {(zipCode || hasUSA) && (
-                      <div className="text-slate-600 text-xs md:text-base ml-5">
-                        {zipCode ? zipCode : ''}{zipCode && hasUSA ? ' ' : ''}{hasUSA ? 'USA' : ''}
-                      </div>
-                    )}
                   </div>
                   
                   <div className="flex items-center justify-end mt-4">
