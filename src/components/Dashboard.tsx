@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TrendingUp, Eye, DollarSign, MapPin, Bed, Bath, Square, Calendar, AlertTriangle, CheckCircle2, AlertCircle, ChevronRight, ChevronDown, ChevronUp, Sparkles, Ruler, Bell, Settings, TrendingDown, Zap, Users, Target, Lock } from "lucide-react";
+import { SFSymbol } from "./SFSymbol";
 import { RatingCard } from "./RatingCard";
 import { LockedSection } from "./LockedSection";
 import { Navigation } from "./Navigation";
@@ -267,7 +267,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 <div className="flex-1 lg:flex-none">
                   <h2 className="text-slate-900 mb-1 text-xl md:text-2xl font-semibold">{streetAddress}</h2>
                   <div className="flex items-center gap-2 text-slate-600 mb-0.5">
-                    <MapPin className="w-3.5 h-3.5" />
+                    <SFSymbol name="mappin" size={14} />
                     <span className="text-sm md:text-base">{cityState}</span>
                   </div>
                   {(zipCode || hasUSA) && (
@@ -312,15 +312,15 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </div>
                   <div className="grid grid-cols-3 gap-2 mb-4">
                     <div className="bg-white rounded-lg p-2.5 border border-slate-200 text-center hover:border-blue-300 transition-colors cursor-pointer">
-                      <Bed className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+                      <SFSymbol name="bed.double" size={16} color="#2563eb" className="mx-auto mb-1" />
                       <div className="text-xs text-slate-600">{listing.beds} Beds</div>
                     </div>
                     <div className="bg-white rounded-lg p-2.5 border border-slate-200 text-center hover:border-blue-300 transition-colors cursor-pointer">
-                      <Bath className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+                      <SFSymbol name="drop" size={16} color="#2563eb" className="mx-auto mb-1" />
                       <div className="text-xs text-slate-600">{listing.baths} Baths</div>
                     </div>
                     <div className="bg-white rounded-lg p-2.5 border border-slate-200 text-center hover:border-blue-300 transition-colors cursor-pointer">
-                      <Ruler className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+                      <SFSymbol name="ruler" size={16} color="#2563eb" className="mx-auto mb-1" />
                       <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
                     </div>
                   </div>
@@ -449,11 +449,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
                     {!isSubscribed ? (
-                      <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                      <SFSymbol name="lock" size={16} color="#475569" className="flex-shrink-0" />
                     ) : buyerConcernsExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                      <SFSymbol name="chevron.up" size={16} color="#475569" className="flex-shrink-0" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                      <SFSymbol name="chevron.down" size={16} color="#475569" className="flex-shrink-0" />
                     )}
                   </button>
                   {buyerConcernsExpanded && (
@@ -503,11 +503,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
                     {!isSubscribed ? (
-                      <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                      <SFSymbol name="lock" size={16} color="#475569" className="flex-shrink-0" />
                     ) : riskFactorsExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                      <SFSymbol name="chevron.up" size={16} color="#475569" className="flex-shrink-0" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                      <SFSymbol name="chevron.down" size={16} color="#475569" className="flex-shrink-0" />
                     )}
                   </button>
                   {riskFactorsExpanded && (
@@ -581,11 +581,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                   {!isSubscribed ? (
-                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="lock" size={16} color="#475569" className="flex-shrink-0" />
                   ) : missedValueExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.up" size={16} color="#475569" className="flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.down" size={16} color="#475569" className="flex-shrink-0" />
                   )}
                 </button>
                 {missedValueExpanded && (
@@ -653,11 +653,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                   {!isSubscribed ? (
-                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="lock" size={16} color="#475569" className="flex-shrink-0" />
                   ) : negotiationRiskExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.up" size={16} color="#475569" className="flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.down" size={16} color="#475569" className="flex-shrink-0" />
                   )}
                 </button>
                 {negotiationRiskExpanded && (
@@ -730,11 +730,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                   {!isSubscribed ? (
-                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="lock" size={16} color="#475569" className="flex-shrink-0" />
                   ) : buyerMatchScoreExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.up" size={16} color="#475569" className="flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.down" size={16} color="#475569" className="flex-shrink-0" />
                   )}
                 </button>
                 {buyerMatchScoreExpanded && (
@@ -807,11 +807,11 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                   {!isSubscribed ? (
-                    <Lock className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="lock" size={16} color="#475569" className="flex-shrink-0" />
                   ) : upgradeImpactExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.up" size={16} color="#475569" className="flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                    <SFSymbol name="chevron.down" size={16} color="#475569" className="flex-shrink-0" />
                   )}
                 </button>
                 {upgradeImpactExpanded && (
