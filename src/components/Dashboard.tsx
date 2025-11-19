@@ -237,7 +237,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <h1 className="text-slate-900 font-semibold text-xl md:text-2xl">
               Hi there.
               <br />
-              Your insights are ready to explore.
+              Your insights are ready.
             </h1>
           </div>
 
