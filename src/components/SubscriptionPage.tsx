@@ -90,7 +90,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
                 Smart realtor tools
               </div>
               <div className="mt-1 text-black" style={{ fontSize: "17px", fontWeight: 600, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-                Get your complete marketing plan
+                Get your complete<br />marketing plan
               </div>
               <div className="mt-1 text-gray-600" style={{ fontSize: "15px", fontWeight: 400, fontFamily: "system-ui, -apple-system, sans-serif" }}>
                 Increase sale probability from 40% to 85% in 30 days
