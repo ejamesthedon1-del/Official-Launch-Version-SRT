@@ -50,7 +50,7 @@ export function MobileMenu({
 
       {/* Bottom Sheet Menu */}
       <div
-        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-[9999] md:hidden"
+        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-[9999] md:hidden flex flex-col"
         style={{
           transform: isOpen ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-out",
@@ -59,7 +59,7 @@ export function MobileMenu({
         }}
       >
         {/* Handle bar at top */}
-        <div className="flex justify-center pt-4 pb-2">
+        <div className="flex justify-center pt-4 pb-2 flex-shrink-0">
           <div className="w-12 h-1.5 bg-slate-300 rounded-full" />
         </div>
 
@@ -75,7 +75,7 @@ export function MobileMenu({
         </div>
 
         {/* Menu Content */}
-        <nav className="px-6 py-6 pb-8 h-full flex flex-col justify-center">
+        <nav className="px-6 py-6 pb-8 flex-1 flex flex-col justify-center overflow-y-auto">
           {menuItems.map((item) => {
             const isActive = currentView === item.id;
 
