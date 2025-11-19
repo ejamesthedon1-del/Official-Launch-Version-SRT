@@ -176,32 +176,55 @@ function transformAnalysisData(address: string, geminiData: any): any {
     ],
     insights: {
       summary: (() => {
-        // Short critique (1-3 lines) hinting at what we'll help with
-        const critiques: string[] = [];
+        // Generate 5-sentence summary
+        const sentences: string[] = [];
         
+        // Sentence 1: Days on Market assessment
         if (daysOnMarket > 60) {
-          critiques.push(`Stale listing (${daysOnMarket} days) - pricing strategy needs immediate attention.`);
+          sentences.push(`This property has been on the market for ${daysOnMarket} days, which indicates a stale listing that requires immediate attention.`);
         } else if (daysOnMarket > 30) {
-          critiques.push(`Above-average days on market (${daysOnMarket} days) - pricing optimization recommended.`);
+          sentences.push(`With ${daysOnMarket} days on market, this listing is performing above average and pricing optimization is recommended.`);
         } else if (daysOnMarket > 14) {
-          critiques.push(`Listing performance is solid but can be accelerated with strategic adjustments.`);
+          sentences.push(`The listing has been active for ${daysOnMarket} days, showing solid performance that can be accelerated with strategic adjustments.`);
         } else {
-          critiques.push(`Fresh listing with strong positioning - optimize to maximize speed and value.`);
+          sentences.push(`This is a fresh listing with strong positioning that can be optimized to maximize speed and value.`);
         }
         
+        // Sentence 2: Pricing insight
         if (geminiData.pricingInsight && geminiData.pricingInsight.toLowerCase().includes("reduce")) {
-          critiques.push(`Price positioning may be limiting buyer interest.`);
+          sentences.push(`Price positioning may be limiting buyer interest and reducing the property's competitive advantage in the current market.`);
+        } else if (geminiData.pricingInsight) {
+          sentences.push(geminiData.pricingInsight);
+        } else {
+          sentences.push(`Pricing strategy should be evaluated against current market conditions to ensure optimal positioning.`);
         }
         
+        // Sentence 3: Market trend
+        if (geminiData.marketTrend) {
+          sentences.push(geminiData.marketTrend);
+        } else {
+          sentences.push(`Market conditions play a crucial role in determining the optimal selling strategy for this property.`);
+        }
+        
+        // Sentence 4: Key features or property appeal
+        if (geminiData.keyFeatures && geminiData.keyFeatures.length > 0) {
+          sentences.push(`The property offers ${geminiData.keyFeatures.slice(0, 2).join(' and ')}, which are attractive features for potential buyers.`);
+        } else {
+          sentences.push(`Property features and presentation quality significantly impact buyer interest and offer potential.`);
+        }
+        
+        // Sentence 5: Recommendations or risk factors
         if (geminiData.riskFactors && geminiData.riskFactors.length > 0) {
           const firstRisk = geminiData.riskFactors[0];
-          if (firstRisk.length < 80) { // Only add if it's short enough
-            critiques.push(firstRisk);
-          }
+          sentences.push(firstRisk);
+        } else if (geminiData.recommendations && geminiData.recommendations.length > 0) {
+          sentences.push(`Strategic improvements focused on ${geminiData.recommendations[0].toLowerCase()} can help accelerate the sale process.`);
+        } else {
+          sentences.push(`Targeted marketing and presentation enhancements can improve the listing's visibility and appeal to qualified buyers.`);
         }
         
-        // Return 1-3 lines max
-        return critiques.slice(0, 3).join(' ');
+        // Return exactly 5 sentences
+        return sentences.slice(0, 5).join(' ');
       })(),
       alerts: [
         ...(daysOnMarket > 60 ? [{
