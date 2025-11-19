@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, MapPin, BarChart3, FileText, X } from "lucide-react";
+import { X } from "lucide-react";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -25,10 +25,10 @@ export function MobileMenu({
   }
 
   const menuItems = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "address-input", label: "Analyze listing", icon: MapPin },
-    { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-    { id: "marketing-plan", label: "Marketing plan", icon: FileText },
+    { id: "home", label: "Home" },
+    { id: "address-input", label: "Analyze listing" },
+    { id: "dashboard", label: "Dashboard" },
+    { id: "marketing-plan", label: "Marketing plan" },
   ];
 
   const handleNavigate = (
@@ -54,6 +54,8 @@ export function MobileMenu({
         style={{
           transform: isOpen ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-out",
+          height: "80vh",
+          maxHeight: "80vh",
         }}
       >
         {/* Handle bar at top */}
@@ -73,23 +75,21 @@ export function MobileMenu({
         </div>
 
         {/* Menu Content */}
-        <nav className="px-6 py-6 pb-8">
+        <nav className="px-6 py-6 pb-8 h-full flex flex-col justify-center">
           {menuItems.map((item) => {
-            const Icon = item.icon;
             const isActive = currentView === item.id;
 
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavigate(item.id as any)}
-                className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
+                className={`w-full flex items-center px-4 py-4 transition-colors ${
                   isActive
                     ? "text-blue-600"
                     : "text-slate-700 hover:text-slate-900"
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                <span className="text-[13px] font-normal">{item.label}</span>
+                <span className="text-[13px] font-bold">{item.label}</span>
               </button>
             );
           })}
