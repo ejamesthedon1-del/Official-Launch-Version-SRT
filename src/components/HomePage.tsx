@@ -659,7 +659,7 @@ export function HomePage({
         <div className="w-full flex justify-center pt-12 pb-4">
           <div className="max-w-3xl w-full px-6">
             <div className="mb-8 text-center">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
+              <h2 className="text-[38px] md:text-[50px] lg:text-[62px] text-slate-900 mb-6">
                 Real-time
                 <br />
                 smart data

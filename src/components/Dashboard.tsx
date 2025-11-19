@@ -370,61 +370,43 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
                 {/* Analytics Grid - Desktop only */}
                 <div className="hidden lg:grid lg:grid-cols-3 gap-4 mb-4">
-                  {/* Performance Analytics */}
+                  {/* Analysis Summary */}
                   <div className="lg:col-span-2 bg-white rounded-xl shadow-lg p-4">
-                    <h3 className="text-slate-900 mb-1 text-sm flex items-center gap-1.5">
-                      <TrendingUp className="w-4 h-4 text-blue-600" />
-                      Performance Analytics
-                    </h3>
-                    <p className="text-[10px] text-slate-600 mb-3">7-day engagement overview</p>
-                    
-                    <div className="grid grid-cols-4 gap-2 mb-4">
-                      <div className="text-center p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
-                        <Eye className="w-3 h-3 text-blue-600 mx-auto mb-1" />
-                        <div className="text-slate-900 text-xs font-semibold">0</div>
-                        <div className="text-[9px] text-slate-600">Views</div>
-                      </div>
-                      <div className="text-center p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
-                        <Users className="w-3 h-3 text-blue-600 mx-auto mb-1" />
-                        <div className="text-slate-900 text-xs font-semibold">0</div>
-                        <div className="text-[9px] text-slate-600">Inquiries</div>
-                      </div>
-                      <div className="text-center p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
-                        <Target className="w-3 h-3 text-blue-600 mx-auto mb-1" />
-                        <div className="text-slate-900 text-xs font-semibold">{overallScore}</div>
-                        <div className="text-[9px] text-slate-600">Score</div>
-                      </div>
-                      <div className="text-center p-2 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg">
-                        <Calendar className="w-3 h-3 text-blue-600 mx-auto mb-1" />
-                        <div className="text-slate-900 text-xs font-semibold">{listing.daysOnMarket}</div>
-                        <div className="text-[9px] text-slate-600">Days</div>
-                      </div>
-                    </div>
-
-                    <div className="h-32">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={categoryScores}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                          <XAxis 
-                            dataKey="category" 
-                            tick={{ fontSize: 8, fill: '#64748b' }} 
-                            angle={-45} 
-                            textAnchor="end" 
-                            height={40}
-                          />
-                          <YAxis tick={{ fontSize: 8, fill: '#64748b' }} domain={[0, 100]} />
-                          <Tooltip 
-                            contentStyle={{ 
-                              backgroundColor: 'white', 
-                              border: '1px solid #e2e8f0',
-                              borderRadius: '6px',
-                              padding: '4px 8px',
-                              fontSize: '10px'
-                            }}
-                          />
-                          <Bar dataKey="score" fill="#3b82f6" radius={[2, 2, 0, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
+                    <div className="text-sm md:text-sm text-[16px] text-slate-700 leading-relaxed">
+                      {(() => {
+                        if (!insights.summary) return null;
+                        
+                        // Check if summary contains "Upgrade your plan"
+                        const upgradeText = "Upgrade your plan";
+                        const upgradeIndex = insights.summary.indexOf(upgradeText);
+                        
+                        if (upgradeIndex !== -1) {
+                          // Split the summary into parts: before, upgrade text, after
+                          const beforeText = insights.summary.substring(0, upgradeIndex);
+                          const afterText = insights.summary.substring(upgradeIndex + upgradeText.length);
+                          
+                          return (
+                            <p className="mb-0">
+                              {beforeText}
+                              <button
+                                onClick={handleSubscribe}
+                                className="underline text-blue-600 hover:text-blue-700 cursor-pointer font-medium"
+                              >
+                                {upgradeText}
+                              </button>
+                              {afterText}
+                            </p>
+                          );
+                        }
+                        
+                        // No upgrade text found, render normally
+                        return (
+                          <p className="mb-0">
+                            {insights.summary}
+                          </p>
+                        );
+                      })()}
                     </div>
                   </div>
 
@@ -434,10 +416,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <Sparkles className="w-4 h-4 text-blue-600" />
                       Smart Recommendations
                     </h3>
-                    <p className="text-sm text-slate-600 mb-3">Smart recommendations</p>
+                    <p className="text-[18px] text-slate-600 mb-3">Smart recommendations</p>
                     <div className="space-y-2">
                       {insights.topPriorities?.slice(0, 2).map((priority, index) => (
-                        <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-lg p-2">
+                        <div key={index} className="p-2">
                           <div className="flex items-start gap-1.5">
                             <CheckCircle2 className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
                             <div className="text-[10px] text-slate-900 leading-tight line-clamp-2">{priority}</div>
@@ -534,44 +516,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <div className="p-2.5 text-center">
                         <Ruler className="w-4 h-4 text-blue-600 mx-auto mb-1" />
                         <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
-                      </div>
-                    </div>
-                    <div className="mt-4" style={{ marginTop: '0.5in' }}>
-                      <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
-                      <div className="text-sm md:text-sm text-[16px] text-slate-700 leading-relaxed">
-                        {(() => {
-                          if (!insights.summary) return null;
-                          
-                          // Check if summary contains "Upgrade your plan"
-                          const upgradeText = "Upgrade your plan";
-                          const upgradeIndex = insights.summary.indexOf(upgradeText);
-                          
-                          if (upgradeIndex !== -1) {
-                            // Split the summary into parts: before, upgrade text, after
-                            const beforeText = insights.summary.substring(0, upgradeIndex);
-                            const afterText = insights.summary.substring(upgradeIndex + upgradeText.length);
-                            
-                            return (
-                              <p className="mb-0">
-                                {beforeText}
-                                <button
-                                  onClick={handleSubscribe}
-                                  className="underline text-blue-600 hover:text-blue-700 cursor-pointer font-medium"
-                                >
-                                  {upgradeText}
-                                </button>
-                                {afterText}
-                              </p>
-                            );
-                          }
-                          
-                          // No upgrade text found, render normally
-                          return (
-                            <p className="mb-0">
-                              {insights.summary}
-                            </p>
-                          );
-                        })()}
                       </div>
                     </div>
                   </div>
@@ -1176,10 +1120,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <Sparkles className="w-5 h-5 text-blue-600" />
                       Smart Recommendations
                     </h3>
-                    <p className="text-[16px] text-slate-600 mb-5">Smart recommendations</p>
+                    <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
                     <div className="space-y-3">
                       {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                        <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer">
+                        <div key={index} className="p-3">
                           <div className="flex items-start gap-2 mb-2">
                             <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                             <div className="text-xs text-slate-900">{priority}</div>
@@ -1187,7 +1131,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         </div>
                       ))}
                       {insights.pricingInsight && (
-                        <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 rounded-lg p-3 mt-3">
+                        <div className="p-3 mt-3">
                           <div className="flex items-start gap-2">
                             <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
                             <div className="text-xs text-slate-900">{insights.pricingInsight}</div>
@@ -1274,10 +1218,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <Sparkles className="w-5 h-5 text-blue-600" />
                     Smart Recommendations
                   </h3>
-                  <p className="text-sm text-slate-600 mb-5">Smart recommendations</p>
+                  <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
                   <div className="space-y-3">
                     {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                      <div key={index} className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer">
+                      <div key={index} className="p-3">
                         <div className="flex items-start gap-2 mb-2">
                           <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                           <div className="text-xs text-slate-900">{priority}</div>
@@ -1285,7 +1229,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     ))}
                     {insights.pricingInsight && (
-                      <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 rounded-lg p-3 mt-3">
+                      <div className="p-3 mt-3">
                         <div className="flex items-start gap-2">
                           <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
                           <div className="text-xs text-slate-900">{insights.pricingInsight}</div>
