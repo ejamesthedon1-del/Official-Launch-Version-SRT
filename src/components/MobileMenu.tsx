@@ -107,7 +107,7 @@ export function MobileMenu({
         </div>
 
         {/* Menu Content */}
-        <nav className="px-6 py-6 pb-8 flex-1 flex flex-col justify-center overflow-y-auto">
+        <nav className="px-6 py-6 pb-8 flex-1 flex flex-col justify-center overflow-y-auto gap-1">
           {menuItems.map((item) => {
             const isActive = currentView === item.id;
 
@@ -115,13 +115,13 @@ export function MobileMenu({
               <button
                 key={item.id}
                 onClick={() => handleNavigate(item.id as any)}
-                className={`w-full flex items-center px-4 py-4 transition-colors ${
+                className={`w-full flex items-center px-4 py-3 transition-colors ${
                   isActive
                     ? "text-blue-600"
                     : "text-slate-700 hover:text-slate-900"
                 }`}
               >
-                <span className="text-[13px] font-bold">{item.label}</span>
+                <span className="text-[17px] font-bold">{item.label}</span>
               </button>
             );
           })}
