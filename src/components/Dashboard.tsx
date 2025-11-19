@@ -585,8 +585,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
               <div className="mb-5">
                 <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
-                  <Lock className="w-4 h-4" />
                   Critical Factors
+                  <Lock className="w-4 h-4" />
                 </h3>
                 <p className="text-sm text-slate-600 text-left mb-4">These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to unlock insights that could speed up results</p>
               </div>
@@ -686,8 +686,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm lg:!mt-0" style={{ marginTop: '0.5in' }}>
             <div className="mb-4">
               <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
-                <Lock className="w-4 h-4" />
                 Premium Insights
+                <Lock className="w-4 h-4" />
               </h3>
               <p className="text-sm text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
