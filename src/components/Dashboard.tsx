@@ -483,8 +483,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <div className="flex-1 text-left -ml-4 px-4 md:ml-0 md:px-0">
                     <h2 className="text-slate-900 mb-1 text-[30px] md:text-2xl font-semibold text-left">{streetAddress}</h2>
                     <div className="flex items-center gap-2 text-slate-600 mb-0.5 text-left">
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span className="text-[14.5px] md:text-base">
+                      <MapPin className="hidden md:block w-3.5 h-3.5" />
+                      <span className="text-[13.5px] md:text-base">
                         {cityState}{zipCode ? `, ${zipCode}` : ''}{hasUSA ? (zipCode ? ', USA' : ' USA') : ''}
                       </span>
                     </div>
@@ -537,7 +537,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
                     <div className="mt-4">
-                      <h3 className="text-slate-900 font-semibold text-lg mb-3">Analysis summary</h3>
+                      <h3 className="text-slate-900 font-semibold text-lg mb-3">Analysis Summary</h3>
                       <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
                         {insights.summary}
                       </p>
