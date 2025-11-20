@@ -547,18 +547,20 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
               <div className="mb-5">
                 <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                   Critical Factors
-                  <Lock className="w-4 h-4" />
+                  {!isSubscribed && <Lock className="w-4 h-4" />}
                 </h3>
-                <p className="text-[16px] text-slate-600 text-left mb-4">
-                  These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to{' '}
-                  <button
-                    onClick={handleSubscribe}
-                    className="underline text-blue-600 hover:text-blue-700 cursor-pointer"
-                  >
-                    unlock insights
-                  </button>
-                  {' '}that could speed up results
-                </p>
+                {!isSubscribed && (
+                  <p className="text-[16px] text-slate-600 text-left mb-4">
+                    These factors expose your biggest opportunites and your biggest risk. Upgrade you plan to{' '}
+                    <button
+                      onClick={handleSubscribe}
+                      className="underline text-blue-600 hover:text-blue-700 cursor-pointer"
+                    >
+                      unlock insights
+                    </button>
+                    {' '}that could speed up results
+                  </p>
+                )}
               </div>
               <div className="space-y-4 mt-4">
                 {ratings.map((rating, idx) => {
@@ -657,7 +659,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="mb-4">
               <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                 Premium Insights
-                <Lock className="w-4 h-4" />
+                {!isSubscribed && <Lock className="w-4 h-4" />}
               </h3>
               <p className="text-[16px] text-slate-600 text-left">Unlock your premium insights and marketing plan to help you understand and improve your listing</p>
             </div>
@@ -1062,32 +1064,34 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
 
-                  {/* Smart Recommendations */}
-                  <div style={{ marginTop: '0.5in' }}>
-                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-blue-600" />
-                      Smart Recommendations
-                    </h3>
-                    <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
-                    <div className="space-y-3">
-                      {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                        <div key={index} className="p-3">
-                          <div className="flex items-start gap-2 mb-2">
-                            <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
+                  {/* Smart Recommendations - Collapsed for non-subscribers */}
+                  {isSubscribed && (
+                    <div style={{ marginTop: '0.5in' }}>
+                      <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-blue-600" />
+                        Smart Recommendations
+                      </h3>
+                      <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
+                      <div className="space-y-3">
+                        {insights.topPriorities.slice(0, 4).map((priority, index) => (
+                          <div key={index} className="p-3">
+                            <div className="flex items-start gap-2 mb-2">
+                              <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                              <div className="text-[24px] text-slate-900">{priority}</div>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                      {insights.pricingInsight && (
-                        <div className="p-3 mt-3">
-                          <div className="flex items-start gap-2">
-                            <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
+                        ))}
+                        {insights.pricingInsight && (
+                          <div className="p-3 mt-3">
+                            <div className="flex items-start gap-2">
+                              <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                              <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Pricing Strategy & Selling Speed */}
@@ -1100,9 +1104,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         Pricing Strategy
                       </h3>
                       <p className="text-[16px] text-slate-600 mb-4">Actionable pricing guidance</p>
-                      <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-4">
-                        <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
-                      </div>
+                      <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
                       <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
                         Review Pricing Strategy
                       </Button>
@@ -1117,9 +1119,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         Selling speed prediction
                       </h3>
                       <p className="text-[16px] text-slate-600 mb-4">Time-to-sale estimate</p>
-                      <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-lg p-4">
-                        <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
-                      </div>
+                      <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
                     </div>
                   )}
                 </div>
@@ -1198,9 +1198,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       Pricing Strategy
                     </h3>
                     <p className="text-sm text-slate-600 mb-4">Actionable pricing guidance</p>
-                    <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 rounded-lg p-4">
-                      <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
-                    </div>
+                    <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
                     <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
                       Review Pricing Strategy
                     </Button>
@@ -1215,9 +1213,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       Selling Speed Prediction
                     </h3>
                     <p className="text-sm text-slate-600 mb-4">Time-to-sale estimate</p>
-                    <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-lg p-4">
-                      <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
-                    </div>
+                    <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
                   </div>
                 )}
               </div>

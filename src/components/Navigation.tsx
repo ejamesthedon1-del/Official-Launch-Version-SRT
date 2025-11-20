@@ -1,9 +1,9 @@
 import { Logo } from "./figma/Logo";
 
 interface NavigationProps {
-  currentView: "home" | "address-input" | "dashboard";
+  currentView: "home" | "address-input" | "dashboard" | "subscription";
   onNavigate: (
-    view: "home" | "address-input" | "dashboard"
+    view: "home" | "address-input" | "dashboard" | "subscription"
   ) => void;
   showAnalyze?: boolean;
   onMenuClick?: () => void;
