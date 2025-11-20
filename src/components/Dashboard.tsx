@@ -1072,36 +1072,21 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </h3>
                     <p className="text-[18px] text-slate-600 mb-5">Actionable insights to help you sell faster and optimize your listing</p>
                     <div className="space-y-3">
-                      {isSubscribed ? (
-                        // Subscribed: Show all insights
-                        <>
-                          {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                            <div key={index} className="p-3">
-                              <div className="flex items-start gap-2 mb-2">
-                                <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <div className="text-[24px] text-slate-900">{priority}</div>
-                              </div>
-                            </div>
-                          ))}
-                          {insights.pricingInsight && (
-                            <div className="p-3 mt-3">
-                              <div className="flex items-start gap-2">
-                                <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        // Non-subscribed: Show only first insight with blurred paragraph
-                        insights.topPriorities.length > 0 && (
-                          <div className="p-3">
-                            <div className="flex items-start gap-2 mb-2">
-                              <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900 blur-[2px] opacity-80">{insights.topPriorities[0]}</div>
-                            </div>
+                      {insights.topPriorities.slice(0, 4).map((priority, index) => (
+                        <div key={index} className="p-3">
+                          <div className="flex items-start gap-2 mb-2">
+                            <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
                           </div>
-                        )
+                        </div>
+                      ))}
+                      {insights.pricingInsight && (
+                        <div className="p-3 mt-3">
+                          <div className="flex items-start gap-2">
+                            <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
+                          </div>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -1185,36 +1170,21 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </h3>
                   <p className="text-[18px] text-slate-600 mb-5">Actionable insights to help you sell faster and optimize your listing</p>
                   <div className="space-y-3">
-                    {isSubscribed ? (
-                      // Subscribed: Show all insights
-                      <>
-                        {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                          <div key={index} className="p-3">
-                            <div className="flex items-start gap-2 mb-2">
-                              <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900">{priority}</div>
-                            </div>
-                          </div>
-                        ))}
-                        {insights.pricingInsight && (
-                          <div className="p-3 mt-3">
-                            <div className="flex items-start gap-2">
-                              <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      // Non-subscribed: Show only first insight with blurred paragraph
-                      insights.topPriorities.length > 0 && (
-                        <div className="p-3">
-                          <div className="flex items-start gap-2 mb-2">
-                            <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className="text-[24px] text-slate-900 blur-sm">{insights.topPriorities[0]}</div>
-                          </div>
+                    {insights.topPriorities.slice(0, 4).map((priority, index) => (
+                      <div key={index} className="p-3">
+                        <div className="flex items-start gap-2 mb-2">
+                          <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
                         </div>
-                      )
+                      </div>
+                    ))}
+                    {insights.pricingInsight && (
+                      <div className="p-3 mt-3">
+                        <div className="flex items-start gap-2">
+                          <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                          <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
