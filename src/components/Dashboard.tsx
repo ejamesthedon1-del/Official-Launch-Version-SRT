@@ -231,7 +231,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
       <div className="flex">
         {/* Main Content */}
-        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pt-6 md:pt-24 lg:max-w-none lg:mx-0 lg:pt-0 lg:pb-0 lg:!mt-0" style={{ marginTop: '-0.25in' }}>
+        <main className="flex-1 px-4 md:px-8 py-6 w-full pt-6 md:pt-24 lg:pt-0 lg:pb-0 lg:!mt-0" style={{ marginTop: '-0.25in' }}>
           {/* Dashboard Headline */}
           <div className="hidden lg:block mb-4 lg:px-6">
             <h1 className="text-slate-900 font-semibold text-xl md:text-2xl">
@@ -410,31 +410,31 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
           {/* Mobile Layout - Keep existing structure */}
           <div className="lg:hidden">
-            {/* Property Header */}
+          {/* Property Header */}
             <div className="mb-6">
-              {/* Property Image */}
-              {listing.imageUrl && (
+            {/* Property Image */}
+            {listing.imageUrl && (
                 <div className="w-screen -mx-4 md:-mx-8 h-64 md:h-80 relative overflow-hidden">
-                  <img
-                    src={listing.imageUrl}
-                    alt={streetAddress}
-                    className="w-full h-full object-cover"
-                    onLoad={() => {
-                      console.log("✅ Image loaded successfully:", listing.imageUrl);
-                    }}
-                    onError={(e) => {
-                      console.error("❌ Image failed to load:", listing.imageUrl);
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                </div>
-              )}
-              {!listing.imageUrl && (
-                <div className="p-4">
-                  <p className="text-sm text-slate-500">No image available for this listing</p>
-                </div>
-              )}
-              
+                <img
+                  src={listing.imageUrl}
+                  alt={streetAddress}
+                  className="w-full h-full object-cover"
+                  onLoad={() => {
+                    console.log("✅ Image loaded successfully:", listing.imageUrl);
+                  }}
+                  onError={(e) => {
+                    console.error("❌ Image failed to load:", listing.imageUrl);
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+            )}
+            {!listing.imageUrl && (
+              <div className="p-4">
+                <p className="text-sm text-slate-500">No image available for this listing</p>
+              </div>
+            )}
+            
               <div className="grid gap-6 p-4 md:p-6 pt-4">
                 {/* Address and Score Bar */}
                 <div className="flex items-center justify-between">
@@ -445,55 +445,55 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <span className="text-[13.5px] md:text-base">
                         {cityState}{zipCode ? `, ${zipCode}` : ''}{hasUSA ? (zipCode ? ', USA' : ' USA') : ''}
                       </span>
-                    </div>
+                  </div>
                     {/* List Price and Days on Market - Moved under address */}
                     <div className="grid grid-cols-2 gap-3 mt-6">
                       <div>
                         <div className="text-xs text-slate-600 mb-1">List Price</div>
                         <div className="text-slate-900 text-lg">{listing.price}</div>
-                      </div>
+                    </div>
                       <div>
                         <div className="text-xs text-slate-600 mb-1">Days on Market</div>
                         <div className="text-slate-900 text-lg">{listing.daysOnMarket} days</div>
                       </div>
                     </div>
-                  </div>
-                  
+                </div>
+                
                   <div className="flex items-center justify-end mt-4">
-                    <div className="relative" style={{ width: '120px', height: '120px' }}>
-                      <div style={{ marginTop: '-0.2in' }}>
-                        <CircularProgress 
-                          percentage={overallScore} 
-                          size={120} 
+                  <div className="relative" style={{ width: '120px', height: '120px' }}>
+                    <div style={{ marginTop: '-0.2in' }}>
+                      <CircularProgress 
+                        percentage={overallScore} 
+                        size={120} 
                           strokeWidth={9}
-                          showAnimation={true}
-                        />
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center pointer-events-none" style={{ bottom: '-8px' }}>
-                        <div className="text-[9px] text-slate-600 mb-0.5 px-2 text-center leading-tight whitespace-nowrap">AI Smart Listing Score</div>
-                        <div className="text-[8px] text-slate-500 text-center">{getScoreLabel(overallScore)}</div>
-                      </div>
+                        showAnimation={true}
+                      />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center pointer-events-none" style={{ bottom: '-8px' }}>
+                      <div className="text-[9px] text-slate-600 mb-0.5 px-2 text-center leading-tight whitespace-nowrap">AI Smart Listing Score</div>
+                      <div className="text-[8px] text-slate-500 text-center">{getScoreLabel(overallScore)}</div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Property Details */}
-                <div className="flex flex-col justify-between">
-                  <div>
-                    <div className="grid grid-cols-3 gap-2 mb-4">
+              {/* Property Details */}
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="grid grid-cols-3 gap-2 mb-4">
                       <div className="p-2.5 text-center">
-                        <Bed className="w-4 h-4 text-blue-600 mx-auto mb-1" />
-                        <div className="text-xs text-slate-600">{listing.beds} Beds</div>
-                      </div>
-                      <div className="p-2.5 text-center">
-                        <Bath className="w-4 h-4 text-blue-600 mx-auto mb-1" />
-                        <div className="text-xs text-slate-600">{listing.baths} Baths</div>
-                      </div>
-                      <div className="p-2.5 text-center">
-                        <Ruler className="w-4 h-4 text-blue-600 mx-auto mb-1" />
-                        <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
-                      </div>
+                      <Bed className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+                      <div className="text-xs text-slate-600">{listing.beds} Beds</div>
                     </div>
+                      <div className="p-2.5 text-center">
+                      <Bath className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+                      <div className="text-xs text-slate-600">{listing.baths} Baths</div>
+                    </div>
+                      <div className="p-2.5 text-center">
+                      <Ruler className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+                      <div className="text-xs text-slate-600">{listing.sqft} sqft</div>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -537,9 +537,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </p>
                   );
                 })()}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
           {/* Score Factors - Slider Bar Stats Section */}
           {ratings && ratings.length > 0 && (
@@ -561,7 +561,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     {' '}that could speed up results
                   </p>
                 )}
-              </div>
+            </div>
               <div className="space-y-4 mt-4">
                 {ratings.map((rating, idx) => {
                   const percentage = (rating.score / rating.maxScore) * 100;
@@ -592,7 +592,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         <div className="flex-1">
                           <div className="text-[15px] font-semibold text-slate-900 mb-0.5">
                             {rating.title}
-                          </div>
+          </div>
                           <div className="text-[13.5px] text-slate-600">
                             {!isExpanded && shouldTruncate ? (
                               <div className="relative">
@@ -773,27 +773,27 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    {daysOnMarket > 30 && (
+          {daysOnMarket > 30 && (
                       <div className={`p-3 rounded-lg ${daysOnMarket > 60 ? 'bg-destructive/10 border border-destructive/20' : 'bg-amber-50 border border-amber-200'}`}>
                         <div className="flex items-start gap-2">
-                          <div className="flex-1">
+                <div className="flex-1">
                             <div className={`text-xs font-semibold mb-1 ${daysOnMarket > 60 ? 'text-destructive' : 'text-amber-900'}`}>
                               {daysOnMarket > 60 ? 'Urgent: listing is stale' : 'Warning: above average days on market'}
-                            </div>
+                  </div>
                             <p className={`text-xs mb-2 ${daysOnMarket > 60 ? 'text-destructive/80' : 'text-amber-800'}`}>
-                              {daysOnMarket > 60 
+                    {daysOnMarket > 60 
                                 ? `This property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required.`
-                                : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
-                              }
-                            </p>
-                            {insights.pricingInsight && (
+                      : `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider reviewing pricing strategy.`
+                    }
+                  </p>
+                  {insights.pricingInsight && (
                               <div className="bg-white/60 rounded p-2 border border-amber-200">
                                 <div className="text-[10px] font-medium text-amber-900 mb-0.5">Recommended action:</div>
                                 <div className="text-xs text-amber-800">{insights.pricingInsight}</div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                    </div>
+                  )}
+                </div>
+              </div>
                       </div>
                     )}
                     {insights.alerts?.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
@@ -802,10 +802,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="flex-1">
                             <div className="text-xs font-semibold mb-0.5 text-destructive">{alert.title}</div>
                             <p className="text-xs text-destructive/80">
-                              {alert.message}
-                            </p>
-                          </div>
-                        </div>
+                    {alert.message}
+                  </p>
+                </div>
+              </div>
                       </div>
                     ))}
                   </div>
@@ -973,8 +973,8 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
                 )}
-              </div>
-            )}
+            </div>
+          )}
             
             {upgradeImpactExpanded && (
               <div className="mt-4 px-3 pb-3">
@@ -1104,9 +1104,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <p className="text-[16px] text-slate-600 mb-4">Actionable pricing guidance</p>
                       <div className={!isSubscribed ? 'blur-[2px] opacity-80' : ''}>
                         <p className="text-sm text-slate-900 leading-relaxed mb-4">{insights.pricingInsight}</p>
-                        <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
-                          Review Pricing Strategy
-                        </Button>
+                      <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
+                        Review Pricing Strategy
+                      </Button>
                       </div>
                     </div>
                   )}
@@ -1202,9 +1202,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <p className="text-sm text-slate-600 mb-4">Actionable pricing guidance</p>
                     <div className={!isSubscribed ? 'blur-sm' : ''}>
                       <p className="text-sm text-slate-900 leading-relaxed mb-4">{insights.pricingInsight}</p>
-                      <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
-                        Review Pricing Strategy
-                      </Button>
+                    <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
+                      Review Pricing Strategy
+                    </Button>
                     </div>
                   </div>
                 )}
