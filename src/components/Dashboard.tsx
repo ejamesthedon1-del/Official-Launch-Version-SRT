@@ -500,7 +500,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             </div>
             
             {/* Mobile Analysis Summary */}
-            <div className="p-4 md:p-6 mb-6" style={{ marginTop: '0.5in' }}>
+            <div className="p-4 md:p-6 mb-6">
               <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
               <div className="text-[17px] text-slate-700 leading-relaxed">
                 {(() => {
@@ -1064,34 +1064,32 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </div>
                   </div>
 
-                  {/* Smart Recommendations - Collapsed for non-subscribers */}
-                  {isSubscribed && (
-                    <div style={{ marginTop: '0.5in' }}>
-                      <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-blue-600" />
-                        Smart Recommendations
-                      </h3>
-                      <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
-                      <div className="space-y-3">
-                        {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                          <div key={index} className="p-3">
-                            <div className="flex items-start gap-2 mb-2">
-                              <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900">{priority}</div>
-                            </div>
+                  {/* Smart Recommendations */}
+                  <div style={{ marginTop: '0.5in' }}>
+                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-blue-600" />
+                      Smart Recommendations
+                    </h3>
+                    <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
+                    <div className="space-y-3">
+                      {insights.topPriorities.slice(0, 4).map((priority, index) => (
+                        <div key={index} className="p-3">
+                          <div className="flex items-start gap-2 mb-2">
+                            <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
                           </div>
-                        ))}
-                        {insights.pricingInsight && (
-                          <div className="p-3 mt-3">
-                            <div className="flex items-start gap-2">
-                              <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
-                            </div>
+                        </div>
+                      ))}
+                      {insights.pricingInsight && (
+                        <div className="p-3 mt-3">
+                          <div className="flex items-start gap-2">
+                            <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Pricing Strategy & Selling Speed */}
