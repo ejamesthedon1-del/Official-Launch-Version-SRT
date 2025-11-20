@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "smartrealtortools.com"
+        }
+      ],
+      "destination": "https://www.smartrealtortools.com/$1",
+      "permanent": true
+    }
+  ]
+}
+
