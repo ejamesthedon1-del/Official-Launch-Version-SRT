@@ -243,9 +243,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
           {/* Desktop Layout - Direct dashboard content (no mock browser) */}
           <div className="hidden lg:block mb-6">
-            <div className="p-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 rounded-2xl">
+            <div className="mb-6">
                 {/* Property Header - 3 Column Grid on Desktop */}
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-4">
+                <div className="mb-4">
                   <div className="grid lg:grid-cols-3 gap-4 p-4">
                     {/* Column 1: Image (wider on desktop) */}
                     <div className="flex gap-4 items-start">
@@ -371,7 +371,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 {/* Analytics Grid - Desktop only */}
                 <div className="hidden lg:grid lg:grid-cols-3 gap-4 mb-4">
                   {/* Analysis Summary */}
-                  <div className="lg:col-span-2 bg-white rounded-xl shadow-lg p-4">
+                  <div className="lg:col-span-2">
                     <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
                     <div className="text-[16px] text-slate-700 leading-relaxed">
                       {(() => {
@@ -414,7 +414,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </div>
 
                   {/* Smart Recommendations */}
-                  <div className="bg-white rounded-xl shadow-lg p-4">
+                  <div>
                     <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-blue-600" />
                       Smart Recommendations
@@ -534,16 +534,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   if (!insights.summary) return null;
                   
                   // Check if summary contains "Upgrade your plan"
-                  const fullUpgradeText = "Upgrade your plan to access deeper insights and actionable recommendations.";
                   const upgradeStartIndex = insights.summary.indexOf("Upgrade your plan");
                   
                   if (upgradeStartIndex !== -1) {
-                    // Split the summary into parts: before, upgrade text, after
+                    // Split the summary: before "Upgrade your plan", the button text, and after
                     const beforeText = insights.summary.substring(0, upgradeStartIndex);
-                    // Find where the upgrade text ends (either full text or just "Upgrade your plan")
-                    const hasFullText = insights.summary.substring(upgradeStartIndex).startsWith(fullUpgradeText);
-                    const upgradeTextLength = hasFullText ? fullUpgradeText.length : "Upgrade your plan".length;
-                    const afterText = insights.summary.substring(upgradeStartIndex + upgradeTextLength);
+                    const upgradeButtonText = "Upgrade your plan";
+                    const afterUpgradeStart = upgradeStartIndex + upgradeButtonText.length;
+                    const afterText = insights.summary.substring(afterUpgradeStart);
                     
                     return (
                       <p className="mb-0">
@@ -552,7 +550,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           onClick={handleSubscribe}
                           className="underline text-blue-600 hover:text-blue-700 cursor-pointer font-medium"
                         >
-                          {hasFullText ? fullUpgradeText : "Upgrade your plan"}
+                          {upgradeButtonText}
                         </button>
                         {afterText}
                       </p>
@@ -572,7 +570,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
 
           {/* Score Factors - Slider Bar Stats Section */}
           {ratings && ratings.length > 0 && (
-            <div className="p-4 md:p-6 mb-6 lg:bg-white lg:border lg:border-slate-200/50 lg:rounded-lg lg:shadow-sm">
+            <div className="p-4 md:p-6 mb-6">
               <div className="mb-5">
                 <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                   Critical Factors
