@@ -342,12 +342,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       </div>
                     </div>
 
-                    {/* Column 3: Score Bar and Message (Desktop only) */}
+                    {/* Column 3: Score Bar (Desktop only) */}
                     <div className="hidden lg:flex flex-col items-center justify-center">
                       <div className="text-center">
                         <CircularProgress 
                           percentage={overallScore} 
-                          size={80} 
+                          size={160} 
                           strokeWidth={9}
                           showAnimation={true}
                         />
@@ -356,22 +356,14 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="text-[10px] text-slate-500">{getScoreLabel(overallScore)}</div>
                         </div>
                       </div>
-                      {/* Analysis message */}
-                      <div className="mt-3">
-                        <div className="bg-blue-50/50 rounded-lg p-1.5 max-w-[200px]">
-                          <p className="text-[9px] text-slate-700 leading-tight line-clamp-3">
-                            {insights.summary?.substring(0, 120)}...
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Analytics Grid - Desktop only */}
-                <div className="hidden lg:grid lg:grid-cols-3 gap-4 mb-4">
+                <div className="hidden lg:block mb-4">
                   {/* Analysis Summary */}
-                  <div className="lg:col-span-2">
+                  <div>
                     <h3 className="text-slate-900 font-semibold text-[20px] mb-3">Analysis Summary</h3>
                     <div className="text-[16px] text-slate-700 leading-relaxed">
                       {(() => {
@@ -410,25 +402,6 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           </p>
                         );
                       })()}
-                    </div>
-                  </div>
-
-                  {/* Smart Recommendations */}
-                  <div>
-                    <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-blue-600" />
-                      Smart Recommendations
-                    </h3>
-                    <p className="text-[18px] text-slate-600 mb-3">Smart recommendations</p>
-                    <div className="space-y-2">
-                      {insights.topPriorities?.slice(0, 2).map((priority, index) => (
-                        <div key={index} className={`p-2 ${!isSubscribed ? 'blur-sm' : ''}`}>
-                          <div className="flex items-start gap-1.5">
-                            <CheckCircle2 className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className="text-[20px] text-slate-900 leading-tight line-clamp-2">{priority}</div>
-                          </div>
-                        </div>
-                      ))}
                     </div>
                   </div>
                 </div>
@@ -694,42 +667,42 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   id: "buyer-concerns", 
                   title: "Buyer Concerns", 
                   icon: MessageCircleWarning,
-                  description: "Key objections",
+                  description: "See what buyers are saying",
                   onClick: () => !isSubscribed ? handleSubscribe() : setBuyerConcernsExpanded(!buyerConcernsExpanded)
                 },
                 { 
                   id: "risk-factors", 
                   title: "Risk Factors", 
                   icon: ShieldAlert,
-                  description: "Deal risks",
+                  description: "Identify hidden red flags",
                   onClick: () => !isSubscribed ? handleSubscribe() : setRiskFactorsExpanded(!riskFactorsExpanded)
                 },
                 { 
                   id: "missed-value", 
                   title: "Missed Value Points", 
                   icon: Sparkles,
-                  description: "Hidden opportunities",
+                  description: "Discover hidden opportunities",
                   onClick: () => !isSubscribed ? handleSubscribe() : setMissedValueExpanded(!missedValueExpanded)
                 },
                 { 
                   id: "negotiation-risk", 
                   title: "Negotiation Risk", 
                   icon: Scale,
-                  description: "Leverage analysis",
+                  description: "Understand leverage points",
                   onClick: () => !isSubscribed ? handleSubscribe() : setNegotiationRiskExpanded(!negotiationRiskExpanded)
                 },
                 { 
                   id: "buyer-match", 
                   title: "Buyer Match Score", 
                   icon: Heart,
-                  description: "Compatibility",
+                  description: "Measure buyer compatibility",
                   onClick: () => !isSubscribed ? handleSubscribe() : setBuyerMatchScoreExpanded(!buyerMatchScoreExpanded)
                 },
                 { 
                   id: "upgrade-impact", 
                   title: "Upgrade Impact", 
                   icon: TrendingUp,
-                  description: "ROI projections",
+                  description: "See potential improvements",
                   onClick: () => !isSubscribed ? handleSubscribe() : setUpgradeImpactExpanded(!upgradeImpactExpanded)
                 },
               ].map((section) => {
@@ -738,12 +711,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <button
                     key={section.id}
                     onClick={section.onClick}
-                    className="group bg-gray-100 hover:bg-gray-200 rounded-2xl p-6 transition-all text-center aspect-square flex flex-col items-center justify-center gap-3"
+                    className="group bg-gray-100 hover:bg-gray-200 rounded-2xl p-6 transition-all text-center aspect-square flex flex-col items-center justify-center gap-2"
                   >
                     <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center group-hover:bg-gray-50 transition-colors">
-                      <Icon className="w-6 h-6 text-gray-900" strokeWidth={1.5} />
+                      <Icon className="w-6 h-6 text-blue-600" strokeWidth={1.5} />
                     </div>
                     <div className="text-gray-900 text-sm font-medium">{section.title}</div>
+                    <div className="text-gray-600 text-xs leading-tight px-1">{section.description}</div>
                   </button>
                 );
               })}
@@ -1097,18 +1071,18 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
                     <div className="space-y-3">
                       {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                        <div key={index} className={`p-3 ${!isSubscribed ? 'blur-sm' : ''}`}>
+                        <div key={index} className="p-3">
                           <div className="flex items-start gap-2 mb-2">
                             <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className="text-[24px] text-slate-900">{priority}</div>
+                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
                           </div>
                         </div>
                       ))}
                       {insights.pricingInsight && (
-                        <div className={`p-3 mt-3 ${!isSubscribed ? 'blur-sm' : ''}`}>
+                        <div className="p-3 mt-3">
                           <div className="flex items-start gap-2">
                             <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                            <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
+                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
                           </div>
                         </div>
                       )}
@@ -1195,18 +1169,18 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
                   <div className="space-y-3">
                     {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                      <div key={index} className={`p-3 ${!isSubscribed ? 'blur-sm' : ''}`}>
+                      <div key={index} className="p-3">
                         <div className="flex items-start gap-2 mb-2">
                           <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                          <div className="text-[24px] text-slate-900">{priority}</div>
+                          <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
                         </div>
                       </div>
                     ))}
                     {insights.pricingInsight && (
-                      <div className={`p-3 mt-3 ${!isSubscribed ? 'blur-sm' : ''}`}>
+                      <div className="p-3 mt-3">
                         <div className="flex items-start gap-2">
                           <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                          <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
+                          <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
                         </div>
                       </div>
                     )}

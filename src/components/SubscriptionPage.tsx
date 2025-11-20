@@ -35,9 +35,9 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
 
   const pricing = {
     starter: {
-      "1": { price: "$9.99", period: "one-time", total: "$9.99", originalPrice: "$49.99" },
-      "6": { price: "$9.99", period: "one-time", total: "$9.99", originalPrice: "$49.99" },
-      "12": { price: "$9.99", period: "one-time", total: "$9.99", originalPrice: "$49.99" },
+      "1": { price: "$29.99", period: "monthly", total: "$29.99", originalPrice: "$69.99" },
+      "6": { price: "$14.99", period: "one-time", total: "$14.99", originalPrice: "$49.99" },
+      "12": { price: "$14.99", period: "one-time", total: "$14.99", originalPrice: "$49.99" },
     },
     premium: {
       "1": { price: "$1", period: "one-time", total: "$1" },
@@ -47,7 +47,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
   };
 
   const currentPrice = pricing[selectedPlan][selectedDuration];
-  const amount = 9.99; // One-time payment for starter
+  const amount = selectedDuration === "1" ? 29.99 : 14.99; // Monthly: $29.99, One-time: $14.99
 
   const handlePaymentSuccess = () => {
     if (onSubscribe) {
@@ -116,10 +116,23 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
 
               {/* Pricing Display - Large, Bold */}
               <div className="mb-8">
-                <div className="text-5xl md:text-6xl font-bold text-black mb-1" style={{ letterSpacing: "-0.02em" }}>
-                  {pricing.starter[selectedDuration].price}
+                <div className="flex items-baseline gap-2 mb-1">
+                  {pricing.starter[selectedDuration].originalPrice && (
+                    <div className="text-lg text-slate-400 line-through">
+                      {pricing.starter[selectedDuration].originalPrice}
+                    </div>
+                  )}
+                  <div className="text-5xl md:text-6xl font-bold text-black" style={{ letterSpacing: "-0.02em" }}>
+                    {pricing.starter[selectedDuration].price}
+                  </div>
                 </div>
-                <div className="text-sm text-slate-500">one-time</div>
+                <div className="text-sm text-slate-500">{pricing.starter[selectedDuration].period}</div>
+                {/* Plan Explanation */}
+                <div className="mt-2 text-xs text-slate-600">
+                  {selectedDuration === "1" 
+                    ? "Unlimited analysis" 
+                    : "One-time payment for 1 analysis"}
+                </div>
               </div>
 
               {/* Benefits List - Minimalist Greyed Out Style */}
@@ -171,7 +184,9 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="hidden lg:block">
+        <Footer />
+      </div>
     </div>
   );
 }
