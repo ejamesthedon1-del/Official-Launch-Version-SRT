@@ -1070,32 +1070,38 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       <Sparkles className="w-5 h-5 text-blue-600" />
                       Smart Recommendations
                     </h3>
-                    <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
+                    <p className="text-[18px] text-slate-600 mb-5">Actionable insights to help you sell faster and optimize your listing</p>
                     <div className="space-y-3">
-                      {insights.topPriorities.slice(0, 4).map((priority, index) => {
-                        const shortenedText = !isSubscribed && priority.length > 80 
-                          ? priority.substring(0, 80) + '...' 
-                          : priority;
-                        return (
-                          <div key={index} className="p-3">
+                      {isSubscribed ? (
+                        // Subscribed: Show all insights
+                        <>
+                          {insights.topPriorities.slice(0, 4).map((priority, index) => (
+                            <div key={index} className="p-3">
+                              <div className="flex items-start gap-2 mb-2">
+                                <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                                <div className="text-[24px] text-slate-900">{priority}</div>
+                              </div>
+                            </div>
+                          ))}
+                          {insights.pricingInsight && (
+                            <div className="p-3 mt-3">
+                              <div className="flex items-start gap-2">
+                                <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                                <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        // Non-subscribed: Show only first insight with blurred paragraph
+                        insights.topPriorities.length > 0 && (
+                          <div className="p-3">
                             <div className="flex items-start gap-2 mb-2">
                               <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900">{shortenedText}</div>
+                              <div className="text-[24px] text-slate-900 blur-sm">{insights.topPriorities[0]}</div>
                             </div>
                           </div>
-                        );
-                      })}
-                      {insights.pricingInsight && (
-                        <div className="p-3 mt-3">
-                          <div className="flex items-start gap-2">
-                            <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                            <div className="text-[24px] text-slate-900">
-                              {!isSubscribed && insights.pricingInsight.length > 80 
-                                ? insights.pricingInsight.substring(0, 80) + '...' 
-                                : insights.pricingInsight}
-                            </div>
-                          </div>
-                        </div>
+                        )
                       )}
                     </div>
                   </div>
@@ -1111,10 +1117,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         Pricing Strategy
                       </h3>
                       <p className="text-[16px] text-slate-600 mb-4">Actionable pricing guidance</p>
-                      <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
-                      <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
-                        Review Pricing Strategy
-                      </Button>
+                      <div className={!isSubscribed ? 'blur-sm' : ''}>
+                        <p className="text-sm text-slate-900 leading-relaxed mb-4">{insights.pricingInsight}</p>
+                        <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
+                          Review Pricing Strategy
+                        </Button>
+                      </div>
                     </div>
                   )}
 
@@ -1126,7 +1134,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         Selling speed prediction
                       </h3>
                       <p className="text-[16px] text-slate-600 mb-4">Time-to-sale estimate</p>
-                      <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
+                      <div className={!isSubscribed ? 'blur-sm' : ''}>
+                        <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -1173,32 +1183,38 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     <Sparkles className="w-5 h-5 text-blue-600" />
                     Smart Recommendations
                   </h3>
-                  <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
+                  <p className="text-[18px] text-slate-600 mb-5">Actionable insights to help you sell faster and optimize your listing</p>
                   <div className="space-y-3">
-                    {insights.topPriorities.slice(0, 4).map((priority, index) => {
-                      const shortenedText = !isSubscribed && priority.length > 80 
-                        ? priority.substring(0, 80) + '...' 
-                        : priority;
-                      return (
-                        <div key={index} className="p-3">
+                    {isSubscribed ? (
+                      // Subscribed: Show all insights
+                      <>
+                        {insights.topPriorities.slice(0, 4).map((priority, index) => (
+                          <div key={index} className="p-3">
+                            <div className="flex items-start gap-2 mb-2">
+                              <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                              <div className="text-[24px] text-slate-900">{priority}</div>
+                            </div>
+                          </div>
+                        ))}
+                        {insights.pricingInsight && (
+                          <div className="p-3 mt-3">
+                            <div className="flex items-start gap-2">
+                              <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                              <div className="text-[24px] text-slate-900">{insights.pricingInsight}</div>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      // Non-subscribed: Show only first insight with blurred paragraph
+                      insights.topPriorities.length > 0 && (
+                        <div className="p-3">
                           <div className="flex items-start gap-2 mb-2">
                             <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className="text-[24px] text-slate-900">{shortenedText}</div>
+                            <div className="text-[24px] text-slate-900 blur-sm">{insights.topPriorities[0]}</div>
                           </div>
                         </div>
-                      );
-                    })}
-                    {insights.pricingInsight && (
-                      <div className="p-3 mt-3">
-                        <div className="flex items-start gap-2">
-                          <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                          <div className="text-[24px] text-slate-900">
-                            {!isSubscribed && insights.pricingInsight.length > 80 
-                              ? insights.pricingInsight.substring(0, 80) + '...' 
-                              : insights.pricingInsight}
-                          </div>
-                        </div>
-                      </div>
+                      )
                     )}
                   </div>
                 </div>
@@ -1214,10 +1230,12 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       Pricing Strategy
                     </h3>
                     <p className="text-sm text-slate-600 mb-4">Actionable pricing guidance</p>
-                    <p className="text-sm text-slate-900 leading-relaxed">{insights.pricingInsight}</p>
-                    <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
-                      Review Pricing Strategy
-                    </Button>
+                    <div className={!isSubscribed ? 'blur-sm' : ''}>
+                      <p className="text-sm text-slate-900 leading-relaxed mb-4">{insights.pricingInsight}</p>
+                      <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
+                        Review Pricing Strategy
+                      </Button>
+                    </div>
                   </div>
                 )}
 
@@ -1229,7 +1247,9 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                       Selling Speed Prediction
                     </h3>
                     <p className="text-sm text-slate-600 mb-4">Time-to-sale estimate</p>
-                    <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
+                    <div className={!isSubscribed ? 'blur-sm' : ''}>
+                      <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
+                    </div>
                   </div>
                 )}
               </div>
