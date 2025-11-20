@@ -1098,7 +1098,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                           <div className="p-3">
                             <div className="flex items-start gap-2 mb-2">
                               <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                              <div className="text-[24px] text-slate-900 blur-sm">{insights.topPriorities[0]}</div>
+                              <div className="text-[24px] text-slate-900 blur-[2px] opacity-80">{insights.topPriorities[0]}</div>
                             </div>
                           </div>
                         )
@@ -1117,7 +1117,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         Pricing Strategy
                       </h3>
                       <p className="text-[16px] text-slate-600 mb-4">Actionable pricing guidance</p>
-                      <div className={!isSubscribed ? 'blur-sm' : ''}>
+                      <div className={!isSubscribed ? 'blur-[2px] opacity-80' : ''}>
                         <p className="text-sm text-slate-900 leading-relaxed mb-4">{insights.pricingInsight}</p>
                         <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white">
                           Review Pricing Strategy
@@ -1134,7 +1134,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                         Selling speed prediction
                       </h3>
                       <p className="text-[16px] text-slate-600 mb-4">Time-to-sale estimate</p>
-                      <div className={!isSubscribed ? 'blur-sm' : ''}>
+                      <div className={!isSubscribed ? 'blur-[2px] opacity-80' : ''}>
                         <p className="text-sm text-slate-900 leading-relaxed">{insights.sellingSpeedPrediction}</p>
                       </div>
                     </div>
