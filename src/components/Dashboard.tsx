@@ -1072,19 +1072,28 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                     </h3>
                     <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
                     <div className="space-y-3">
-                      {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                        <div key={index} className="p-3">
-                          <div className="flex items-start gap-2 mb-2">
-                            <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
+                      {insights.topPriorities.slice(0, 4).map((priority, index) => {
+                        const shortenedText = !isSubscribed && priority.length > 80 
+                          ? priority.substring(0, 80) + '...' 
+                          : priority;
+                        return (
+                          <div key={index} className="p-3">
+                            <div className="flex items-start gap-2 mb-2">
+                              <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                              <div className="text-[24px] text-slate-900">{shortenedText}</div>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                       {insights.pricingInsight && (
                         <div className="p-3 mt-3">
                           <div className="flex items-start gap-2">
                             <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                            <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
+                            <div className="text-[24px] text-slate-900">
+                              {!isSubscribed && insights.pricingInsight.length > 80 
+                                ? insights.pricingInsight.substring(0, 80) + '...' 
+                                : insights.pricingInsight}
+                            </div>
                           </div>
                         </div>
                       )}
@@ -1166,19 +1175,28 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </h3>
                   <p className="text-[18px] text-slate-600 mb-5">Smart recommendations</p>
                   <div className="space-y-3">
-                    {insights.topPriorities.slice(0, 4).map((priority, index) => (
-                      <div key={index} className="p-3">
-                        <div className="flex items-start gap-2 mb-2">
-                          <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                          <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{priority}</div>
+                    {insights.topPriorities.slice(0, 4).map((priority, index) => {
+                      const shortenedText = !isSubscribed && priority.length > 80 
+                        ? priority.substring(0, 80) + '...' 
+                        : priority;
+                      return (
+                        <div key={index} className="p-3">
+                          <div className="flex items-start gap-2 mb-2">
+                            <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                            <div className="text-[24px] text-slate-900">{shortenedText}</div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     {insights.pricingInsight && (
                       <div className="p-3 mt-3">
                         <div className="flex items-start gap-2">
                           <DollarSign className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                          <div className={`text-[24px] text-slate-900 ${!isSubscribed ? 'blur-sm' : ''}`}>{insights.pricingInsight}</div>
+                          <div className="text-[24px] text-slate-900">
+                            {!isSubscribed && insights.pricingInsight.length > 80 
+                              ? insights.pricingInsight.substring(0, 80) + '...' 
+                              : insights.pricingInsight}
+                          </div>
                         </div>
                       </div>
                     )}
