@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, ChevronLeft } from "lucide-react";
 import { PaymentForm } from "./PaymentForm";
+import { Footer } from "./Footer";
 
 interface SubscriptionPageProps {
   onNavigate: (view: "home" | "address-input" | "dashboard" | "subscription") => void;
@@ -170,6 +171,7 @@ export function SubscriptionPage({ onNavigate, onSubscribe, address = "" }: Subs
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
