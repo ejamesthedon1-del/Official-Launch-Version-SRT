@@ -53,34 +53,68 @@ export interface AnalysisData {
 }
 
 export default function App() {
-  // Load saved state from localStorage on mount
+  // Load saved state from localStorage on mount with error handling
   const [currentView, setCurrentView] = useState<View>(() => {
-    const saved = localStorage.getItem("currentView");
-    return (saved as View) || "home";
+    try {
+      const saved = localStorage.getItem("currentView");
+      return (saved as View) || "home";
+    } catch (error) {
+      console.error("Error reading currentView from localStorage:", error);
+      return "home";
+    }
   });
   const [enteredAddress, setEnteredAddress] = useState(() => {
-    return localStorage.getItem("enteredAddress") || "";
+    try {
+      return localStorage.getItem("enteredAddress") || "";
+    } catch (error) {
+      console.error("Error reading enteredAddress from localStorage:", error);
+      return "";
+    }
   });
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(() => {
-    const saved = localStorage.getItem("analysisData");
-    return saved ? JSON.parse(saved) : null;
+    try {
+      const saved = localStorage.getItem("analysisData");
+      if (!saved) return null;
+      return JSON.parse(saved);
+    } catch (error) {
+      console.error("Error reading analysisData from localStorage:", error);
+      // Clear corrupted data
+      try {
+        localStorage.removeItem("analysisData");
+      } catch (e) {
+        // Ignore cleanup errors
+      }
+      return null;
+    }
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Save state to localStorage whenever it changes
+  // Save state to localStorage whenever it changes with error handling
   useEffect(() => {
-    localStorage.setItem("currentView", currentView);
+    try {
+      localStorage.setItem("currentView", currentView);
+    } catch (error) {
+      console.error("Error saving currentView to localStorage:", error);
+    }
   }, [currentView]);
 
   useEffect(() => {
-    if (enteredAddress) {
-      localStorage.setItem("enteredAddress", enteredAddress);
+    try {
+      if (enteredAddress) {
+        localStorage.setItem("enteredAddress", enteredAddress);
+      }
+    } catch (error) {
+      console.error("Error saving enteredAddress to localStorage:", error);
     }
   }, [enteredAddress]);
 
   useEffect(() => {
-    if (analysisData) {
-      localStorage.setItem("analysisData", JSON.stringify(analysisData));
+    try {
+      if (analysisData) {
+        localStorage.setItem("analysisData", JSON.stringify(analysisData));
+      }
+    } catch (error) {
+      console.error("Error saving analysisData to localStorage:", error);
     }
   }, [analysisData]);
 
