@@ -15,11 +15,31 @@ interface ImportMeta {
 
 // Type declarations for image imports
 declare module "*.png" {
-  const content: string;
-  export default content;
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpeg" {
+  const src: string;
+  export default src;
 }
 
 declare module "*.svg" {
-  const content: string;
-  export default content;
+  const src: string;
+  export default src;
+}
+
+// Ensure Vite client types are properly extended
+declare module "vite/client" {
+  interface StaticImageData {
+    src: string;
+    height: number;
+    width: number;
+    blurDataURL?: string;
+  }
 }

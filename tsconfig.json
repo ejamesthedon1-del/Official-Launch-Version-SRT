@@ -16,6 +16,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["*.tsx", "*.ts", "components/**/*", "utils/**/*", "styles/**/*", "src/main.tsx"],
+  "include": ["src/**/*", "src/env.d.ts", "*.tsx", "*.ts"],
   "exclude": ["supabase/**/*", "node_modules"]
 }

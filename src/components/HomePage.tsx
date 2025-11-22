@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { DashboardMockup } from "./DashboardMockup";
+import homeHeroImage from "../assets/luxury-house-twilight.jpg";
 import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
@@ -330,7 +330,7 @@ export function HomePage({
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with Integrated Header */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-sky-200 via-sky-100 to-sky-50 overflow-hidden">
         {/* Navigation */}
         <div className="relative z-10">
           <div className="container mx-auto max-w-6xl px-4 py-6">
@@ -402,25 +402,29 @@ export function HomePage({
           </Button>
         </div>
 
-        {/* Dashboard Preview */}
+        {/* Home Image Preview */}
         <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-4 md:pb-8">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent blur-2xl" />
-            <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden opacity-90" style={{
-              maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)'
+            <div className="absolute inset-0 bg-gradient-to-t from-sky-200/50 via-sky-100/30 to-transparent blur-2xl" />
+            <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden rounded-2xl shadow-2xl" style={{
+              maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
             }}>
-              <DashboardMockup />
+              <img 
+                src={homeHeroImage} 
+                alt="Modern home" 
+                className="w-full h-auto object-cover"
+              />
             </div>
           </div>
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-sky-300/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl" />
         
         {/* Seamless fade to white transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-blue-400/20 via-blue-100/40 via-white/70 to-white pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-sky-100/30 via-sky-50/50 via-white/80 to-white pointer-events-none" />
       </section>
 
       {/* Sliding Info Section */}
