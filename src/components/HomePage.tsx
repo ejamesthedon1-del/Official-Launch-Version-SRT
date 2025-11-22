@@ -405,15 +405,33 @@ export function HomePage({
         {/* Home Image Preview */}
         <div className="w-full relative z-10 pb-4 md:pb-8">
           <div className="relative w-full">
-            <div className="absolute inset-0 bg-gradient-to-t from-[#e0f2fe]/50 via-[#dbeafe]/30 to-transparent blur-2xl" />
-            <div className="relative w-full" style={{
-              maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
-            }}>
+            {/* Image with seamless gradient fade */}
+            <div className="relative w-full">
               <img 
                 src={homeHeroImage} 
                 alt="Modern home" 
                 className="w-full h-auto object-cover"
+              />
+              {/* Gradient overlay that seamlessly fades image sky into background gradient */}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to top, transparent 0%, rgba(224, 242, 254, 0.2) 15%, rgba(224, 242, 254, 0.5) 30%, rgba(219, 234, 254, 0.7) 50%, rgba(219, 234, 254, 0.9) 70%, rgba(224, 242, 254, 1) 85%, rgba(224, 242, 254, 1) 100%)'
+                }}
+              />
+              {/* Top fade to seamlessly blend with section background */}
+              <div 
+                className="absolute top-0 left-0 right-0 h-48 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(224, 242, 254, 1) 0%, rgba(224, 242, 254, 0.9) 20%, rgba(224, 242, 254, 0.6) 50%, rgba(224, 242, 254, 0.2) 80%, transparent 100%)'
+                }}
+              />
+              {/* Bottom fade to white */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to top, rgba(224, 242, 254, 1) 0%, rgba(224, 242, 254, 0.7) 30%, rgba(224, 242, 254, 0.3) 60%, transparent 100%)'
+                }}
               />
             </div>
           </div>
