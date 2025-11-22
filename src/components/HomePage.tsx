@@ -330,7 +330,7 @@ export function HomePage({
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with Integrated Header */}
-      <section className="relative bg-gradient-to-b from-sky-200 via-sky-100 to-sky-50 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[#e0f2fe] via-[#dbeafe] to-[#d1e7ff] overflow-hidden">
         {/* Navigation */}
         <div className="relative z-10">
           <div className="container mx-auto max-w-6xl px-4 py-6">
@@ -403,10 +403,10 @@ export function HomePage({
         </div>
 
         {/* Home Image Preview */}
-        <div className="container mx-auto max-w-6xl px-4 relative z-10 pb-4 md:pb-8">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-sky-200/50 via-sky-100/30 to-transparent blur-2xl" />
-            <div className="relative transition-transform duration-500 hover:scale-[1.02] overflow-hidden rounded-2xl shadow-2xl" style={{
+        <div className="w-full relative z-10 pb-4 md:pb-8">
+          <div className="relative w-full">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#e0f2fe]/50 via-[#dbeafe]/30 to-transparent blur-2xl" />
+            <div className="relative w-full" style={{
               maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
             }}>
@@ -420,11 +420,11 @@ export function HomePage({
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-sky-300/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#dbeafe]/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#e0f2fe]/20 rounded-full blur-3xl" />
         
         {/* Seamless fade to white transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-sky-100/30 via-sky-50/50 via-white/80 to-white pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-[#dbeafe]/30 via-[#d1e7ff]/50 via-white/80 to-white pointer-events-none" />
       </section>
 
       {/* Sliding Info Section */}
