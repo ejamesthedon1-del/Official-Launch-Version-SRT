@@ -769,7 +769,7 @@ export function HomePage({
 
       {/* Sell Faster in 3 Steps */}
       <section className="min-h-screen bg-white pt-12 pb-20 px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-6">
