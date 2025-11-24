@@ -152,7 +152,8 @@ export default function App() {
     <>
       {currentView === "home" && (
         <HomePage 
-          onGetStarted={handleGetStarted} 
+          onGetStarted={handleGetStarted}
+          onAnalyze={handleAnalyze}
           onNavigate={handleNavigate}
           onMenuClick={handleMenuClick}
         />

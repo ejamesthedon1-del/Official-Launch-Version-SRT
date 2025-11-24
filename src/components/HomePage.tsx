@@ -19,9 +19,13 @@ import {
   Bed,
   Bath,
   Ruler,
+  Loader2,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { Input } from "./ui/input";
+import { toast } from "sonner";
+import { supabase } from "../lib/supabaseClient";
 import homeHeroImage from "../assets/AdobeStock_837239185.png";
 import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
@@ -290,8 +294,150 @@ function AnimatedAddressInput() {
   );
 }
 
+// Transform Gemini AI response to Dashboard's expected format
+function transformAnalysisData(address: string, geminiData: any): any {
+  // If it already has the correct structure, return it
+  if (geminiData.listing && geminiData.overallScore) {
+    let imageUrl = null;
+    if (geminiData.propertyPhotos && Array.isArray(geminiData.propertyPhotos) && geminiData.propertyPhotos.length > 0) {
+      imageUrl = geminiData.propertyPhotos[0];
+    } else if (geminiData.propertyImageUrl) {
+      imageUrl = geminiData.propertyImageUrl;
+    }
+    geminiData.listing.imageUrl = imageUrl;
+    return geminiData;
+  }
+
+  const addressParts = address.split(",");
+  const city = addressParts.length > 1 ? addressParts[addressParts.length - 2]?.trim() || "Unknown" : "Unknown";
+  const estimatedValue = geminiData.estimatedPrice || geminiData.estimatedValue || 0;
+  
+  const parseNumber = (value: any, defaultValue: number = 0): number => {
+    if (typeof value === 'number' && !isNaN(value)) return Math.max(0, value);
+    if (value === null || value === undefined) return defaultValue;
+    const parsed = parseFloat(value);
+    return !isNaN(parsed) ? Math.max(0, parsed) : defaultValue;
+  };
+  
+  const beds = Math.round(parseNumber(geminiData.beds, 0));
+  const baths = parseNumber(geminiData.baths, 0);
+  const sqft = Math.round(parseNumber(geminiData.sqft, 0));
+  const daysOnMarket = Math.round(parseNumber(geminiData.daysOnMarket, 0));
+  const pricePerSqft = sqft > 0 && estimatedValue > 0 ? Math.round(estimatedValue / sqft) : 0;
+  
+  const daysOnMarketScore = daysOnMarket <= 14 ? 90 : daysOnMarket <= 30 ? 70 : daysOnMarket <= 60 ? 50 : 30;
+  const pricingStrategyScore = 80;
+  const marketTrendScore = 70;
+  const propertyAppealScore = 80;
+  
+  const overallScore = Math.round(
+    (daysOnMarketScore * 0.40) + 
+    (pricingStrategyScore * 0.30) + 
+    (marketTrendScore * 0.20) + 
+    (propertyAppealScore * 0.10)
+  );
+  
+  let imageUrl = null;
+  if (geminiData.propertyPhotos && Array.isArray(geminiData.propertyPhotos) && geminiData.propertyPhotos.length > 0) {
+    imageUrl = geminiData.propertyPhotos[0];
+  } else if (geminiData.propertyImageUrl) {
+    imageUrl = geminiData.propertyImageUrl;
+  }
+
+  return {
+    listing: {
+      address: address,
+      city: city,
+      propertyType: geminiData.propertyType || "Residential",
+      price: estimatedValue > 0 ? `$${estimatedValue.toLocaleString()}` : "Price not available",
+      pricePerSqft: pricePerSqft > 0 ? `$${pricePerSqft.toLocaleString()}` : "N/A",
+      beds: beds,
+      baths: baths,
+      sqft: sqft > 0 ? sqft.toLocaleString() : "N/A",
+      daysOnMarket: daysOnMarket,
+      imageUrl: imageUrl
+    },
+    overallScore: overallScore,
+    ratings: [
+      {
+        title: "Days on Market",
+        score: daysOnMarket <= 14 ? 9 : daysOnMarket <= 30 ? 7 : daysOnMarket <= 60 ? 5 : 3,
+        maxScore: 10,
+        category: "Speed",
+        description: `${daysOnMarket} days on market${daysOnMarket > 30 ? ' - Above average, action recommended' : daysOnMarket > 60 ? ' - High DOM, urgent action needed' : ''}`
+      },
+      {
+        title: "Pricing Strategy",
+        score: 8,
+        maxScore: 10,
+        category: "Pricing",
+        description: geminiData.pricingInsight || "Pricing analysis available"
+      },
+      {
+        title: "Market Trend",
+        score: 7,
+        maxScore: 10,
+        category: "Market",
+        description: geminiData.marketTrend || "Stable market"
+      },
+      {
+        title: "Property Appeal",
+        score: 8,
+        maxScore: 10,
+        category: "Features",
+        description: geminiData.keyFeatures?.join(", ") || "Standard features"
+      }
+    ],
+    categoryScores: [
+      { category: "Days on Market", score: daysOnMarketScore },
+      { category: "Pricing Strategy", score: pricingStrategyScore },
+      { category: "Market Trend", score: marketTrendScore },
+      { category: "Property Appeal", score: propertyAppealScore }
+    ],
+    radarData: [
+      { subject: "Pricing", A: 8, fullMark: 10 },
+      { subject: "Market Position", A: 7, fullMark: 10 },
+      { subject: "Property Appeal", A: 8, fullMark: 10 },
+      { subject: "Speed of Sale", A: daysOnMarket <= 14 ? 9 : daysOnMarket <= 30 ? 7 : daysOnMarket <= 60 ? 5 : 3, fullMark: 10 }
+    ],
+    insights: {
+      summary: geminiData.summary || `This property has been on the market for ${daysOnMarket} days. ${geminiData.pricingInsight || 'Pricing strategy should be evaluated against current market conditions.'} ${geminiData.marketTrend || 'Market conditions play a crucial role in determining the optimal selling strategy.'} ${geminiData.keyFeatures?.length > 0 ? `The property offers ${geminiData.keyFeatures.slice(0, 2).join(' and ')}.` : 'Property features significantly impact buyer interest.'} Strategic improvements can help accelerate the sale process.`,
+      alerts: [
+        ...(daysOnMarket > 60 ? [{
+          type: "error",
+          title: "Urgent: High Days on Market",
+          message: `Property has been on market ${daysOnMarket} days (60+ days). Immediate pricing or positioning action required.`
+        }] : []),
+        ...(daysOnMarket > 30 && daysOnMarket <= 60 ? [{
+          type: "warning",
+          title: "Warning: Above Average Days on Market",
+          message: `Property has been on market ${daysOnMarket} days (above 30-day threshold). Consider pricing strategy review.`
+        }] : []),
+        ...(geminiData.riskFactors?.map((risk: string) => ({
+          type: "warning",
+          title: "Risk Factor",
+          message: risk
+        })) || [])
+      ],
+      topPriorities: geminiData.recommendations || ["Review property details", "Check market conditions"],
+      pricingInsight: geminiData.pricingInsight || null,
+      sellingSpeedPrediction: geminiData.sellingSpeedPrediction || null
+    }
+  };
+}
+
+interface Prediction {
+  description: string;
+  place_id: string;
+  structured_formatting: {
+    main_text: string;
+    secondary_text: string;
+  };
+}
+
 interface HomePageProps {
   onGetStarted: () => void;
+  onAnalyze: (address: string, analysisData: any) => void;
   onNavigate: (
     view: "home" | "address-input" | "dashboard"
   ) => void;
@@ -300,9 +446,121 @@ interface HomePageProps {
 
 export function HomePage({
   onGetStarted,
+  onAnalyze,
   onNavigate,
   onMenuClick,
 }: HomePageProps) {
+  const [address, setAddress] = useState("");
+  const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [predictions, setPredictions] = useState<Prediction[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  // Debounced autocomplete
+  useEffect(() => {
+    const fetchPredictions = async () => {
+      if (address.length < 3) {
+        setPredictions([]);
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const { data, error } = await supabase.functions.invoke(
+          "make-server-52cdd920/places-autocomplete",
+          {
+            body: { input: address },
+          }
+        );
+
+        if (error) {
+          console.error("Autocomplete error:", error);
+          return;
+        }
+
+        setPredictions(data?.predictions || []);
+        setShowSuggestions(true);
+      } catch (err) {
+        console.error("Error fetching autocomplete:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const timer = setTimeout(fetchPredictions, 300);
+    return () => clearTimeout(timer);
+  }, [address]);
+
+  const handleSelectPrediction = (prediction: Prediction) => {
+    setAddress(prediction.description);
+    setSelectedPlaceId(prediction.place_id);
+    setShowSuggestions(false);
+    setPredictions([]);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!address.trim()) return;
+
+    setAnalyzing(true);
+    try {
+      const { data: analysisData, error } = await supabase.functions.invoke(
+        "make-server-52cdd920/analyze-listing",
+        {
+          body: { 
+            address,
+            placeId: selectedPlaceId || undefined
+          },
+        }
+      );
+
+      if (error) {
+        console.error("Analysis error:", error);
+        toast.error("Failed to analyze listing. Please try again.");
+        setAnalyzing(false);
+        return;
+      }
+
+      if (analysisData?.result) {
+        const transformedData = transformAnalysisData(address, analysisData.result);
+        setTimeout(() => {
+          setAnalyzing(false);
+          onAnalyze(address, transformedData);
+        }, 500);
+      } else if (analysisData) {
+        const transformedData = transformAnalysisData(address, analysisData);
+        setTimeout(() => {
+          setAnalyzing(false);
+          onAnalyze(address, transformedData);
+        }, 500);
+      } else {
+        throw new Error("No data received from analysis");
+      }
+    } catch (err: any) {
+      console.error("Error analyzing listing:", err);
+      toast.error(`Failed to analyze listing: ${err?.message || "Unknown error"}`);
+      setAnalyzing(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target as Node) &&
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -391,13 +649,78 @@ export function HomePage({
           <br />
           sell faster with confidence.
           </p>
-          <Button
-            size="lg"
-            onClick={onGetStarted}
-            className="bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2"
-          >
-            Get free listing analysis<ArrowRight className="w-4 h-4" />
-          </Button>
+          
+          {/* Address Input Form */}
+          <form onSubmit={handleSubmit} className="max-w-xl mx-auto mb-4">
+            <div className="relative">
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
+              <Input
+                ref={inputRef}
+                type="text"
+                placeholder="123 Main Street, City, State ZIP"
+                value={address}
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  if (selectedPlaceId) {
+                    setSelectedPlaceId(null);
+                  }
+                }}
+                onFocus={() => {
+                  if (predictions.length > 0) setShowSuggestions(true);
+                }}
+                className="pl-12 pr-10 w-full h-12 text-base bg-white/95 backdrop-blur-sm border-white/20 text-gray-900 placeholder:text-gray-400"
+                disabled={analyzing}
+                required
+                autoComplete="off"
+              />
+              {loading && (
+                <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-gray-400" />
+              )}
+
+              {showSuggestions && predictions.length > 0 && (
+                <div
+                  ref={suggestionsRef}
+                  className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-50 max-h-60 overflow-y-auto"
+                >
+                  {predictions.map((prediction) => (
+                    <button
+                      key={prediction.place_id}
+                      type="button"
+                      onClick={() => handleSelectPrediction(prediction)}
+                      className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors flex items-start gap-3"
+                    >
+                      <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm text-gray-900">
+                          {prediction.structured_formatting.main_text}
+                        </div>
+                        <div className="text-xs text-gray-500 truncate">
+                          {prediction.structured_formatting.secondary_text}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full mt-4 bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2"
+              disabled={!address.trim() || analyzing}
+            >
+              {analyzing ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Analyzing Property...
+                </>
+              ) : (
+                <>
+                  Analyze My Listing <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </Button>
+          </form>
         </div>
 
         {/* Home Image Preview */}
