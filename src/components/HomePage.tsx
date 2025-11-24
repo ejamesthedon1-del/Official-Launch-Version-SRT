@@ -651,9 +651,9 @@ export function HomePage({
           </p>
           
           {/* Address Input Form */}
-          <form onSubmit={handleSubmit} className="max-w-xl mx-auto mb-4">
+          <form onSubmit={handleSubmit} className="max-w-lg mx-auto mb-4">
             <div className="relative">
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10" />
               <Input
                 ref={inputRef}
                 type="text"
@@ -668,13 +668,13 @@ export function HomePage({
                 onFocus={() => {
                   if (predictions.length > 0) setShowSuggestions(true);
                 }}
-                className="pl-12 pr-10 w-full h-12 text-base bg-white/95 backdrop-blur-sm border-white/20 text-gray-900 placeholder:text-gray-400"
+                className="pl-10 pr-9 w-full h-11 text-sm bg-white/95 backdrop-blur-sm border-white/20 text-gray-900 placeholder:text-gray-400"
                 disabled={analyzing}
                 required
                 autoComplete="off"
               />
               {loading && (
-                <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-gray-400" />
+                <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-gray-400" />
               )}
 
               {showSuggestions && predictions.length > 0 && (
@@ -705,8 +705,8 @@ export function HomePage({
             </div>
             <Button
               type="submit"
-              size="lg"
-              className="w-full mt-4 bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2"
+              size="default"
+              className="w-full mt-3 bg-white text-blue-600 hover:bg-slate-50 shadow-xl gap-2 h-11"
               disabled={!address.trim() || analyzing}
             >
               {analyzing ? (
