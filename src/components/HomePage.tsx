@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import homeHeroImage from "../assets/luxury-house-twilight.jpg";
+import homeHeroImage from "../assets/AdobeStock_837239185.png";
 import { DashboardPreview } from "./DashboardPreview";
 import { Logo } from "./figma/Logo";
 import { SlidingInfoSection } from "./SlidingInfoSection";
