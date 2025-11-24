@@ -403,12 +403,19 @@ export function HomePage({
         {/* Home Image Preview */}
         <div className="w-full relative z-10 pb-4 md:pb-8">
           <div className="relative w-full">
-            {/* Image without overlays */}
+            {/* Image with white fade at bottom */}
             <div className="relative w-full">
               <img 
                 src={homeHeroImage} 
                 alt="Modern home" 
                 className="w-full h-auto object-cover"
+              />
+              {/* Bottom fade to white for smooth transition to next section */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-48 md:h-64 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.1) 85%, transparent 100%)'
+                }}
               />
             </div>
           </div>
