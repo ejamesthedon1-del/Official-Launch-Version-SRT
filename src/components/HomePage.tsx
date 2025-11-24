@@ -640,7 +640,7 @@ export function HomePage({
 
         {/* Hero Content */}
         <div className="container mx-auto max-w-4xl px-4 pt-6 pb-12 text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">
+          <h1 className="text-[45px] md:text-6xl lg:text-7xl text-white mb-6">
           See where your listing stand.
           <br />
           No more guessing.
