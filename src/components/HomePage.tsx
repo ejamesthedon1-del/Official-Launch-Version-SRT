@@ -588,7 +588,7 @@ export function HomePage({
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section with Integrated Header */}
-      <section className="relative bg-gradient-to-b from-[#e0f2fe] via-[#dbeafe] to-[#d1e7ff] overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[#3b82f6] via-[#2563eb] to-[#1e40af] overflow-hidden">
         {/* Navigation */}
         <div className="relative z-10">
           <div className="container mx-auto max-w-6xl px-4 py-6">
