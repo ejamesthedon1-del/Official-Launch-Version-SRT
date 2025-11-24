@@ -405,32 +405,25 @@ export function HomePage({
         {/* Home Image Preview */}
         <div className="w-full relative z-10 pb-4 md:pb-8">
           <div className="relative w-full">
-            {/* Image with seamless gradient fade */}
+            {/* Image with subtle blending overlays */}
             <div className="relative w-full">
               <img 
                 src={homeHeroImage} 
                 alt="Modern home" 
                 className="w-full h-auto object-cover"
               />
-              {/* Gradient overlay that seamlessly fades image sky into background gradient */}
+              {/* Top fade - subtle blend from section background into image sky */}
               <div 
-                className="absolute inset-0 pointer-events-none"
+                className="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none"
                 style={{
-                  background: 'linear-gradient(to top, transparent 0%, rgba(224, 242, 254, 0.2) 15%, rgba(224, 242, 254, 0.5) 30%, rgba(219, 234, 254, 0.7) 50%, rgba(219, 234, 254, 0.9) 70%, rgba(224, 242, 254, 1) 85%, rgba(224, 242, 254, 1) 100%)'
+                  background: 'linear-gradient(to bottom, rgba(224, 242, 254, 0.8) 0%, rgba(224, 242, 254, 0.5) 30%, rgba(224, 242, 254, 0.2) 60%, transparent 100%)'
                 }}
               />
-              {/* Top fade to seamlessly blend with section background */}
+              {/* Bottom fade - subtle blend to white */}
               <div 
-                className="absolute top-0 left-0 right-0 h-48 pointer-events-none"
+                className="absolute bottom-0 left-0 right-0 h-32 md:h-48 pointer-events-none"
                 style={{
-                  background: 'linear-gradient(to bottom, rgba(224, 242, 254, 1) 0%, rgba(224, 242, 254, 0.9) 20%, rgba(224, 242, 254, 0.6) 50%, rgba(224, 242, 254, 0.2) 80%, transparent 100%)'
-                }}
-              />
-              {/* Bottom fade to white */}
-              <div 
-                className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to top, rgba(224, 242, 254, 1) 0%, rgba(224, 242, 254, 0.7) 30%, rgba(224, 242, 254, 0.3) 60%, transparent 100%)'
+                  background: 'linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.1) 70%, transparent 100%)'
                 }}
               />
             </div>
@@ -584,8 +577,8 @@ export function HomePage({
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
                           <div className="h-2 bg-slate-200 rounded w-3/4" />
-                        </div>
                       </div>
+                    </div>
 
                       {/* Week 2 Headline */}
                       <div>
@@ -605,7 +598,7 @@ export function HomePage({
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
                           <div className="h-2 bg-slate-200 rounded w-3/4" />
                         </div>
-                      </div>
+                        </div>
 
                       {/* Week 4 Headline */}
                       <div>
@@ -614,8 +607,8 @@ export function HomePage({
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-4/5" />
                           <div className="h-2 bg-slate-200 rounded w-3/4" />
-                        </div>
                       </div>
+                    </div>
 
                       {/* Additional Sections */}
                       <div>
@@ -631,8 +624,8 @@ export function HomePage({
                         <div className="space-y-1.5">
                           <div className="h-2 bg-slate-200 rounded w-full" />
                           <div className="h-2 bg-slate-200 rounded w-3/4" />
-                        </div>
                       </div>
+                    </div>
 
                       {/* Additional content to show bottom cut off */}
                       <div>
@@ -685,7 +678,7 @@ export function HomePage({
                 Real-time
                 <br />
                 smart data
-              </h2>
+            </h2>
             </div>
           </div>
         </div>

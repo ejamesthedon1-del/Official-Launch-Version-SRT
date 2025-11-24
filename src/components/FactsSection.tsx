@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 // EDIT TEXT CONTENT HERE - All facts section text is below
 // ============================================================================
 const FACTS_DATA = [
-  {
+    {
     percentage: "320M <br /> Buyer <br /> signals",
     subtext: "Your listing is matched against <br /> millions of real-time buyer signals to <br /> pinpoint what will drive attention <br /> and offers faster.",
   },
@@ -140,16 +140,16 @@ export default function FactsSection() {
                 >
                   {renderPercentage(fact.percentage)}
                 </span>
-                <p
+                  <p
                   className="text-slate-600"
-                  style={{
+                    style={{
                     fontSize: "16px",
                     fontWeight: 400,
-                    lineHeight: "1.3",
-                  }}
-                >
+                      lineHeight: "1.3",
+                    }}
+                  >
                   {renderSubtext(fact.subtext)}
-                </p>
+                  </p>
               </div>
             </motion.div>
           ))}

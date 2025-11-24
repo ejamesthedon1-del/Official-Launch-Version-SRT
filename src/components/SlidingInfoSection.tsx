@@ -294,75 +294,75 @@ function AnalyzingListingAnimation() {
         {/* Content - Centered Apple-style animation */}
         <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ paddingLeft: "100px" }}>
           {/* Apple-style Circular Spinner */}
-          <motion.div
-            className="relative flex items-center justify-center mb-6"
-            style={{
-              width: "32px",
-              height: "32px",
-            }}
-          >
             <motion.div
-              className="absolute inset-0 rounded-full"
+            className="relative flex items-center justify-center mb-6"
               style={{
+                width: "32px",
+                height: "32px",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{
                 border: "2px solid #E5E7EB",
                 borderTopColor: "#9CA3AF",
-              }}
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
+                }}
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
                 duration: 1,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          </motion.div>
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+            </motion.div>
 
           {/* Apple-style Loading Bar */}
-          <div
+              <div
             className="relative mb-4"
-            style={{
+                style={{
               width: "160px",
               height: "3px",
               background: "#F3F4F6",
               borderRadius: "2px",
               overflow: "hidden",
             }}
-          >
-            <motion.div
-              style={{
+            >
+              <motion.div
+                style={{
                 height: "100%",
                 background: "#9CA3AF",
                 borderRadius: "2px",
-              }}
+                }}
               initial={{ width: "0%" }}
               animate={{ width: `${progress}%` }}
-              transition={{
-                duration: 0.3,
-                ease: "easeOut",
-              }}
-            />
+                transition={{
+                  duration: 0.3,
+                  ease: "easeOut",
+                }}
+              />
           </div>
 
           {/* Rotating Analyzing Messages */}
-          <motion.div
+                <motion.div
             key={currentMessageIndex}
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            transition={{
+                  transition={{
               duration: 0.4,
-              ease: "easeInOut",
-            }}
-            style={{
+                      ease: "easeInOut",
+                    }}
+                      style={{
               fontSize: "12px",
               fontWeight: 400,
               color: "#6B7280",
-              textAlign: "center",
-            }}
-          >
+                      textAlign: "center",
+                    }}
+                  >
             {analyzingMessages[currentMessageIndex]}
-          </motion.div>
+                </motion.div>
         </div>
 
         {/* Ambient glow effect */}

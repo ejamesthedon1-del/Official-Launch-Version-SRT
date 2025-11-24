@@ -245,14 +245,14 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
                     className="w-full flex items-center justify-between gap-4 p-6 hover:bg-slate-50 transition-colors text-left"
                   >
                     <div className="flex items-start gap-4 flex-1">
-                      <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                        <span className="text-lg text-primary-foreground">W{week.week}</span>
-                      </div>
+                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                    <span className="text-lg text-primary-foreground">W{week.week}</span>
+                  </div>
                       <div className="flex-1">
-                        <h3 className="mb-1">{week.title}</h3>
-                        <p className="text-sm text-muted-foreground">Week {week.week} of 4</p>
-                      </div>
-                    </div>
+                    <h3 className="mb-1">{week.title}</h3>
+                    <p className="text-sm text-muted-foreground">Week {week.week} of 4</p>
+                  </div>
+                </div>
                     {isExpanded ? (
                       <ChevronUp className="w-5 h-5 text-slate-600 flex-shrink-0" />
                     ) : (
@@ -262,25 +262,25 @@ export function MarketingPlan({ onNavigate, onMenuClick }: MarketingPlanProps) {
 
                   {isExpanded && (
                     <div className="px-6 pb-6 space-y-6">
-                      {week.actions.map((action, idx) => (
-                        <div key={idx}>
-                          <div className="flex items-center gap-3 mb-3">
-                            <Badge variant="secondary">{action.days}</Badge>
-                            <span className="font-medium">{action.title}</span>
+                  {week.actions.map((action, idx) => (
+                    <div key={idx}>
+                      <div className="flex items-center gap-3 mb-3">
+                        <Badge variant="secondary">{action.days}</Badge>
+                        <span className="font-medium">{action.title}</span>
+                      </div>
+                      <div className="space-y-2 ml-4">
+                        {action.tasks.map((task, taskIdx) => (
+                          <div key={taskIdx} className="flex items-start gap-3">
+                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-sm text-muted-foreground">{task}</span>
                           </div>
-                          <div className="space-y-2 ml-4">
-                            {action.tasks.map((task, taskIdx) => (
-                              <div key={taskIdx} className="flex items-start gap-3">
-                                <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                                <span className="text-sm text-muted-foreground">{task}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
+                  ))}
+                </div>
                   )}
-                </Card>
+              </Card>
               );
             })}
           </TabsContent>

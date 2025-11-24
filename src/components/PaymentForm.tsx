@@ -281,7 +281,7 @@ function PaymentFormInner({
         >
           {stripe && elements ? (
             <div style={{ pointerEvents: 'auto' }}>
-              <CardElement options={cardElementOptions} />
+          <CardElement options={cardElementOptions} />
             </div>
           ) : (
             <div className="text-sm text-muted-foreground">Loading payment form...</div>

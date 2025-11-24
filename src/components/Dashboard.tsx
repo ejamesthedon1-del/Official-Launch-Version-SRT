@@ -795,7 +795,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
               </div>
                       </div>
-                    )}
+          )}
                     {insights.alerts?.filter(a => !a.title.includes('Days on Market')).map((alert, idx) => (
                       <div key={idx} className="p-3 rounded-lg bg-destructive/10 border border-destructive/20">
                         <div className="flex items-start gap-2">
@@ -807,7 +807,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
               </div>
                       </div>
-                    ))}
+          ))}
                   </div>
                 )}
               </div>

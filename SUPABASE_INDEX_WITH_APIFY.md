@@ -465,8 +465,8 @@ CRITICAL REQUIREMENTS:
           console.error("Gemini API HTTP error:", geminiRes.status, errorData);
           return json(
             {
-              error: `Gemini API error (${geminiRes.status})`,
-              details: errorData
+            error: `Gemini API error (${geminiRes.status})`,
+            details: errorData
             },
             500
           );
@@ -478,7 +478,7 @@ CRITICAL REQUIREMENTS:
           console.error("Gemini API error in response:", geminiData.error);
           return json(
             {
-              error: `Gemini API error: ${geminiData.error.message || JSON.stringify(geminiData.error)}`
+            error: `Gemini API error: ${geminiData.error.message || JSON.stringify(geminiData.error)}`
             },
             500
           );
@@ -489,8 +489,8 @@ CRITICAL REQUIREMENTS:
           console.error("No text in Gemini response:", JSON.stringify(geminiData, null, 2));
           return json(
             {
-              error: "No response from AI. Please check the API key and try again.",
-              debug: geminiData
+            error: "No response from AI. Please check the API key and try again.",
+            debug: geminiData
             },
             500
           );
@@ -505,7 +505,7 @@ CRITICAL REQUIREMENTS:
           try {
             parsed = JSON.parse(jsonText);
             if (parsed && typeof parsed === 'object') {
-              // Success! Use this parsed result
+            // Success! Use this parsed result
             } else {
               throw new Error("Parsed data is not an object");
             }
@@ -691,10 +691,10 @@ CRITICAL REQUIREMENTS:
                     // Extract URLs from photo objects
                     photoUrls = photosArray
                       .map(p => {
-                        // Handle string URLs
-                        if (typeof p === 'string') return p;
-                        // Handle photo objects - Zillow may use different field names
-                        return p?.url || p?.href || p?.src || p?.imageUrl || p?.full || p?.medium || p?.small || null;
+                      // Handle string URLs
+                      if (typeof p === 'string') return p;
+                      // Handle photo objects - Zillow may use different field names
+                      return p?.url || p?.href || p?.src || p?.imageUrl || p?.full || p?.medium || p?.small || null;
                       })
                       .filter(Boolean)
                       .slice(0, 10); // Limit to 10 photos
@@ -757,11 +757,11 @@ CRITICAL REQUIREMENTS:
           
           return json(
             {
-              error: "AI response was not valid JSON",
-              details: parseError.message,
-              rawResponse: aiText.substring(0, 1000),
-              rawResponseLength: aiText.length,
-              suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
+            error: "AI response was not valid JSON",
+            details: parseError.message,
+            rawResponse: aiText.substring(0, 1000),
+            rawResponseLength: aiText.length,
+            suggestion: "Check Supabase logs for full response. The AI may have returned text instead of JSON, or the response may be truncated."
             },
             500
           );
@@ -769,12 +769,12 @@ CRITICAL REQUIREMENTS:
 
         kv
           .set(`ai-analysis:${address}`, {
-            result: parsed,
-            createdAt: new Date().toISOString()
+          result: parsed,
+          createdAt: new Date().toISOString()
           })
           .catch((err) => {
-            console.warn("KV set failed (non-critical):", err.message);
-          });
+          console.warn("KV set failed (non-critical):", err.message);
+        });
 
         return json({
           result: parsed
@@ -784,8 +784,8 @@ CRITICAL REQUIREMENTS:
         console.error("Error stack:", err.stack);
         return json(
           {
-            error: "AI analysis failed",
-            details: err.message || "Unknown error"
+          error: "AI analysis failed",
+          details: err.message || "Unknown error"
           },
           500
         );
@@ -798,8 +798,8 @@ CRITICAL REQUIREMENTS:
     console.error("Error stack:", err.stack);
     return json(
       {
-        error: "Internal server error",
-        details: err.message || "Unknown error"
+      error: "Internal server error",
+      details: err.message || "Unknown error"
       },
       500
     );
