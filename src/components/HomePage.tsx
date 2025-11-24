@@ -403,23 +403,24 @@ export function HomePage({
         {/* Home Image Preview */}
         <div className="w-full relative z-10 pb-4 md:pb-8">
           <div className="relative w-full">
-            {/* Image with fade overlay covering bottom */}
+            {/* Image */}
             <div className="relative w-full">
               <img 
                 src={homeHeroImage} 
                 alt="Modern home" 
                 className="w-full h-auto object-cover"
               />
-              {/* Bottom fade to white covering the bottom part of the image */}
-              <div 
-                className="absolute bottom-0 left-0 right-0 h-48 md:h-64 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.1) 85%, transparent 100%)'
-                }}
-              />
             </div>
           </div>
         </div>
+
+        {/* Bottom fade to white - covers blue background transition to next section */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-32 md:h-40 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.1) 90%, transparent 100%)'
+          }}
+        />
       </section>
 
       {/* Sliding Info Section */}
