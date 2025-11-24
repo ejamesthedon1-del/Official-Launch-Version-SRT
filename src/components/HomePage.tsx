@@ -403,37 +403,17 @@ export function HomePage({
         {/* Home Image Preview */}
         <div className="w-full relative z-10 pb-4 md:pb-8">
           <div className="relative w-full">
-            {/* Image with subtle blending overlays */}
+            {/* Image without overlays */}
             <div className="relative w-full">
               <img 
                 src={homeHeroImage} 
                 alt="Modern home" 
                 className="w-full h-auto object-cover"
               />
-              {/* Top fade - subtle blend from section background into image sky */}
-              <div 
-                className="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(224, 242, 254, 0.8) 0%, rgba(224, 242, 254, 0.5) 30%, rgba(224, 242, 254, 0.2) 60%, transparent 100%)'
-                }}
-              />
-              {/* Bottom fade - subtle blend to white */}
-              <div 
-                className="absolute bottom-0 left-0 right-0 h-32 md:h-48 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.1) 70%, transparent 100%)'
-                }}
-              />
             </div>
           </div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#dbeafe]/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#e0f2fe]/20 rounded-full blur-3xl" />
-        
-        {/* Seamless fade to white transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-[#dbeafe]/30 via-[#d1e7ff]/50 via-white/80 to-white pointer-events-none" />
       </section>
 
       {/* Sliding Info Section */}
