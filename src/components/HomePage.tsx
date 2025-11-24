@@ -383,9 +383,7 @@ export function HomePage({
         {/* Hero Content */}
         <div className="container mx-auto max-w-4xl px-4 pt-6 pb-12 text-center relative z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl text-white mb-6">
-          #1 AI assistant
-            <br />
-          for realtors
+          The fastest way to improve any listing
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
     
