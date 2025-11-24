@@ -736,8 +736,8 @@ export function HomePage({
                 className="w-full h-auto object-cover"
               />
               
-              {/* Animated Score Bar Mock - Top Left */}
-              <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
+              {/* Animated Score Bar Mock - Top Right */}
+              <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20">
                 <div className="bg-white/90 backdrop-blur-md rounded-xl shadow-lg p-3 md:p-4 flex flex-col items-center animate-in fade-in slide-in-from-top-4 duration-1000">
                   <CircularProgress 
                     percentage={78}
