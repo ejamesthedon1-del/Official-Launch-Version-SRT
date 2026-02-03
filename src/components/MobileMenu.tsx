@@ -16,13 +16,7 @@ export function MobileMenu({
   currentView,
   onNavigate,
 }: MobileMenuProps) {
-  console.log("🎯 MobileMenu render - isOpen:", isOpen);
-  
-  if (!isOpen) {
-    console.log("🎯 Menu is closed, not rendering");
-  } else {
-    console.log("🎯 Menu is OPEN, rendering now!");
-  }
+  // Debug logs removed for production
 
   const menuItems = [
     { id: "home", label: "Home" },

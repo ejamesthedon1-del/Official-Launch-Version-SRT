@@ -149,23 +149,47 @@ Deno.serve(async (req) => {
 
       try {
         const subscription = await kv.get(`subscription:${address}`);
-        return json({ hasSubscription: !!subscription, subscription });
+        return json({ hasSubscription: !!subscription, subscription: subscription || null });
       } catch (err) {
         console.error("Error checking subscription:", err);
-        return json({ error: "Failed to check subscription", details: err.message }, 500);
+        // Return hasSubscription: false instead of 500 error to prevent UI blocking
+        // This allows the app to continue functioning even if KV store is unavailable
+        return json({ hasSubscription: false, subscription: null, error: err.message });
       }
     }
 
     if (path.endsWith("/analyze-listing") && req.method === "POST") {
       const address = body.address;
+      const placeId = body.placeId;
       if (!address) {
         return json({ error: "Address required" }, 400);
       }
 
       const apiKey = Deno.env.get("GEMINI_API_KEY") || "";
+      const placesApiKey = Deno.env.get("GOOGLE_PLACES_API_KEY") || "";
       if (!apiKey) {
         console.error("GEMINI_API_KEY is missing");
         return json({ error: "Gemini API key missing" }, 500);
+      }
+
+      // Fetch property photo from Google Places API if placeId is available
+      let propertyImageUrl = null;
+      if (placeId && placesApiKey) {
+        try {
+          const placeDetailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(placeId)}&fields=photos&key=${placesApiKey}`;
+          const placeDetailsRes = await fetch(placeDetailsUrl);
+          
+          if (placeDetailsRes.ok) {
+            const placeDetails = await placeDetailsRes.json();
+            if (placeDetails.result?.photos && placeDetails.result.photos.length > 0) {
+              const photoReference = placeDetails.result.photos[0].photo_reference;
+              propertyImageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${photoReference}&key=${placesApiKey}`;
+              console.log("Found property photo:", propertyImageUrl);
+            }
+          }
+        } catch (photoError) {
+          console.warn("Failed to fetch property photo (non-critical):", photoError.message);
+        }
       }
 
       const prompt = `Analyze this property address and return ONLY valid JSON. No explanations, no markdown, no code blocks. Start with { and end with }.
@@ -327,6 +351,11 @@ Address: ${address}`;
             },
             500
           );
+        }
+
+        // Add property image URL to the parsed result if available
+        if (propertyImageUrl) {
+          parsed.propertyImageUrl = propertyImageUrl;
         }
 
         kv

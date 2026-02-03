@@ -92,11 +92,13 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
   const [buyerMatchScoreExpanded, setBuyerMatchScoreExpanded] = useState(false);
   const [upgradeImpactExpanded, setUpgradeImpactExpanded] = useState(false);
 
-  // Debug: Log received data
+  // Debug: Log received data (only in development)
   useEffect(() => {
-    console.log("📊 Dashboard received analysisData:", analysisData);
-    console.log("📊 Dashboard listing.imageUrl:", analysisData?.listing?.imageUrl);
-    console.log("📊 Dashboard full listing object:", analysisData?.listing);
+    if (import.meta.env.DEV) {
+      console.log("📊 Dashboard received analysisData:", analysisData);
+      console.log("📊 Dashboard listing.imageUrl:", analysisData?.listing?.imageUrl);
+      console.log("📊 Dashboard full listing object:", analysisData?.listing);
+    }
   }, [analysisData]);
 
   // Check subscription status
@@ -115,11 +117,21 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           }
         );
 
+        // Handle both success and error responses gracefully
+        // The endpoint now returns hasSubscription: false on error instead of 500
         if (!error && data?.hasSubscription) {
           setIsSubscribed(true);
+        } else if (data?.hasSubscription === false) {
+          // Explicitly false means no subscription (not an error)
+          setIsSubscribed(false);
         }
       } catch (err) {
-        console.error("Error checking subscription:", err);
+        // Only log errors in development, don't block UI
+        if (import.meta.env.DEV) {
+          console.error("Error checking subscription:", err);
+        }
+        // Default to not subscribed on error
+        setIsSubscribed(false);
       } finally {
         setCheckingSubscription(false);
       }
@@ -256,11 +268,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                               src={listing.imageUrl}
                               alt={streetAddress}
                               className="w-full h-full object-cover"
-                              onLoad={() => {
-                                console.log("✅ Image loaded successfully:", listing.imageUrl);
-                              }}
                               onError={(e) => {
-                                console.error("❌ Image failed to load:", listing.imageUrl);
+                                if (import.meta.env.DEV) {
+                                  console.error("❌ Image failed to load:", listing.imageUrl);
+                                }
                                 e.currentTarget.style.display = 'none';
                               }}
                             />
@@ -419,11 +430,10 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   src={listing.imageUrl}
                   alt={streetAddress}
                   className="w-full h-full object-cover"
-                  onLoad={() => {
-                    console.log("✅ Image loaded successfully:", listing.imageUrl);
-                  }}
                   onError={(e) => {
-                    console.error("❌ Image failed to load:", listing.imageUrl);
+                    if (import.meta.env.DEV) {
+                      console.error("❌ Image failed to load:", listing.imageUrl);
+                    }
                     e.currentTarget.style.display = 'none';
                   }}
                 />
@@ -1035,16 +1045,16 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="relative">
               {/* Content - Blur removed to view dashboard */}
               <div className="rounded-2xl overflow-hidden">
-                <div className="grid lg:grid-cols-3 gap-6 mb-6">
+                <div className="mb-6">
                   {/* Market & Listing Performance */}
-                  <div className="hidden lg:block lg:col-span-2">
+                  <div className="hidden lg:block mb-6">
                     <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-blue-600" />
                       Market & Listing Performance
                     </h3>
                     <p className="text-[16px] text-slate-600 mb-5">Category performance breakdown</p>
 
-                    <div className="h-52">
+                    <div className="h-52 w-full min-w-0">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={categoryScores}>
                           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -1065,7 +1075,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                   </div>
 
                   {/* Smart Recommendations */}
-                  <div style={{ marginTop: '0.5in' }}>
+                  <div className="hidden lg:block">
                     <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-blue-600" />
                       Smart Recommendations
@@ -1133,16 +1143,16 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
           /* Premium Content (if subscribed) */
           <>
               {/* Analytics Grid */}
-              <div className="grid lg:grid-cols-3 gap-6 mb-6">
+              <div className="mb-6">
                 {/* Market & Listing Performance */}
-                <div className="hidden lg:block lg:col-span-2">
+                <div className="hidden lg:block mb-6">
                   <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-blue-600" />
                     Market & Listing Performance
                   </h3>
                   <p className="text-sm text-slate-600 mb-5">Category performance breakdown</p>
 
-                  <div className="h-52">
+                  <div className="h-52 w-full min-w-0">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={categoryScores}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -1163,7 +1173,7 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
                 </div>
 
                 {/* Smart Recommendations */}
-                <div style={{ marginTop: '0.5in' }}>
+                <div className="hidden lg:block">
                   <h3 className="text-slate-900 font-semibold text-[20px] mb-1 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-blue-600" />
                     Smart Recommendations
@@ -1244,39 +1254,43 @@ export function Dashboard({ onSubscribe, onNavigate, address, analysisData, onMe
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <Card className="p-6">
                 <h3 className="mb-6">Factor Performance Scores</h3>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={categoryScores}>
-                    <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
-                    <XAxis 
-                      dataKey="category" 
-                      tick={{ fontSize: 12 }}
-                      angle={-45}
-                      textAnchor="end"
-                      height={80}
-                    />
-                    <YAxis domain={[0, 100]} />
-                    <Tooltip />
-                    <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
+                <div className="w-full min-w-0" style={{ height: '300px' }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={categoryScores}>
+                      <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                      <XAxis 
+                        dataKey="category" 
+                        tick={{ fontSize: 12 }}
+                        angle={-45}
+                        textAnchor="end"
+                        height={80}
+                      />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </Card>
 
               <Card className="p-6">
                 <h3 className="mb-6">Key Areas Assessment</h3>
-                <ResponsiveContainer width="100%" height={300}>
-                  <RadarChart data={radarData}>
-                    <PolarGrid />
-                    <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
-                    <PolarRadiusAxis domain={[0, 100]} />
-                    <Radar
-                      name="Your Listing"
-                      dataKey="A"
-                      stroke="hsl(var(--primary))"
-                      fill="hsl(var(--primary))"
-                      fillOpacity={0.6}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
+                <div className="w-full min-w-0" style={{ height: '300px' }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <RadarChart data={radarData}>
+                      <PolarGrid />
+                      <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
+                      <PolarRadiusAxis domain={[0, 100]} />
+                      <Radar
+                        name="Your Listing"
+                        dataKey="A"
+                        stroke="hsl(var(--primary))"
+                        fill="hsl(var(--primary))"
+                        fillOpacity={0.6}
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </div>
               </Card>
             </div>
 
